@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     validateName,
     validateBirthDate,
@@ -15,8 +15,6 @@ import {
     validateGrade,
     validateLevel
 } from './validators';
-
-
 
 export default function RegisterPage() {
     const [formData, setFormData] = useState({
@@ -231,6 +229,8 @@ export default function RegisterPage() {
                         level: '',
                         status: 'Active', // Match the default value from the initial state
                     });
+
+                    setGlobalMessage(null)
                     
 
                     setIsChecked(false)
