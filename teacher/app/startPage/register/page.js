@@ -34,16 +34,69 @@ export default function SignupForm() {
         userId: "",
         password: "",
         passwordCheck : "",
+        IdDuplication : "",
     };
 
-    const [formData, setFormData] = useState(initialFormState);
-    const [errors, setErrors] = useState(initialErrorState);
+    const [formData, setFormData] = useState(initialFormState)
+    const [errors, setErrors] = useState(initialErrorState)
+
+    const [isDuplicate, setIsDuplicate] = useState(null); // 중복 여부: null, true, false
+    const [isConfirmed, setIsConfirmed] = useState(false); // 사용 여부 확정
+    const [isChecked, setIsChecked] = useState(false); // 사용 여부 확정
+    const [feedbackMessage, setFeedbackMessage] = useState(""); // 피드백 메시지
+
+    //id 중복 확인
+    const handleCheckDuplicated = async() => {
+        try{
+            const response =  await fetch("http://localhost:8080/teacher/idDuplicationCheck",
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                    },
+                    body: JSON.stringify({userId : formData.userId}),
+                }
+            )
+
+            if(response.ok){
+                const result = await response.json()
+
+                if (result.isDuplicated) {
+                    setIsDuplicate(true)
+                    setFeedbackMessage("이미 사용 중인 아이디입니다.")
+                } else {
+                    setIsDuplicate(false)
+                    setFeedbackMessage("사용이 가능한 아이디입니다.")
+                }
+            }
+            else{
+                const errorData = await response.json();
+                setFeedbackMessage(errorData.message || "서버 오류가 발생했습니다.");
+            }
+        }
+        catch(error){
+            setFeedbackMessage("오류가 발생했습니다. 다시 시도해주세요.")
+        }
+    }
+
+    // "사용하기" 버튼 핸들러
+    const handleConfirm = () => {
+        setIsConfirmed(true);
+        setFeedbackMessage("이 아이디를 사용합니다.")
+    }
+
+    // "취소하기" 버튼 핸들러
+    const handleCancel = () => {
+        setIsConfirmed(false);
+        setFormData({ ...formData, [userId]: "" })
+        setFeedbackMessage("")
+    }
 
     // 필드 값 업데이트
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
+        const { name, value } = e.target
+        setFormData({ ...formData, [name]: value })
+    }
 
     // 유효성 검사 수행
     const handleValidation = (field) => {
@@ -66,6 +119,7 @@ export default function SignupForm() {
                 break;
             case "userId":
                 error = validateUserId(formData.userId);
+                setIsChecked(true)
                 break;
             case "password":
                 error = validatePassword(formData.password);
@@ -91,7 +145,7 @@ export default function SignupForm() {
         setErrors(newErrors);
 
         // 에러가 없으면 제출
-        if (Object.values(newErrors).every((err) => !err)) {
+        if (Object.values(newErrors).every((err) => !err) && isConfirmed) {
             try{
                 const response = await fetch("http://localhost:8080/teacher/register", {
                     method: 'POST',
@@ -126,6 +180,9 @@ export default function SignupForm() {
                 console.log(err)
             }            
             
+        }
+        else{
+            setErrors('모든 정보를 정확하게 입력하신 뒤 다시 시도해주시길 바랍니다.')
         }
     };
 
@@ -216,10 +273,30 @@ export default function SignupForm() {
                     value={formData.userId}
                     onChange={handleChange}
                     onBlur={() => handleValidation("userId")}
+                    disabled={isConfirmed} // 사용 확정 시 비활성화
                     required
                 />
+
+                {!isConfirmed && (
+                    <button
+                        onClick={isDuplicate === false ? handleConfirm : handleCheckDuplicated}
+                        disabled={!formData.userId.trim() || errors.userId || !formData.userId || !isChecked} // 조건 추가
+                        
+                    >
+                        {isDuplicate === false ? "사용하기" : "중복 확인"}
+                    </button>
+                )}
+                {isConfirmed && <button onClick={handleCancel}>취소하기</button>}
+                {feedbackMessage && (
+                    <p style={{ color: isDuplicate === null ? "black" : isDuplicate ? "red" : "green" }}>
+                    {feedbackMessage}
+                    </p>
+                )}
+
+
                 {errors.userId && <p style={{ color: "red" }}>{errors.userId}</p>}
             </div>
+            
 
             {/* Password */}
             <div>
