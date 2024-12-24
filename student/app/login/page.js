@@ -5,7 +5,6 @@ export default function Login() {
     const [formData, setFormData] = useState({
         userId: '',
         password: '',
-        email: '',
     });
 
     const [error, setError] = useState('');
@@ -24,7 +23,7 @@ export default function Login() {
         e.preventDefault();
 
         // 필수 항목이 비어있으면 에러 처리
-        if (!formData.userId || !formData.password || !formData.email) {
+        if (!formData.userId || !formData.password) {
             setError('모든 필드를 입력해야 합니다.');
             return;
         }
@@ -47,6 +46,7 @@ export default function Login() {
             if (response.ok) {
                 // 로그인 성공 시, 토큰을 콘솔에 출력
                 document.cookie = `token=${result.token}; path=/;`;
+                alert("Login Success")
                 console.log('로그인 성공!');
                 console.log('JWT 토큰:', result.token);  // 서버에서 응답받은 토큰 출력
         
@@ -73,16 +73,6 @@ export default function Login() {
                         id="userId"
                         name="userId"
                         value={formData.userId}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="email">이메일</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
                         onChange={handleInputChange}
                     />
                 </div>
