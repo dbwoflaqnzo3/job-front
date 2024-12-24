@@ -44,6 +44,7 @@ export default function SignupForm() {
     const [isConfirmed, setIsConfirmed] = useState(false); // 사용 여부 확정
     const [isChecked, setIsChecked] = useState(false); // 사용 여부 확정
     const [feedbackMessage, setFeedbackMessage] = useState(""); // 피드백 메시지
+    const [globalMessage, setGlobalMessage] = useState("") //제출시 오류 날때
 
     //id 중복 확인
     const handleCheckDuplicated = async() => {
@@ -182,7 +183,7 @@ export default function SignupForm() {
             
         }
         else{
-            setErrors('모든 정보를 정확하게 입력하신 뒤 다시 시도해주시길 바랍니다.')
+            setGlobalMessage('다음 사항들을 다시 확인하시고 시도해주시길 바랍니다.\n 1.모든 정보를 정확히 입력해주세요.\n 2.아이디에서 사용하기 버튼을 눌러주세요.')
         }
     };
 
@@ -331,6 +332,7 @@ export default function SignupForm() {
 
             {/* 다른 필드 추가 */}
             <button type="submit">Submit</button>
+            {globalMessage == ""? <p></p> :<p style={{ color: "red" }}>{globalMessage}</p>}
         </form>
     );
 }
