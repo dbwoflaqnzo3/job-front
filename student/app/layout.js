@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        {/* 여기에 nav바 만들거임 */}
         {children}
       </body>
     </html>
