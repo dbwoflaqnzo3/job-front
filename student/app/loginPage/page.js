@@ -47,11 +47,13 @@ export default function Login() {
                 // 로그인 성공 시, 토큰을 콘솔에 출력
                 document.cookie = `token=${result.token}; path=/;`;
                 alert("Login Success")
-                console.log('로그인 성공!');
-                console.log('JWT 토큰:', result.token);  // 서버에서 응답받은 토큰 출력
+
+                // console.log('로그인 성공!');
+                // console.log('JWT 토큰:', result.token);  // 서버에서 응답받은 토큰 출력
         
                 // 예시: 로그인 성공 후 페이지 리디렉션
-                // window.location.href = "/dashboard";  // 원하는 페이지로 리디렉션 가능
+                window.location.href = "/mainPage";  // 원하는 페이지로 리디렉션 가능
+
             } else {
                 // 로그인 실패 시 에러 메시지 출력
                 setError(result.message || '로그인 실패');
