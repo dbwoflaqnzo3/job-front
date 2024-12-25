@@ -1,7 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-
 
 
 
@@ -11,6 +11,7 @@ const TeacherLogin = () => {
         password: '',
     });
 
+    const router = useRouter()
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -43,6 +44,7 @@ const TeacherLogin = () => {
                 setSuccessMessage('Login successful!');
                 setIsLoggedIn(true)
                 console.log('Login Result:', result); // 필요하면 세부 데이터를 확인
+                router.push("/startPage")
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || 'Login failed. Please check your credentials.');
@@ -50,25 +52,6 @@ const TeacherLogin = () => {
         } catch (err) {
             console.log(err)
             setError('An error occurred while logging in. Please try again.');
-        }
-    };
-
-    const handleLogout = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/teacher/logout', {
-                method: 'POST',
-                credentials: 'include', // 쿠키를 포함하여 요청 보내기
-            });
-
-            if (response.ok) {
-                setSuccessMessage('Logout successful!');
-                setIsLoggedIn(false);  // 로그아웃 시 상태 변경
-            } else {
-                const errorData = await response.json();
-                setError(errorData.message || 'Logout failed. Please try again.');
-            }
-        } catch (error) {
-            setError('An error occurred during logout.');
         }
     };
 
@@ -104,11 +87,6 @@ const TeacherLogin = () => {
                     </div>
                     <button type="submit">Login</button>
                 </form>
-                <div>
-                    <button onClick={handleLogout} style={{ display: isLoggedIn ? 'block' : 'none' }}>
-                        Logout
-                    </button>
-                </div>
         </div>
     );
 };

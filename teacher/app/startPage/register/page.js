@@ -127,6 +127,7 @@ export default function SignupForm() {
                 break;
             case "passwordCheck":
                 error = validatePasswordCheck(formData.passwordCheck, formData.password);
+                break
             default:
                 break;
         }
@@ -177,7 +178,7 @@ export default function SignupForm() {
                 }
             }
             catch (err) {
-                setErrors('Failed to register teacher. Please try again.')
+                setGlobalMessage('Failed to register teacher. Please try again.')
                 console.log(err)
             }            
             
