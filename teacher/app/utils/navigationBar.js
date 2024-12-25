@@ -6,12 +6,12 @@ import { useEffect, useState } from 'react';
 
 const NavigationBar = () => {
 
+    const [isLoginPage, setIsLoginPage] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const pathname = usePathname();
     const [userId, setUserId] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const router = useRouter()
-
 
     const links = [
         { href: "/startPage", label: "Home" },
@@ -20,6 +20,14 @@ const NavigationBar = () => {
     ];
 
     useEffect(() => {
+
+        if (pathname === "/loginPage") {
+            setIsLoginPage(true)
+        }
+        else{
+            setIsLoginPage(false)
+        }
+
         async function checkUserSession() {
             try {
                 const response = await fetch('http://localhost:8080/teacher/readSessionInfo', {
@@ -76,7 +84,8 @@ const NavigationBar = () => {
     };
 
     return (
-        <nav style={styles.nav}>
+    
+        <nav style={{ ...styles.nav, display: isLoginPage ? "none" : "flex" }}>
             <ul style={styles.ul}>
                 {links.map((link) => (
                 <li key={link.href} style={pathname === link.href ? styles.active : styles.li}>
