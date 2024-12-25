@@ -2,7 +2,7 @@
 import { useState } from "react";
 import styles from "../styles/studentService.module.css";  // CSS 파일을 임포트
 import Filter from "./filter"; // 필터 컴포넌트 가져오기
-
+import ListItem from "./listItem";
 
 export default function studentService() {
     const [categoryActive, setCategoryActive] = useState(false);
@@ -38,9 +38,8 @@ export default function studentService() {
         </nav>
 
         {/* 게시물 목록 */}
-        <div className={styles.postList}>
-          
-        </div>
+        <ListItem/>
+
       </div>
     );
 }
