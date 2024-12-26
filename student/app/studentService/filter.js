@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "../styles/studentService.module.css";
+import Link from "next/link";
 
 const Filter = ({ onCategoryChange, onSortChange }) => {
   const [categoryActive, setCategoryActive] = useState(false);
@@ -64,7 +65,11 @@ const Filter = ({ onCategoryChange, onSortChange }) => {
         className={styles.searchInput}
       />
 
-      <button className={styles.writeBtn}>글쓰기</button>
+     
+      <Link className={styles.writeBtn}
+      href='/studentService/write'>글쓰기
+      </Link>
+      
     </div>
   );
 };
