@@ -1,61 +1,104 @@
-"use client";
-import styles from '../../styles/studentWrite.module.css';
+'use client'; 
 import Link from 'next/link';
+import styles from '../../styles/studentWrite.module.css';
+import { useState } from 'react';
 
 const writePage = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);  // 제출 상태 관리
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const data = {
+      title: formData.get('title'),
+      category: formData.get('category'),
+      content: formData.get('content'),
+      author: formData.get('author'),
+    };
+
+    try {
+      const response = await fetch('/api/posts/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('서버응답', result);
+        setIsSubmitted(true);  // 제출 성공 시 상태 변경
+      } else {
+        console.error('서버오류');
+      }
+    } catch (err) {
+      console.error('요청실패', err);
+    }
+  };
+
+  if (isSubmitted) {
+    return (
+      <div>
+        <h2>글이 성공적으로 작성되었습니다!</h2>
+        <p><a href="/studentService">메인 페이지로 돌아가기</a></p>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
-      {/* 헤더 */}
       <header className={styles.header}>
         <h1>고객센터 - 글쓰기</h1>
       </header>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className={styles.rowGroup}>
-          {/* 제목 */}
           <div className={`${styles.formGroup} ${styles.titleGroup}`}>
             <label className={styles.textLabel} htmlFor="title">제목</label>
             <input
               type="text"
               id="title"
+              name="title"
               className={styles.input}
-              placeholder="아이디는 어떻게 찾나요?"
+              placeholder="제목을 입력하세요!"
               required
             />
           </div>
-          
-          {/* 카테고리 */}
+
           <div className={`${styles.formGroup} ${styles.categoryGroup}`}>
             <label className={styles.textLabel} htmlFor="category">카테고리</label>
-            <select id="category" className={styles.input} required>
+            <select id="category" name="category" className={styles.input} required>
               <option value="로그인">로그인</option>
               <option value="회원가입">회원가입</option>
               <option value="기타">기타</option>
             </select>
           </div>
-          
-          {/* 등록자 */}
+
           <div className={`${styles.formGroup} ${styles.authorGroup}`}>
             <label className={styles.textLabel} htmlFor="author">등록자</label>
             <input
               type="text"
               id="author"
+              name="author"
               className={styles.input}
+              placeholder="작성자"
+              required
             />
           </div>
         </div>
 
-        {/* 내용 입력 */}
         <div className={styles.formGroup}>
           <label className={styles.textLabel} htmlFor="content">내용</label>
           <textarea
             id="content"
+            name="content"
             className={styles.textarea}
             placeholder="내용을 입력해주세요"
             required
           ></textarea>
         </div>
 
-        {/* 버튼 */}
         <div className={styles.buttons}>
           <button type="submit" className={styles.btnSubmit}>
             등록하기
