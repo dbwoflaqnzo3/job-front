@@ -1,0 +1,219 @@
+/* General Styles */
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #90c58b;
+  color: #333;
+  min-height: 100vh;
+  width: 1512px;
+  
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    width: 1392px;
+    height: 72px;
+    margin: 36px 60px;
+}
+
+/* Logo Section */
+.logoSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  background-color: #dcdcdc;
+  padding: 15px 19px;
+  border-radius: 24px;
+  width: 174px;
+  height: 42px;
+  text-align: center;
+}
+  
+  .logo {
+    background-color: #dcdcdc;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Navigation Section */
+  .navSection {
+    display: flex;
+    width: 1116px;
+    height: 52px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #dcdcdc;
+    padding: 10px 20px;
+    border-radius: 24px;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .nav a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .nav a:hover {
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .logoutButton {
+    background-color: #c0c0c0;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    color: #333;
+  }
+
+/* Main Content */
+.main {
+  padding: 10px;
+  width: 1392px;
+  margin: 0 60px;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  width: 448px;
+  height: 772px;
+  margin: 0;
+  padding: 0;
+}
+
+/* 유저 정보 및 수업 진행도 */
+.user {
+  background: #ffffff;
+  border-radius: 8px;
+  height: 203px;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progressGrid {
+  margin-top: 24px;
+  padding: 0;
+}
+
+.message {
+  height: 60px;
+}
+
+.progress {
+  background: #ffffff;
+  border-radius: 8px;
+  height: 401px;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Info Section */
+.infoBtn {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.name {
+font-size: 14px;
+font-weight: bold;
+}
+
+.subText {
+font-size: 12px;
+color: #666;
+}
+
+.smallButton {
+background-color: #c0c0c0;
+border: none;
+border-radius: 6px;
+padding: 6px 12px;
+cursor: pointer;
+color: #333;
+}
+
+/* Progress Section */
+.progressContainer {
+text-align: center;
+}
+
+.circleProgress {
+position: relative;
+width: 100px;
+height: 100px;
+margin: 0 auto;
+}
+
+.progressSvg {
+width: 100%;
+height: 100%;
+}
+
+.circleBg {
+fill: none;
+stroke: #e0e0e0;
+stroke-width: 8;
+}
+
+.circleFg {
+fill: none;
+stroke: #7280ff;
+stroke-width: 8;
+stroke-dasharray: 238;
+stroke-dashoffset: 60; /* For 75% */
+stroke-linecap: round;
+transform: rotate(-90deg);
+transform-origin: center;
+}
+
+.progressText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Start Learning Button */
+.startLearning {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.startButton {
+    background-color: #c0c0c0;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    cursor: pointer;
+    color: #333;
+}
