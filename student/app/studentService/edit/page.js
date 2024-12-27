@@ -3,6 +3,7 @@ import styles from '../../styles/studentSVEdit.module.css';
 import { useSearchParams } from "next/navigation";
 import { useState , useEffect } from "react";
 import { posts } from '../../../data'
+import Form from './form';
 
 
 const EditPage = () => {
@@ -44,92 +45,29 @@ const EditPage = () => {
     }
   }
 
-  // const handleAnswerChange = (e) => {
-  //   setAnswer(e.target.value);
-  // };
+  const handleCategoryChange = (e) => setCategory(e.target.value);
+  const handleContentChange = (e) => setContent(e.target.value);
   
-  //내일 get fetch 받을거 
+  //내일 get fetch 받을거 // 내용에 원래 내용을 가져와야됨 ( 사실 젤 빡셈 ㅋ )
   const answer = 'dmddo'
 
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>고객센터</h1>
+      <h1 className={styles.title}>고객센터 - 글수정</h1>
 
-      <form onSubmit={handleEditClick}>
-        <div className={styles.row}>
-          <label className={styles.textLabel}>제목:</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={title}
-            onChange={(e) => {}}
-            disabled // 제목은 수정 불가능
-          />
-        </div>
-
-        <div className={styles.row}>
-          <label className={styles.textLabel}>카테고리:</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={category}
-            onChange={(e) => setCategory(e.target.value)} // 카테고리 수정 가능
-            disabled={status === 1}
-          />
-        </div>
-
-        <div className={styles.row}>
-          <label className={styles.textLabel}>등록자:</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={data.author}
-            disabled // 등록자는 수정 불가능
-          />
-        </div>
-
-        <div className={styles.row}>
-          <label className={styles.textLabel}>내용:</label>
-          <textarea
-            className={styles.textarea}
-            value={content}
-            onChange={(e) => setContent(e.target.value)} // 내용 수정 가능
-            disabled={status === 1} // 상태가 '처리완료'일 때는 수정 불가능
-          />
-        </div>
-
-        <div className={styles.row}>
-          <label className={styles.textLabel}>상태:</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={status === 0 ? '답변대기' : '처리완료'}
-            disabled // 상태는 수정 불가능
-          />
-        </div>
-
-        <div className={styles.row}>
-          <label className={styles.textLabel}>답변:</label>
-          <textarea
-            className={styles.textarea}
-            value={answer || '답변을 준비 중입니다.'}
-            disabled // 상태가 '처리완료'일 때는 수정 불가능
-          />
-        </div>
-
-        <div className={styles.buttonContainer}>
-          {status === 0 ? (
-            <button type="submit" className={styles.button}>수정하기</button>
-          ) : null}
-
-          {status === 0 ? (
-            <button className={styles.button}>삭제하기</button>
-          ) : null}
-
-          <button className={styles.button}>목록보기</button>
-        </div>
-      </form>
+      {/* Form 컴포넌트에 필요한 props 전달 */}
+      <Form
+        postId={postId}
+        title={title}
+        category={category}
+        content={content}
+        status={status}
+        answer={answer}
+        onCategoryChange={handleCategoryChange}
+        onContentChange={handleContentChange}
+        onSubmit={handleEditClick}
+      />
     </div>
   );
 };
