@@ -48,7 +48,7 @@ const listItem = () => {
             </Link>
             <div className={styles.navbarItem}>{post.author}</div>
             <div className={styles.navbarItem}>{post.date}</div>
-            <div className={styles.navbarItem}>{post.status}</div>
+            <div className={styles.navbarItem}>{post.status ? '처리완료' : '답변대기'}</div>
             </div>
         ))}
         </div>

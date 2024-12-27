@@ -1,6 +1,6 @@
 'use client'; 
 import Link from 'next/link';
-import styles from '../../styles/studentWrite.module.css';
+import styles from '../../styles/studentSVWrite.module.css';
 import { useState } from 'react';
 
 const writePage = () => {
