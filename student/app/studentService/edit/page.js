@@ -13,7 +13,6 @@ const EditPage = () => {
   const data = posts[postId-1];
 
   const [status, setStatus] = useState(data.status);
-  const [answer, setAnswer] = useState(data.answer);
   const [content, setContent] = useState(data.content);
   const [category, setCategory] = useState(data.category);
 
@@ -21,7 +20,7 @@ const EditPage = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('/api/updatePost', {
+      const response = await fetch('/api/posts/updatePost', {
         method: 'POST', // 또는 PUT 요청 사용 가능
         headers: {
           'Content-Type': 'application/json',
@@ -31,14 +30,12 @@ const EditPage = () => {
           title, 
           category, 
           content, 
-          answer,
           status: status, // 상태도 함께 전송
         }),
       });
 
       if (response.ok) {
         alert('수정된 내용이 저장되었습니다.');
-        // 성공적으로 저장된 후 페이지 전환 혹은 상태 변경 처리
       } else {
         console.error('수정 요청에 실패했습니다.');
       }
@@ -50,7 +47,9 @@ const EditPage = () => {
   // const handleAnswerChange = (e) => {
   //   setAnswer(e.target.value);
   // };
-
+  
+  //내일 get fetch 받을거 
+  const answer = 'dmddo'
 
 
   return (
@@ -76,6 +75,7 @@ const EditPage = () => {
             className={styles.input}
             value={category}
             onChange={(e) => setCategory(e.target.value)} // 카테고리 수정 가능
+            disabled={status === 1}
           />
         </div>
 
@@ -114,8 +114,7 @@ const EditPage = () => {
           <textarea
             className={styles.textarea}
             value={answer || '답변을 준비 중입니다.'}
-            onChange={(e) => setAnswer(e.target.value)} // 답변 수정 가능
-            disabled={status === 1} // 상태가 '처리완료'일 때는 수정 불가능
+            disabled // 상태가 '처리완료'일 때는 수정 불가능
           />
         </div>
 
