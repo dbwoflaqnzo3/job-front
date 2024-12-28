@@ -58,9 +58,20 @@
     padding-right: 10px
 }
 
+.titleInput{
+    width: 100%;
+    padding: 10px;
+    padding-right: 30px;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
 .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap :30px;
 }
 
 .btnSubmit {
@@ -92,3 +103,6 @@
     background-color: #005bb5;
 }
 
+.rightTransposition{
+    transform: translateX(20px);
+}

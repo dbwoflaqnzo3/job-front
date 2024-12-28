@@ -49,7 +49,7 @@ const EditPage = () => {
   const handleContentChange = (e) => setContent(e.target.value);
   
   //내일 get fetch 받을거 // 내용에 원래 내용을 가져와야됨 ( 사실 젤 빡셈 ㅋ )
-  const answer = 'dmddo'
+  const answer = '선생님도 피곤해요 그냥 해요^^'
 
 
   return (

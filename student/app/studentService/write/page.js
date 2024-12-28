@@ -60,15 +60,15 @@ const writePage = () => {
               type="text"
               id="title"
               name="title"
-              className={styles.input}
+              className={styles.titleInput}
               placeholder="제목을 입력하세요!"
               required
             />
           </div>
 
           <div className={`${styles.formGroup} ${styles.categoryGroup}`}>
-            <label className={styles.textLabel} htmlFor="category">카테고리</label>
-            <select id="category" name="category" className={styles.input} required>
+            <label className={`${styles.textLabel} ${styles.rightTransposition}`} htmlFor="category">카테고리</label>
+            <select id="category" name="category" className={`${styles.input} ${styles.rightTransposition}`} required>
               <option value="로그인">로그인</option>
               <option value="회원가입">회원가입</option>
               <option value="기타">기타</option>
