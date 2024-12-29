@@ -1,7 +1,7 @@
 "use client";
 import styles from '../../styles/studentSVEdit.module.css';
 import { useSearchParams } from "next/navigation";
-import { useState , useEffect } from "react";
+import { useState , useEffect, use } from "react";
 import { posts } from '../../../data'
 import Form from './form';
 
@@ -11,12 +11,50 @@ const EditPage = () => {
   const postId = searchParams.get("postId");
   const title = searchParams.get("title");
 
-  const data = posts[postId-1];
+  // 요 4개 설정은 테스트용입니다. 
+  // const data = posts[postId-1];
+  // const [status, setStatus] = useState(data.status);
+  // const [content, setContent] = useState(data.content);
+  // const [category, setCategory] = useState(data.category);
 
-  const [status, setStatus] = useState(data.status);
-  const [content, setContent] = useState(data.content);
-  const [category, setCategory] = useState(data.category);
+  const [status , setStatus] = useState(null);
+  const [content , setContent] = useState('');
+  const [category , setCategory] = useState('');
+  
+  const [answer , setAnswer] = useState('');
+  const [loading , setLoading] = useState(true);
 
+// 렌더링이 될때 get요청 
+  useEffect(()=>{
+    const fetchPostData = async () => {
+      try{
+        const res = await fetch(`/api/posts/${postId}`);
+        if(!res.ok){
+          throw new Error('Failed to fetch data');
+        }
+        const postData = await res.json();
+        // 여기서 다시 봐야할듯하다. state값이 잘못설정됨 ㅠ
+        console.log(postData);
+
+        setStatus(postData.post.status);
+        setContent(postData.post.content);
+        setCategory(postData.post.category);
+        setAnswer(postData.post.answer);
+      } catch (err){
+        console.error('Error fetching post Data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if(postId){
+      fetchPostData();
+    }
+
+  }, [postId])
+
+
+// 버튼을 누렀을때 post요청 
   const handleEditClick = async (e) => {
     e.preventDefault();
     
@@ -48,8 +86,6 @@ const EditPage = () => {
   const handleCategoryChange = (e) => setCategory(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
   
-  //내일 get fetch 받을거 // 내용에 원래 내용을 가져와야됨 ( 사실 젤 빡셈 ㅋ )
-  const answer = '선생님도 피곤해요 그냥 해요^^'
 
 
   return (

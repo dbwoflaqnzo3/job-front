@@ -1,5 +1,6 @@
 
 // 받는거 테스트 하는거임 ( 무시해도 되는 파일 )
+// 여기서 DB를 업데이트 시켜줘야 되요 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     console.log('req잘가노?' , req.body)
