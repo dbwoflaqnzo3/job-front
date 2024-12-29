@@ -2,7 +2,6 @@
 import styles from '../../styles/studentSVEdit.module.css';
 import { useSearchParams } from "next/navigation";
 import { useState , useEffect, use } from "react";
-import { posts } from '../../../data'
 import Form from './form';
 
 
@@ -33,8 +32,8 @@ const EditPage = () => {
           throw new Error('Failed to fetch data');
         }
         const postData = await res.json();
-        // 여기서 다시 봐야할듯하다. state값이 잘못설정됨 ㅠ
-        console.log(postData);
+
+        // console.log(postData);
 
         setStatus(postData.post.status);
         setContent(postData.post.content);
@@ -83,6 +82,35 @@ const EditPage = () => {
     }
   }
 
+  const handleDeleteClick = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await fetch('/api/posts/updatePost', {
+        method: 'Delete', // 또는 PUT 요청 사용 가능
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          postId,
+          title, 
+          category, 
+          content, 
+          status: status, // 상태도 함께 전송
+        }),
+      });
+
+      if (response.ok) {
+        alert('수정된 내용이 삭제된거 처럼되었습니다.');
+      } else {
+        console.error('수정 요청에 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('서버와 연결하는 중 오류가 발생했습니다.', error);
+    }
+  }
+
+
   const handleCategoryChange = (e) => setCategory(e.target.value);
   const handleContentChange = (e) => setContent(e.target.value);
   
@@ -103,6 +131,7 @@ const EditPage = () => {
         onCategoryChange={handleCategoryChange}
         onContentChange={handleContentChange}
         onSubmit={handleEditClick}
+        onDelete={handleDeleteClick}
       />
     </div>
   );

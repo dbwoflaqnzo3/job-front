@@ -3,7 +3,7 @@ import styles from '../../styles/studentSVEdit.module.css';
 import { posts } from '../../../data'
 import { useRouter } from "next/navigation"
 
-const Form = ({postId, title, category, content, status, answer, onCategoryChange, onContentChange, onSubmit }) => {
+const Form = ({postId, title, category, content, status, answer, onCategoryChange, onContentChange, onSubmit , onDelete}) => {
     const data = posts[postId-1];
     let router = useRouter();
 
@@ -29,6 +29,7 @@ const Form = ({postId, title, category, content, status, answer, onCategoryChang
       <label className={`${styles.textLabel} ${styles.rightTransposition}`}>카테고리</label>
       <select id="category" name="category" className={`${styles.input} ${styles.rightTransposition}`} required
         value={category}
+        onChange={onCategoryChange}
         disabled={status === 1}
       >
               <option value="로그인">로그인</option>
@@ -82,7 +83,7 @@ const Form = ({postId, title, category, content, status, answer, onCategoryChang
         <button type="submit" className={styles.btnSubmit}>
           수정하기
         </button>
-        <button className={styles.btnCancel}>
+        <button type="button" onClick={onDelete} className={styles.btnCancel}>
           삭제하기
         </button>
       </>
