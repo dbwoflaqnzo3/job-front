@@ -19,41 +19,53 @@ export default function CollisionDetector() {
 
 
   const handleCollision = (x, y) => {
-    const draggableBox = {
-      left: x,
-      top: y,
-      right: x + 100,
-      bottom: y + 100,
-    };
+    let IsCollision = false;
+    let resetPos = null;    
+    
+    for (let i = 0; i < staticBoxes.length; i++){
+      const staticBox = staticBoxes[i];
+      const draggableBox = {
+        left: x,
+        top: y,
+        right: x + 100,
+        bottom: y + 100,
+      }
 
-    const staticBoxRect = {
-      left: staticBox.x,
-      top: staticBox.y,
-      right: staticBox.x + staticBox.width,
-      bottom: staticBox.y + staticBox.height,
-    };
+      const staticBoxRect ={
+        left: staticBox.x,
+        top: staticBox.y,
+        right: staticBox.x + staticBox.width,
+        bottom: staticBox.y + staticBox.height,
+      }
 
-    const collision = checkCollision(draggableBox, staticBoxRect);
+      const collision = checkCollision(draggableBox , staticBoxRect);
 
-    setIsColliding(collision);
+      if (collision){
+        IsCollision = true;
+        resetPos = { x:staticBox.x , y: staticBox.y };
+        break;
+      }
 
-    if (collision) {
-      setResetPosition({ x: staticBox.x, y: staticBox.y });
-    } else {
-      setResetPosition(null);
     }
+    setIsColliding(IsCollision);
+    setResetPosition(resetPos);
   };
 
   return (
     <div className={styles.ViewDragBlock_Setting}>
       {/* 고정된 객체 */}
-      <div
+      {staticBoxes.map((element , i) => (
+        <div
+        key={i}
         className={styles.StaticBox}
         style={{
-          left: `${staticBox.x}px`,
-          top: `${staticBox.y}px`,
+          left: `${element.x}px`,
+          top: `${element.y}px`,
+          width: `${element.width}px`,
+          height: `${element.height}px`
         }}
       />
+      ))}
 
       {/* 드래그 가능한 객체 */}
       <DraggableBox

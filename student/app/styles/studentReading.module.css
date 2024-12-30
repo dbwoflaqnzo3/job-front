@@ -9,9 +9,7 @@
 }
 
 .StaticBox {
-  width: 100px;
-  height: 100px;
-  background: #ddd;
+  background: #8d0101 !important;
   position: absolute;
   z-index: 2;
 }
