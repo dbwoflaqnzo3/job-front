@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
           <nav>
               <ul className={styles.navList}>
                 <li className={styles.navItem}>
-                  <Link href="/#">학습하기</Link>
+                  <Link href="/studentReading">학습하기</Link>
                 </li>
                 <li className={styles.navItem}>
                   <Link href="/#">학습캘린더</Link>
