@@ -9,3 +9,14 @@ export const getPostById = (postId) => {
     // postId와 post.id를 문자열로 비교
     return posts.find(post => post.id === postId); // postId를 문자열로 비교
   }
+
+
+export const getReadingContent = (readingId) => {
+    const texts = [
+        { id: 1 , title:"마력 운용 이론학" , unit:"unit-1" , content:"coding is very difficult" , ko_content:"코딩을 하는 것을 매우 어렵다" },
+        { id: 2 , title:"기계 운용 이론학" , unit:"unit-1" , content:"coding is very difficult" , ko_content:"코딩을 하는 것을 매우 어렵다" },
+        { id: 3 , title:"생명 운용 이론학" , unit:"unit-1" , content:"coding is very difficult" , ko_content:"코딩을 하는 것을 매우 어렵다" }
+    ]
+
+    return texts.find(texts => texts.id === readingId); // postId를 문자열로 비교
+}

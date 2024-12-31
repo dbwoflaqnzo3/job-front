@@ -1,7 +1,8 @@
+/* 드래그 블록들 css */
 .ViewDragBlock_Setting {
   position: relative;
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
   background-color: #ffffff;
   overflow: hidden; /* 스크롤 방지 */
   z-index: 0;
@@ -32,4 +33,79 @@
 
 .Draggable:active {
   cursor: grabbing;
+}
+
+
+/* 메인 페이지 css -> start*/
+/* Styles for the StudentReading component */
+/* Styles for the StudentReading component */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #FFF7E9; /* Light beige background color */
+  font-family: Arial, sans-serif;
+}
+
+.backButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+
+.contentArea {
+  text-align: center;
+}
+
+.contentArea p {
+  margin: 10px 0; /* Adds vertical spacing between p tags */ 
+}
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 36px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.unitLesson {
+  font-size: 36px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.date {
+  font-size: 30px;
+  color: #999;
+  margin-bottom: 30px;
+}
+
+.startButton {
+  background-color: #FFA312; /* Orange button color */
+  border: none;
+  border-radius: 16px;
+  padding: 10px 20px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 120px;
+}
+
+.startButton:hover {
+  background-color: #FF7207; /* Darker orange on hover */
 }

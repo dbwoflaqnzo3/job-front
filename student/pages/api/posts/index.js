@@ -6,7 +6,7 @@ import { posts } from '../../../data'
     if (req.method === 'GET') {
       // GET 요청 시 게시물 목록 반환
 
-    //   console.log('여기 서버',posts)
+      // console.log('여기 서버',posts)
       res.setHeader('Cache-Control', 'no-store');
       return res.status(200).json({ posts });
     }

@@ -1,15 +1,15 @@
 // pages/api/posts/index.js
 
-import { getPostById } from '../../../DBdata'  
+import { getReadingContent } from '../../../DBdata'  
 
 export default async function handler(req, res) {
-    const { postId } = req.query;
+    const { readingId } = req.query;
     // console.log(postId);
 
     if (req.method === 'GET') {
     // GET 요청 시 게시물 목록 반환
 
-    const post = await getPostById(postId)
+    const post = await getReadingContent(readingId)
 
 
     res.setHeader('Cache-Control', 'no-store');
