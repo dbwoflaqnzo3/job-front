@@ -10,7 +10,7 @@
   padding: 0;
   background-color: #90c58b;
   color: #333;
-  min-height: 100vh;
+  height: 982px;
   width: 1512px;
   
 }
@@ -61,25 +61,64 @@
     border-radius: 24px;
   }
   
-  .nav {
+  .navStudent {
     display: flex;
-    gap: 10px;
+    gap: 30px;
+    align-items: center;
+    width: 565px;
+    height: 46px;
+    padding: 0;
+    margin-left: 50px;
   }
   
-  .nav a {
+  .navStudent a {
     text-decoration: none;
-    color: #333;
-  }
-  
-  .nav a:hover {
-    text-decoration: none;
+    font-size: 20px;
     font-weight: bold;
+    color: #333;
+    height: 26px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 8px;
+  }
+  
+  .navStudent a:hover {
+    text-decoration: none;
+    background-color: #acacac;
+  }
+
+  .navService {
+    margin-right: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 245px;
+  }
+
+  .serviceButton {
+    position: relative;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    height: 26px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 8px;
+  }
+
+  .dropdownMenu {
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    z-index: 1000;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* 버튼 간격 */
   }
   
   .logoutButton {
     background-color: #c0c0c0;
     border: none;
-    border-radius: 6px;
+    border-radius: 24px;
     padding: 8px 16px;
     cursor: pointer;
     color: #333;
@@ -87,8 +126,10 @@
 
 /* Main Content */
 .main {
+  display: flex;
+  flex-direction: row;
   padding: 10px;
-  width: 1392px;
+  width: 1372px;
   margin: 0 60px;
 }
 
@@ -117,6 +158,8 @@
 
 .message {
   height: 60px;
+  font-size: 32px;
+  font-weight: bold;
 }
 
 .progress {
@@ -125,6 +168,10 @@
   height: 401px;
   padding: 20px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -136,12 +183,15 @@ align-items: center;
 }
 
 .name {
-font-size: 14px;
-font-weight: bold;
+  font-size: 32px;
+  height: 32px;
+  margin: 0;
+  font-weight: bold;
 }
 
-.subText {
-font-size: 12px;
+.teacher {
+font-size: 26px;
+margin: 0;
 color: #666;
 }
 
@@ -156,13 +206,17 @@ color: #333;
 
 /* Progress Section */
 .progressContainer {
-text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .circleProgress {
 position: relative;
-width: 100px;
-height: 100px;
+width: 212px;
+height: 212px;
 margin: 0 auto;
 }
 
@@ -174,15 +228,15 @@ height: 100%;
 .circleBg {
 fill: none;
 stroke: #e0e0e0;
-stroke-width: 8;
+stroke-width: 14;
 }
 
 .circleFg {
 fill: none;
 stroke: #7280ff;
-stroke-width: 8;
-stroke-dasharray: 238;
-stroke-dashoffset: 60; /* For 75% */
+stroke-width: 14;
+stroke-dasharray: 577.6;
+stroke-dashoffset: calc(577.6 - (0.75 * 577.6)); /* For 75% */
 stroke-linecap: round;
 transform: rotate(-90deg);
 transform-origin: center;
@@ -193,27 +247,46 @@ transform-origin: center;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18px;
+    font-size: 48px;
     font-weight: bold;
 }
 
 .note {
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 26px;
     color: #666;
 }
 
 /* Start Learning Button */
 .startLearning {
-    text-align: right;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 984px;
+  text-align: center;
+  margin: 0;
+}
+
+.graphic {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  width: 984px;
+  height: 100%;
+  background-color: #e0e0e0;
 }
 
 .startButton {
-    background-color: #c0c0c0;
-    border: none;
-    border-radius: 6px;
-    padding: 12px 24px;
-    cursor: pointer;
-    color: #333;
+  width: 260px;
+  height: 68px;
+  background-color: #c0c0c0;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  color: #333;
 }
