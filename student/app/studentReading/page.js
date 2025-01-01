@@ -1,37 +1,18 @@
 // 'use client' directive ensures client-side rendering
 'use client';
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styles from '../styles/studentReading.module.css';
+import Link from "next/link";
+
 
 export default function StudentReading() {
   const router = useRouter();  
-  // state로 id받기 먼저 ( useeffect써서 ) -> 그걸로 아래꺼 실행하기 
   
-
-  //useEffect로 받아오기 ()
-  useEffect(()=>{
-    const fetchPostData = async () => {
-      try{
-        const res = await fetch(`/api/posts/${postId}`);
-        if(!res.ok){
-          throw new Error('Failed to fetch data');
-        }
-        const postData = await res.json();
-
-      } catch (err){
-        console.error('Error fetching post Data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if(postId){
-      fetchPostData();
-    }
-
-  }, [])
-
+  // 커리큘럼 페이지에서 Link 태그로 받는다고 가정 ( query 로 )  
+  const currentLesson = "마력 운용 이론학";
+  const currentCurriNum = 1; // 몇일차 학습 ㅁㅁ 이런느낌 
+  const currentDate = "25.01.01"
 
 
   return (
@@ -44,12 +25,22 @@ export default function StudentReading() {
             {/* Content Area */}
             <div className={styles.contentArea}>
                 <h2 className={styles.title}>Reading</h2>
-                <p className={styles.subtitle}>교재이름</p>
-                <p className={styles.unitLesson}>학습유닛/레슨</p>
-                <p className={styles.date}>12월 31일</p>
+                <p className={styles.subtitle}>{currentLesson}</p>
+                <p className={styles.unitLesson}>unit/{currentCurriNum}</p>
+                <p className={styles.date}>{currentDate}</p>
 
                 {/* Start Button */}
-                <button className={styles.startButton}>학습 시작하기</button>
+                <Link 
+                href={{
+                    pathname: "/studentReading/detail",
+                    query: { unit: currentCurriNum, title: currentLesson },
+                }}
+                
+                >
+                <div className={styles.startButton} style={{ cursor: "pointer", textDecoration: "none"}}>
+                    학습하기
+                </div>
+                </Link>
             </div>
         </div>
     );
