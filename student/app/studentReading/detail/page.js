@@ -2,16 +2,19 @@
 'use client';
 import { useState, useEffect } from "react";
 import styles from '../../styles/studentReading.module.css';
-import { useSearchParams } from "next/navigation";
-
+import { useSearchParams , useRouter} from "next/navigation";
+import ContentDisplay from './problem'
 
 export default function StudentReading() {
   const searchParams = useSearchParams();
   const unit = searchParams.get("unit");
   const lessonTitle = searchParams.get("title");
+  const router = useRouter();
 
   const [readingData, setReadingData] = useState({}); // API에서 받은 데이터를 저장
-  const [loading, setLoading] = useState(true); // 로딩 상태 관리
+  const [problemIndex, setProblemIndex] = useState(0); // 문제 인덱스 
+
+
 
   useEffect(() => {
     const fetchPostData = async () => {
@@ -47,30 +50,35 @@ export default function StudentReading() {
     fetchPostData();
   }, [lessonTitle, unit]);
 
+  const handleNext = () => {
+    setProblemIndex((prevIndex) => (prevIndex !== null ? prevIndex + 1 : 0));
+  };
+  
+  const handlePrevious = () => {
+    setProblemIndex((prevIndex) => (prevIndex !== null ? prevIndex - 1 : 0));
+  };
 
 
   return (
     <div className={styles.container}>
-    {readingData.content ? (
-      <div>
-        <h2>{readingData.content.title}</h2>
-        <p>Unit: {readingData.content.unit}</p>
-        <div>
-          <h3>Content:</h3>
-          {readingData.content.eng.map((line, index) => (
-            <p key={index}>{line}</p>
-          ))}
+      <button className={styles.backButton} onClick={() => router.push('/')}>
+          &#8592;
+      </button>
+      {readingData.content ? (<>
+        <div className={styles.header}>
+          <h2>{readingData.content.title}</h2>
+          <p>Unit: {readingData.content.unit}</p>
         </div>
-        <div>
-          <h3>Korean Content:</h3>
-          {readingData.content.kor.map((line, index) => (
-            <p key={index}>{line}</p>
-          ))}
-        </div>
-      </div>
-    ) : (
-      <p>Loading...</p> // 데이터를 불러오는 동안 표시할 내용
-    )}
-  </div>
+        <ContentDisplay
+          engContent={readingData.content.eng}
+          korContent={readingData.content.kor}
+          problemIndex={problemIndex}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+        /></>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
     );
 }

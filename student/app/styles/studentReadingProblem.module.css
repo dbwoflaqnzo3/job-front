@@ -1,0 +1,80 @@
+.container {
+    background-color: #fff8e1; /* 옅은 주황색 배경 */
+    padding: 20px;
+    width: 720px;
+    border: 1px solid #ffc107; /* 주황색 테두리 */
+    border-radius: 24px;
+  }
+  
+  .title {
+    color: #383838; /* 진한 주황색 */
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .unit {
+    color: #383838;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  .content {
+    margin-bottom: 20px;
+  }
+  
+  .contentHeading {
+    color: #383838;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .contentLine {
+    color: #383838;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .button {
+    background-color: #ffcc80; /* 주황색 버튼 배경 */
+    border: 1px solid #ffa000;
+    border-radius: 16px;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .button:disabled {
+    background-color: #ffe0b2; /* 비활성화된 상태는 더 옅은 색 */
+    cursor: not-allowed;
+  }
+  
+  .button:hover:not(:disabled) {
+    background-color: #ffb74d; /* 호버 시 더 진한 주황색 */
+  }
+  
+  .inputContainer {
+    margin-top: 10px;
+  }
+
+  .inputBox {
+    width: 700px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ffa726;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+
+  .warning {
+    font-size: 14px;
+    color: #d32f2f; /* 경고 빨간색 */
+    margin-top: 5px;
+  }

@@ -14,14 +14,14 @@ export const getPostById = (postId) => {
   export const getReadingContent = (lessonId) => {
     const texts = [
         { id: 1, title: "마력 운용 이론학", unit: 1, 
-            eng: ["coding is very difficult","reading is vert easy"], 
-            kor: ["코딩을 하는 것을 매우 어렵다" , "말하는 것은 매우 쉽다"] },
+            eng: ["coding is very difficult","reading is vert easy" ,"aaaaaa" , "bbbbbbbbb" , "cccccc"], 
+            kor: ["코딩을 하는 것을 매우 어렵다" , "말하는 것은 매우 쉽다" , "에이" , "비" , "시 ㅂ "] },
         { id: 2, title: "마력 운용 이론학", unit: 2, 
-            eng: ["coding is very difficult","reading is vert easy"], 
-            kor: ["코딩을 하는 것을 매우 어렵다" , "말하는 것은 매우 쉽다"] },
+            eng: ["coding is very difficult","reading is vert easy" ,"aaaaaa" , "bbbbbbbbb" , "cccccc"], 
+            kor: ["코딩을 하는 것을 매우 어렵다" , "말하는 것은 매우 쉽다" , "에이" , "비" , "시 ㅂ "] },
         { id: 3, title: "마력 운용 이론학", unit: 3, 
-            eng: ["coding is very difficult","reading is vert easy"], 
-            kor: ["코딩을 하는 것을 매우 어렵다" , "말하는 것은 매우 쉽다"] },
+            eng: ["coding is very difficult","reading is vert easy" ,"aaaaaa" , "bbbbbbbbb" , "cccccc"], 
+            kor: ["코딩을 하는 것을 매우 어렵다" , "말하는 것은 매우 쉽다" , "에이" , "비" , "시 ㅂ "] },
     ];
     // .find는 배열의 메소드로 여기안에 있는건 iterator로 작동을 함 
     return texts.find((text) => text.title === lessonId); // title 기반으로 검색

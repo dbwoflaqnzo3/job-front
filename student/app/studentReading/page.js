@@ -1,7 +1,6 @@
 // 'use client' directive ensures client-side rendering
 'use client';
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import styles from '../styles/studentReading.module.css';
 import Link from "next/link";
 

@@ -49,6 +49,10 @@
   font-family: Arial, sans-serif;
 }
 
+.header{
+  transform: translateX(-290px);
+}
+
 .backButton {
   position: absolute;
   top: 20px;

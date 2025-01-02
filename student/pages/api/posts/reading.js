@@ -3,10 +3,9 @@ import { getReadingContent } from "@/DBdata";
 export default function handler(req, res) {
   if (req.method === 'POST') {
       const { lesson, curriNum } = req.body;
-      console.log(lesson , curriNum)
 
       const content = getReadingContent(lesson);
-      console.log('Reading Content:', content);
+
       
       
       if(!content){
