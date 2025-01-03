@@ -6,11 +6,19 @@ import { useState } from 'react';
 export default function ContentDisplay({ engContent, korContent, problemIndex , handleNext , handlePrevious}) {
     const [userInputs , setUserInputs] = useState([]);
     const [warning , setWarning] = useState("")
-
+    const problemLength = engContent.length;
+    
   
     const handleInputChange = (event , index) => {
+        const inputValue = event.target.value.trim();  
         const newInputs = [...userInputs];
-        newInputs[index] = event.target.value;
+      
+        if(inputValue === ""){
+          newInputs[index] = ""
+        } else {
+          newInputs[index] = inputValue;
+        }
+    
         setUserInputs(newInputs);
 
         const korWords = korContent[problemIndex].split(" ");
@@ -22,8 +30,28 @@ export default function ContentDisplay({ engContent, korContent, problemIndex , 
         }
     }
 
+    const handleNextClick = () => {
+      setUserInputs([]);
+      setWarning("")
+      handleNext();
+    }
+
+    const handlePreviousClick = () => {
+      setUserInputs([]);
+      setWarning("")
+      handlePrevious();
+    }
+
     return (
     <div className={styles.container}>
+      {/* progressBar */}
+      <div className={styles.progressContainer}>
+        <div className={styles.progressBar} style={{ '--ratio': problemIndex }}></div>
+      </div>
+      <div className={styles.progressInfo}>
+        <p>{problemIndex} / {problemLength}</p>
+      </div>
+      {/* problemPage */}
       <div className={styles.content}>
         <h3 className={styles.contentHeading}>Content: {problemIndex+1}</h3>
         {problemIndex === null
@@ -66,7 +94,7 @@ export default function ContentDisplay({ engContent, korContent, problemIndex , 
       <div>
         <button
           className={styles.button}
-          onClick={handlePrevious}
+          onClick={handlePreviousClick}
           disabled={problemIndex === null || problemIndex === 0}
         >
           Previous
@@ -74,7 +102,7 @@ export default function ContentDisplay({ engContent, korContent, problemIndex , 
 
         <button
           className={styles.button}
-          onClick={handleNext}
+          onClick={handleNextClick}
           disabled={problemIndex === null || problemIndex === engContent.length - 1}
         >
           Next

@@ -39,7 +39,6 @@ export default function StudentReading() {
         }
   
         const postData = await res.json();
-        console.log('Fetched Post Data:', postData);
         setReadingData(postData);
       } catch (err) {
         console.error('Error fetching post data:', err);
