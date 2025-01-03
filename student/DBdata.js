@@ -14,8 +14,20 @@ export const getPostById = (postId) => {
   export const getReadingContent = (lessonId) => {
     const texts = [
         { id: 1, title: "마력 운용 이론학", unit: 1, 
-            eng: ["coding is very difficult","reading is vert easy" ,"aaaaaa" , "bbbbbbbbb" , "cccccc"], 
-            kor: ["코딩을 하는 것을 매우 어렵다" , "말하는 것은 매우 쉽다" , "에이" , "비" , "시 ㅂ "] },
+            eng: [
+                "Programming is like solving a puzzle.",
+                "At first, the pieces might seem scattered and confusing.",
+                "With time and effort, you start to see how everything fits together.",
+                "Every solved problem gives you a sense of accomplishment.",
+                "And just like that, you realize you're creating something amazing."
+              ],
+              kor: [
+                "프로그래밍은 퍼즐을 푸는 것과 같습니다.",
+                "처음에는 조각들이 흩어져 있고 혼란스러워 보일 수 있습니다.",
+                "시간과 노력을 들이면 모든 것이 어떻게 맞아떨어지는지 알게 됩니다.",
+                "문제를 하나씩 해결할 때마다 성취감을 느낄 수 있습니다.",
+                "그렇게 당신은 놀라운 무언가를 만들어 가고 있음을 깨닫게 됩니다."
+              ] },
         { id: 2, title: "마력 운용 이론학", unit: 2, 
             eng: ["coding is very difficult","reading is vert easy" ,"aaaaaa" , "bbbbbbbbb" , "cccccc"], 
             kor: ["코딩을 하는 것을 매우 어렵다" , "말하는 것은 매우 쉽다" , "에이" , "비" , "시 ㅂ "] },

@@ -29,13 +29,13 @@ export default function StudentReading() {
                 <p className={styles.date}>{currentDate}</p>
 
                 {/* Start Button */}
-                <Link 
+                <Link style={{ textDecoration: 'none' }}
                 href={{
                     pathname: "/studentReading/detail",
                     query: { unit: currentCurriNum, title: currentLesson },
                 }}
-                
                 >
+                
                 <div className={styles.startButton} style={{ cursor: "pointer", textDecoration: "none"}}>
                     학습하기
                 </div>
