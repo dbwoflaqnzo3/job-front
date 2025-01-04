@@ -12,7 +12,7 @@ export default function StudentReading() {
   const currentLesson = "마력 운용 이론학";
   const currentCurriNum = 1; // 몇일차 학습 ㅁㅁ 이런느낌 
   const currentDate = "25.01.01"
-
+  const DataId = new Object("Oxdddddddd")
 
   return (
         <div className={styles.container}>
@@ -32,7 +32,7 @@ export default function StudentReading() {
                 <Link style={{ textDecoration: 'none' }}
                 href={{
                     pathname: "/studentReading/detail",
-                    query: { unit: currentCurriNum, title: currentLesson },
+                    query: { unit: currentCurriNum, title: currentLesson , DataId: DataId},
                 }}
                 >
                 

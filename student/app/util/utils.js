@@ -1,3 +1,5 @@
+
+export const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 // utils/collision.js
 export const checkCollision = (draggableBox, staticBoxRect) => {
     return (

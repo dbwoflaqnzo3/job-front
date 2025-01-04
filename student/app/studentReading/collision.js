@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { checkCollision } from "../util/collision";
+import { checkCollision } from "../util/utils";
 import DraggableBox from "./dragBlock";
 import styles from "../styles/studentReading.module.css";
 

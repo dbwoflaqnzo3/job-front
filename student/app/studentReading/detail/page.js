@@ -4,11 +4,14 @@ import { useState, useEffect } from "react";
 import styles from '../../styles/studentReading.module.css';
 import { useSearchParams , useRouter} from "next/navigation";
 import ContentDisplay from './problem'
+import ReContentDisplay from './KorProblem'
+
 
 export default function StudentReading() {
   const searchParams = useSearchParams();
   const unit = searchParams.get("unit");
   const lessonTitle = searchParams.get("title");
+  const DataId = searchParams.get("DataId");
   const router = useRouter();
 
   const [readingData, setReadingData] = useState({}); // API에서 받은 데이터를 저장
@@ -21,8 +24,9 @@ export default function StudentReading() {
       try {
         // 요청에 필요한 데이터 준비
         const requestData = {
-          lesson: lessonTitle,   // 예시: 현재 교제의 대목
-          curriNum: unit, // 예시: 학생의 현재 커리큘럼 정보
+          DataId: DataId, // 실제 서버로 보낼 REQ
+          lesson: lessonTitle,   // 테스트 서버용
+          curriNum: unit, // 테스트 서버용 
         };
   
         // fetch 요청 보내기
@@ -64,11 +68,9 @@ export default function StudentReading() {
           &#8592;
       </button>
       {readingData.content ? (<>
-        <div className={styles.header}>
-          <h2>{readingData.content.title}</h2>
-          <p>Unit: {readingData.content.unit}</p>
-        </div>
-        <ContentDisplay
+        <ReContentDisplay
+          title={readingData.content.title}
+          unit={readingData.content.unit}
           engContent={readingData.content.eng}
           korContent={readingData.content.kor}
           problemIndex={problemIndex}
