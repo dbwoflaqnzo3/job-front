@@ -13,7 +13,7 @@ export const getPostById = (postId) => {
 
   export const getReadingContent = (lessonId) => {
     const texts = [
-        { id: 1, title: "마력 운용 이론학", unit: 1, 
+        { id: 1, title: "테스트 하기엔 뇌가 딸림ㅋㅋ", unit: 1, 
             eng: [
                 "Programming is like solving a puzzle.",
                 "At first, the pieces might seem scattered and confusing.",

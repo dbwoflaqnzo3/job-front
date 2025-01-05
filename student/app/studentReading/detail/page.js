@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from '../../styles/studentReading.module.css';
 import { useSearchParams , useRouter} from "next/navigation";
 import ContentDisplay from './EngProblem'
-import ReContentDisplay from './KorProblem'
+import KorContentDisplay from './KorProblem'
 
 
 export default function StudentReading() {
@@ -71,7 +71,7 @@ export default function StudentReading() {
           &#8592;
       </button>
       {readingData.content ? (<>
-        <ReContentDisplay
+        <ContentDisplay
           title={readingData.content.title}
           unit={readingData.content.unit}
           engContent={readingData.content.eng}
