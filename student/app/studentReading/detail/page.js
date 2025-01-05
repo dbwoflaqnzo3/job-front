@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import styles from '../../styles/studentReading.module.css';
 import { useSearchParams , useRouter} from "next/navigation";
-import ContentDisplay from './problem'
+import ContentDisplay from './EngProblem'
 import ReContentDisplay from './KorProblem'
 
 
