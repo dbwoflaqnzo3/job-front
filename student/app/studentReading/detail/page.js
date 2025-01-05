@@ -11,7 +11,8 @@ export default function StudentReading() {
   const searchParams = useSearchParams();
   const unit = searchParams.get("unit");
   const lessonTitle = searchParams.get("title");
-  const DataId = searchParams.get("DataId");
+  const curriculumId = searchParams.get("DataId");
+  const lessonId = searchParams.get("DataId");
   const router = useRouter();
 
   const [readingData, setReadingData] = useState({}); // API에서 받은 데이터를 저장
@@ -24,7 +25,9 @@ export default function StudentReading() {
       try {
         // 요청에 필요한 데이터 준비
         const requestData = {
-          DataId: DataId, // 실제 서버로 보낼 REQ
+          // DataId: DataId, // 실제 서버로 보낼 REQ
+          curriculumId: curriculumId,
+          lessonId: lessonId,
           lesson: lessonTitle,   // 테스트 서버용
           curriNum: unit, // 테스트 서버용 
         };

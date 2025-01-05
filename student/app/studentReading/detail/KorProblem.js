@@ -6,7 +6,8 @@ import { delay } from '@/app/util/utils';
 
 export default function ContentDisplay({ title , unit , engContent, korContent, problemIndex , handleNext , handlePrevious }) {
   const [selectedWords, setSelectedWords] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showEndPopup, setShowEndPopup] = useState(false);
+  const [showNotPopup , setShowNotPopup] = useState(false);
   const [shuffledKorWords, setShuffledKorWords] = useState([]);
   const problemLength = engContent.length;
 
@@ -26,13 +27,13 @@ export default function ContentDisplay({ title , unit , engContent, korContent, 
           // 마지막 문제에서 팝업 표시
           handleNext();
           await delay(1000); // 1초 동안 대기
-          setShowPopup(true);
+          setShowEndPopup(true);
       } else {
           setSelectedWords([]) // 입력 값 초기화
           handleNext();  // 문제 번호를 증가시키는 함수 호출
       }
     } else{
-      alert('틀렸는데용 ㅋ');
+      setShowNotPopup(true);
       setSelectedWords([])
     }
   };
@@ -42,8 +43,12 @@ export default function ContentDisplay({ title , unit , engContent, korContent, 
   };
 
   // 팝업을 닫을때 
-  const closePopup = async () => {
-    setShowPopup(false);
+  const closeEndPopup = async () => {
+    setShowEndPopup(false);
+  }
+
+  const closeNotPopup = async () => {
+    setShowNotPopup(false);
   }
 
   const shuffleWords = (text) => {
@@ -80,7 +85,7 @@ export default function ContentDisplay({ title , unit , engContent, korContent, 
                 '--total': problemLength,
               }}
             ></div>
-            <p className={styles.progressInfo}>{problemIndex + 1} / {problemLength}</p>
+            <p className={styles.progressInfo}>{problemIndex} / {problemLength}</p>
           </div>
       </div>  
 
@@ -94,9 +99,26 @@ export default function ContentDisplay({ title , unit , engContent, korContent, 
         </div>
 
         <div className={styles.contentBlock}>
-          <h3 className={styles.contentHeading}>Korean Content:</h3>
-          <div className={styles.koreanWords}>
-            {shuffledKorWords.map((word, index) => (
+          
+            {/* Selected Words */}
+            <div className={styles.selectedWordsContainer}>
+              <h4>Selected Words</h4>
+                <div className={styles.selectedWordsList}>
+                {selectedWords.map((word, index) => (
+                  <span key={index} className={styles.selectedWord}>
+                    {word}
+                  </span>
+                ))}
+              </div>
+            </div>
+        </div>
+      </div>
+
+
+
+      {/* korea Words */}
+      <div className={styles.koreanWords}>
+          {shuffledKorWords.map((word, index) => (
               <span
                 key={index}
                 className={`${styles.koreanWordBlock} ${selectedWords.includes(word) ? styles.selected : ''}`}
@@ -105,14 +127,6 @@ export default function ContentDisplay({ title , unit , engContent, korContent, 
                 {word}
               </span>
             ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Selected Words */}
-      <div className={styles.selectedWordsContainer}>
-        <h4>선택된 단어들:</h4>
-        <p>{selectedWords.join(' ')}</p>
       </div>
 
       {/* Buttons */}
@@ -129,18 +143,32 @@ export default function ContentDisplay({ title , unit , engContent, korContent, 
         </button>
       </div>
 
-      {/* Popup */}
-      {showPopup && (
+      {/*studyEnd Popup */}
+      {showEndPopup && (
         <div className={styles.popup}>
           <div className={styles.popupContent}>
             <h2>🎉 학습 완료 🎉</h2>
             <p>수고하셨습니다! 이제 새로운 도전을 시작해 보세요.</p>
-            <Link href='/' className={styles.popupButton} onClick={closePopup}>
+            <Link href='/' className={styles.popupButton} onClick={closeEndPopup}>
               학습페이지로 돌아가기
             </Link>
           </div>
         </div>
       )}
+      
+      {/* studyNotAnswer */}
+      {showNotPopup && (
+        <div className={styles.popup}>
+          <div className={styles.popupContent}>
+            <h2>틀렸습니다!</h2>
+            <p>다시 한번 시도해 보세요!</p>
+            <button className={styles.popupNotButton} onClick={closeNotPopup}>
+              학습페이지로 돌아가기
+            </button>
+          </div>
+        </div>
+      )}
+      
     </div>
   );
 }
