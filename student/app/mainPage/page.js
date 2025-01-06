@@ -30,8 +30,8 @@ export default function MainPage(){
                 </div>
               </div>
               <div className={styles.infoBtn}>
-                <button className={styles.smallButton}>내 정보 수정</button>
-                <button className={styles.smallButton}>로그아웃</button>
+                <button className={styles.myInfoButton}>내 정보 수정</button>
+                <button className={styles.logoutButton}>로그아웃</button>
               </div>
             </div>
   

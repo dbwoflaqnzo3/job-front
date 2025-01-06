@@ -2,13 +2,14 @@
 .wrapper {
   display: flex;
   justify-content: center;
+  user-select: none;
 }
 
 .container {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #90c58b;
+  background-color: #FBF7EF;
   color: #333;
   height: 982px;
   width: 1512px;
@@ -32,7 +33,7 @@
   align-items: center;
   justify-content: center;
   margin: 10px;
-  background-color: #dcdcdc;
+  background-color: none;
   padding: 15px 19px;
   border-radius: 24px;
   width: 174px;
@@ -41,7 +42,7 @@
 }
   
   .logo {
-    background-color: #dcdcdc;
+    background-color: #FFC779;
     padding: 0;
     margin: 0;
     text-align: center;
@@ -56,7 +57,7 @@
     height: 52px;
     justify-content: space-between;
     align-items: center;
-    background-color: #dcdcdc;
+    background-color: #FFC779;
     padding: 10px 20px;
     border-radius: 24px;
   }
@@ -83,45 +84,27 @@
   
   .navStudent a:hover {
     text-decoration: none;
-    background-color: #acacac;
+    background-color: #FEEDD2;
   }
 
+  /* Service Section */
   .navService {
     margin-right: 20px;
     display: flex;
     justify-content: space-between;
-    width: 245px;
+    width: 106px;
   }
 
   .serviceButton {
-    position: relative;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    height: 26px;
-    padding: 5px 10px 5px 10px;
-    border-radius: 8px;
-  }
-
-  .dropdownMenu {
-    background-color: white;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
-    z-index: 1000;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px; /* 버튼 간격 */
+    background: none;
+    border: none;
+    cursor: pointer;
   }
   
-  .logoutButton {
-    background-color: #c0c0c0;
+  .userButton {
+    background: none;
     border: none;
-    border-radius: 24px;
-    padding: 8px 16px;
     cursor: pointer;
-    color: #333;
   }
 
 /* Main Content */
@@ -137,18 +120,18 @@
   display: flex;
   flex-direction: column;
   width: 448px;
-  height: 772px;
+  height: 605px;
   margin: 0;
   padding: 0;
 }
 
 /* 유저 정보 및 수업 진행도 */
 .user {
-  background: #ffffff;
-  border-radius: 8px;
-  height: 203px;
-  padding: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  border: 1px solid #FEDAA6;
+  background: #FEFEFE;
+  height: 144px;
+  padding: 24px;
 }
 
 .progressGrid {
@@ -157,17 +140,21 @@
 }
 
 .message {
-  height: 60px;
-  font-size: 32px;
-  font-weight: bold;
+  height: 45px;
+  font-size: 30px;
+  line-height: 150%;
+  font-weight: 600;
+  margin: 0;
 }
 
 .progress {
-  background: #ffffff;
-  border-radius: 8px;
-  height: 401px;
-  padding: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 12px;
+  margin-bottom: 0;
+  border-radius: 24px;
+  border: 1px solid #FEDAA6;
+  background: #FEFEFE;
+  height: 284px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -176,32 +163,76 @@
 
 
 /* Info Section */
-.infoBtn {
-display: flex;
-justify-content: space-between;
-align-items: center;
+.info {
+
 }
 
 .name {
-  font-size: 32px;
-  height: 32px;
+  color: #000;
+
+  /* Ko/Md/24 */
+  font-family: "Pretendard Variable";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 36px */
   margin: 0;
-  font-weight: bold;
 }
 
 .teacher {
-font-size: 26px;
-margin: 0;
-color: #666;
+  color: #757575;
+
+  /* Ko/Md/17 */
+  font-family: "Pretendard Variable";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 25.5px */
+  margin: 0;
 }
 
-.smallButton {
-background-color: #c0c0c0;
-border: none;
-border-radius: 6px;
-padding: 6px 12px;
-cursor: pointer;
-color: #333;
+.infoBtn {
+  margin-top: 24px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.myInfoButton {
+  background-color: #FFA321;
+  border: none;
+  border-radius: 16px;
+
+  height: 54px;
+  width: 195px;
+  cursor: pointer;
+  color: #1A1A1A;
+
+  /* Ko/Sb/18 */
+  font-family: "Pretendard Variable";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 27px */
+}
+
+.logoutButton {
+  background-color: #FEFEFE;
+  border: 1px solid #FEDAA6;
+  border-radius: 16px;
+
+  height: 54px;
+  width: 195px;
+  cursor: pointer;
+  color: #1A1A1A;
+
+  /* Ko/Sb/18 */
+  font-family: "Pretendard Variable";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 27px */
 }
 
 /* Progress Section */
@@ -249,6 +280,7 @@ transform-origin: center;
     transform: translate(-50%, -50%);
     font-size: 48px;
     font-weight: bold;
+    user-select: none;
 }
 
 .note {
@@ -262,7 +294,7 @@ transform-origin: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 984px;
+  width: 924px;
   text-align: center;
   margin: 0;
 }
@@ -274,19 +306,19 @@ transform-origin: center;
   justify-content: center;
   margin: 0;
   padding: 0;
-  width: 984px;
+  width: 924px;
   height: 100%;
-  background-color: #e0e0e0;
+  background-color: rgba(128, 128, 128, 0.1);
 }
 
 .startButton {
   width: 260px;
   height: 68px;
-  background-color: #c0c0c0;
+  background-color: #0084D0;
   border: none;
-  border-radius: 6px;
+  border-radius: 16px;
   padding: 12px 24px;
-  margin-bottom: 20px;
+  margin-bottom: 69px;
   cursor: pointer;
-  color: #333;
+  color: #FEFEFE;
 }
