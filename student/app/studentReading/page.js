@@ -1,7 +1,7 @@
 // 'use client' directive ensures client-side rendering
 'use client';
 import { useRouter } from "next/navigation";
-import styles from '../styles/studentReading.module.css';
+import styles from '../styles/studentStudyStart.module.css';
 import Link from "next/link";
 
 

@@ -1,7 +1,7 @@
 // 'use client' directive ensures client-side rendering
 'use client';
 import { useState, useEffect } from "react";
-import styles from '../../styles/studentReading.module.css';
+import styles from '../../styles/studentStudyStart.module.css';
 import { useSearchParams , useRouter} from "next/navigation";
 import ContentDisplay from './EngProblem'
 import KorContentDisplay from './KorProblem'
