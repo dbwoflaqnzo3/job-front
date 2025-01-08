@@ -1,0 +1,174 @@
+.wrapper{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 1512px;
+    height: 982px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.graphic {
+    width: 756px;
+    height: 100%;
+    margin: 0;
+    background-color: #808080;
+}
+
+.loginWrapper {
+    width: 756px;
+    height: 100%;
+    margin: 0;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FBF7EF;
+}
+
+.loginContainer {
+    width: 400px;
+    margin-top: 272px;
+    margin-bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: 212px;
+    height: 72px;
+
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formWrapper {
+    margin-top: 56px;
+    margin-bottom: 0;
+    width: 100%;
+    height: 250px;
+    
+    padding: 0;
+}
+
+.loginForm{
+    width: 100%;
+    height: 250px;
+    margin: 0;
+    padding: 0;
+}
+
+.userId{
+    margin-bottom: 0;
+
+    width: 400px;
+    height: 54px;
+}
+
+.userIdInput {
+    display: flex;
+    height: 18px;
+    width: 338px;
+    padding: 17px 30px 17px 30px;
+    align-items: center;
+
+    border-radius: 24px;
+    border: 1px solid #FFC779;
+    background: #FEFEFE;
+
+}
+
+.userIdInput:focus {
+    outline: 1px solid #FFA321;
+}
+
+.userPw{
+    margin-top: 24px;
+    margin-bottom: 0;
+
+    width: 400px;
+    height: 54px;
+}
+
+.userPwInput {
+    display: flex;
+    height: 18px;
+    width: 338px;
+    padding: 17px 30px 17px 30px;
+    align-items: center;
+
+    border-radius: 24px;
+    border: 1px solid #FFC779;
+    background: #FEFEFE;
+
+}
+
+.userPwInput:focus {
+    outline: 1px solid #FFA321;
+}
+
+.loginButton {
+    width: 100%;
+    height: 54px;
+    margin-top: 64px;
+    margin-bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+    border: none;
+    background-color: #FFA321;
+
+    cursor: pointer;
+}
+
+.forgetPw {
+    margin-top: 16px;
+    margin-bottom: 0;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+
+
+    color: #1A1A1A;
+    text-align: center;
+
+    /* Ko/Md/15 */
+    font-family: "Pretendard Variable";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 22.5px */
+}
+
+.error {
+    position: absolute;
+
+    margin-top: 16px;
+    margin-bottom: 0;
+
+    color: var(--red-3, #F54316);
+
+    /* Ko/Md/13 */
+    font-family: "Pretendard Variable";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 19.5px */
+}
