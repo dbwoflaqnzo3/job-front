@@ -83,16 +83,37 @@ export default function VocabStageController() {
 
     const handleVocabPass = (passResults) => {
         console.log(passResults,"!!!")
-        setVocabs((prevResults) => {
+
+        // filteredVocabs.map((vocab,idx) => {
+
+        //     const findVocab = vocabs.filter((item) => {
+        //         item.sequence == vocab.sequence
+        //     })
+
+        //     findVocab.IsPassed = passResults[idx]
+        // })
+
+        setVocabs((prevVocabs) => {
             // 새 배열 생성
-            const updatedResults = prevResults.map((vocab, index) => {
-                // 해당 인덱스의 값만 업데이트, 나머지는 그대로 유지
-                return {
-                    ...vocab,
-                    IsPassed: passResults[index], // 각 단어의 통과 여부 업데이트
-                };
+            const updatedVocabs = prevVocabs.map((vocab) => {
+                // filteredVocabs에서 해당 sequence와 일치하는 항목의 index를 찾기
+                const indexInFiltered = filteredVocabs.findIndex(
+                    (filteredVocab) => filteredVocab.sequence === vocab.sequence
+                );
+        
+                // indexInFiltered가 유효한 경우 passResults 값을 isPassed로 설정
+                if (indexInFiltered !== -1) {
+                    return {
+                        ...vocab,
+                        IsPassed: passResults[indexInFiltered],
+                    };
+                }
+        
+                // 일치하는 항목이 없으면 기존 vocab 반환
+                return vocab;
             });
-            return updatedResults;
+        
+            return updatedVocabs;
         });
 
         setIsVocabsUpdated(true);

@@ -27,9 +27,8 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
 
     const handleNext = (e) => {
         e.preventDefault();
-        if (currentIndex < vocabs.length - 1) {
-            setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
-        }
+
+        setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
         setShouldReset(!shouldReset)
     };
 
@@ -72,7 +71,13 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
 
                 :
                 <div>
-                    <h3>틀린 문항 공부하러가기</h3>
+                    <h3>{
+                        passResults.every((isPassed) => isPassed) ?
+                        "ALL PASS"
+                        :
+
+                        "틀린 문항 공부하러가기"
+                        }</h3>
                     <button onClick={handleSubmit} >Submit</button>
                 </div>
                 
