@@ -8,8 +8,13 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
         Array(vocabs.length).fill(false) // 초기값 false로 배열 생성
     );
 
+    const [shouldReset, setShouldReset] = useState(false);
+
     const passThreshold = 70
 
+    useEffect(() => {
+
+    },[])
 
     const handlePassUpdate = (index, isPassed) => {
         // 특정 단어의 결과 업데이트
@@ -25,12 +30,14 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
         if (currentIndex < vocabs.length - 1) {
             setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
         }
+        setShouldReset(!shouldReset)
     };
 
     const handlePass = (e) => {
         e.preventDefault();
         setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
-        
+
+        setShouldReset(!shouldReset)
     }
 
     const handleSubmit = (e) => {
@@ -53,6 +60,7 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                             passThreshold = {passThreshold}
                             index={currentIndex} // 현재 단어의 인덱스 전달
                             onPassUpdate={handlePassUpdate}
+                            shouldReset={shouldReset}
                         />
 
                         <div>
@@ -65,10 +73,19 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                 :
                 <div>
                     <h3>틀린 문항 공부하러가기</h3>
-                    <button onClick={handleSubmit}>Submit</button>
+                    <button onClick={handleSubmit} >Submit</button>
                 </div>
                 
             }
+
+            {/* {
+                passResults.map((result,idx) => {
+                    return(
+                        <div key={idx}>[{idx}] {result? "true":"false"} gd</div>
+                    )
+                })
+
+            } */}
 
         </div>
     );
@@ -84,7 +101,7 @@ function EachWord({ vocab }) {
     );
 }
 
-function VoiceRecording({sample, passThreshold, onPassUpdate, index}){
+function VoiceRecording({sample, passThreshold, onPassUpdate, index, shouldReset}){
 
     const [isRecording, setIsRecording] = useState(false);
     const [isPlayable, setIsPlayable] = useState(false);
@@ -106,9 +123,26 @@ function VoiceRecording({sample, passThreshold, onPassUpdate, index}){
         },
     };
 
+    useEffect(() => {
+        
+        resetRecorder();
+        
+    }, [shouldReset]);
+
+    const resetRecorder = () => {
+        setIsRecording(false);
+        setIsPlayable(false)
+        setIsSubmit(false)
+        setIsEvaluated(false)
+        setAudioUrl(null)
+        setStream(null)
+        setErrorMessage("")
+        setScore(0)
+        audioChunks = []
+    };
+
     const startMediaDevice = async () => {
         try {
-            setIsSubmit(true)
     
             const newStream = await navigator.mediaDevices.getUserMedia(mediaStreamConstraints);
             setStream(newStream);
@@ -121,6 +155,9 @@ function VoiceRecording({sample, passThreshold, onPassUpdate, index}){
             };
     
             mediaRecorder.onstop = async() => {
+
+                setIsSubmit(true)
+
                 const blob = new Blob(audioChunks, { type: "audio/ogg;" });
                 const url = URL.createObjectURL(blob);
     
@@ -158,6 +195,7 @@ function VoiceRecording({sample, passThreshold, onPassUpdate, index}){
                     onPassUpdate(index, true)
 
                 setIsEvaluated(true)
+                setIsSubmit(false)
                 setScore(score)
             };
     
@@ -179,7 +217,6 @@ function VoiceRecording({sample, passThreshold, onPassUpdate, index}){
             stream.getTracks().forEach((track) => track.stop());
             setIsRecording(false);
         } else {
-            setIsSubmit(false)
             setIsEvaluated(false)
 
             audioChunks = []
@@ -212,6 +249,7 @@ function VoiceRecording({sample, passThreshold, onPassUpdate, index}){
                     e.preventDefault();
                     toggleRecording();
                 }}
+                disabled={isSubmit && !isEvaluated}
             >
                 {isRecording ? "녹음 중지" : "녹음 시작"}
             </button>
@@ -228,14 +266,17 @@ function VoiceRecording({sample, passThreshold, onPassUpdate, index}){
             <div>{errorMessage}</div>
 
             {
-                (isSubmit)?
-                    (isEvaluated? 
-                        <div>{score}</div>:
-                        <div>평가 중</div>) 
-                :   (
-                        <div>제출 이전</div>
+                isSubmit ? (
+                    isEvaluated ? (
+                        <div>{score}</div> // 평가 완료 후 점수 표시
+                    ) : (
+                        <div>평가 중</div> // 제출 후 평가 중
                     )
-                
+                ) : isEvaluated ? (
+                    <div>{score}</div> // 평가 완료된 상태에서 제출 전
+                ) : (
+                    <div>제출 전</div> // 제출도 평가도 하지 않은 상태
+                )
             }
             
         </div>
