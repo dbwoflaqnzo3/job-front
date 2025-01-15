@@ -9,56 +9,7 @@ import { getUserInfo } from "../utils/mainPageUtil.js"
 
 
 export default function MainPage(){
-
-  const [userId, setUserId] = useState('대준이');
-  const router = useRouter()
-
-  useEffect(() => {
-    const fetchUserData = async() => {
-      try
-      {
-        const token = document.cookie; // Read cookies
-
-        const result = await getUserInfo(token)
-
-        setUserId(result.name)
-        
-      }catch(e){
-
-      }
-    }
-
-    fetchUserData()
-  })
-
-  const handleLogout = async () => {
-    try {
-        const cookies = document.cookie;
-        const token = cookies
-            .split("; ")
-            .find((row) => row.startsWith("token="))
-            ?.split("=")[1];
-    
-        if (!token) {
-            alert("You are not logged in.");
-            router.push("/loginPage");
-            return;
-        }
-    
-        
-        // alert("Logout successful!");
-        document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;"; // Clear token on logout
-        router.push("/loginPage");
-    
-    } catch (error) {
-      console.log(error);
-      alert("An error occurred during logout.");
-    }
-};
-
-const handleStartStudy = () => {
-  router.push("/mainPage/lessonListPage")
-}
+  const userId = '대준띠';
 
   return (
     <div className={styles.wrapper}>
