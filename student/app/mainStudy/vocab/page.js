@@ -6,6 +6,9 @@ import { readAllVocabData } from "../../utils/VocabUtils"
 import SpeakingTestComponent from "./stage1/speakingTest";
 import SpeakingStudyComponent from "./stage1/speakingStudy";
 
+import blockTestComponent from './stage2/blockTest';
+import inputTestComponent from './stage3/inputTest';
+
 export default function VocabStageController() {
     
     const [errorMessage, setErrorMessage] = useState("");
@@ -15,7 +18,7 @@ export default function VocabStageController() {
     const [filteredVocabs, setFilteredVocabs] = useState([])
     const [isFiltered, setIsFiltered] = useState(false)
 
-    const[totalProgress, setTotalProgress] = useState(1)
+    const[totalProgress, setTotalProgress] = useState(3)
     const [speakingProgress, setSpeakingProgress] = useState(1)
     const [ComponentToRender, setComponentToRender] = useState(null);
 
@@ -24,7 +27,6 @@ export default function VocabStageController() {
 
         const fetchData = async () => {
             try {
-                
                 const result = await readAllVocabData("677a5441885dd37493ef1f17","677a6b62198c43f34b683ecc")
 
                 const updatedResult = result.map(item => ({
@@ -69,7 +71,7 @@ export default function VocabStageController() {
         } else if (totalProgress === 2) {
             setComponentToRender(() => () => <div>Default Component</div>); // Default Component for Progress 2
         } else {
-            setComponentToRender(() => () => <div>Default Component</div>); // Default Component for other cases
+            setComponentToRender(() => inputTestComponent); // Default Component for other cases
         }
 
     }, [totalProgress, speakingProgress, isVocabsUpdated, isFiltered])
@@ -126,6 +128,8 @@ export default function VocabStageController() {
             setSpeakingProgress(3)
     };
     
+
+
     return (
         <div>
 
