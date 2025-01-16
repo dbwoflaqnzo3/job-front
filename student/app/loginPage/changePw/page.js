@@ -1,5 +1,6 @@
 'use client'
 
+<<<<<<< HEAD
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import styles from '../changePw/page.module.css'
@@ -89,6 +90,12 @@ export default function ChangePw({}){
         } catch(error){
             console.log(error)
         }
+=======
+export default function ChangePw(){
+
+    const handleSubmit = () =>{
+
+>>>>>>> 3fe6d00 (feat[#26] : forget pw 이메일 전송, 인증 모달 구현 (timer 제외))
     }
 
     return (
@@ -96,6 +103,7 @@ export default function ChangePw({}){
             <h4>비밀번호 변경하기</h4>
             <form onSubmit={handleSubmit}>
                 <p>새 비밀번호를 작성해주세요</p>
+<<<<<<< HEAD
                 <input type="password" value={input} onChange={changeInput} placeholder="비밀번호/password"></input> 
                 <ul>
                     {
@@ -123,6 +131,14 @@ export default function ChangePw({}){
                         
                     </div>
                 }
+=======
+                <input type="password" placeholder="비밀번호/password"></input> 
+
+                <p>한번 더 작성해주세요</p>
+                <input type="password" placeholder="비밀번호/password"></input>
+
+                <button type="submit">변경하기</button>
+>>>>>>> 3fe6d00 (feat[#26] : forget pw 이메일 전송, 인증 모달 구현 (timer 제외))
             </form>
         </div>     
     )
