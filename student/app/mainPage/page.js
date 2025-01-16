@@ -1,10 +1,60 @@
+'use client'
+
 import Head from 'next/head';
 import NavBar from './navigationBar/page.js';
 import styles from './page.module.css';
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
+import { getUserInfo } from "../utils/mainPageUtil.js"
 
 
 export default function MainPage(){
-  const userId = '대준띠';
+
+  const [userId, setUserId] = useState('대준이');
+  const router = useRouter()
+
+  useEffect(() => {
+    const fetchUserData = async() => {
+      try
+      {
+        const token = document.cookie; // Read cookies
+
+        const result = await getUserInfo(token)
+
+        setUserId(result.name)
+        
+      }catch(e){
+
+      }
+    }
+
+    fetchUserData()
+  })
+
+  const handleLogout = async () => {
+    try {
+        const cookies = document.cookie;
+        const token = cookies
+            .split("; ")
+            .find((row) => row.startsWith("token="))
+            ?.split("=")[1];
+    
+        if (!token) {
+            alert("You are not logged in.");
+            router.push("/loginPage");
+            return;
+        }
+    
+        
+        // alert("Logout successful!");
+        document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;"; // Clear token on logout
+        router.push("/loginPage");
+    
+    } catch (error) {
+      console.log(error);
+      alert("An error occurred during logout.");
+    }
+};
 
   return (
     <div className={styles.wrapper}>
@@ -31,7 +81,7 @@ export default function MainPage(){
               </div>
               <div className={styles.infoBtn}>
                 <button className={styles.myInfoButton}>내 정보 수정</button>
-                <button className={styles.logoutButton}>로그아웃</button>
+                <button className={styles.logoutButton} onClick={handleLogout}>로그아웃</button>
               </div>
             </div>
   
