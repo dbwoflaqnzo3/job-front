@@ -1,12 +1,13 @@
-.wrapper{
+.wrapper {
     display: flex;
     justify-content: center;
     margin: 0;
     padding: 0;
 }
+
 .container {
-    width: 1512px;
-    height: 982px;
+    width: 100%;
+    height: 100vh;
     margin: 0;
     padding: 0;
     display: flex;
@@ -14,17 +15,17 @@
 }
 
 .graphic {
-    width: 756px;
+    width: 50%;
     height: 100%;
     margin: 0;
     background-color: #808080;
 }
 
 .loginWrapper {
-    width: 756px;
+    width: 50%;
     height: 100%;
     margin: 0;
-    
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,8 +33,8 @@
 }
 
 .loginContainer {
-    width: 400px;
-    margin-top: 272px;
+    width: 26.4vw; /* 400px / 1512px * 100 */
+    margin-top: 27.7vh; /* 272px / 982px * 100 */
     margin-bottom: 0;
 
     display: flex;
@@ -42,8 +43,8 @@
 }
 
 .logo {
-    width: 212px;
-    height: 72px;
+    width: 14vw; /* 212px / 1512px * 100 */
+    height: 7.3vh; /* 72px / 982px * 100 */
 
     margin: 0;
     padding: 0;
@@ -55,74 +56,70 @@
 }
 
 .formWrapper {
-    margin-top: 56px;
+    margin-top: 5.7vh; /* 56px / 982px * 100 */
     margin-bottom: 0;
     width: 100%;
-    height: 250px;
-    
+    height: 25.5vh; /* 250px / 982px * 100 */
+
     padding: 0;
 }
 
-.loginForm{
+.loginForm {
     width: 100%;
-    height: 250px;
+    height: 25.5vh;
     margin: 0;
     padding: 0;
 }
 
-.userId{
+.userId {
     margin-bottom: 0;
-
-    width: 400px;
-    height: 54px;
+    width: 26.4vw;
+    height: 5.5vh; /* 54px / 982px * 100 */
 }
 
 .userIdInput {
     display: flex;
-    height: 18px;
-    width: 338px;
-    padding: 17px 30px 17px 30px;
+    height: 1.8vh; /* 18px / 982px * 100 */
+    width: 22.4vw; /* 338px / 1512px * 100 */
+    padding: 1.7vh 1.98vw; /* 17px / 982px * 100, 30px / 1512px * 100 */
     align-items: center;
 
-    border-radius: 24px;
+    border-radius: 2.44vh; /* 24px / 982px * 100 */
     border: 1px solid #FFC779;
     background: #FEFEFE;
-
 }
 
 .userIdInput:focus {
-    outline: 1px solid #FFA321;
+    outline: 0.1vh solid #FFA321; /* 1px / 982px * 100 */
 }
 
-.userPw{
-    margin-top: 24px;
+.userPw {
+    margin-top: 2.44vh; /* 24px / 982px * 100 */
     margin-bottom: 0;
-
-    width: 400px;
-    height: 54px;
+    width: 26.4vw;
+    height: 5.5vh;
 }
 
 .userPwInput {
     display: flex;
-    height: 18px;
-    width: 338px;
-    padding: 17px 30px 17px 30px;
+    height: 1.8vh;
+    width: 22.4vw;
+    padding: 1.7vh 1.98vw;
     align-items: center;
 
-    border-radius: 24px;
+    border-radius: 2.44vh;
     border: 1px solid #FFC779;
     background: #FEFEFE;
-
 }
 
 .userPwInput:focus {
-    outline: 1px solid #FFA321;
+    outline: 0.1vh solid #FFA321;
 }
 
 .loginButton {
     width: 100%;
-    height: 54px;
-    margin-top: 64px;
+    height: 5.5vh;
+    margin-top: 6.5vh; /* 64px / 982px * 100 */
     margin-bottom: 0;
 
     display: flex;
@@ -130,7 +127,7 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: 16px;
+    border-radius: 1.63vh; /* 16px / 982px * 100 */
     border: none;
     background-color: #FFA321;
 
@@ -138,37 +135,34 @@
 }
 
 .forgetPw {
-    margin-top: 16px;
+    margin-top: 1.63vh; /* 16px / 982px * 100 */
     margin-bottom: 0;
 
     background: none;
     border: none;
     cursor: pointer;
 
-
     color: #1A1A1A;
     text-align: center;
 
-    /* Ko/Md/15 */
     font-family: "Pretendard Variable";
-    font-size: 15px;
+    font-size: 1.53vh; /* 15px / 982px * 100 */
     font-style: normal;
     font-weight: 500;
-    line-height: 150%; /* 22.5px */
+    line-height: 150%;
 }
 
 .error {
     position: absolute;
 
-    margin-top: 16px;
+    margin-top: 1.63vh;
     margin-bottom: 0;
 
     color: var(--red-3, #F54316);
 
-    /* Ko/Md/13 */
     font-family: "Pretendard Variable";
-    font-size: 13px;
+    font-size: 1.32vh; /* 13px / 982px * 100 */
     font-style: normal;
     font-weight: 500;
-    line-height: 150%; /* 19.5px */
+    line-height: 150%;
 }

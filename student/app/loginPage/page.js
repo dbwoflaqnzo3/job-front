@@ -1,8 +1,10 @@
 "use client"
 import { useState } from 'react';
-import styles from './page.module.css';
+import Link from 'next/link';
+import styles from '../loginPage/page.module.css';
 
 export default function Login() {
+
     const [formData, setFormData] = useState({
         userId: '',
         password: '',
@@ -65,6 +67,10 @@ export default function Login() {
         }
     }
 
+    const linkToForgetPw = () => {
+        Router
+    }
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
@@ -119,11 +125,10 @@ export default function Login() {
                                 </button>
                             </form>
                         </div>
-
                         {/* 비번 찾기 부분 */}
-                        <button className={styles.forgetPw}>
+                        <Link  href="../loginPage/forgetPw" className={styles.forgetPw}>
                             비밀번호를 잊으셨나요?
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>
