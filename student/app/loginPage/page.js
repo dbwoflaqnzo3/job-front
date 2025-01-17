@@ -88,7 +88,7 @@ export default function Login() {
                         onChange={handleInputChange}
                     />
                 </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {error && <p className={{ color: 'red' }}>{error}</p>}
                 <button type="submit">로그인</button>
             </form>
         </div>
