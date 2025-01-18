@@ -2,9 +2,12 @@
     display: flex;
     justify-content: center;
     user-select: none;
+<<<<<<< HEAD
     width: 100vw;
     height: 100vh;
     background-color: #fbf7ef;
+=======
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .container {
@@ -13,6 +16,7 @@
     padding: 0;
     background-color: #fbf7ef;
     color: #333;
+<<<<<<< HEAD
     width: 1512px;
     height: 982px;
     display: flex;
@@ -28,15 +32,27 @@
     display: flex; /* Flexbox 활성화 */
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center; /* 세로 중앙 정렬 */
+=======
+    min-height: 982px;
+    width: 1512px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .title {
     font-size: 32px;
+<<<<<<< HEAD
+=======
+    margin: 40px 0;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
     text-align: center;
 }
 
 .cardContainer {
     display: flex;
+<<<<<<< HEAD
     justify-content: center;
     width: 1392px;
     height: 595px;
@@ -74,11 +90,32 @@
     cursor: pointer;
     width : 20%;
     text-align: center;
+=======
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    border: 1px solid #FFA500;
+    padding: 20px;
+    width: calc(20% - 16px);
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .cardTitle {
     color: #0088ff;
     font-size: 20px;
+<<<<<<< HEAD
     text-align: center; /* 다중 줄 텍스트를 가운데 정렬 */
 }
 
@@ -147,10 +184,53 @@
     flex-direction: column; /* 세로 배치 */
     justify-content: flex-start; /* 세로 방향 정렬 */
     align-items: flex-start; /* 가로 방향 정렬 */
+=======
+    margin-bottom: 20px;
+}
+
+.progressContainer {
+    position: relative;
+    width: 150px;
+    height: 75px;
+    margin: 20px 0;
+}
+
+.progressBar {
+    width: 150px;
+    height: 75px;
+    background: #f0f0f0;
+    border-radius: 150px 150px 0 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background: #0088ff;
+    transform-origin: 100% 100%;
+    transition: transform 0.3s ease;
+}
+
+.progressText {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.timeline {
+    margin: 30px 0;
+    width: 100%;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .timelineItem {
     position: relative;
+<<<<<<< HEAD
     width: 87%;
     height: 39%;
 }
@@ -268,10 +348,34 @@
     text-decoration-skip-ink: auto;
     text-decoration-thickness: 1.5px; /* 언더라인 두께 조절 */
     text-underline-offset: 3px; /* 언더라인과 글자 사이 간격 조절 */
+=======
+    padding-left: 20px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.timelineItem::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffa500;
+}
+
+.progressLink {
+    color: #0088ff;
+    text-decoration: none;
+    margin: 10px 0;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .startButton {
     background: #ffa500;
+<<<<<<< HEAD
     color: #1A1A1A;
     border: none;
     font-size: 18px;
@@ -284,6 +388,16 @@
     height: 9%;
     margin-left: 11.5px;
     margin-top: 12px;
+=======
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 40px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .startButton:hover {
@@ -308,6 +422,7 @@
     background: white;
     border-radius: 15px;
     width: 90%;
+<<<<<<< HEAD
     max-width: 968px;
     max-height: 720vh;
     overflow-y: auto;
@@ -326,11 +441,25 @@
     display: flex;
     justify-content: center; /* flex 아이템의 수평 중앙 정렬 */
     align-items: center; /* flex 아이템의 수직 중앙 정렬 */
+=======
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .modalHeader h2 {
     margin: 0;
     font-size: 24px;
+<<<<<<< HEAD
     position: absolute;
     left: 50%;
     transform: translateX(-50%); /* h2를 정확히 중앙으로 이동 */
@@ -341,12 +470,18 @@
     right: 20px; /* 오른쪽 끝에서 20px 떨어짐 */
     top: 50%; /* 수직 중앙 정렬 */
     transform: translateY(-50%); /* 수직 중앙 위치 조정 */
+=======
+}
+
+.closeButton {
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
     background: none;
     border: none;
     cursor: pointer;
     padding: 5px;
 }
 
+<<<<<<< HEAD
 
 .modalBody {
 
@@ -438,18 +573,42 @@
     border: 1px solid var(--Primary500, #FFA321);
     background: var(--Black-100, #FEFEFE);
     margin-right: 12px;
+=======
+.modalBody {
+    padding: 20px;
+}
+
+.dateSection {
+    margin-bottom: 20px;
+}
+
+.month {
+    display: inline-block;
+    background: #e6f3ff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #0088ff;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .lessonList {
     display: flex;
+<<<<<<< HEAD
     height: 100%;
     width: 86%;
     flex-direction: column;
     margin-top: 1px;
+=======
+    flex-direction: column;
+    gap: 10px;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .lessonItem {
     display: flex;
+<<<<<<< HEAD
     height: 54px;
     width: 100%;
     align-items: center;
@@ -469,15 +628,37 @@
     justify-content: center;
     border-radius: 8px;
     margin-right: 12px;
+=======
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.lessonNumber {
+    background: #0088ff;
+    color: white;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .lessonTitle {
     flex: 1;
+<<<<<<< HEAD
     font-size: 17px;
     text-align: center;
     font-size: 17px;
     font-weight: 500;
     line-height: 150%; /* 25.5px */
+=======
+    font-size: 14px;
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
 }
 
 .lessonType {
@@ -485,6 +666,7 @@
     font-size: 14px;
 }
 
+<<<<<<< HEAD
 .lessonBtnContainer {
     width: 16%;
     height: 100%;
@@ -541,6 +723,18 @@
 }
 
 .lessonBtnContainer:hover {
+=======
+.lessonButton {
+    background: #ffa500;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
+.lessonButton:hover {
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
     background: #ff8c00;
 }
 
@@ -556,3 +750,160 @@
     }
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+/* .wrapper {
+    display: flex;
+    justify-content: center;
+    user-select: none;
+}
+.container {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FBF7EF;
+    color: #333;
+    min-height: 982px;
+    width: 1512px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    font-size: 32px;
+    margin: 40px 0;
+    text-align: center;
+}
+
+.cardContainer {
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+    max-width: 1400px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cardTitle {
+    color: #0088ff;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.progressContainer {
+    position: relative;
+    width: 150px;
+    height: 75px;
+    margin: 20px 0;
+}
+
+.progressBar {
+    width: 150px;
+    height: 75px;
+    background: #f0f0f0;
+    border-radius: 150px 150px 0 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background: #0088ff;
+    transform-origin: 100% 100%;
+    transition: transform 0.3s ease;
+}
+
+.progressText {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.timeline {
+    margin: 30px 0;
+    width: 100%;
+}
+
+.timelineItem {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.timelineItem::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #FFA500;
+}
+
+.progressLink {
+    color: #0088ff;
+    text-decoration: none;
+    margin: 10px 0;
+}
+
+.startButton {
+    background: #FFA500;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 40px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.startButton:hover {
+    background: #FF8C00;
+}
+
+.characterContainer {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.character {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.characterText {
+    color: #0088ff;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+    line-height: 1.4;
+}
+  
+   */
+>>>>>>> e9bc7b4 (feat[#19] : 메인 페이지 + 학습 시작 페이지 정리)
