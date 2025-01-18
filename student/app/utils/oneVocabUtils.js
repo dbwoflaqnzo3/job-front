@@ -1,9 +1,9 @@
-export async function readAllVocabData(curriculumId, lessonId){
+export async function readONEVocabData(curriculumId, lessonId , sequence){
 
     // 'http://localhost:8080/vocabData/readManyVocab'
 
     // 아래는 로컬 테스트 서버 주소 
-    const apiUrl = '/api/posts/voca'; // Test API 서버 주소
+    const apiUrl = '/api/posts/onevoca'; // Test API 서버 주소
     try{
         const response = await fetch(apiUrl, {
             method: "POST",
@@ -13,7 +13,7 @@ export async function readAllVocabData(curriculumId, lessonId){
             body: JSON.stringify({
                 curriculumId : curriculumId,
                 lessonId : lessonId,
-                sequence : [-1],
+                sequence : sequence,
             }),
             credentials: 'include',
         });
