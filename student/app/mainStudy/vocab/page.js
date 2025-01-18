@@ -1,5 +1,4 @@
 'use client'
-import style from "../../styles/vocaMain.module.css"
 
 import { useState, useEffect, use } from 'react';
 import { readAllVocabData } from "../../utils/VocabUtils"
@@ -140,7 +139,6 @@ export default function VocabStageController() {
                 vocabs.length !== 0 ? (
                     ComponentToRender ? (
                         <ComponentToRender
-                            className={style.contents}
                             vocabs={filteredVocabs}
                             curriculumId={"677a5441885dd37493ef1f17"}
                             lessonId={"677a6b62198c43f34b683ecc"}
