@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import TestEndPopup from "../../../utils/studyEndPop"
 
 export default function InputTest({ onStage3Complete, curriculumId, lessonId }) {
-    const router = useRouter(); // 라우터 객체 가져오기
+    const router = useRouter();
     const [showPopup, setShowPopup] = useState(false);
     const [correctCount, setCorrectCount] = useState(0);
 
@@ -14,7 +14,7 @@ export default function InputTest({ onStage3Complete, curriculumId, lessonId }) 
     const [currentWord, setCurrentWord] = useState(null); // 현재 단어
     const [inputValue, setInputValue] = useState(""); // 입력값 상태
     const [vocabData, setVocabData] = useState([]); // 전체 단어 데이터 저장
-    let wordLength = 0;
+    const [passResults, setPassResults] = useState([]); // 정답 상태 배열
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value); // 입력값 업데이트
@@ -23,12 +23,13 @@ export default function InputTest({ onStage3Complete, curriculumId, lessonId }) 
     const handleNext = (e) => {
         e.preventDefault();
 
-        if (inputValue.trim().toLowerCase() === currentWord?.english.toLowerCase()) {
-            // 정답일 경우 IsPassed를 true로 설정
-            const updatedData = [...vocabData];
-            updatedData[currentIndex].IsPassed = true;
-            setVocabData(updatedData);
-        }
+        // 정답 여부 확인
+        const isCorrect = inputValue.trim().toLowerCase() === currentWord?.english.toLowerCase();
+        
+        // passResults 업데이트
+        const updatedPassResults = [...passResults];
+        updatedPassResults[currentIndex] = isCorrect;
+        setPassResults(updatedPassResults);
 
         // 다음 단어로 이동
         if (currentIndex < vocabData.length - 1) {
@@ -37,16 +38,11 @@ export default function InputTest({ onStage3Complete, curriculumId, lessonId }) 
             setCurrentWord(vocabData[nextIndex]); // 다음 단어 설정
             setInputValue(""); // 입력 필드 초기화
         } else {
-
-            setCorrectCount(getCorrectCount())
-            setShowPopup(true)
-            onStage3Complete(vocabData); // 최종 데이터 전달
+            setCorrectCount(updatedPassResults.filter(result => result).length); // 정답 개수 계산
+            setShowPopup(true);
+            console.log("passR",updatedPassResults)
+            onStage3Complete(updatedPassResults); // 최종 정답 상태 전달
         }
-    };
-
-    const getCorrectCount = () => {
-        // IsPassed가 true인 항목의 개수 계산
-        return vocabData.filter(item => item.IsPassed).length;
     };
 
     const handleExit = () => {
@@ -58,16 +54,11 @@ export default function InputTest({ onStage3Complete, curriculumId, lessonId }) 
         const fetchData = async () => {
             try {
                 const result = await readAllVocabData(curriculumId, lessonId);
-                const updatedResult = result.map(item => ({
-                    ...item,
-                    IsPassed: false, // 새 속성 추가
-                }));
-
-                setVocabData(updatedResult); // 전체 데이터 저장
+                setVocabData(result); // 전체 데이터 저장
+                setPassResults(Array(result.length).fill(false)); // 초기값 false 배열 생성
                 // 첫 번째 단어 설정
-                if (updatedResult.length > 0) {
-                    setCurrentWord(updatedResult[0]);
-                    console.log("Loaded Vocab Data:", updatedResult);
+                if (result.length > 0) {
+                    setCurrentWord(result[0]);
                 }
             } catch (err) {
                 console.error("Error fetching vocab data:", err);
@@ -103,7 +94,7 @@ export default function InputTest({ onStage3Complete, curriculumId, lessonId }) 
                     {showPopup && (
                         <TestEndPopup 
                             correctCount={correctCount} 
-                            totalCount={currentIndex+1} 
+                            totalCount={vocabData.length} 
                             onClose={() => setShowPopup(false)} 
                         />
                     )}
