@@ -1,4 +1,5 @@
 'use client'
+import style from "../../styles/vocaMain.module.css"
 
 import { useState, useEffect, use, useRef } from 'react';
 import { readAllVocabData, readStudentLessonInfo } from "../../utils/VocabUtils"
@@ -143,8 +144,7 @@ export default function VocabStageController() {
     
     const handleStage3VocabPass = (passResults) => {
         //여기에 단어 맞추기 파트 코드작성 
-        //현 자료구조 = 단어 전체 여기서 isPassed를 파싱해야함 
-        console.log("여기학습페이지로 넘겨받음!",passResults)
+
     };
 
 
@@ -154,6 +154,7 @@ export default function VocabStageController() {
                 vocabs.length !== 0 ? (
                     ComponentToRender ? (
                         <ComponentToRender
+                            className={style.contents}
                             vocabs={filteredVocabs}
                             onTestComplete={(passResults) => handleVocabPass(passResults)}
                         />
