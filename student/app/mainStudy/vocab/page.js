@@ -1,5 +1,5 @@
 'use client'
-import style from "../../styles/vocaMain.module.css"
+import style from "../../public/styles/vocaMain.module.css"
 
 import { useState, useEffect, use, useRef } from 'react';
 import { readAllVocabData, readStudentLessonInfo } from "../../utils/VocabUtils"
@@ -8,7 +8,7 @@ import SpeakingTestComponent from "./stage1/speakingTest";
 import SpeakingStudyComponent from "./stage1/speakingStudy";
 
 import blockTestComponent from './stage2/blockTest';
-import inputTestComponent from './stage3/inputTest';
+import inputTestComponent from './stage5/inputTest';
 
 export default function VocabStageController() {
     
@@ -80,8 +80,14 @@ export default function VocabStageController() {
             }
             
         } else if (totalProgress === 2) {
-            setComponentToRender(() => () => <div>Default Component</div>); // Default Component for Progress 2
-        } else {
+            setComponentToRender(() => () => <div>Default Component</div>); // Default Component for Progress 2 
+        } else if (totalProgress === 3){
+            setComponentToRender(() => () => <div>Default Component</div>);
+        } else if (totalProgress === 4){
+            setComponentToRender(() => () => <div>Default Component</div>);
+        }
+        else (totalProgress === 5)
+        {
             setComponentToRender(() => inputTestComponent); // Default Component for other cases
         }
 
@@ -145,12 +151,6 @@ export default function VocabStageController() {
 
     };
     
-    const handleStage3VocabPass = (passResults) => {
-        //여기에 단어 맞추기 파트 코드작성 
-
-    };
-
-
     return (
         <div>
             {
