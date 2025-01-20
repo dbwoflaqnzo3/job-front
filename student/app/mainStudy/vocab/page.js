@@ -45,7 +45,9 @@ export default function VocabStageController() {
                 //테스트를 위해서 result로 잠시 변환 
                 // setVocabs(updatedResult);
                 setVocabs(updatedResult);
+                setTotalProgress(resultVocabData.studyMode[0])
                 setIsVocabsUpdated(true)
+                
 
             } catch (err) {
                 setErrorMessage(err.message); // 오류 발생 시 상태에 오류 메시지 저장
@@ -139,6 +141,7 @@ export default function VocabStageController() {
         }
         
         setMiddleProgress(middleProgress == 1? 2:1)
+
 
     };
     
