@@ -1,20 +1,20 @@
 'use client'
-import styles from "../../../public/styles/vocaStage3.module.css"
-import { useEffect, useState } from "react";
-import { readAllVocabData } from "../../../utils/VocabUtils"
+import styles from "../../../public/styles/vocaStage5.module.css"
+import { useState } from "react";
 import { useRouter } from "next/navigation"
 import TestEndPopup from "../../../utils/studyEndPop"
 
-export default function InputTest({ onTestComplete, curriculumId, lessonId }) {
+export default function InputTest({ onTestComplete, vocabs }) {
     const router = useRouter();
     const [showPopup, setShowPopup] = useState(false);
     const [correctCount, setCorrectCount] = useState(0);
 
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
-    const [currentWord, setCurrentWord] = useState(null); // 현재 단어
+
     const [inputValue, setInputValue] = useState(""); // 입력값 상태
-    const [vocabData, setVocabData] = useState([]); // 전체 단어 데이터 저장
-    const [passResults, setPassResults] = useState([]); // 정답 상태 배열
+    const [vocabData, setVocabData] = useState(vocabs); // 전체 단어 데이터 저장
+    const [currentWord, setCurrentWord] = useState(vocabData[0]); // 현재 단어
+    const [passResults, setPassResults] = useState(Array(vocabData.length).fill(false)); // 정답 상태 배열
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value); // 입력값 업데이트
@@ -43,7 +43,7 @@ export default function InputTest({ onTestComplete, curriculumId, lessonId }) {
             console.log("passR",updatedPassResults)
 
             const stage = 5; 
-            onTestComplete({ result: updatedPassResults, stage }); // stage 추가
+            onTestComplete({ result: updatedPassResults, stage:stage }); // stage 추가
         }
     };
 
@@ -51,24 +51,6 @@ export default function InputTest({ onTestComplete, curriculumId, lessonId }) {
         // 테스트를 위해 일단 push로 구현 
         router.push("/"); 
     };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const result = await readAllVocabData(curriculumId, lessonId);
-                setVocabData(result); // 전체 데이터 저장
-                setPassResults(Array(result.length).fill(false)); // 초기값 false 배열 생성
-                // 첫 번째 단어 설정
-                if (result.length > 0) {
-                    setCurrentWord(result[0]);
-                }
-            } catch (err) {
-                console.error("Error fetching vocab data:", err);
-            }
-        };
-
-        fetchData();
-    }, [curriculumId, lessonId]);
 
     return (
         <div className={styles.container}>

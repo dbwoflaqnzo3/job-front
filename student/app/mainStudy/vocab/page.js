@@ -1,5 +1,5 @@
 'use client'
-import style from "../../public/styles/vocaMain.module.css"
+// import style from "../../public/styles/vocaMain.module.css"
 
 import { useState, useEffect, use, useRef } from 'react';
 import { readAllVocabData, readStudentLessonInfo } from "../../utils/VocabUtils"
@@ -21,7 +21,7 @@ export default function VocabStageController() {
     const [filteredVocabs, setFilteredVocabs] = useState([])
     const [isFiltered, setIsFiltered] = useState(false)
 
-    const[totalProgress, setTotalProgress] = useState(1)
+    const[totalProgress, setTotalProgress] = useState(5)
     const [middleProgress, setMiddleProgress] = useState(1)
     const [ComponentToRender, setComponentToRender] = useState(null);
 
@@ -30,22 +30,24 @@ export default function VocabStageController() {
 
         const fetchData = async () => {
             try {
-                const resultStudentLessonInfo = await readStudentLessonInfo("678b391a7e259583d29aed48")
+                // const resultStudentLessonInfo = await readStudentLessonInfo("678b391a7e259583d29aed48")
                 
-                const resultVocabData = await readAllVocabData("67744a3cdb036043fdd85d47")
+                const resultVocabData = await readAllVocabData("677a5441885dd37493ef1f17")
                 
 
-                const updatedResult = resultVocabData.map(item => ({
-                    ...item, // 기존 객체 복사
-                    IsPassed: Array(resultStudentLessonInfo.studyMode.length).fill(false), // studyMode 크기에 맞는 false 배열 생성
-                }));
+                // const updatedResult = resultVocabData.map(item => ({
+                //     ...item, // 기존 객체 복사
+                //     IsPassed: Array(resultStudentLessonInfo.studyMode.length).fill(false), // studyMode 크기에 맞는 false 배열 생성
+                // }));
+                const tempStudyMode = Array([1,2,4,5])
+                
 
-                setStudyMode(resultVocabData.studyMode)
+                setStudyMode(tempStudyMode)
 
                 //테스트를 위해서 result로 잠시 변환 
                 // setVocabs(updatedResult);
-                setVocabs(updatedResult);
-                setTotalProgress(resultVocabData.studyMode[0])
+                setVocabs(resultVocabData);
+                setTotalProgress(tempStudyMode[3])
                 setIsVocabsUpdated(true)
                 
 
@@ -157,8 +159,9 @@ export default function VocabStageController() {
                 vocabs.length !== 0 ? (
                     ComponentToRender ? (
                         <ComponentToRender
-                            className={style.contents}
-                            vocabs={filteredVocabs}
+                            // className={style.contents}
+                            filteredVocab={filteredVocabs}
+                            vocabs={vocabs}
                             onTestComplete={(passResults) => handleVocabPass(passResults)}
                         />
                     ) : (

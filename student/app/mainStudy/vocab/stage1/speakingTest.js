@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-export default function SpeakingTest({ vocabs, onTestComplete }) {
+export default function SpeakingTest({ filteredVocab, onTestComplete }) {
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
     const [passResults, setPassResults] = useState(
-        Array(vocabs.length).fill(false) // 초기값 false로 배열 생성
+        Array(filteredVocab.length).fill(false) // 초기값 false로 배열 생성
     );
 
     const [shouldReset, setShouldReset] = useState(false);
@@ -47,15 +47,15 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
     return (
         <div>
             {
-                currentIndex <= vocabs.length-1 ?
+                currentIndex <= filteredVocab.length-1 ?
                 (
                     <div>
                         <EachWord
-                            vocab={vocabs[currentIndex]} // 현재 단어 전달
+                            vocab={filteredVocab[currentIndex]} // 현재 단어 전달
                         />
 
                         <VoiceRecording
-                            sample={vocabs[currentIndex].english}
+                            sample={filteredVocab[currentIndex].english}
                             passThreshold = {passThreshold}
                             index={currentIndex} // 현재 단어의 인덱스 전달
                             onPassUpdate={handlePassUpdate}
