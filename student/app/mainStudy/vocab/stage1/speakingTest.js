@@ -9,16 +9,23 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
         Array(vocabs.length).fill(false) // 초기값 false로 배열 생성
     );
 
+
+    const initialArray = [null, null, null];
+    const [testResult, setTestResult] = useState(initialArray);
+    const [testTry, setTestTry] = useState(0);
+
     const [shouldReset, setShouldReset] = useState(false);
 
     const [score, setScore] = useState(null);
     const [isToStudy, setIsToStudy] = useState(false);
+    const [isToNextStage, setIsToNextStage] = useState(false);
 
     const passThreshold = 70
 
     useEffect(() => {
-
+        
     }, [])
+
 
     const handlePassUpdate = (index, isPassed) => {
         // 특정 단어의 결과 업데이트
@@ -27,21 +34,42 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
             updatedResults[index] = isPassed;
             return updatedResults;
         });
+
     };
 
     const handleNext = (e) => {
         e.preventDefault();
 
-        setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
-        setShouldReset(!shouldReset)
-        setScore(null)
+        // ALL PASS 인 경우 팝업 띄우고 다음 스테이지로
+        if (currentIndex === vocabs.length - 1) {
+            if (passResults.every((isPassed) => isPassed)) {
+                toggleToNextStage();
+                return;
+            }
+            else {
+                toggleToStudy();
+                return;
+            }
+        }
+        else {
+            setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
+            setShouldReset(!shouldReset)
+            setScore(null)
+
+
+            setTestResult(initialArray);
+            setTestTry(0);
+        }
+
+
+
     };
 
     const handlePass = (e) => {
         e.preventDefault();
         //마지막 단어인데 Pass 했을 경우 학습페이지로 이동
         if (currentIndex === vocabs.length - 1) {
-            togglePopup();
+            toggleToStudy();
             return;
         }
 
@@ -51,26 +79,49 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
         setShouldReset(!shouldReset)
         setScore(null)
 
+        setTestResult(initialArray);
+        setTestTry(0);
+
     }
 
     const handleScoreUpdate = (newScore) => {
         setScore(newScore); // Update the score when VoiceRecording provides a new value
+
+
+        const copy = [...testResult];
+        copy[testTry] = newScore;
+        setTestResult(copy);
+        setTestTry(testTry + 1);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onTestComplete({ result: passResults, stage: 1 }); // 결과 배열 반환
+        onTestComplete({ result: passResults, stage: 0 }); // 결과 배열 반환
     };
 
-    const togglePopup = () => {
+    const toggleToStudy = () => {
         setIsToStudy((prev) => !prev);
     };
+
+    const toggleToNextStage = () => {
+        setIsToNextStage((prev) => !prev);
+    }
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>
+                <div className={styles.exitBox}>
+                    <button onClick={handleSubmit} className={styles.exitButton}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <path d="M15.64 30.8571L9 24M9 24L15.64 17.1429M9 24H29.5714M15.8571 8L34.1429 8.00457C36.6663 8.00686 38.7143 10.0526 38.7143 12.576V35.4217C38.7143 36.6341 38.2327 37.7969 37.3753 38.6542C36.518 39.5115 35.3553 39.9931 34.1429 39.9931L15.8571 40" stroke="#1A1A1A" strokeWidth="3.73469" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <p className={styles.exitWord}>나가기</p>
+                    </button>
+                </div>
+
                 {/* 프로그레스 바 */}
                 <div className={styles.progressBarDiv}>
+                    프로그레스 바
                 </div>
 
                 <p className={styles.instruction}>단어를 발음해보세요</p>
@@ -95,16 +146,16 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
 
                         <div className={styles.allBadges}>
                             <div className={styles.accBadge}>
-                                <div className={styles.circle}></div>
-                                <p className={styles.percent}>{score === null ? '-' : score}%</p>
+                                <div className={testResult[0] === null ? styles.circle : (testResult[0] >= passThreshold ? styles.circlePassed : styles.circleFailed)}></div>
+                                <p className={styles.percent}>{testResult[0] === null ? '-' : testResult[0]}%</p>
                             </div>
                             <div className={styles.accBadge}>
-                                <div className={styles.circle}></div>
-                                <p className={styles.percent}>{score}%</p>
+                                <div className={testResult[1] === null ? styles.circle : (testResult[1] >= passThreshold ? styles.circlePassed : styles.circleFailed)}></div>
+                                <p className={styles.percent}>{testResult[1] === null ? '-' : testResult[1]}%</p>
                             </div>
                             <div className={styles.accBadge}>
-                                <div className={styles.circle}></div>
-                                <p className={styles.percent}>{score}%</p>
+                                <div className={testResult[2] === null ? styles.circle : (testResult[2] >= passThreshold ? styles.circlePassed : styles.circleFailed)}></div>
+                                <p className={styles.percent}>{testResult[2] === null ? '-' : testResult[2]}%</p>
                             </div>
                         </div>
 
@@ -118,23 +169,20 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                                 shouldReset={shouldReset}
                             />
                         </div>
-
-
-
-
-
-
-
                     </div>
                 </div>
+
+
+
+
 
                 {/* 제출 버튼 */}
                 <div className={styles.progressButton}>
                     <button className={styles.nextButton} onClick={handleNext} disabled={!passResults[currentIndex]}>Next</button>
                     <button className={styles.passButton} onClick={handlePass} >Pass</button>
                 </div>
-                <button onClick={togglePopup} />
 
+                {/* 학습하러가기 팝업 */}
                 {isToStudy &&
                     (
                         <div className={styles.popupContainer}>
@@ -158,6 +206,36 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
 
                                     <button className={styles.button} onClick={handleSubmit}>
                                         틀린 문항 공부하러가기
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+
+                {isToNextStage &&
+                    (
+                        <div className={styles.popupContainer}>
+                            <div className={styles.card}>
+                                <div className={styles.content}>
+                                    <div className={styles.header}>
+                                        <h1 className={styles.title}>Vocabulary 테스트 완료</h1>
+                                        <div className={styles.stats}>
+                                            <div className={styles.statText}>맞은 문제 수: 15개</div>
+                                            <div className={styles.wrongText}>틀린 문제 수: 15개</div>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.checkmarkContainer}>
+                                        <div className={styles.checkmarkCircle}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+                                                <path d="M25.4658 40.4L48.0658 17.8C48.5992 17.2667 49.2214 17 49.9325 17C50.6436 17 51.2658 17.2667 51.7992 17.8C52.3325 18.3333 52.5992 18.9671 52.5992 19.7013C52.5992 20.4356 52.3325 21.0684 51.7992 21.6L27.3325 46.1333C26.7992 46.6667 26.177 46.9333 25.4658 46.9333C24.7547 46.9333 24.1325 46.6667 23.5992 46.1333L12.1325 34.6667C11.5992 34.1333 11.3432 33.5004 11.3645 32.768C11.3858 32.0356 11.6641 31.4018 12.1992 30.8667C12.7343 30.3316 13.3681 30.0649 14.1005 30.0667C14.833 30.0684 15.4658 30.3351 15.9992 30.8667L25.4658 40.4Z" fill="#0084D0" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <button className={styles.button} onClick={handleSubmit}>
+                                        다음 스테이지로
                                     </button>
                                 </div>
                             </div>
@@ -384,7 +462,7 @@ function VoiceRecording({ sample, passThreshold, onPassUpdate, index, shouldRese
 
             {isPlayable && (
                 <div>
-                    <button onClick={replayAudio}>녹음 재생</button>
+                    {/* <button onClick={replayAudio}>녹음 재생</button> */}
                     {/* <div>
                         <audio src={audioUrl} controls />
                     </div> */}
@@ -393,7 +471,7 @@ function VoiceRecording({ sample, passThreshold, onPassUpdate, index, shouldRese
 
             <div>{errorMessage}</div>
 
-            {
+            {/* {
                 isSubmit ? (
                     isEvaluated ? (
                         <div>{score}</div> // 평가 완료 후 점수 표시
@@ -405,7 +483,7 @@ function VoiceRecording({ sample, passThreshold, onPassUpdate, index, shouldRese
                 ) : (
                     <div>제출 전</div> // 제출도 평가도 하지 않은 상태
                 )
-            }
+            } */}
 
         </div>
     )

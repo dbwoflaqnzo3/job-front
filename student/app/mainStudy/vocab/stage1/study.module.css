@@ -76,7 +76,8 @@
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
-    line-height: 150%; /* 19.5px */
+    line-height: 150%;
+    /* 19.5px */
 }
 
 
@@ -111,7 +112,7 @@
 
 
 
-/*---메인 컨텐츠---*/
+/*==========메인 컨텐츠===========*/
 .mainContent {
     margin-top: 64px;
     margin-bottom: 0;
@@ -123,7 +124,7 @@
     width: 919px;
 }
 
-.vocabList {
+.vocabListBox {
     margin: 0;
 
     width: 212px;
@@ -131,6 +132,56 @@
 
     background-color: #FEDAA6;
 }
+
+.vocabInstruction {
+    margin-top: 16px;
+    margin-bottom: 0;
+    margin-left: 16px;
+
+    height: 23px;
+
+    color: var(--Black-800, #4D4D4D);
+
+    /* Ko/Reg/15 */
+    font-family: "Pretendard Variable";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    /* 22.5px */
+}
+
+.vocabList {
+    margin-top: 12px;
+    margin-bottom: 12px;
+
+    width: 212px;
+    height: 317px;
+
+    background-color: #FEDAA6;
+
+    overflow-y: auto;
+}
+
+.vocabOl {
+    margin: 0;
+
+    color: #000;
+
+    /* En/Md/17 */
+    font-family: "Min Sans VF";
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 25.5px */
+}
+
+.active {
+    color: #FF6600;
+    font-weight: bold;
+}
+
+
 
 .vocabBox {
     margin: 0;
@@ -194,7 +245,7 @@
 .voiceControl {
     margin: 0;
 
-    width: 444px;
+    width: 212px;
     height: 380px;
 
     background-color: #767abd;
@@ -364,7 +415,7 @@
     justify-content: space-between;
 }
 
-.nextButton {
+.prevButton {
     margin: 0;
 
     width: 212px;
@@ -379,12 +430,13 @@
     cursor: pointer;
 }
 
+.prevButton:disabled,
 .nextButton:disabled {
     background-color: #666666;
     cursor: not-allowed;
 }
 
-.passButton {
+.nextButton {
     margin: 0;
 
     width: 212px;
