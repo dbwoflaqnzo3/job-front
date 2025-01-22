@@ -17,10 +17,18 @@ export default function ForgetPw() {
   const [modalOpen, setModalOpen] = useState(false)
   const [inputVerificationNum, setInputVerificationNum] = useState('')
   const maxLength = 8 //인증 번호 최대 숫자 자리
+  const [modalMessage, setModalMessage] = useState('')
 
   //인증 timer
+<<<<<<< HEAD
   const initialTime = 180
   const [timeLeft, setTimeLeft] = useState(0); // 남은 시간 (초 단위)
+=======
+  const [timeLeft, setTimeLeft] = useState(0); // timer 남은 시간 (초 단위)
+  const [isExpiredTime, setIsExpiredTime] = useState(false)
+  const [expireDate, setExpireDate] = useState(null)
+  const [checkDuplication, setCheckDuplication] = useState(false)
+>>>>>>> c349648 (feat [#26] : 이메일 인증 및 비밀번호 변경 페이지 기능 구현)
 
   const router = useRouter()
 
@@ -61,9 +69,15 @@ export default function ForgetPw() {
 
   //변경하기 버튼 클릭 
   const handleSubmit = async (e) => {
+    
     e.preventDefault()
+<<<<<<< HEAD
 
 >>>>>>> 3fe6d00 (feat[#26] : forget pw 이메일 전송, 인증 모달 구현 (timer 제외))
+=======
+    setModalOpen(false)
+  
+>>>>>>> c349648 (feat [#26] : 이메일 인증 및 비밀번호 변경 페이지 기능 구현)
     //이메일 형식이 틀렸을 경우
     if (!emailId || !selectedOption) {
       setMessage("이메일을 올바르게 입력해주세요.")
@@ -90,49 +104,36 @@ export default function ForgetPw() {
           return
         }
 
-        setIsExpoiredTime(false)
+        setIsExpiredTime(false)
+
+        const { result, resExpireDate } = await response.json() //생성된 ID, 만료 시간 불러오기
+        console.log(resExpireDate, "만료 시간")
+
+        const now = new Date(Date.now()) // 현재 시간 설정
+        const expireDate = new Date(resExpireDate) // 만료 시간 설정 
+        setExpireDate(expireDate)
+        setVerificationResponseId(result) // studentId 저장 
 
         // 중복 전송 시
         if(response.status === 400){
 
-          const now = new Date(Date.now())
-
           // 인증 요청이 만료됐을 때
-          if(now > initialTime){
-            sessionStorage.setItem('expireDate', null)
-            setIsExpoiredTime(true)
+          if(now > result){
+            setIsExpiredTime(true)
           }
           else{
-            const t = initialTime - now 
-            setTimeLeft(Math.floor(t/1000))
+            setTimeLeft(Math.floor((expireDate - now) / 1000))
             setCheckDuplication(true)
           }
-
         } else { // 정상적인 인증 요청
 
-          // if (!response.ok) {
-          //   setError(result.message || '이메일 인증 실패');
-          //   console.log(error)
-          // }
-
-          const { result } = await response.json()
-
-
-          setVerificationResponseId(result)
-  
-          //이메일 전송 성공
-          setMessage(`인증 메일이 ${fullEmail}로 전송되었습니다.`)
-  
-          // 처음으로 이메일 인증할 때
-          const expireDate = new Date(Date.now() + 3 * 60 * 1000)
-          sessionStorage.setItem('expireDate', expireDate)
-          setInitialTime(expireDate)
-          setTimeLeft(180)
+          // 이메일 인증 기본 시간 설정
+          setTimeLeft(Math.floor((expireDate - now) / 1000))
 
         }
-      
-      setMessage(null)
-      setModalOpen(true)
+
+        setMessage(null)
+        setModalOpen(true)
 
     } catch (error) {
       console.error(error)
@@ -146,14 +147,15 @@ export default function ForgetPw() {
     if (timeLeft > 0) {
       const interval = setInterval(() => {
         setTimeLeft((prev) => {
+          const now = new Date(Date.now())
           if (prev <= 1) {
             clearInterval(interval)
-            setIsExpoiredTime(true)
+            setIsExpiredTime(true)
             return 0
           }
-          return prev - 1
+          return Math.floor((expireDate - now) / 1000)
         });
-      }, 1000)
+      }, 100)
 
       return () => clearInterval(interval) // 컴포넌트 언마운트 시 클리어
     }
@@ -178,18 +180,66 @@ export default function ForgetPw() {
     }
   }
 
+<<<<<<< HEAD
   // 함수 명 변경 요망망
   const endWritingStudy = () => {
 
+=======
+  // 
+  const verifyId = async (e) => {
+
+    e.preventDefault()
+
+    try{
+
+      console.log(verificationResponseId, inputVerificationNum, "인증 아이디 및 입력 코드")
+      
+      if(inputVerificationNum === ''){
+        setModalMessage("인증 번호를 입력해 주세요.");
+        return;
+      }
+
+       const response = await fetch('http://localhost:8080/verifyService/verify', {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: verificationResponseId,
+          code: inputVerificationNum
+        })
+      })
+
+      if(response.status === 404){
+        setModalMessage("만료된 요청입니다. 요청을 재전송해주세요.")
+      }
+
+      const verifyInfo = await response.json()
+      
+      if(verifyInfo.status === 2){
+        setModalMessage("만료된 요청입니다. 요청을 재전송해주세요.")
+        return
+      }else if(verifyInfo.status === 0){
+        setModalMessage("잘못된 인증번호입니다.")
+        return
+      }else if(verifyInfo.status === 1){
+        localStorage.setItem("id", verifyInfo.studentId)
+        router.push('/../loginPage/changePw')
+
+      }
+    } catch (error) {
+      console.error(error)
+    }
+>>>>>>> c349648 (feat [#26] : 이메일 인증 및 비밀번호 변경 페이지 기능 구현)
   }
 
   return (
     <div className={styles.container}>
-      <h1>비밀번호 변경하기</h1>
+      <h1 className={styles.title}>비밀번호 변경하기</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles.inputGroup}>
           <div>
-            <p>인증 가능한 이메일 주소를 입력하세요.</p>
+            <p className={styles.inputTitle} >인증 가능한 이메일 주소를 입력하세요.</p>
           </div>
           <div className={styles.emailBox}>
             <input
@@ -235,6 +285,10 @@ export default function ForgetPw() {
                 // maxLength={maxLength}
                 onChange={(e) => setInputVerficationNum(e.target.value)}
               />
+<<<<<<< HEAD
+=======
+              {modalMessage && <p className={styles.message}>{modalMessage}</p>}
+>>>>>>> c349648 (feat [#26] : 이메일 인증 및 비밀번호 변경 페이지 기능 구현)
               {
                 timeLeft > 0 && (
                   <p>{formatTime(timeLeft)}</p>

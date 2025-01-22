@@ -1,9 +1,13 @@
 .container {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c349648 (feat [#26] : 이메일 인증 및 비밀번호 변경 페이지 기능 구현)
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
   background-color: #FFF8ED;
   width: 1512px;
   height: 982px;
@@ -57,23 +61,61 @@
   display: block;
   align-items: center; /* 세로 정렬 (중앙 정렬) */
   text-align: center;
+=======
+>>>>>>> c349648 (feat [#26] : 이메일 인증 및 비밀번호 변경 페이지 기능 구현)
   background-color: #FFF8ED;
-  width: 100%; /* 1512px 기준으로 너비를 100%로 설정 */
-  height: 100vh; /* 982px 기준으로 높이를 100%로 설정 */
+  width: 1512px;
+  height: 982px;
+}
+
+.title {
+  margin-top: 11.64vh;
+  text-align: center;
+  font-family: "Pretendard Variable";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
 }
 
 .inputGroup {
-  display: block;
-  text-align: left;
-  background-color: white;
-  width: 38vw; /* 575px / 1512px * 100 */
-  height: 18.3vh; /* 180px / 982px * 100 */
-  padding: 3.26vh; /* 32px / 982px * 100 */
-  margin: 0 31vw; /* 469px / 1512px * 100 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 38vw;
+  height: 18.33vh; 
+  padding: 3.26vh 2.11vw ;
+  margin-top: 18.1vh;
+
+  border-radius: 16px;
+  border: 1px solid var(--Primary200, #FEDAA6);
+  background: var(--Black-100, #FEFEFE);
+}
+
+.inputTitle {
+
+  width: 33.8vw;
+
+  color: var(--Black-1000, #1A1A1A);
+
+  /* Ko/Md/17 */
+  font-family: "Pretendard Variable";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 25.5px */
+
 }
 
 .emailBox {
+<<<<<<< HEAD
 >>>>>>> 3fe6d00 (feat[#26] : forget pw 이메일 전송, 인증 모달 구현 (timer 제외))
+=======
+  margin: 3.67vh;
+  width: 18.5vw;
+  height: 5.5vh;
+>>>>>>> c349648 (feat [#26] : 이메일 인증 및 비밀번호 변경 페이지 기능 구현)
   background-color: white;
 }
 
