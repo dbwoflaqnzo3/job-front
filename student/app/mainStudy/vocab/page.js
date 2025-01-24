@@ -25,6 +25,10 @@ export default function VocabStageController() {
     const [middleProgress, setMiddleProgress] = useState(1)
     const [ComponentToRender, setComponentToRender] = useState(null);
 
+    useEffect(()=>{
+        
+    }, [])
+
 
     useEffect(() => {
 
@@ -40,12 +44,12 @@ export default function VocabStageController() {
                     IsPassed: Array(resultStudentLessonInfo.studyMode.length).fill(false), // studyMode 크기에 맞는 false 배열 생성
                 }));
 
-                setStudyMode(resultVocabData.studyMode)
+                setStudyMode(resultStudentLessonInfo.studyMode)
 
                 //테스트를 위해서 result로 잠시 변환 
                 // setVocabs(updatedResult);
                 setVocabs(updatedResult);
-                setTotalProgress(resultVocabData.studyMode[0])
+                setTotalProgress(resultStudentLessonInfo.studyMode[0])
                 setIsVocabsUpdated(true)
                 
 
@@ -87,8 +91,10 @@ export default function VocabStageController() {
 
     }, [totalProgress, middleProgress, isVocabsUpdated, isFiltered])
 
-    const filterVocab = (totalProgress) => {
+    const filterVocab = () => {
         const failedVocabs = vocabs.filter((item) => !item.IsPassed[totalProgress-1]); // 특정 인덱스의 값이 false인 원소만 필터링
+        console.log("total Progrss: ",totalProgress);
+        console.log(failedVocabs,"=====failed voacbs");
         setFilteredVocabs(failedVocabs); // 상태 업데이트
     
         setIsFiltered(true); // 필터링 상태 업데이트
@@ -102,7 +108,8 @@ export default function VocabStageController() {
         setVocabs((prevVocabs) => {
 
             // 해당 단계의 index 찾기
-            const stageIndex = studyMode.findIndex(passResults.stage)
+            const stageIndex = passResults.stage;   
+            //studyMode.findIndex(passResults.stage)
 
             // 새 배열 생성
             const updatedVocabs = prevVocabs.map((vocab) => {
@@ -112,7 +119,7 @@ export default function VocabStageController() {
                 );
         
                 // indexInFiltered가 유효한 경우 passResults 값을 isPassed로 설정
-                let updateIsPassed = [...vocab.isPassed]
+                let updateIsPassed = [...vocab.IsPassed]
 
                 updateIsPassed[stageIndex] = passResults.result[indexInFiltered]
 
@@ -140,7 +147,7 @@ export default function VocabStageController() {
             setMiddleProgress(1)
         }
         
-        setMiddleProgress(middleProgress == 1? 2:1)
+        setMiddleProgress(middleProgress == 1 ? 2:1)
 
 
     };

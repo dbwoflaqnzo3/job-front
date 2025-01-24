@@ -9,6 +9,8 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
         Array(vocabs.length).fill(false) // 초기값 false로 배열 생성
     );
 
+    const [passedVocabCount, setPassedVocabCount] = useState(0);
+
 
     const initialArray = [null, null, null];
     const [testResult, setTestResult] = useState(initialArray);
@@ -23,7 +25,7 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
     const passThreshold = 70
 
     useEffect(() => {
-        
+
     }, [])
 
 
@@ -39,6 +41,8 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
 
     const handleNext = (e) => {
         e.preventDefault();
+
+        setPassedVocabCount(passedVocabCount + 1);
 
         // ALL PASS 인 경우 팝업 띄우고 다음 스테이지로
         if (currentIndex === vocabs.length - 1) {
@@ -159,7 +163,7 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                             </div>
                         </div>
 
-                        <div className={styles.voiceRecord}>
+                        <div className={styles.voiceRecord} style={{ pointerEvents: testTry < 3 ? "auto" : "none" }}>
                             <VoiceRecording
                                 sample={vocabs[currentIndex].english}
                                 passThreshold={passThreshold}
@@ -168,6 +172,8 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                                 onPassUpdate={handlePassUpdate}
                                 shouldReset={shouldReset}
                             />
+                            <div className={styles.recordInstruction}>녹음하기</div>
+                            <div className={styles.recordSubInstruction}>마이크를 누르고 발음하세요</div>
                         </div>
                     </div>
                 </div>
@@ -191,8 +197,8 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                                     <div className={styles.header}>
                                         <h1 className={styles.title}>Vocabulary 테스트 완료</h1>
                                         <div className={styles.stats}>
-                                            <div className={styles.statText}>맞은 문제 수: 15개</div>
-                                            <div className={styles.wrongText}>틀린 문제 수: 15개</div>
+                                            <div className={styles.statText}>맞은 문제 수: {passedVocabCount}개</div>
+                                            <div className={styles.wrongText}>틀린 문제 수: {vocabs.length - passedVocabCount}개</div>
                                         </div>
                                     </div>
 
