@@ -1,0 +1,143 @@
+.wrapper {
+    width: 1512px;
+    height: 100vh;
+
+    margin: auto;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #FFF8ED;
+}
+
+.progressBar {
+    width: 57.5rem;
+    height: 6.56rem;
+    margin-top: 4rem;
+    background-color: red;
+}
+
+.containerHead1{
+    margin-top: 3.56rem;
+}
+
+.head1{
+    color: var(--Black-1000, #1A1A1A);
+    text-align: center;
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.875rem */
+}
+
+.contentContainer{
+    display: flex;
+    margin-top: 4rem;
+}
+
+.vocaListContainer{
+    display: flex;
+    flex-direction: column;
+
+    padding: 1rem;
+    width: 11.25rem;
+    height: 21.75rem;
+
+    border-radius: 0.5rem;
+    background: var(--Primary200, #FEDAA6);
+}
+
+.vocaTestContainer{
+    width: 28rem;
+    height: 23.75rem;
+    margin-left: 1.5rem;
+
+    border-radius: 0.75rem;
+    border: 2px solid var(--Primary200, #FEDAA6);
+    background: var(--Black-100, #FEFEFE);
+}
+
+.testTimer{
+    width: 3.75rem;
+    height: 3.75rem;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: auto;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    background: var(--Secondary100, #CBE6F5);
+}
+
+.leftTime{
+    color: #000;
+
+    /* En/Md/24 */
+    font-family: "Min Sans VF";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 3.75rem; /* 2.25rem */
+}
+
+.testVoca{
+    text-align: center;
+    margin-top: 5rem;
+
+    color: var(--Black-1000, #1A1A1A);
+    font-family: "Min Sans VF";
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 3.75rem */
+}
+
+.vocaQuizList{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+
+    width: 28rem;
+    height: 23.75rem;
+
+    margin-left: 1.5rem;
+}
+
+.vocaQuiz{
+    width: 28rem;
+    height: 5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--Primary300, #FFC779);
+    background: var(--Black-100, #FEFEFE);
+
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.6875rem */
+}
+
+.vocaQuiz:hover{
+    background: var(--Primary100, #FEEDD2);
+}
+
+.confirmBtn{
+    width: 25rem;
+    height: 3.375rem;
+    margin-top: 5rem;
+
+    border-radius: 1rem;
+    border: 1px solid var(--Primary300, #FFC779);
+    background: var(--Primary500, #FFA321);
+}
