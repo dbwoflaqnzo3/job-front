@@ -2,39 +2,27 @@
 
 import style from "../../../styles/vocaStage2.module.css"
 
-import { useEffect, useState } from "react";
+import { Children, useEffect, useState, useRef } from "react";
 
 export default function blockTest({ vocabs, onTestComplete }) {
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
     const [passResults, setPassResults] = useState(
         Array(vocabs.length).fill(false) // 초기값 false로 배열 생성
     );
-
     const [shouldReset, setShouldReset] = useState(false);
-
-    const [isPassed, setIsPassed] = useState(true)
+    const isPassed = useRef(false)
 
     // test timer
-    const [timeLeft, setTimeLeft] = useState(10) // 남은 시간
+    const [initialTime, setInitialTime] = useState(10)
+    const [timeLeft, setTimeLeft] = useState(initialTime) // 남은 시간
 
-    const [randomNum, setRandomNum] = useState(() => Math.floor(Math.random() * 4)); // randomNum 고정
+    //test kit
+    const [randomNum, setRandomNum] = useState(() => Math.floor(Math.random() * 4)); // 정답 번호
+    const wordList = ['오답', '내 안에 흑염룡', '이건 정답이 아니야', '난 실패작이야'] // 오답 문제리스트
 
-    const [userInput, setUserInput] = useState(null)
-
-    const timer = () => {
-        if (timeLeft > 0) {
-            const interval = setInterval(() => {
-                setTimeLeft((prev) => {
-                    if (prev <= 1) {
-                        setIsPassed(false)
-                        return 0
-                    }
-                    return prev - 1
-                })
-            }, 1000)
-            return () => clearInterval(interval) // 컴포넌트 언마운트 시 클리어
-        }
-    }
+    const [imgModalOpen, setImgModalOpen] = useState(false)
+    const clickedIndex = useRef(null)
+    // const isClicked
 
     // timer 시간 진행 
     useEffect(() => {
@@ -42,7 +30,13 @@ export default function blockTest({ vocabs, onTestComplete }) {
             const interval = setInterval(() => {
                 setTimeLeft((prev) => {
                     if (prev <= 1) {
-                        setIsPassed(false)
+                        // 선택된 보기도 없고, 테스트가 끝났지 않았을 시
+                        if(clickedIndex.current === null && currentIndex <= vocabs.length - 1){
+                            isPassed.current = false
+                            setImgModalOpen(true)
+                            handlePassUpdate(currentIndex, false)
+                            setTimeout(()=>handleNext(), 1000)
+                        }
                         return 0
                     }
                     return prev - 1
@@ -52,47 +46,53 @@ export default function blockTest({ vocabs, onTestComplete }) {
         }
     }, [timeLeft])
 
-    const handlePassUpdate = (index, isPassed) => {
+    const handlePassUpdate = (index, pf) => {
         // 특정 단어의 결과 업데이트
+        console.log(index, pf)
+
         setPassResults((prevResults) => {
             const updatedResults = [...prevResults];
-            updatedResults[index] = isPassed;
+            updatedResults[index] = pf;
+            console.log(updatedResults)
             return updatedResults;
         });
     };
 
-    const handleNext = (e) => {
-        e.preventDefault();
+    // 정답 번호, 타이머, 선택 번호, 시간 초과 여부, 안내 메시지 초기화
+    const handleNext = () => {
+        setRandomNum(Math.floor(Math.random() * 4))
+        setTimeLeft(initialTime)
+        clickedIndex.current = null
 
         setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
         setShouldReset(!shouldReset)
+        setImgModalOpen(false)
     };
-
-    const handlePass = (e) => {
-
-        e.preventDefault();
-        setTimeLeft(10)
-        setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
-
-        setShouldReset(!shouldReset)
-    }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        onTestComplete(passResults); // 결과 배열 반환
+        e.preventDefault()
+        console.log(passResults)
+        // onTestComplete({result: passResults, stage: 2}); // 결과 배열 반환
     };
 
-    const handleConfirm = (e) => {
-        e.preventDefault();
-        console.log(userInput)
-        // setRandomNum(Math.floor(Math.random() * 4))
-        // setTimeLeft(10)
-    }
-
-    const clickProblem = (e) => {
+    //보기 클릭 시
+    const handleConfirm = (e, index) => {
         e.preventDefault()
-        setUserInput(e.target.value)
-        console.log(userInput)
+        clickedIndex.current = index
+
+        console.log(passResults)
+
+        if(index === randomNum){
+            console.log("정답 여기")
+            isPassed.current = true
+        } else{
+            console.log("오답 여기")
+            isPassed.current = false
+        }
+
+        setImgModalOpen(true)
+        handlePassUpdate(currentIndex, isPassed.current)
+        setTimeout(()=>handleNext(), 1000)
     }
 
     return (
@@ -112,51 +112,51 @@ export default function blockTest({ vocabs, onTestComplete }) {
                 </p>
             </div>
 
-            <div className={style.contentContainer}>
-
-                    {/* 단어장 리스트 */}
-                <div className={style.vocaListContainer}>
-                    <p>단어 리스트</p>
-                </div>
-
-
-                {
-                    currentIndex <= vocabs.length - 1 ?
-                        (
-                            <div className={style.vocaTestContainer}>
-                                <div className={style.testTimer}>
-                                    <p className={style.leftTime}>{timeLeft}</p>
-                                </div>
-                                <div>
-                                    <p className={style.testVoca}>{vocabs[currentIndex].english}</p> {/*현재 단어 전달*/}
-                                </div>
+            {
+                currentIndex <= vocabs.length - 1 ? 
+                    <div className={style.contentContainer}>
+                            
+                        <div className={style.vocaTestContainer}>
+                            <div className={style.testTimer}>
+                                <p className={style.leftTime}>{timeLeft}</p>
                             </div>
-                        )
-
-                        :
-                        <div>
-                            <h3>{
-                                passResults.every((isPassed) => isPassed) ?
-                                    "ALL PASS"
-                                    :
-
-                                    "틀린 문항 공부하러가기"
-                            }</h3>
-                            <button onClick={handleSubmit} >Submit</button>
+                            <div>
+                                <p className={style.testVoca}>{vocabs[currentIndex].english}</p> {/*현재 단어 전달*/}
+                            </div>
                         </div>
 
-                }
-                <VocaProblems 
-                    correction={vocabs[currentIndex].korean} 
-                    randomNum={randomNum} 
-                    userInput={userInput}
-                    setUserInput={setUserInput}
-                    clickProblem={clickProblem}
-                />
-            </div>
-            <button className={style.confirmBtn} onClick={handleConfirm}>
-                <p>확인</p>
-            </button>
+                        <div className={style.vocaQuizList}>
+                            {
+                                wordList.map((a, i) => {
+                                    if (i === randomNum) {
+                                        return (
+                                            <button
+                                                onClick={(e) => handleConfirm(e, i)}
+                                                className={`${style.vocaQuiz} ${i === clickedIndex.current ? style.vocaQuizClicked : ""}`}
+                                            >
+                                                {vocabs[currentIndex].korean}
+                                            </button>
+                                        )
+                                    }
+                                    return (
+                                        <button 
+                                            onClick={(e) => handleConfirm(e, i)}
+                                            className={`${style.vocaQuiz} ${i === clickedIndex.current ? style.vocaQuizClicked : ""}`}
+                                        >
+                                            {a}
+                                        </button>
+                                    )
+                                })
+                            }
+                        </div >
+                </div>
+                :
+                <EndTestModal passResults={passResults} handleSubmit={handleSubmit}/>
+            }
+            
+            {
+                imgModalOpen ? <ImgModal isPassed={isPassed.current} /> : <div></div>
+            }
         </div>
     );
 }
@@ -170,29 +170,40 @@ function EachWord({ vocab }) {
     );
 }
 
-function VocaProblems({ correction, randomNum, userInput, setUserInput, clickProblem }) {
-
-    const wordList = ['오답', '내 안에 흑염룡','이건 정답이 아니야', '난 실패작이야']
-
-    return(
-        <div className={style.vocaQuizList}>
+function ImgModal({isPassed}){
+    return (
+        <div className={style.modalOverlay}>
+            <img
+                className={style.ImgModalContainer}
+                src={isPassed ? "/answer.png" : "/wrongAnswer.png"}>
+            </img>
             {
-                wordList.map((a, i) => {
-                    if(i === randomNum){
-                        return(
-                            <button key={i} value="true" className={style.vocaQuiz} onClick={clickProblem}>
-                                    {correction}
-                            </button>
-                        )
-                    }
-                    return(
-                        <button key={i} value="false" className={style.vocaQuiz} onClick={clickProblem}>
-                            <p>{a}</p>
-                        </button>
-                    )
-                })
+                isPassed ? <p className={style.answer}>정답!</p> : <p className={style.wrongAnswer}>오답...</p>
             }
         </div>
     )
 }
 
+function EndTestModal({passResults, handleSubmit}){
+
+    const correctAnswer = passResults.filter(a => a === true).length;
+    const wrongAnswer = passResults.length - correctAnswer
+
+    return(
+        <div className={style.modalOverlay}>
+            <div className={style.endTestModalContainer}>
+                <p className={style.endTestModalHeaderText}>Vocabulary 테스트 완료</p>
+                <div className={style.countTextContainer}>
+                    맞은 문제 수: {correctAnswer}개<br/>틀린 문제 수: {wrongAnswer}개
+                </div>
+                <div className={style.checkImgContainer}>
+                    <img
+                        className={style.testCompleteImg}
+                        src={"/testComplete.png"}>
+                    </img>
+                </div>
+                <button className={style.homeBtn} onClick={handleSubmit}>홈으로</button>
+            </div>
+        </div>
+    )
+}

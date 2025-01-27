@@ -31,7 +31,7 @@ export default function VocabStageController() {
 
         const fetchData = async () => {
             try {
-                const resultStudentLessonInfo = await readStudentLessonInfo("678b391a7e259583d29aed48")
+                const resultStudentLessonInfo = await readStudentLessonInfo("67972c447964148a73bb7e08")
                 
                 const resultVocabData = await readAllVocabData("67744a3cdb036043fdd85d47")
                 
@@ -121,7 +121,7 @@ export default function VocabStageController() {
         setVocabs((prevVocabs) => {
 
             // 해당 단계의 index 찾기
-            const stageIndex = studyMode.findIndex(passResults.stage)
+            const stageIndex = passResults.stage
 
             // 새 배열 생성
             const updatedVocabs = prevVocabs.map((vocab) => {
@@ -131,7 +131,7 @@ export default function VocabStageController() {
                 );
         
                 // indexInFiltered가 유효한 경우 passResults 값을 isPassed로 설정
-                let updateIsPassed = [...vocab.isPassed]
+                let updateIsPassed = [...vocab.IsPassed]
 
                 updateIsPassed[stageIndex] = passResults.result[indexInFiltered]
 

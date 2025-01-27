@@ -132,12 +132,133 @@
     background: var(--Primary100, #FEEDD2);
 }
 
-.confirmBtn{
-    width: 25rem;
-    height: 3.375rem;
-    margin-top: 5rem;
-
+.vocaQuizClicked{
+    width: 28rem;
+    height: 5rem;
     border-radius: 1rem;
     border: 1px solid var(--Primary300, #FFC779);
-    background: var(--Primary500, #FFA321);
+    background: var(--Primary200, #FEDAA6);
+
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.6875rem */
 }
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+  }
+
+  .ImgModalContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 28rem;
+    height: 23.75rem;
+    z-index: 100;
+    animation-duration: 3s;
+  }
+
+  .answer {
+    color: blue;
+    font-family: "Pretendard Variable";
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.6875rem */
+  }
+
+  .wrongAnswer {
+    color: red;
+    font-family: "Pretendard Variable";
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.6875rem */
+  }
+
+  .endTestModalContainer {
+    width: 31.25rem;
+    height: 30.75rem;
+    
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 1.5rem;
+    border: 1px solid var(--Black-300, #CBCBCB);
+    background: var(--Black-100, #FEFEFE);
+  }
+
+  .endTestModalHeaderText{
+    width: 26.75rem;
+    margin: 2.25rem 2.25rem 0 2.25rem;
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Sb/30 */
+    font-family: "Pretendard Variable";
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 2.8125rem */
+  }
+
+  .countTextContainer {
+    width: 26.75rem;
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 2.25rem 0 2.25rem;
+
+    color: var(--Black-600, #7F7F7F);
+    font-family: "Pretendard Variable";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.875rem */
+  }
+
+  .checkImgContainer {
+    width: 26.75rem;
+    height: 16.56rem;
+    margin: 0 2.25rem 0 2.25rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .testCompleteImg{
+    width: 6.375rem;
+    height: 6.375rem;
+  }
+
+  .homeBtn {
+    width: 28.25rem;
+    height: 3.375rem;
+    border-radius: 1rem;
+    background: var(--Primary500, #FFA321);
+    margin: 0 1.5rem 0 1.5rem;
+
+    color: var(--Black-1000, #1A1A1A);
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.6875rem */
+  }
