@@ -1,10 +1,10 @@
 'use client'
-import styles from "../../../public/styles/vocaStage5_Test.module.css"
 import { useState } from "react";
 import { useRouter } from "next/navigation"
+import styles from "../../../public/styles/vocaStage5_Test.module.css"
 import TestEndPopup from "../../../utils/studyEndPop"
 
-export default function InputTest({ onTestComplete, vocabs }) {
+export default function twoInputTest({ onTestComplete, vocabs }) {
     const router = useRouter();
     const [showPopup, setShowPopup] = useState(false);
     const [correctCount, setCorrectCount] = useState(0);
@@ -42,7 +42,7 @@ export default function InputTest({ onTestComplete, vocabs }) {
             setShowPopup(true);
             console.log("passR",updatedPassResults)
 
-            const stage = 5; 
+            const stage = 4; 
             onTestComplete({ result: updatedPassResults, stage:stage }); // stage 추가
         }
     };
@@ -54,13 +54,31 @@ export default function InputTest({ onTestComplete, vocabs }) {
 
     return (
         <div className={styles.container}>
+            {/* 단어리스트 */}
+            {/* <div className={styles.wordList}>
+                <ul>
+                {vocabData.map((word, index) => (
+                    <li
+                    key={index}
+                    className={currentIndex === index ? styles.active : ""}
+                    >
+                    {word.english}
+                    </li>
+                ))}
+                </ul>
+            </div> */}
+
+
+            {/* 본문내용 */}
             <div className={styles.contents}>
             <button className={styles.exitButton} onClick={handleExit}/>
                 <h2>Vocabulary / Unit</h2>
 
-                <p>다음 단어를 영어로 작성하세요(테스트)</p>
+                <p>다음 단어를 영어로 작성하세요</p>
                 <div className={styles.wordBox}>
-                    {currentWord ? currentWord.korean : 'Loading...'}
+                    {currentWord ? 
+                    `${currentWord.korean}\n__${currentWord.english.slice(2)}`
+                    : 'Loading...'}
                 </div>
                 <input
                     className={styles.input}

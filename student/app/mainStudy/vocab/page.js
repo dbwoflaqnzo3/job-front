@@ -8,7 +8,10 @@ import SpeakingTestComponent from "./stage1/speakingTest";
 import SpeakingStudyComponent from "./stage1/speakingStudy";
 
 import blockTestComponent from './stage2/blockTest';
+import spellStudy from './stage4/spellStudy';
+import twoSpellTestComponent from './stage4/twoSpellTest'
 import inputTestComponent from './stage5/inputTest';
+import inputStudyComponent from './stage5/inputStudy';
 
 export default function VocabStageController() {
     
@@ -39,15 +42,18 @@ export default function VocabStageController() {
                 //     ...item, // 기존 객체 복사
                 //     IsPassed: Array(resultStudentLessonInfo.studyMode.length).fill(false), // studyMode 크기에 맞는 false 배열 생성
                 // }));
+                const updatedResult = resultVocabData.map(item => ({
+                    ...item,
+                    IsPassed: false
+                }))
                 const tempStudyMode = Array([1,2,4,5])
                 
 
                 setStudyMode(tempStudyMode)
 
                 //테스트를 위해서 result로 잠시 변환 
-                // setVocabs(updatedResult);
-                setVocabs(resultVocabData);
-                setTotalProgress(tempStudyMode[3])
+                setVocabs(updatedResult);
+                setTotalProgress(5)
                 setIsVocabsUpdated(true)
                 
 
@@ -85,14 +91,25 @@ export default function VocabStageController() {
             setComponentToRender(() => () => <div>Default Component</div>); // Default Component for Progress 2 
         } else if (totalProgress === 3){
             setComponentToRender(() => () => <div>Default Component</div>);
-        } else if (totalProgress === 4){
-            setComponentToRender(() => () => <div>Default Component</div>);
+        } else if (totalProgress === 4){ // 여기 프로세스 로직 추가 - dbwofla 
+            setComponentToRender(() => spellStudy);
         }
-        else (totalProgress === 5)
+        else 
         {
-            setComponentToRender(() => inputTestComponent); // Default Component for other cases
-        }
+            if(isVocabsUpdated){
+                filterVocab()
 
+                if (middleProgress === 1 && isFiltered){
+                    setComponentToRender(() => inputTestComponent); // Test Component
+                    setIsVocabsUpdated(false);
+                    setIsFiltered(false)
+                } else if (middleProgress === 2 && isFiltered){
+                    setComponentToRender(() => inputStudyComponent); // Study Component
+                    setIsVocabsUpdated(false);
+                    setIsFiltered(false)
+                }
+            }
+        }
     }, [totalProgress, middleProgress, isVocabsUpdated, isFiltered])
 
     const filterVocab = (totalProgress) => {
@@ -103,55 +120,60 @@ export default function VocabStageController() {
     };
     
 
-    // passResult = { result : [결과], stage : 단계}
-    const handleVocabPass = (passResults) => {
-        console.log(passResults,"!!!")
+   // passResult = { result : [결과], stage : 단계}
+   const handleVocabPass = (passResults) => {
+    console.log(passResults,"!!!")
 
-        setVocabs((prevVocabs) => {
+    setVocabs((prevVocabs) => {
 
-            // 해당 단계의 index 찾기
-            const stageIndex = studyMode.findIndex(passResults.stage)
+        // 해당 단계의 index 찾기
+        const stageIndex = passResults.stage
 
-            // 새 배열 생성
-            const updatedVocabs = prevVocabs.map((vocab) => {
-                // filteredVocabs에서 해당 sequence와 일치하는 항목의 index를 찾기
-                const indexInFiltered = filteredVocabs.findIndex(
-                    (filteredVocab) => filteredVocab.sequence === vocab.sequence
-                );
-        
-                // indexInFiltered가 유효한 경우 passResults 값을 isPassed로 설정
-                let updateIsPassed = [...vocab.isPassed]
+        // 새 배열 생성
+        const updatedVocabs = prevVocabs.map((vocab) => {
+            // filteredVocabs에서 해당 sequence와 일치하는 항목의 index를 찾기
+            const indexInFiltered = filteredVocabs.findIndex(
+                (filteredVocab) => filteredVocab.sequence === vocab.sequence
+            );
+    
+            // // indexInFiltered가 유효한 경우 passResults 값을 isPassed로 설정
+            // let updateIsPassed = [...vocab.IsPassed]
+            const currentIsPassed = Array.isArray(vocab.IsPassed) ? vocab.IsPassed : [];
 
-                updateIsPassed[stageIndex] = passResults.result[indexInFiltered]
+            // passResults 값으로 updateIsPassed 업데이트
+            let updateIsPassed = [...currentIsPassed];
 
-                if (indexInFiltered !== -1) {
-                    return {
-                        ...vocab,
-                        IsPassed: updateIsPassed,
-                    };
-                }
-        
-                // 일치하는 항목이 없으면 기존 vocab 반환
-                return vocab;
-            });
-        
-            return updatedVocabs;
+
+            updateIsPassed[stageIndex] = passResults.result[indexInFiltered]
+
+            if (indexInFiltered !== -1) {
+                return {
+                    ...vocab,
+                    IsPassed: updateIsPassed,
+                };
+            }
+    
+            // 일치하는 항목이 없으면 기존 vocab 반환
+            return vocab;
         });
+    
+        return updatedVocabs;
+    });
 
-        setIsVocabsUpdated(true);
+    setIsVocabsUpdated(true);
 
-        const stagePassed = passResults.result.every((isPassed) => isPassed);
+    const stagePassed = passResults.result.every((isPassed) => isPassed);
 
-        if(stagePassed)
-        {
-            setTotalProgress(studyMode.findIndex(passResults.stage) + 1)
-            setMiddleProgress(1)
-        }
-        
-        setMiddleProgress(middleProgress == 1? 2:1)
+    if(stagePassed)
+    {
+        setTotalProgress(studyMode.findIndex(passResults.stage) + 1)
+        setMiddleProgress(1)
+    }
+    
+    setMiddleProgress(middleProgress == 1? 2:1)
 
 
-    };
+};
     
     return (
         <div>
@@ -159,9 +181,7 @@ export default function VocabStageController() {
                 vocabs.length !== 0 ? (
                     ComponentToRender ? (
                         <ComponentToRender
-                            // className={style.contents}
-                            filteredVocab={filteredVocabs}
-                            vocabs={vocabs}
+                            vocabs={filteredVocabs}
                             onTestComplete={(passResults) => handleVocabPass(passResults)}
                         />
                     ) : (
@@ -172,11 +192,11 @@ export default function VocabStageController() {
                 )
             }
     
-            {vocabs.length !== 0 && vocabs.map((vocab, index) => (
+            {/* {vocabs.length !== 0 && vocabs.map((vocab, index) => (
                 <div key={index} className="vocab-item">
                     <p>[{vocab.sequence}] English: {vocab.english}  | Korean: {vocab.korean} | IsPassed: {JSON.stringify(vocab.IsPassed)}</p>
                 </div>
-            ))}
+            ))} */}
     
             {errorMessage && <div>Error: {errorMessage}</div>}
         </div>

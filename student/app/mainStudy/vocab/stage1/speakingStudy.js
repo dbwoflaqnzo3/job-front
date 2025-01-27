@@ -2,10 +2,10 @@
 
 import { useState,useEffect } from "react";
 
-export default function SpeakingStudy({ filteredVocab, onTestComplete }) {
+export default function SpeakingStudy({ vocabs, onTestComplete }) {
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
     const [passResults, setPassResults] = useState(
-        Array(filteredVocab.length).fill(false) // 초기값 false로 배열 생성
+        Array(vocabs.length).fill(false) // 초기값 false로 배열 생성
     );
     const [shouldReset, setShouldReset] = useState(false);
 
@@ -36,7 +36,7 @@ export default function SpeakingStudy({ filteredVocab, onTestComplete }) {
         <div>
             <div>
                 <EachWord
-                    vocab={filteredVocab[currentIndex]} // 현재 단어 전달
+                    vocab={vocabs[currentIndex]} // 현재 단어 전달
                     index = {currentIndex + 1}
                 />
 
@@ -46,12 +46,12 @@ export default function SpeakingStudy({ filteredVocab, onTestComplete }) {
 
                 <div>
                     <button onClick={handlePrevious} disabled={currentIndex == 0? true:false}>Previous</button>
-                    <button onClick={handleNext} disabled={currentIndex == filteredVocab.length-1? true:false}>Next</button>
+                    <button onClick={handleNext} disabled={currentIndex == vocabs.length-1? true:false}>Next</button>
                 </div>
             </div>
 
             {
-                currentIndex == filteredVocab.length-1 ? 
+                currentIndex == vocabs.length-1 ? 
                 <div>
                     <h3>재시험 보러가기</h3>
                     <button onClick={handleSubmit}>submit</button>
