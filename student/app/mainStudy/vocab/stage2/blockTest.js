@@ -2,7 +2,7 @@
 
 import style from "../../../styles/vocaStage2.module.css"
 
-import { Children, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function blockTest({ vocabs, onTestComplete }) {
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
@@ -22,7 +22,13 @@ export default function blockTest({ vocabs, onTestComplete }) {
 
     const [imgModalOpen, setImgModalOpen] = useState(false)
     const clickedIndex = useRef(null)
-    // const isClicked
+
+    const [key, setKey] = useState(0)
+
+
+    useEffect(() => {
+        document.documentElement.style.setProperty("--animation-duration", `${initialTime}s`);
+      }, [initialTime]);
 
     // timer 시간 진행 
     useEffect(() => {
@@ -67,12 +73,13 @@ export default function blockTest({ vocabs, onTestComplete }) {
         setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
         setShouldReset(!shouldReset)
         setImgModalOpen(false)
+        setKey((prev) => prev+1)
     };
 
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(passResults)
-        // onTestComplete({result: passResults, stage: 2}); // 결과 배열 반환
+        onTestComplete({result: passResults, stage: 2}); // 결과 배열 반환
     };
 
     //보기 클릭 시
@@ -115,16 +122,23 @@ export default function blockTest({ vocabs, onTestComplete }) {
             {
                 currentIndex <= vocabs.length - 1 ? 
                     <div className={style.contentContainer}>
-                            
-                        <div className={style.vocaTestContainer}>
+
+                        {/* test timer */}
+                        <div className={style.timerContainer}>
                             <div className={style.testTimer}>
-                                <p className={style.leftTime}>{timeLeft}</p>
-                            </div>
-                            <div>
-                                <p className={style.testVoca}>{vocabs[currentIndex].english}</p> {/*현재 단어 전달*/}
-                            </div>
+                                <div className={style.testTimerCover} key={key}>
+                                </div>
+                           </div>
+                            <p className={style.leftTime}>{timeLeft}s</p>
+                 
                         </div>
 
+                        {/* vocab card */}
+                        <div className={style.wordCardContainer}>
+                            <p className={style.currentVoca}>{vocabs[currentIndex].english}</p> {/*현재 단어 전달*/}
+                        </div>
+
+                        {/* test 보기 list */}
                         <div className={style.vocaQuizList}>
                             {
                                 wordList.map((a, i) => {
@@ -149,23 +163,14 @@ export default function blockTest({ vocabs, onTestComplete }) {
                                 })
                             }
                         </div >
-                </div>
+                    </div>
                 :
                 <EndTestModal passResults={passResults} handleSubmit={handleSubmit}/>
             }
-            
+
             {
                 imgModalOpen ? <ImgModal isPassed={isPassed.current} /> : <div></div>
             }
-        </div>
-    );
-}
-
-function EachWord({ vocab }) {
-
-    return (
-        <div>
-            <p>{vocab.english}</p>
         </div>
     );
 }

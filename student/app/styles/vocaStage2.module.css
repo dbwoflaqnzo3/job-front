@@ -35,70 +35,159 @@
     line-height: 150%; /* 1.875rem */
 }
 
+/* main content */
+
+
 .contentContainer{
     display: flex;
     margin-top: 4rem;
 }
 
-.vocaListContainer{
-    display: flex;
-    flex-direction: column;
+ /* 학습한 voca list  (for study) */
 
-    padding: 1rem;
-    width: 11.25rem;
-    height: 21.75rem;
+.vocabListBox {
+  margin: 0;
 
+  width: 212px;
+  height: 380px;
+
+  background-color: #FEDAA6;
+  border-radius: 0.5rem;
+}
+
+.vocabInstruction {
+  margin-top: 16px;
+  margin-bottom: 0;
+  margin-left: 16px;
+
+  height: 23px;
+
+  color: var(--Black-800, #4D4D4D);
+
+  /* Ko/Reg/15 */
+  font-family: "Pretendard Variable";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 22.5px */
+}
+
+.vocabList {
+  margin-top: 12px;
+  margin-bottom: 12px;
+
+  width: 212px;
+  height: 317px;
+
+  background-color: #FEDAA6;
+
+  overflow-y: auto;
+}
+
+.vocabOl {
+  margin: 0;
+
+  color: #000;
+
+  /* En/Md/17 */
+  font-family: "Min Sans VF";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  /* 25.5px */
+}
+
+/* test timer (for test) */
+
+.timerContainer{
+  width: 2rem;
+  height: 23.75rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.testTimer{
+    position: relative;
+    width: 1rem;
+    height: 19.625rem;
     border-radius: 0.5rem;
+    border: 1px solid var(--Primary400, #FFB54D);
     background: var(--Primary200, #FEDAA6);
 }
 
-.vocaTestContainer{
+/* 시간 감소 시각화 디자인 */
+.testTimerCover{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    border-radius: 0.5rem;
+    background: var(--Primary700, #FF8B14);
+    animation: var(--animation-duration) linear timer;
+}
+
+@keyframes timer {
+  from {
+    height: 100%;
+  }
+  to {
+    height: 0%;
+  }
+}
+
+.leftTime{
+  margin: 0.5rem 0 0 0;
+  color: #000;
+  text-align: center;
+
+  /* En/Sb/17 */
+  font-family: "Min Sans VF";
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 1.59375rem */
+}
+
+/* vocab card */
+
+.wordCardContainer{ 
     width: 28rem;
     height: 23.75rem;
     margin-left: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     border-radius: 0.75rem;
     border: 2px solid var(--Primary200, #FEDAA6);
     background: var(--Black-100, #FEFEFE);
 }
 
-.testTimer{
-    width: 3.75rem;
-    height: 3.75rem;
-    border-radius: 50%;
+.currentVoca{
+  width: 100%;
+  height: 3.75rem;
+  text-align: center;
+  margin: 0;
+  color: var(--Black-1000, #1A1A1A);
+  font-family: "Min Sans VF";
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 3.75rem; /* 3.75rem */
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    margin-left: auto;
-    margin-right: 1rem;
-    margin-top: 1rem;
-    background: var(--Secondary100, #CBE6F5);
 }
 
-.leftTime{
-    color: #000;
-
-    /* En/Md/24 */
-    font-family: "Min Sans VF";
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 3.75rem; /* 2.25rem */
-}
-
-.testVoca{
-    text-align: center;
-    margin-top: 5rem;
-
-    color: var(--Black-1000, #1A1A1A);
-    font-family: "Min Sans VF";
-    font-size: 2.5rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 150%; /* 3.75rem */
-}
+/* 테스트용 선지 */
 
 .vocaQuizList{
     display: flex;
@@ -149,6 +238,9 @@
     line-height: 150%; /* 1.6875rem */
 }
 
+
+/* modal pop up 시 화면 backgroud 설정 */
+
 .modalOverlay {
     position: fixed;
     top: 0;
@@ -162,6 +254,8 @@
     align-items: center;
     z-index: 99;
   }
+
+  /* 테스트용 modal */
 
   .ImgModalContainer {
     display: flex;
@@ -192,6 +286,7 @@
     line-height: 150%; /* 1.6875rem */
   }
 
+  /* 학습 종료 modal */
   .endTestModalContainer {
     width: 31.25rem;
     height: 30.75rem;

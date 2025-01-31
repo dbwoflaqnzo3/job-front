@@ -8,6 +8,7 @@ import SpeakingTestComponent from "./stage1/speakingTest";
 import SpeakingStudyComponent from "./stage1/speakingStudy";
 
 import blockTestComponent from './stage2/blockTest';
+import blockStudyComponent from './stage2/blockStudy'
 
 import inputTestComponent from './stage3/inputTest';
 
@@ -31,7 +32,7 @@ export default function VocabStageController() {
 
         const fetchData = async () => {
             try {
-                const resultStudentLessonInfo = await readStudentLessonInfo("67972c447964148a73bb7e08")
+                const resultStudentLessonInfo = await readStudentLessonInfo("6797ab3555927d2b753da5d8")
                 
                 const resultVocabData = await readAllVocabData("67744a3cdb036043fdd85d47")
                 
@@ -93,7 +94,7 @@ export default function VocabStageController() {
                         setIsFiltered(false)
                     } else if (middleProgress === 2 && isFiltered) {
     
-                        setComponentToRender(() => SpeakingStudyComponent); // Study Component
+                        setComponentToRender(() => blockStudyComponent); // Study Component
                         setIsVocabsUpdated(false);
                         setIsFiltered(false)
                     }
