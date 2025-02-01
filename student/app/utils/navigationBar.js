@@ -97,26 +97,26 @@ const NavigationBar = () => {
 
     return (
     
-        <nav style={{ ...styles.nav, display: isLoginPage ? "none" : "flex" }}>
-            <ul style={styles.ul}>
+        <nav className={{ ...styles.nav, display: isLoginPage ? "none" : "flex" }}>
+            <ul className={styles.ul}>
                 {links.map((link) => (
-                <li key={link.href} style={pathname === link.href ? styles.active : styles.li}>
-                    <Link href={link.href} style={styles.link}>
+                <li key={link.href} className={pathname === link.href ? styles.active : styles.li}>
+                    <Link href={link.href} className={styles.link}>
                     {link.label}
                     </Link>
                 </li>
                 ))}
                 {errorMessage && <p>{errorMessage}</p>}
-                <li style={styles.right}>
+                <li className={styles.right}>
                     {isLoggedIn ? (
                         <>
-                        <span style={styles.username}>{userId}</span>
-                        <button style={styles.logoutButton} onClick={handleLogout}>
+                        <span className={styles.username}>{userId}</span>
+                        <button className={styles.logoutButton} onClick={handleLogout}>
                             Logout
                         </button>
                         </>
                     ) : (
-                        <Link href="/loginPage" style={styles.loginButton}>
+                        <Link href="/loginPage" className={styles.loginButton}>
                             Login
                         </Link>
                     )}
