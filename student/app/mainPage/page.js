@@ -56,6 +56,10 @@ export default function MainPage(){
     }
 };
 
+const handleStartStudy = () => {
+  router.push("/mainPage/lessonListPage")
+}
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
@@ -106,7 +110,7 @@ export default function MainPage(){
           {/* Start Learning Button */}
           <div className={styles.startLearning}>
             <div className={styles.graphic}>
-              <button className={styles.startButton}>오늘 학습 시작하기</button>
+              <button className={styles.startButton} onClick={handleStartStudy}>오늘 학습 시작하기</button>
             </div>
             
           </div>
