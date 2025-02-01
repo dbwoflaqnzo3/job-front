@@ -35,7 +35,7 @@ export default function VocabStageController() {
             try {
                 // const resultStudentLessonInfo = await readStudentLessonInfo("678b391a7e259583d29aed48")
                 
-                const resultVocabData = await readAllVocabData("677a5441885dd37493ef1f17")
+                const resultVocabData = await readAllVocabData("67744a3cdb036043fdd85d47")
                 
 
                 // const updatedResult = resultVocabData.map(item => ({
