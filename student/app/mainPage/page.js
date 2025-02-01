@@ -11,6 +11,10 @@ import { getUserInfo } from "../utils/mainPageUtil.js"
 export default function MainPage(){
   const userId = '대준띠';
 
+const handleStartStudy = () => {
+  router.push("/mainPage/lessonListPage")
+}
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>

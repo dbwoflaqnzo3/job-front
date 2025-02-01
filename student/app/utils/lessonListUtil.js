@@ -1,10 +1,18 @@
+<<<<<<< HEAD
 export async function getMyInfo(){
+=======
+export async function getMyInfo(token){
+>>>>>>> 4a4e2d7 (feat[#35] :  1차 구현 마무리)
     try{
 
         const response = await fetch('http://localhost:8080/student/readMyInfo', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
+<<<<<<< HEAD
+=======
+                'Authorization': `Bearer ${token}`, // Authorization 헤더 추가
+>>>>>>> 4a4e2d7 (feat[#35] :  1차 구현 마무리)
             },
             credentials: 'include',
         });
