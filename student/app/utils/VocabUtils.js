@@ -2,8 +2,8 @@ export async function readAllVocabData(_id){
 
     // 'http://localhost:8080/vocabData/readManyVocab'
     // 아래는 로컬 테스트 서버 주소 
-    // const apiUrl = '/api/posts/voca'; // Test API 서버 주소
-    const apiUrl = "http://localhost:8080/vocabData/readManyVocab"
+    const apiUrl = '/api/posts/voca'; // Test API 서버 주소
+    // const apiUrl = "http://localhost:8080/vocabData/readManyVocab"
     try{
         const response = await fetch(apiUrl, {
             method: "POST",
