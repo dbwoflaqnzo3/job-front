@@ -3,8 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-
-
 const TeacherLogin = () => {
     const [formData, setFormData] = useState({
         userId: '',
