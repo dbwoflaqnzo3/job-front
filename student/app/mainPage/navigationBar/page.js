@@ -23,8 +23,8 @@ export default function navigationBar(){
             {/* Navigation Section */}
             <nav className={styles.navSection}>
                 <div className={styles.navStudent}>
-                    <a href="#">학습하기</a>
-                    <a href="#">학습캘린더</a>
+                    <a href="/mainPage/lessonListPage">학습하기</a>
+                    <a href="/mainPage/studentCalendar">학습캘린더</a>
                     <a href="#">질문하기</a>
                     <a href="#">결제하기</a>
                 </div>

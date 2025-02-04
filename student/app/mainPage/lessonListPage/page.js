@@ -93,7 +93,7 @@ export default function LessonListPage() {
       try{
         const token = document.cookie
 
-        const studentInfo = await getMyInfo(token)        
+        const studentInfo = await getMyInfo()        
         const cardInfo = await getCardInfo(studentInfo._id)
 
         const updatedCourseExistNum = [...courseExistNum];
