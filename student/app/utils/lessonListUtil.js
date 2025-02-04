@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 export async function getMyInfo(){
 =======
 export async function getMyInfo(token){
 >>>>>>> 4a4e2d7 (feat[#35] :  1차 구현 마무리)
+=======
+export async function getMyInfo(){
+>>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
     try{
 
         const response = await fetch('http://localhost:8080/student/readMyInfo', {
@@ -10,9 +14,12 @@ export async function getMyInfo(token){
             headers: {
                 'Content-Type': 'application/json',
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 'Authorization': `Bearer ${token}`, // Authorization 헤더 추가
 >>>>>>> 4a4e2d7 (feat[#35] :  1차 구현 마무리)
+=======
+>>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
             },
             credentials: 'include',
         });

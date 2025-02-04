@@ -4,8 +4,13 @@
     user-select: none;
     width: 100vw;
     height: 100vh;
+<<<<<<< HEAD
     /* background-color: black; */
     background-color: #fbf7ef;
+=======
+    background-color: black;
+    /* background-color: #fbf7ef; */
+>>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
 }
 
 .container {
@@ -88,9 +93,13 @@
     height: 26rem;
     position: absolute; /* 텍스트 뒤로 이동 */
     z-index: 5; /* 텍스트보다 뒤에 배치 */
+<<<<<<< HEAD
     border-radius: 0.25rem;
     opacity: 0.8;
     background: var(--Black-100, #FEFEFE);
+=======
+    background: rgba(0, 0, 0, 0.3);
+>>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
 
     display: flex;
     align-items: center;
@@ -100,6 +109,20 @@
     top: 50%;
     transform: translate(-49.7%, -36%); 
 
+<<<<<<< HEAD
+=======
+    border-radius: 4px;
+}
+
+.loadingText {
+    color: var(--Black-1000, #ffffff);
+    text-align: center;
+    font-family: "Min Sans VF";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 60px */
+>>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
 }
 
 .calendarHeader {
@@ -501,6 +524,7 @@
 
     width: 35.38rem;
     height: 42.25rem;
+<<<<<<< HEAD
 }
 
 .detailLoadingText{
@@ -535,4 +559,19 @@
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 30px */
+=======
+
+    background: rgba(0, 0, 0, 0.30);
+    border-radius: 4px;
+}
+
+.detailLoadingText{
+    color: var(--Black-1000, #ffffff);
+    text-align: center;
+    font-family: "Min Sans VF";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 60px */
+>>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
 }

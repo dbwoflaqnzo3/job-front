@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, React, useEffect, useRef } from 'react';
+<<<<<<< HEAD
 import { readPeriodStudentLesson, readSpecificDateLesson } from '@/app/utils/studentCalendarUtil';
 import { PageLayout } from '@/app/page.js';
 
@@ -8,6 +9,12 @@ import Image from 'next/image';
 import styles from './page.module.css';
 
 
+=======
+import NavBar from '../navigationBar/page.js';
+import { readPeriodStudentLesson, readSpecificDateLesson } from '@/app/utils/studentCalendarUtil';
+import styles from './page.module.css';
+
+>>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
 export default function StudentCalendar() {
 
     const today = new Date(); // 현재 날짜 가져오기
@@ -67,6 +74,7 @@ export default function StudentCalendar() {
 
 
     return (
+<<<<<<< HEAD
         <PageLayout>
             <div className={styles.pageTitleContainer}>
                 <div className={styles.pageTitle}>학습캘린더</div>
@@ -81,6 +89,26 @@ export default function StudentCalendar() {
                 </div>
             </div>
         </PageLayout>
+=======
+        <div className={styles.wrapper}>
+            <div className={styles.container}>
+                <NavBar/>
+                <div className={styles.pageTitleContainer}>
+                    <div className={styles.pageTitle}>학습캘린더</div>
+                </div>
+                <div className={styles.bottomComponentContainer}>
+                    <div className={styles.calendarContainer}>
+                        <Calendar year={date[0]} month={date[1]} selectedDate={selectedDate} changeMonth={handleCalnderMY} changeSelectedDate={handleSelectedDate} />
+                    </div>
+                    <div className={styles.dailyDetailContainer}>
+                        <DailyDetail month={selectedDate[1]} day={selectedDate[2]} data={dailyData} handleLoading={setDetailLoading} loading={detailLoading}/>
+                        {/* <DailyDetail month={12} day={24}/> */}
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+>>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
     );
 }
 
@@ -139,6 +167,7 @@ export function DailyDetail({month, day, data, handleLoading, loading}) {
                         </div>
                     </div>
                     :
+<<<<<<< HEAD
                     data.length == 0 ?
                     <div className={styles.detailNoLessonContainer}>
                         <Image
@@ -154,6 +183,8 @@ export function DailyDetail({month, day, data, handleLoading, loading}) {
                     </div>
                     :
 
+=======
+>>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
                     Object.entries(distributedData)
                     .filter(([key, value]) => value.length > 0) // 배열 크기가 0이 아닌 데이터만 필터링
                     .map(([key, value]) => (
@@ -300,6 +331,7 @@ export function Calendar({ year, month, selectedDate,changeMonth, changeSelected
         {
             loading == true &&
             <div className={styles.loadingBody}>
+<<<<<<< HEAD
                 <Image
                     src="/images/calendarLoading.png"
                     alt="Example Image"
@@ -307,6 +339,11 @@ export function Calendar({ year, month, selectedDate,changeMonth, changeSelected
                     height={210}
                     priority
                 />
+=======
+                <div className={styles.loadingText}>
+                    Loading...
+                </div>
+>>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
             </div>
         }
         <div className={styles.calendarHeader}>
