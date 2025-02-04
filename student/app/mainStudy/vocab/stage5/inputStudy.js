@@ -12,11 +12,16 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
     const [inputValue, setInputValue] = useState(""); // 입력값 상태
     const [vocabData, setVocabData] = useState(vocabs); // 전체 단어 데이터 저장
     const [currentWord, setCurrentWord] = useState(vocabData[0]); // 현재 단어
-
+    // 단어 카드
     const [showEnglish, setShowEnglish] = useState(false);
     const [ButtonDisplay, setButtonDisplay] = useState(false);
-
+    // 단어 리스트 
     const [wordList, setWordList] = useState([]); // 단어 리스트 상태 추가
+
+    //초기 단어 테스트 
+    const [isTested, setIsTested] = useState(false);
+    const [inputColor, setInputColor] = useState("");
+    const [skipTest, setSkipTest] = useState(false);
 
 
     const a = onTestComplete;
@@ -31,7 +36,7 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
 
         // 정답 여부 체크
         const isCorrect = newInputValue.trim().toLowerCase() === currentWord?.english.toLowerCase();
-
+ 
         if (isCorrect) {
             setShowEnglish(true); // 정답이면 영어를 숨김
             setButtonDisplay(false)
@@ -45,16 +50,26 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
         const isCorrect = inputValue.trim().toLowerCase() === currentWord?.english.toLowerCase();
 
         if (!isCorrect) {
-            setButtonDisplay(true);
-            setTimeout(() => {
-                setShowEnglish(true); // 1초 후 영어 표시
-            }, 1000); // 1초 지연 후 showEnglish 설정
+
+            if(!isTested){
+                setIsTested(true);
+                setInputColor("red");
+            }else{
+                setButtonDisplay(true);
+                setTimeout(() => {
+                    setShowEnglish(true); // 1초 후 영어 표시
+                }, 1000); // 1초 지연 후 showEnglish 설정
+            }
+
         } else {
+
             // 단어를 리스트에 추가
-            setWordList((prevList) => [
-                ...prevList,
-                `${currentWord.english}`, // 한국어와 영어로 구성된 단어 추가
-            ]);
+            setWordList((prevList) => {
+                if (!prevList.includes(currentWord.english)) {
+                    return [...prevList, currentWord.english];
+                }
+                return prevList;
+            });
 
             // 다음 단어로 이동
             if (currentIndex < vocabData.length - 1) {
@@ -66,7 +81,10 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
             } else {
                 setShowPopup(true); // 모든 단어 완료 시 팝업 표시
             }
+            setIsTested(false);
+            setInputColor("");
         }
+
     };
 
     const handleExit = () => {
@@ -77,6 +95,13 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
     const toggleLanguage = () => {
         // 한국어/영어 상태 토글
         setShowEnglish(!showEnglish); 
+    };
+
+    const handleWordClick = (index) => {
+        setCurrentIndex(index);
+        setCurrentWord(vocabs[index]);
+        setInputValue("");
+        setShowEnglish(false);
     };
 
     return (
@@ -92,7 +117,10 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
                         <h3>단어 리스트</h3>
                         <ul>
                             {wordList.map((word, index) => (
-                                <li key={index}>{index+1}. {word}</li>
+                                <li key={index}
+                                onClick={() => handleWordClick(index)}
+                                className={index === currentIndex ? styles.selectedWord : ""}
+                                >{index+1}. {word}</li>
                             ))}
                         </ul>
                     </div>
@@ -108,6 +136,7 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
                     placeholder="단어 입력"
                     value={inputValue}
                     onChange={handleInputChange} // 입력값이 바뀔 때마다 처리
+                    style={{ borderColor: inputColor }} // 입력창 테두리 색상 변경
                 />
                 <div className={styles.buttonWrapper}>
                     <button
