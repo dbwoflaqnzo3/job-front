@@ -1,7 +1,13 @@
+@import url("https://cdn.jsdelivr.net/gh/poposnail61/min-sans@main/web/css/minsansvf-dynamic-subset.css");
+
 * {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+}
+
+body {
+  font-family: "Pretendard Variable", "Min Sans Variable", sans-serif;
 }
 
 :root {
@@ -50,7 +56,7 @@
 
   /* Font Family */
   --pretendard: "Pretendard Variable";
-  --min-sans: "Min Sans Variable";
+  --min-sans: "MinSansVF";
 
   /* Font Weight */
   --thin:	100;
@@ -64,12 +70,7 @@
   --black: 900;
 }
 
-/* 기본 폰트 설정 */
-body {
-  font-family: "Pretendard Variable", "Min Sans Variable", sans-serif;
-}
-
-
+/* Korean Font Style */
 .ko-md-13 {
   font-family: var(--pretendard);
   font-weight: var(--medium);
@@ -152,4 +153,113 @@ body {
   font-family: var(--pretendard);
   font-weight: var(--medium);
   font-size: 36px;
+}
+
+/* English Font Style */
+.en-reg-13 {
+  font-family: var(--min-sans);
+  font-weight: var(--regular);
+  font-size: 13px;
+}
+
+.en-md-13 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 13px;
+}
+
+.en-md-13 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 13px;
+}
+
+.en-reg-15 {
+  font-family: var(--min-sans);
+  font-weight: var(--regular);
+  font-size: 15px;
+}
+
+.en-md-15 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 15px;
+}
+
+.en-sb-15 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 15px;
+}
+
+.en-reg-17 {
+  font-family: var(--min-sans);
+  font-weight: var(--regular);
+  font-size: 17px;
+}
+
+.en-md-17 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 17px;
+}
+
+.en-sb-17 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 17px;
+}
+
+.en-sb-18 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 18px;
+}
+
+.en-sb-20 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 20px;
+}
+
+.en-md-24 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 24px;
+}
+
+.en-md-24 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 24px;
+}
+
+.en.md-28 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 28px;
+}
+
+.en.sb-30 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 30px;
+}
+
+.en.md-32 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 32px;
+}
+
+.en.md-36 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 36px;
+}
+
+.en.sb-40 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 40px;
 }

@@ -6,6 +6,7 @@ import { Row, Column } from "@/app/widgets/structure/Grid";
 import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/components/Button";
 import TextField from "@/app/components/TextField";
 import DropdownButton from "@/app/components/DropdownButton";
+import { SemiCircularGraph, CircularGraph } from "@/app/components/CircularGraph";
 
 function buttons() {
   return (
@@ -115,6 +116,18 @@ function textFields() {
   );
 }
 
+function circulargraphes() {
+  return (
+    <section>
+      <h2>Circular Progresses</h2>
+      <Row>
+        <SemiCircularGraph percentage={.5} />
+        <CircularGraph percentage={.2} />
+      </Row>
+    </section>
+  );
+}
+
 export default function Component() {
   return (
     <Column>
@@ -123,6 +136,7 @@ export default function Component() {
       {checkboxButtons()}
       {dropdownButtons()}
       {textFields()}
+      {circulargraphes()}
       <div style={{height: "400px"}} />
     </Column>
   );
