@@ -121,16 +121,19 @@
     flex-direction: row;
     justify-content: space-between;
 
-    width: 919px;
+    width: 1148px;
+    height: 514px;
 }
 
 .vocabListBox {
     margin: 0;
 
     width: 212px;
-    height: 380px;
+    height: 470px;
 
     background-color: #FEDAA6;
+
+    border-radius: 16px;
 }
 
 .vocabInstruction {
@@ -152,8 +155,8 @@
 }
 
 .vocabList {
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 
     width: 212px;
     height: 317px;
@@ -163,26 +166,43 @@
     overflow-y: auto;
 }
 
-.vocabOl {
+.selectedVocab {
+    padding-left: 16px;
     margin: 0;
 
-    color: #000;
+    color: var(--Black-1000, #1A1A1A);
+
+    /* En/Sb/17 */
+    font-family: "Min Sans VF";
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 25.5px */
+
+    background-color: #FFB54D;
+}
+
+.otherVocabs {
+    padding-left: 16px;
+    margin: 0;
+
+    color: var(--Black-800, #4D4D4D);
 
     /* En/Md/17 */
     font-family: "Min Sans VF";
     font-size: 17px;
     font-style: normal;
     font-weight: 500;
-    line-height: 150%;
-    /* 25.5px */
-}
-
-.active {
-    color: #FF6600;
-    font-weight: bold;
+    line-height: 150%; /* 25.5px */
 }
 
 
+.middleContainer {
+    margin: 0;
+
+    height: 100%;
+    width: 444px;
+}
 
 .vocabBox {
     margin: 0;
@@ -275,6 +295,10 @@
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 27px */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .computerVoice:disabled {
     background-color: #666666;
@@ -298,8 +322,12 @@
     font-weight: 600;
     line-height: 150%; /* 27px */
 }
+.myVoice:active{
+    background-color: #339CD9;
+}
 .myVoice:disabled {
-    background-color: #666666;
+    color: #999999;
+    background-color: #E5E5E5;
 }
 
 
@@ -317,114 +345,8 @@
     align-items: center;
 }
 
-.targetAccuracy {
-    margin-top: 40px;
-    margin-bottom: 0;
-
-    color: var(--Black-1000, #1A1A1A);
-    text-align: center;
-
-    /* Ko/Md/17 */
-    font-family: "Pretendard Variable";
-    font-size: 17px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%;
-    /* 25.5px */
-}
-
-.allBadges {
-    margin-top: 28px;
-    margin-bottom: 0;
-
-    width: 186px;
-    height: 57px;
-
-    display: flex;
-    justify-content: space-between;
-}
-
-.accBadge {
-    margin: 0;
-
-    width: 38px;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.circle {
-    margin: 0;
-
-    width: 14px;
-    height: 14px;
-
-    border-radius: 50%;
-
-    background-color: #FEEDD2;
-
-    border: 1px solid #FFB54D;
-}
-
-.circleWrong {
-    margin: 0;
-
-    width: 14px;
-    height: 14px;
-
-    border-radius: 50%;
-
-    background-color: #FEEDD2;
-
-    border: 1px solid #FFB54D;
-}
-
-.circlePassed {
-    margin: 0;
-
-    width: 14px;
-    height: 14px;
-
-    border-radius: 50%;
-
-    background-color: #339CD9;
-
-    border: 1px solid #FFB54D;
-}
-
-.circleFailed {
-    margin: 0;
-
-    width: 14px;
-    height: 14px;
-
-    border-radius: 50%;
-
-    background-color: #F54316;
-
-    border: 1px solid #FFB54D;
-}
-
-.percent {
-    margin-top: 15Px;
-    margin-bottom: 0;
-
-    color: #1A1A1A;
-    text-align: center;
-
-    /* En/Sb/17 */
-    font-family: "Min Sans VF";
-    font-size: 17px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 150%;
-    /* 25.5px */
-}
-
 .voiceRecord {
-    margin-top: 48px;
+    margin-top: 118px;
     margin-bottom: 0;
 
     width: 196px;
@@ -524,11 +446,11 @@
 
     cursor: pointer;
 }
-
-.prevButton:disabled,
-.nextButton:disabled {
-    background-color: #666666;
-    cursor: not-allowed;
+.prevButton:hover {
+    background-color: #056FAC;
+}
+.prevButton:active {
+    background-color: #0A5A87;
 }
 
 .nextButton {
@@ -545,6 +467,21 @@
 
     cursor: pointer;
 }
+.nextButton:hover {
+    background-color: #FF971A;
+}
+.nextButton:active {
+    background-color: #FF8B14;
+}
+
+.prevButton:disabled,
+.nextButton:disabled {
+    color: #999999;
+    background-color: #E5E5E5;
+    cursor: not-allowed;
+}
+
+
 
 
 

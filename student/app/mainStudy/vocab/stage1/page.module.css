@@ -146,7 +146,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .vocabBoxPassed {
@@ -162,7 +161,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .vocabBoxFailed {
@@ -178,10 +176,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .vocabWord {
+    margin-top: 133px;
+    margin-bottom: 0;
+
+    height: 60px;
+    width: 100%;
+
     color: var(--Black-1000, #1A1A1A);
     text-align: center;
     font-family: "Min Sans VF";
@@ -190,6 +193,27 @@
     font-weight: 600;
     line-height: 150%;
     /* 60px */
+}
+
+.computerVoice {
+    height: 47px;
+    width: 147px;
+
+    margin-top: 92px;
+
+    border: none;
+    border-radius: 16px;
+    background-color: #66B5E2;
+    cursor: pointer;
+
+    color: #1A1A1A;
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 27px */
 }
 
 .voiceControl {
@@ -387,7 +411,7 @@
 
 
 
-.progressButton {
+.progressButtonContainer {
     margin-top: 80px;
     margin-bottom: 0;
 
@@ -398,7 +422,7 @@
     justify-content: space-between;
 }
 
-.nextButton {
+.passButton {
     margin: 0;
 
     width: 212px;
@@ -412,13 +436,14 @@
 
     cursor: pointer;
 }
-
-.nextButton:disabled {
-    background-color: #666666;
-    cursor: not-allowed;
+.passButton:hover {
+    background-color: #056FAC;
+}
+.passButton:active {
+    background-color: #0A5A87;
 }
 
-.passButton {
+.nextButton {
     margin: 0;
 
     width: 212px;
@@ -431,6 +456,16 @@
     color: #1A1A1A;
 
     cursor: pointer;
+}
+.nextButton:hover {
+    background-color: #FF971A;
+}
+.nextButton:active {
+    background-color: #FF8B14;
+}
+.nextButton:disabled {
+    background-color: #E5E5E5;
+    cursor: not-allowed;
 }
 
 

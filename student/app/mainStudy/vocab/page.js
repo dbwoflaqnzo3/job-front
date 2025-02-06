@@ -34,7 +34,7 @@ export default function VocabStageController() {
 
         const fetchData = async () => {
             try {
-                const resultStudentLessonInfo = await readStudentLessonInfo("678b391a7e259583d29aed48")
+                const resultStudentLessonInfo = await readStudentLessonInfo("6797ab3555927d2b753da5d8")
                 
                 const resultVocabData = await readAllVocabData("67744a3cdb036043fdd85d47")
                 

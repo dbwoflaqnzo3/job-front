@@ -22,12 +22,31 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
     const [isToStudy, setIsToStudy] = useState(false);
     const [isToNextStage, setIsToNextStage] = useState(false);
 
+
     const passThreshold = 70
 
     useEffect(() => {
 
     }, [])
 
+    const handleSpeakVoice = (e) => {
+        e.preventDefault()
+        speakText(vocabs[currentIndex].english)
+    }
+
+    const speakText = (text) => {
+        if (window.speechSynthesis) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.5;  // 음성 속도
+            utterance.pitch = 1; // 음성 피치
+            utterance.lang = "en-US"; // 음성 언어 설정
+
+            // 음성을 시작
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("이 브라우저는 SpeechSynthesis를 지원하지 않습니다.");
+        }
+    }
 
     const handlePassUpdate = (index, isPassed) => {
         // 특정 단어의 결과 업데이트
@@ -143,6 +162,7 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                             {/* 남은 단어가 있을 경우에는 단어를 띄움 */}
                             {(currentIndex <= vocabs.length - 1) && vocabs[currentIndex].english}
                         </div>
+                        <button onClick={handleSpeakVoice} className={styles.computerVoice}>발음듣기</button>
                     </div>
 
                     <div className={styles.voiceControl}>
@@ -163,17 +183,14 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                             </div>
                         </div>
 
-                        <div className={styles.voiceRecord} style={{ pointerEvents: testTry < 3 ? "auto" : "none" }}>
+                        <div style={{ pointerEvents: testTry < 3 ? "auto" : "none" }}>
                             <VoiceRecording
-                                sample={vocabs[currentIndex].english}
                                 passThreshold={passThreshold}
                                 index={currentIndex} // 현재 단어의 인덱스 전달
                                 onScoreUpdate={handleScoreUpdate}
                                 onPassUpdate={handlePassUpdate}
                                 shouldReset={shouldReset}
                             />
-                            <div className={styles.recordInstruction}>녹음하기</div>
-                            <div className={styles.recordSubInstruction}>마이크를 누르고 발음하세요</div>
                         </div>
                     </div>
                 </div>
@@ -183,9 +200,9 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
 
 
                 {/* 제출 버튼 */}
-                <div className={styles.progressButton}>
-                    <button className={styles.nextButton} onClick={handleNext} disabled={!passResults[currentIndex]}>Next</button>
-                    <button className={styles.passButton} onClick={handlePass} >Pass</button>
+                <div className={styles.progressButtonContainer}>
+                    <button className={styles.passButton} onClick={handlePass} >이 단어 건너뛰기</button>
+                    <button className={styles.nextButton} onClick={handleNext} disabled={!passResults[currentIndex]}>확인</button>
                 </div>
 
                 {/* 학습하러가기 팝업 */}
@@ -310,7 +327,7 @@ function EachWord({ vocab }) {
     );
 }
 
-function VoiceRecording({ sample, passThreshold, onPassUpdate, index, shouldReset, onScoreUpdate }) {
+function VoiceRecording({ passThreshold, onPassUpdate, index, shouldReset, onScoreUpdate }) {
 
     const [isRecording, setIsRecording] = useState(false);
     const [isPlayable, setIsPlayable] = useState(false);
@@ -454,7 +471,7 @@ function VoiceRecording({ sample, passThreshold, onPassUpdate, index, shouldRese
 
 
     return (
-        <div>
+        <div className={styles.voiceRecord}>
             <button
                 onClick={(e) => {
                     e.preventDefault();
@@ -463,8 +480,10 @@ function VoiceRecording({ sample, passThreshold, onPassUpdate, index, shouldRese
                 disabled={isSubmit && !isEvaluated}
                 className={styles.recordButton}
             >
-                {isRecording ? "녹음 중지" : "녹음 시작"}
+                <img src="/assets/images/icons/녹음하기.svg" alt="Mic Icon"  style={{userSelect : "none"}} draggable="false"/>
             </button>
+            <p className={styles.recordInstruction}>{isRecording ? "녹음중지" : "녹음하기"}</p>
+            <p className={styles.recordSubInstruction}>{isRecording ? "녹음이 끝나면 마이크를 눌러" : "마이크를 누르고 발음하세요"}</p>
 
             {isPlayable && (
                 <div>

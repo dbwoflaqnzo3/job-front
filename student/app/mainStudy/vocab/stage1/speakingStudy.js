@@ -4,6 +4,7 @@
 import styles from "./study.module.css";
 
 import { useState, useEffect, useSyncExternalStore } from "react";
+import Image from "next/image";
 
 export default function SpeakingStudy({ vocabs, onTestComplete }) {
     const passThreshold = 70
@@ -19,24 +20,31 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
     const togglePopup = () => {
         setIsToTest((prev) => !prev)
     }
-    
+
 
     // 사용자가 녹음한 음원
     const [recordedAudio, setRecordedAudio] = useState(null)
 
-    const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
     const [passResults, setPassResults] = useState(
-        // 값 변경 없음
-        // vocabs.map((vocab) => vocab.IsPassed[1])
-
         // 초기값 false로 배열 생성
-        Array(vocabs.length).fill(false) 
+        Array(vocabs.length).fill(false)
     );
     const [shouldReset, setShouldReset] = useState(false);
 
+    // 단어 리스트 
+    const [wordList, setWordList] = useState([]); // 단어 리스트 상태 추가
+    const [vocabData, setVocabData] = useState(vocabs); // 전체 단어 데이터 저장
+    const [currentWord, setCurrentWord] = useState(vocabData[0]); // 현재 단어
+    const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
+
     useEffect(() => {
-        
-    }, [])
+
+    }, [wordList])
+
+    const handleWordClick = (index) => {
+        setCurrentIndex(index);
+        setCurrentWord(vocabs[index]);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,10 +54,25 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
     const handleNext = (e) => {
         e.preventDefault();
 
-        setCurrentIndex(currentIndex + 1);
+
+        // 단어를 리스트에 추가
+        setWordList((prevList) => {
+            if (!prevList.includes(currentWord.english)) {
+                return [...prevList, currentWord.english];
+            }
+            return prevList;
+        });
+
+        // 다음 단어로 이동
+        if (currentIndex < vocabData.length - 1) {
+            const nextIndex = currentIndex + 1;
+            setCurrentIndex(nextIndex);
+            setCurrentWord(vocabData[nextIndex]); // 다음 단어 설정
+        } else {
+            togglePopup(); // 모든 단어 완료 시 팝업 표시
+        }
 
         setShouldReset(!shouldReset)
-
         setRecordedAudio(null)
 
     };
@@ -57,7 +80,7 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
     const handlePrevious = (e) => {
         e.preventDefault();
         if (currentIndex > 0)
-            setCurrentIndex(currentIndex - 1); // 다음 단어로 이동
+            setCurrentIndex(currentIndex - 1); // 이전 단어로 이동
 
         setShouldReset(!shouldReset)
 
@@ -86,14 +109,14 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
 
     const handleAudio = (newAudio) => {
         setRecordedAudio(newAudio);
-        
+
         // 녹음을 하면 현재 단어가 학습된 다어로 바뀌게 설정
         const tempArray = [...vocabStudied];
         tempArray[currentIndex] = true;
         setVocabStudied(tempArray);
 
         // 모든 단어 학습했는지 확인
-        if(tempArray.every((vocab)=>vocab===true)){
+        if (tempArray.every((vocab) => vocab === true)) {
             setAllStudied(true);
         }
     }
@@ -141,11 +164,11 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
     const tempMap = vocabulary.map((vocab, index) => <li key={index} className={index === currentIndex ? styles.active : ''}>{vocab}</li>)
 
     // 틀린 단어만 만듦.
-    
+
     const vocabMap = vocabs.map((vocab, index) =>
         <li
             key={index}
-            className={index === currentIndex ? styles.active : ''}
+            className={index === currentIndex ? styles.currentVocab : ''}
             style={{ display: index <= currentIndex ? 'list-item' : 'none' }}
         >
             {vocab.english}
@@ -181,45 +204,60 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
                     <div className={styles.vocabListBox}>
                         <p className={styles.vocabInstruction}>단어리스트</p>
                         <div className={styles.vocabList}>
-                            <ol className={styles.vocabOl}>
-                                {vocabMap}
-                            </ol>
+                            <div className={styles.vocabOl}>
+                                {wordList.map((word, index) => (
+                                    <p
+                                        key={index}
+                                        onClick={() => handleWordClick(index)}
+                                        className={index === currentIndex ? styles.selectedVocab : styles.otherVocabs}
+                                    >
+                                        {index + 1}. {word}
+                                    </p>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
                     {/* Vocab Box */}
-                    <div className={styles.vocabBox}>
-                        <div className={styles.vocabWord}>
-                            {/* 남은 단어가 있을 경우에는 단어를 띄움 */}
-                            {(currentIndex <= vocabs.length - 1) && vocabs[currentIndex].english}
+                    <div className={styles.middleContainer}>
+                        <div className={styles.vocabBox}>
+                            <div className={styles.vocabWord}>
+                                {/* 남은 단어가 있을 경우에는 단어를 띄움 */}
+                                {(currentIndex <= vocabs.length - 1) && vocabs[currentIndex].english}
+                            </div>
+                            <div className={styles.soundButtonContainer}>
+                                <button onClick={handleSpeakVoice} className={styles.computerVoice}>
+                                    <span style={{ display: "flex", alignItems: "center", gap: "0.4em"}}>
+                                        <img
+                                            src="/assets/images/icons/듣기.svg"
+                                            alt="듣기 Icon"
+                                            style={{ width: "1em", height: "1em", verticalAlign: "middle" }}
+                                        />
+                                        발음듣기
+                                    </span>
+                                </button>
+
+                                <button onClick={playMyAudio} disabled={!recordedAudio} className={styles.myVoice}>내 발음듣기</button>
+                            </div>
                         </div>
-                        <div className={styles.soundButtonContainer}>
-                            <button onClick={handleSpeakVoice} className={styles.computerVoice}>발음듣기</button>
-                            <button onClick={playMyAudio} disabled={!recordedAudio} className={styles.myVoice}>내 발음듣기</button>
+                        {/* 이전 및 다음 버튼*/}
+                        <div className={styles.progressButton}>
+                            <button className={styles.prevButton} onClick={handlePrevious} disabled={currentIndex == 0 ? true : false}>이전 단어</button>
+                            <button className={styles.nextButton} onClick={currentIndex == vocabs.length ? togglePopup : handleNext} disabled={vocabStudied[currentIndex] === false ? true : false}>{currentIndex == vocabs.length - 1 ? "확인" : "다음 단어"}</button>
                         </div>
                     </div>
 
                     {/* Record Box */}
                     <div className={styles.voiceControl}>
-                        <p className={styles.targetAccuracy}>목표 정확도 {passThreshold}%</p>
-
-                        <div className={styles.voiceRecord}>
-                            <VoiceRecording
-                                shouldReset={shouldReset}
-                                getAudio={handleAudio}
-                            />
-                            <div className={styles.recordInstruction}>녹음하기</div>
-                            <div className={styles.recordSubInstruction}>마이크를 누르고 발음하세요</div>
-                        </div>
+                        <VoiceRecording
+                            shouldReset={shouldReset}
+                            getAudio={handleAudio}
+                        />
                     </div>
                 </div>
 
 
-                {/* 이전 및 다음 버튼*/}
-                <div className={styles.progressButton}>
-                    <button className={styles.prevButton} onClick={handlePrevious} disabled={currentIndex == 0 ? true : false}>Previous</button>
-                    <button className={styles.nextButton} onClick={allStudied ? togglePopup : handleNext} disabled={vocabStudied[currentIndex] === false ? true : false}>{currentIndex == vocabs.length - 1 ? "Submit" :"Next"}</button>
-                </div>
+
 
                 {/* 시험보러가기 팝업 */}
                 {vocabStudied.every(vocab => vocab === true) && isToTest &&
@@ -419,7 +457,7 @@ export function VoiceRecording({ shouldReset, getAudio }) {
 
 
     return (
-        <div>
+        <div className={styles.voiceRecord}>
             <button
                 onClick={(e) => {
                     e.preventDefault();
@@ -427,8 +465,10 @@ export function VoiceRecording({ shouldReset, getAudio }) {
                 }}
                 className={styles.recordButton}
             >
-                {isRecording ? "녹음 중지" : "녹음 시작"}
+                <img src="/assets/images/icons/녹음하기.svg" alt="Mic Icon"  style={{userSelect : "none"}} draggable="false"/>
             </button>
+            <p className={styles.recordInstruction}>{isRecording ? "녹음중지" : "녹음하기"}</p>
+            <p className={styles.recordSubInstruction}>{isRecording ? "녹음이 끝나면 마이크를 눌러" : "마이크를 누르고 발음하세요"}</p>
 
             {/* {isPlayable && (
                 <div>
