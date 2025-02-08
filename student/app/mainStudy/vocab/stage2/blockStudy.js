@@ -7,12 +7,15 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
 
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
     const [wordList, setWordList] = useState([])
+    const [disabledTimer, setDisabledTimer] = useState(false)
 
     //timer
     const [initialTime, setInitialTime] = useState(10)
     const [timeLeft, setTimeLeft] = useState(initialTime) // 남은 시간
     const [key, setKey] = useState(0) //timer css 초기화 용도 (컴포넌트 요소 안에 변경 사항이 생기면 컴포넌트가 재랜더링됨 key를 1증가시킴으로써 재랜더링하며 timer 초기화)
-    const [timeOption, setTimeOption] = useState(["직접", "3", "7", "10"])
+    const [isTimeOut, setIsTimeOut] = useState(false)
+    const [isSelfTimeControl, setIsSelfTimeControl] = useState(false)
+    const timeOption = ["직접", "3", "7", "10"]
 
     // 선생님이 지정한 animation duration으로 설정
     useEffect(() => {
@@ -25,12 +28,7 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
             const interval = setInterval(() => {
                 setTimeLeft((prev) => {
                     if (prev <= 1) {
-                        // if (clickedIndex.current === null && currentIndex <= vocabs.length - 1) {
-                        //     isPassed.current = false
-                        //     setImgModalOpen(true)
-                        //     handlePassUpdate(currentIndex, false)
-                        //     setTimeout(() => handleNext(), 1000)
-                        // }
+                        setIsTimeOut(true)
                         return 0
                     }
                     return prev - 1
@@ -42,22 +40,45 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
 
     // 다음 단어로 이동
     const handleNext = () => {
-        // setTimeLeft(initialTime)
-        setWordList([...wordList, vocabs[currentIndex]])
+
         setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
+
+        // 현재 단어 index와 학습한 단어 index 비교
+        if(!wordList.includes(vocabs[currentIndex])){
+            setWordList([...wordList, vocabs[currentIndex]])
+        }
+
+        setKey((prev)=>prev+1)
+        setTimeLeft(initialTime)
+        setIsTimeOut(false)
     };
 
     //list에 있는 voca 클릭
     const clickListVoca = (i) => {
         setCurrentIndex(i)
-        
+        setKey((prev) => prev+1)
+        setTimeLeft(initialTime)
+        setIsTimeOut(false)
     }
     
-    const selectTimeOption = (t) => {
-        if(t !== '직접'){
-            setInitialTime(timeOption[t])
-        }
+    const selectTimeOption = (e, t) => {
+        e.preventDefault()
         
+        // timer 옵션에서 직접 선택했을 시 
+        if(t === 0){
+            setDisabledTimer(true)
+            setIsSelfTimeControl(true)
+        } // timer 옵션에서 시간 선택 시
+        else {
+            setIsSelfTimeControl(false)
+            setDisabledTimer(false)
+            setIsTimeOut(false)
+            setInitialTime(timeOption[t])
+            setTimeLeft(timeOption[t])
+
+            //timer 초기화
+            setKey((prev) => prev+1)
+        }
     }
 
     return (
@@ -107,17 +128,26 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
                 {/* Word Card */}
                 <EachWord
                     vocab={vocabs[currentIndex]}
+                    isTimeOut={isTimeOut}
+                    isSelfTimeControl = {isSelfTimeControl}
                 />
 
                 <div className={style.selectLimitTimeContainer}>
+
                     {/* test timer */}
-                    <div className={style.timerContainer}>
-                        <div className={style.testTimer}>
-                            <div className={style.testTimerCover} key={key}>
+                    {
+                        !disabledTimer ? 
+                        //timer option에서 직접을 선택 안 했을 시
+                        <div className={style.timerContainer}>
+                            <div className={style.testTimer}>
+                                <div className={style.testTimerCover} key={key}>
+                                </div>
                             </div>
+                            <p className={style.leftTime}>{timeLeft}s</p>
                         </div>
-                        <p className={style.leftTime}>{timeLeft}s</p>
-                    </div>
+                        :
+                        <div></div>
+                    }
 
                     {/* time option */}
                     <div className={style.timerOptionContainer}>
@@ -128,12 +158,12 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
 
                                     if (i > 0) {
                                         return (
-                                            <button className={style.timeOption} key={i} onClick={(a) => selectTimeOption(a)}>{a}초</button>
+                                            <button className={style.timeOption} key={i} onClick={(e) => selectTimeOption(e, i)}>{a}초</button>
                                         )
                                     }
                                     else {
                                         return (
-                                            <button className={style.timeOption} key={i} onClick={(a) => selectTimeOption(a)}>{a}</button>
+                                            <button className={style.timeOption} key={i} onClick={(e) => selectTimeOption(e, i)}>{a}</button>
                                         )
                                     }
 
@@ -160,9 +190,13 @@ function StudyPurpose({ }) {
     )
 }
 
-function EachWord({ vocab }) {
+function EachWord({ vocab, isTimeOut, isSelfTimeControl }) {
 
     const [isClicked, setIsClicked] = useState(false)
+
+    useEffect(() => {
+        setIsClicked(isTimeOut)
+    }, [isTimeOut])
 
     const handleSpeakVoice = (e) => {
         e.preventDefault()
@@ -185,8 +219,9 @@ function EachWord({ vocab }) {
     }
 
     const wordCardClicked = () => {
-        console.log("111")
-        setIsClicked((prev) => !prev)
+        if(isTimeOut || isSelfTimeControl){
+            setIsClicked((prev) => !prev)
+        }
     }
 
     return (

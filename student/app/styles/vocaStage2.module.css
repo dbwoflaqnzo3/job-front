@@ -75,7 +75,7 @@
     bottom: 0;
     border-radius: 0.5rem;
     background: var(--Primary700, #FF8B14);
-    animation: var(--animation-duration) linear timer;
+    animation: var(--animation-duration) linear timer forwards;
 }
 
 @keyframes timer {
