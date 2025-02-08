@@ -28,7 +28,7 @@ export default function blockTest({ vocabs, onTestComplete }) {
 
     useEffect(() => {
         document.documentElement.style.setProperty("--animation-duration", `${initialTime}s`);
-      }, [initialTime]);
+      }, []);
 
     // timer 시간 진행 
     useEffect(() => {
@@ -130,7 +130,6 @@ export default function blockTest({ vocabs, onTestComplete }) {
                                 </div>
                            </div>
                             <p className={style.leftTime}>{timeLeft}s</p>
-                 
                         </div>
 
                         {/* vocab card */}

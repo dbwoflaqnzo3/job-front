@@ -24,7 +24,7 @@ export default function VocabStageController() {
     const [isFiltered, setIsFiltered] = useState(false)
 
     const[totalProgress, setTotalProgress] = useState(1)
-    const [middleProgress, setMiddleProgress] = useState(1)
+    const [middleProgress, setMiddleProgress] = useState(2)  // 임시로 수정 원래 1
     const [ComponentToRender, setComponentToRender] = useState(null);
 
 
