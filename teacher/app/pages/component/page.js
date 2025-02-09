@@ -7,6 +7,7 @@ import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/comp
 import TextField from "@/app/components/TextField";
 import DropdownButton from "@/app/components/DropdownButton";
 import { SemiCircularGraph, CircularGraph } from "@/app/components/CircularGraph";
+import { SegmentedButton, SegmentedGroup } from "@/app/components/SegmentedButton";
 
 function buttons() {
   return (
@@ -104,6 +105,24 @@ function dropdownButtons() {
   );
 }
 
+function segmentedButtons() {
+  const [selected, setSelected] = useState("option1");
+
+  return (
+    <section>
+      <h2>Segmented Buttons</h2>
+      <Row>
+        <SegmentedGroup name="segmentedGroup1" defaultValue={selected} onChange={setSelected} row="1">
+          <SegmentedButton label="옵션 1" value="option1" />
+          <SegmentedButton label="옵션 2" value="option2" />
+          <SegmentedButton label="옵션 3" value="option3" />
+          <SegmentedButton label="옵션 4" value="option4" />
+        </SegmentedGroup>
+      </Row>
+    </section>
+  );
+}
+
 function textFields() {
   return (
     <section>
@@ -135,6 +154,7 @@ export default function Component() {
       {radioButtons()}
       {checkboxButtons()}
       {dropdownButtons()}
+      {segmentedButtons()}
       {textFields()}
       {circulargraphes()}
       <div style={{height: "400px"}} />
