@@ -16,6 +16,7 @@ export default function VocabStageController() {
     
     const [errorMessage, setErrorMessage] = useState("");
     const [vocabs, setVocabs] = useState([])
+    const [totalVocabs, setTotalVocabs] = useState([])
     const [isVocabsUpdated, setIsVocabsUpdated] = useState(false); 
 
     const [studyMode, setStudyMode] = useState([])
@@ -23,10 +24,9 @@ export default function VocabStageController() {
     const [filteredVocabs, setFilteredVocabs] = useState([])
     const [isFiltered, setIsFiltered] = useState(false)
 
-    const[totalProgress, setTotalProgress] = useState(1)
-    const [middleProgress, setMiddleProgress] = useState(2)  // 임시로 수정 원래 1
+    const [totalProgress, setTotalProgress] = useState(1)
+    const [middleProgress, setMiddleProgress] = useState(1)  // 임시로 수정 원래 1
     const [ComponentToRender, setComponentToRender] = useState(null);
-
 
     useEffect(() => {
 
@@ -50,7 +50,11 @@ export default function VocabStageController() {
                 // setTotalProgress(resultStudentLessonInfo.studyMode[0])
                 setTotalProgress(2) // 임시로 2로 수정
                 setIsVocabsUpdated(true)
-                
+
+                setTotalVocabs(resultVocabData.map(item =>({
+                    korean: item.korean,
+                    english: item.english
+                })))
 
             } catch (err) {
                 setErrorMessage(err.message); // 오류 발생 시 상태에 오류 메시지 저장
@@ -177,6 +181,7 @@ export default function VocabStageController() {
                 vocabs.length !== 0 ? (
                     ComponentToRender ? (
                         <ComponentToRender
+                            totalVocabs={totalVocabs}
                             vocabs={filteredVocabs}
                             onTestComplete={(passResults) => handleVocabPass(passResults)}
                         />

@@ -19,6 +19,7 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
 
     // 선생님이 지정한 animation duration으로 설정
     useEffect(() => {
+        console.log()
         document.documentElement.style.setProperty("--animation-duration", `${initialTime}s`);
     }, [initialTime]);
 
