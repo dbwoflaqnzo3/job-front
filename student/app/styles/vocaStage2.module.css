@@ -302,6 +302,9 @@
     line-height: 150%; /* 1.6875rem */
   }
 
+  .homeBtn:hover{
+    background: var(--Primary600, #FF971A);
+  }
 
   /* study main content */
 
@@ -474,7 +477,9 @@
 
   color: var(--Black-1000, #1A1A1A);
 
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   /* Ko/Sb/18 */
   font-family: "Pretendard Variable";
@@ -482,6 +487,16 @@
   font-style: normal;
   font-weight: 600;
   line-height: 150%; /* 1.6875rem */
+}
+
+.pronounceBtn:hover{
+  background: var(--Secondary600, #056FAC);
+}
+
+.pronounceIcon{
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.75rem;
 }
 
 .nextVocaBtnContainer{
@@ -506,6 +521,10 @@
   font-style: normal;
   font-weight: 600;
   line-height: 150%; /* 1.6875rem */
+} 
+
+.nextVocaBtn:hover{
+  background: var(--Primary600, #FF971A);
 }
 
 /* select time Option */

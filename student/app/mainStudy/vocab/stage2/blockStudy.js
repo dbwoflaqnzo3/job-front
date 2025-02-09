@@ -175,7 +175,6 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
             </div>
 
             <NextVoca handleNext={handleNext}/>
-
         </div>
     );
 }
@@ -232,7 +231,10 @@ function EachWord({ vocab, isTimeOut, isSelfTimeControl }) {
             <div className={`${style.cardInner} ${isClicked ? style.flipped : ""}`}>
                 <div className={style.flipCardFront}>
                     <p className={style.studyCurrentVoca} >{vocab.english}</p>
-                    <button className={style.pronounceBtn} onClick={handleSpeakVoice}>Icon 발음듣기</button>
+                    <button className={style.pronounceBtn} onClick={handleSpeakVoice}>
+                        <img src="/pronounceIcon.svg" className={style.pronounceIcon}></img>
+                        발음듣기
+                    </button>
                 </div>
                 <div className={style.flipCardBack}>
                     <p className={style.studyCurrentVoca} >{vocab.korean}</p>
