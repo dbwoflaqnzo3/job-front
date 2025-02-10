@@ -37,19 +37,18 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
 
         makeKoreanLIst()
 
-    }, [randomNum])
+    }, [currentIndex])
 
     const makeKoreanLIst = () => {
 
         if(currentIndex >= vocabs.length){
+            console.log("hi")
             return
         }
 
         koreanList = totalVocabs.map(item => item.korean)
 
         const index = koreanList.indexOf(vocabs[currentIndex]?.korean);
-
-        console.log("1`12", index)
 
         if (index !== -1) {
             koreanList.splice(index, 1) // 해당 요소가 존재하면 제거
@@ -109,14 +108,16 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
 
     // 정답 번호, 타이머, 선택 번호, 시간 초과 여부, 안내 메시지 초기화
     const handleNext = () => {
-        setRandomNum(Math.floor(Math.random() * 4))
         setTimeLeft(initialTime)
         clickedIndex.current = null
 
         setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
         setShouldReset(!shouldReset)
         setImgModalOpen(false)
+        setRandomNum(Math.floor(Math.random() * 4))
         setKey((prev) => prev + 1)
+
+        console.log(randomNum, currentIndex, "test")
     };
 
     const handleSubmit = (e) => {
