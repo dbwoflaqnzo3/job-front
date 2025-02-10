@@ -6,7 +6,7 @@ export function SegmentedButton({ label, name, value, checked, onChange, flexGro
   return (
     <label 
       className={`${styles["segmented-button"]} ${checked ? styles["active"] : ""}`}
-      style={{ flexGrow }} // ✅ `flexGrow` 값 적용
+      style={{ flexGrow }}
     >
       <input
         type="radio"
@@ -36,20 +36,16 @@ export function SegmentedGroup({
     if (onChange) onChange(event.target.value);
   };
 
-  // ✅ `children` 개수를 기반으로 기본 `ratios` 설정
   const totalChildren = Children.count(children);
-  const defaultRatios = new Array(totalChildren).fill(1); // ✅ 기본적으로 모두 `1`
-
-  // ✅ `ratios`가 없거나 길이가 다를 경우 기본값 사용
+  const defaultRatios = new Array(totalChildren).fill(1);
   const validRatios = ratios.length === totalChildren ? ratios : defaultRatios;
 
-  // ✅ 각 버튼에 `flexGrow` 값을 전달
   const segmentedChildren = Children.map(children, (child, index) =>
     cloneElement(child, {
       name,
       checked: selectedValue === child.props.value,
       onChange: handleChange,
-      flexGrow: validRatios[index], // ✅ `flexGrow` 값 적용
+      flexGrow: validRatios[index],
     })
   );
 
