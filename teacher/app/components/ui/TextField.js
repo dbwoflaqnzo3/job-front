@@ -5,6 +5,8 @@ export default function TextField({
   placeholder,
   type = "text",
   state = "default",
+  onChange,
+  value,
 }) {
   
   return (
@@ -12,6 +14,8 @@ export default function TextField({
       className={`${styles["text-field"]} ko-md-15 ${styles[state] || ""}`}
       type={type} 
       placeholder={placeholder} 
+      onChange={onChange}
+      value={value}
     />
   );
 }
