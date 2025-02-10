@@ -7,6 +7,7 @@ export default function TextField({
   state = "default",
   onChange,
   value,
+  width,
 }) {
   
   return (
@@ -16,6 +17,7 @@ export default function TextField({
       placeholder={placeholder} 
       onChange={onChange}
       value={value}
+      style={{...{width: width}}}
     />
   );
 }
