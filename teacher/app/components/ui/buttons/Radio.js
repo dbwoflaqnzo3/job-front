@@ -1,7 +1,7 @@
 "use client";
 import { useState, cloneElement } from "react";
 import { Grid } from "@/app/widgets/structure/Grid";
-import styles from "./radio.module.css"; // ✅ CSS Modules 적용
+import styles from "./radio.module.css";
 
 export function RadioButton({ label, name, value, checked, onChange }) {
   return (
