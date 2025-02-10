@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { CircularProgressBar } from "@tomickigrzegorz/react-circular-progress-bar";
-import "./circularGraph.css";
+import styles from "./circularGraph.module.css";
 
 export function SemiCircularGraph({ 
   percentage,
@@ -29,7 +29,7 @@ export function CircularGraph({
   const [hasAnimated, setHasAnimated] = useState(false);
   const containerRef = useRef(null);
 
-  percentage = .5;
+  percentage = 0.5;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -54,8 +54,8 @@ export function CircularGraph({
   };
 
   return (
-    <div className="cg-container" ref={containerRef} style={style}>
-      <div className="cg-absolute">
+    <div className={styles["cg-container"]} ref={containerRef} style={style}>
+      <div className={styles["cg-absolute"]}>
         <CircularProgressBar
           colorCircle="var(--secondary-100)"
           colorSlice="var(--secondary-500)"
@@ -66,10 +66,10 @@ export function CircularGraph({
           animationTime={1.6}
         />
       </div>
-      <div className="cg-absolute">
-        <div className={`cg-rotation-bar ${hasAnimated ? "animate" : ""}`}>
-          <div className="cg-hidden-bar"></div>
-          <div className="cg-indicator-circle"></div>
+      <div className={styles["cg-absolute"]}>
+        <div className={`${styles["cg-rotation-bar"]} ${hasAnimated ? styles["animate"] : ""}`}>
+          <div className={styles["cg-hidden-bar"]}></div>
+          <div className={styles["cg-indicator-circle"]}></div>
         </div>
       </div>
     </div>

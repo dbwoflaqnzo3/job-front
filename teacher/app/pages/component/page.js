@@ -1,13 +1,13 @@
 'use client'
 import { useState } from "react";
-import { RadioButton, RadioGroup } from "@/app/components/RadioButton";
-import { CheckboxButton, CheckboxGroup } from "@/app/components/CheckboxButton";
 import { Row, Column } from "@/app/widgets/structure/Grid";
-import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/components/Button";
-import TextField from "@/app/components/TextField";
-import DropdownButton from "@/app/components/DropdownButton";
-import { SemiCircularGraph, CircularGraph } from "@/app/components/CircularGraph";
-import { SegmentedButton, SegmentedGroup } from "@/app/components/SegmentedButton";
+import { RadioButton, RadioGroup } from "@/app/components/ui/buttons/Radio";
+import { CheckboxButton, CheckboxGroup } from "@/app/components/ui/buttons/Checkbox";
+import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/components/ui/buttons/Regular";
+import DropdownButton from "@/app/components/ui/buttons/Dropdown";
+import { SegmentedButton, SegmentedGroup } from "@/app/components/ui/buttons/Segmented";
+import TextField from "@/app/components/ui/TextField";
+import { SemiCircularGraph, CircularGraph } from "@/app/components/ui/CircularGraph";
 
 function buttons() {
   return (

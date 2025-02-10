@@ -1,11 +1,11 @@
-'use client'
+"use client";
 import { useState, cloneElement } from "react";
-import { Grid } from "../widgets/structure/Grid";
-import "./radioButton.css";
+import { Grid } from "@/app/widgets/structure/Grid";
+import styles from "./radio.module.css"; // ✅ CSS Modules 적용
 
 export function RadioButton({ label, name, value, checked, onChange }) {
   return (
-    <label className="radio-button">
+    <label className={styles["radio-button"]}>
       <input
         type="radio"
         name={name}
@@ -13,8 +13,9 @@ export function RadioButton({ label, name, value, checked, onChange }) {
         checked={checked}
         onChange={onChange}
       />
-      <span className="radio-circle"></span>
-      <span className="radio-button-label ko-reg-17">{label}</span>
+      <span className={styles["radio-circle"]}></span>
+      
+      <span className={`${styles["radio-button-label"]} ko-reg-17`}>{label}</span>
     </label>
   );
 }

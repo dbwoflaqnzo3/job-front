@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
 import { useState, useRef, useEffect } from "react";
 import { containsHangeul, containsChoseong, isHangeul } from "@/app/utils/hangeul";
 import ArrowIcon from "@/public/assets/images/icons/dropdownArrow.svg";
-import "./dropdownButton.css";
+import styles from "./dropdown.module.css"; // ✅ CSS Modules 적용
 
 export default function DropdownButton({ 
   list = [], 
@@ -26,8 +26,7 @@ export default function DropdownButton({
       if (containsChoseong(label, query)) return true;
     }
     return label.includes(query);
-  }
-  );
+  });
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -58,10 +57,9 @@ export default function DropdownButton({
     setSearchQuery(value);
   };
 
-
   const selectedWidget = <>
     {selected ? selected.label : placeholder}
-    <div className="dropdown-arrow"><ArrowIcon /></div>
+    <div className={styles["dropdown-arrow"]}><ArrowIcon /></div>
   </>;
 
   const textField = <input 
@@ -74,25 +72,26 @@ export default function DropdownButton({
   />;
 
   const getElements = (l) => l.map((item) => (
-    <li key={item.value} className="dropdown-item" onClick={() => handleSelect(item)}>
+    <li key={item.value} className={styles["dropdown-item"]} onClick={() => handleSelect(item)}>
       {item.label}
     </li>
   ));
 
   const elements = <>
-    {allowCustom ? <li className="dropdown-item custom-input" onClick={toggleCustomState}>직접입력</li> : undefined}
+    {allowCustom ? <li className={styles["dropdown-item"]} onClick={toggleCustomState}>직접입력</li> : undefined}
     {getElements(list)}
   </>;
+
   const filteredElements = filteredList.length > 0 
     ? getElements(filteredList) 
-    : <li className="dropdown-item no-result">검색 결과 없음</li>;
+    : <li className={styles["dropdown-item"]}>{`검색 결과 없음`}</li>;
 
   return (
-    <div className={`dropdown-container ${state}`} ref={dropdownRef} style={{width: width}}>
-      <button className="dropdown-button ko-md-15" onClick={toggleOpenState}>
-        <span className="dropdown-button-inner">{state === "custom" ? textField : selectedWidget}</span>
+    <div className={`${styles["dropdown-container"]} ${styles[state]}`} ref={dropdownRef} style={{width: width}}>
+      <button className={`${styles["dropdown-button"]} ko-md-15`} onClick={toggleOpenState}>
+        <span className={styles["dropdown-button-inner"]}>{state === "custom" ? textField : selectedWidget}</span>
       </button>
-      <ul className={`dropdown-list ko-sb-15 ${state} ${searchQuery === "" ? "" : "typed"}`}>
+      <ul className={`${styles["dropdown-list"]} ko-sb-15 ${styles[state]} ${searchQuery === "" ? "" : styles["typed"]}`}>
         {state === "custom" ? filteredElements : elements}
       </ul>
     </div>

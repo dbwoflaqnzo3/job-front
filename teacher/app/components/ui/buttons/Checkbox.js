@@ -1,10 +1,10 @@
-'use client'
+"use client";
 import React, { useState, cloneElement } from "react";
-import "./checkboxButton.css";
+import styles from "./checkbox.module.css";  
 
 export function CheckboxButton({ label, name, value, checked, onChange, entire = false }) {
   return (
-    <label className="checkbox-button">
+    <label className={styles["checkbox-button"]}>
       <input
         type="checkbox"
         name={name}
@@ -12,8 +12,9 @@ export function CheckboxButton({ label, name, value, checked, onChange, entire =
         checked={checked}
         onChange={onChange}
       />
-      <span className={`checkbox-box ${entire ? "entire-checkbox" : ""}`}></span>
-      <span className="checkbox-button-label ko-reg-17">{label}</span>
+      <span className={`${styles["checkbox-box"]} ${entire ? styles["entire-checkbox"] : ""}`}></span>
+      
+      <span className={`${styles["checkbox-button-label"]} ko-reg-17`}>{label}</span>
     </label>
   );
 }
@@ -68,8 +69,9 @@ export function CheckboxGroup({ name, children }) {
     return child;
   }
 
-  return <div className="checkbox-group">{React.Children.map(children, updateChildCheckbox)}</div>;
+  return <div className={styles["checkbox-group"]}>{React.Children.map(children, updateChildCheckbox)}</div>;
 }
+
 
 function findAllCheckboxButtons(children) {
   let foundCheckboxes = [];

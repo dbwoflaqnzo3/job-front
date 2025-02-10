@@ -1,5 +1,5 @@
-'use client'
-import "./textField.css";
+"use client";
+import styles from "./textField.module.css";
 
 export default function TextField({ 
   placeholder,
@@ -9,7 +9,7 @@ export default function TextField({
   
   return (
     <input 
-      className={`text-field ko-md-15 ${state}`}
+      className={`${styles["text-field"]} ko-md-15 ${styles[state] || ""}`}
       type={type} 
       placeholder={placeholder} 
     />

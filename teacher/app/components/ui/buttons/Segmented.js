@@ -1,11 +1,10 @@
-'use client'
+"use client";
 import { useState, cloneElement } from "react";
-import { Row } from "../widgets/structure/Grid";
-import "./segmentedButton.css";
+import styles from "./segmented.module.css";
 
 export function SegmentedButton({ label, name, value, checked, onChange }) {
   return (
-    <label className={`segmented-button ${checked ? "active" : ""}`}>
+    <label className={`${styles["segmented-button"]} ${checked ? styles["active"] : ""}`}>
       <input
         type="radio"
         name={name}
@@ -13,7 +12,8 @@ export function SegmentedButton({ label, name, value, checked, onChange }) {
         checked={checked}
         onChange={onChange}
       />
-      <span className="segmented-label">{label}</span>
+      <span className={styles["segmented-label"]}>{label}</span>  
+
     </label>
   );
 }
@@ -34,5 +34,6 @@ export function SegmentedGroup({ name, children, defaultValue, onChange }) {
     })
   );
 
-  return <div className="segmented-container">{clonedChildren}</div>;
+  return <div className={styles["segmented-container"]}>{clonedChildren}</div>;  
+
 }

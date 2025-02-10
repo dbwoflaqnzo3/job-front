@@ -1,8 +1,8 @@
-'use client'
-import "./button.css";
+"use client";
 import { useMemo } from "react";
+import styles from "./regular.module.css";
 import { Row } from "@/app/widgets/structure/Grid";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
 const getIconComponent = (icon) => {
   if (!icon) return null;
@@ -17,15 +17,17 @@ export default function Button({
   onClick,
 }) {
   const IconComponent = useMemo(() => icon ? getIconComponent(icon) : null, [icon]);
-  const iconWidget = IconComponent && <IconComponent className="button-icon" />;
+  const iconWidget = IconComponent && <IconComponent className={styles["button-icon"]} />;
 
   return (
     <button 
-      className={`button ko-sb-18 ${type} ${disabled ? "disabled" : ""}`} 
+      className={`${styles["button"]} ko-sb-18 ${styles[type]} ${disabled ? styles["disabled"] : ""}`} 
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
     >
-      <div className="button-children"><Row>{iconWidget}{text}</Row></div>
+      <div className={styles["button-children"]}>
+        <Row>{iconWidget}{text}</Row>
+      </div>
     </button>
   );
 }
