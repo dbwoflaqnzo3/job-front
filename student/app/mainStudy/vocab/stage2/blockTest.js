@@ -42,7 +42,6 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
     const makeKoreanLIst = () => {
 
         if(currentIndex >= vocabs.length){
-            console.log("hi")
             return
         }
 
@@ -56,13 +55,11 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
 
 
         // koreanList.splice(koreanList.indexOf(vocabs[currentIndex].korea), 1)[0]
-        console.log(koreanList, vocabs[currentIndex].korean, "1`23")
         let tempList = []
 
         for (let i = 0; i < 4; i++) {
             if (i === randomNum) {
                 tempList[i] = vocabs[currentIndex].korean
-                console.log(tempList[i], vocabs[currentIndex].korean, "!!")
             } else {
                 let randomIndex;
                 randomIndex = Math.floor(Math.random() * koreanList.length);
@@ -71,7 +68,6 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
             }
 
         }
-        console.log(tempList)
 
         setWordList(tempList)
     }
@@ -116,8 +112,6 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
         setImgModalOpen(false)
         setRandomNum(Math.floor(Math.random() * 4))
         setKey((prev) => prev + 1)
-
-        console.log(randomNum, currentIndex, "test")
     };
 
     const handleSubmit = (e) => {
@@ -216,7 +210,7 @@ function ImgModal({ isPassed }) {
             <div className={style.imgBackgroundContainer}>
                 <img
                     className={style.ImgModalContainer}
-                    src={isPassed ? "/answer.png" : "/wrongAnswer.png"}>
+                    src={isPassed ? "/answer.svg" : "/wrongAnswer.svg"}>
                 </img>
             </div>
         </div>

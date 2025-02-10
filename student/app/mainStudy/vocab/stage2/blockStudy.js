@@ -19,7 +19,6 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
 
     // 선생님이 지정한 animation duration으로 설정
     useEffect(() => {
-        console.log()
         document.documentElement.style.setProperty("--animation-duration", `${initialTime}s`);
     }, [initialTime]);
 
@@ -252,6 +251,25 @@ function NextVoca({ handleNext }) {
             <button className={style.nextVocaBtn} onClick={handleNext}>
                 다음 단어
             </button>
+        </div>
+    )
+}
+
+function EndStudyModal({ passResults, handleSubmit }) {
+
+    return (
+        <div className={style.modalOverlay}>
+            <div className={style.endTestModalContainer}>
+                <p className={style.endTestModalHeaderText}>Vocabulary 학습 완료</p>
+                <div className={style.checkImgContainer}>
+                    <img
+                        className={style.testCompleteImg}
+                        src={"/testComplete.png"}>
+                    </img>
+                </div>
+                <button className={style.buttonConfirm} onClick={() => setModalOpen(false)}>테스트 하러 가기</button> 
+                <button className={style.buttonCancel} onClick={() => setModalOpen(false)}>계속 학습하기</button>
+            </div>
         </div>
     )
 }
