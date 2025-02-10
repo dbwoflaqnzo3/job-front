@@ -26,9 +26,9 @@
 }
 
 /* Button Width */
-.button.button1, .button.button3 { width: 400px; } 
+/* .button.button1, .button.button3 { width: 400px; } 
 .button.button2, .button.button4, .button.button6 { width: 212px; } 
-.button.button5 { width: 126px; } 
+.button.button5 { width: 126px; }  */
 
 /* Button Color */
 .button.button1 {

@@ -15,13 +15,15 @@ export default function Button({
   disabled = false, 
   icon = null,
   onClick,
+  width,
 }) {
   const IconComponent = useMemo(() => icon ? getIconComponent(icon) : null, [icon]);
   const iconWidget = IconComponent && <IconComponent className={styles["button-icon"]} />;
 
   return (
     <button 
-      className={`${styles["button"]} ko-sb-18 ${styles[type]} ${disabled ? styles["disabled"] : ""}`} 
+      className={`${styles["button"]} ko-sb-18 ${styles[type]} ${disabled ? styles["disabled"] : ""}`}
+      style={{...{width: width}}}
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
     >
