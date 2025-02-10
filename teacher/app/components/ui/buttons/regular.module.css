@@ -4,10 +4,14 @@
   border-radius: 16px;
   cursor: pointer;
   color: var(--black-1000);
-  transition: background-color 0.3s;
+  transition: all .3s;
   justify-content: center;
   align-items: center;
   border: 0;
+}
+
+.button:active {
+  transform: scale(.99);
 }
 
 .button-children {
@@ -59,6 +63,13 @@
 .button.button6 { background-color: var(--black-100); }
 .button.button6:hover { background-color: var(--black-200); }
 .button.button6:active { background-color: var(--black-300); }
+
+
+.button.text {  background-color: transparent;  }
+.button.text:hover, .button.text:active { 
+  text-decoration: underline; 
+  text-underline-offset: .3em; 
+}
 
 /* Button Border */
 .button.button4 { border: var(--secondary-300) 1px solid; }

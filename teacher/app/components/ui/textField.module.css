@@ -1,5 +1,4 @@
 .text-field {
-  /* width: 400px; */
   inset: 0;
   background-color: var(--black-100);
   color: var(--black-1000);
@@ -27,6 +26,15 @@
 }
 
 .text-field.error:focus {
-  background-color: var(--black-100);
+  background-color: var(--black-100) !important;
   border: var(--red-3) 2px solid;
+}
+
+.text-field:-webkit-autofill,
+.text-field:-webkit-autofill:hover, 
+.text-field:-webkit-autofill:focus, 
+.text-field:-webkit-autofill:active {
+  background: none !important;
+  box-shadow: 0 0 0px 1000px var(--white) inset !important;
+  color: inherit !important;
 }
