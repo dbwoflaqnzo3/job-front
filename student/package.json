@@ -10,9 +10,13 @@
   },
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "@tosspayments/tosspayments-sdk": "^2.3.4",
 =======
 >>>>>>> 4a4e2d7 (feat[#35] :  1차 구현 마무리)
+=======
+    "@tosspayments/tosspayments-sdk": "^2.3.4",
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
     "next": "14.2.20",
     "react": "^18",
     "react-dom": "^18",

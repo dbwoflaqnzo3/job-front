@@ -5,12 +5,17 @@
     width: 100vw;
     height: 100vh;
 <<<<<<< HEAD
+<<<<<<< HEAD
     /* background-color: black; */
     background-color: #fbf7ef;
 =======
     background-color: black;
     /* background-color: #fbf7ef; */
 >>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
+=======
+    /* background-color: black; */
+    background-color: #fbf7ef;
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
 }
 
 .container {
@@ -94,12 +99,18 @@
     position: absolute; /* 텍스트 뒤로 이동 */
     z-index: 5; /* 텍스트보다 뒤에 배치 */
 <<<<<<< HEAD
+<<<<<<< HEAD
     border-radius: 0.25rem;
     opacity: 0.8;
     background: var(--Black-100, #FEFEFE);
 =======
     background: rgba(0, 0, 0, 0.3);
 >>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
+=======
+    border-radius: 0.25rem;
+    opacity: 0.8;
+    background: var(--Black-100, #FEFEFE);
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
 
     display: flex;
     align-items: center;
@@ -109,6 +120,7 @@
     top: 50%;
     transform: translate(-49.7%, -36%); 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     border-radius: 4px;
@@ -123,6 +135,8 @@
     font-weight: 600;
     line-height: 150%; /* 60px */
 >>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
+=======
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
 }
 
 .calendarHeader {
@@ -525,6 +539,7 @@
     width: 35.38rem;
     height: 42.25rem;
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 .detailLoadingText{
@@ -563,15 +578,45 @@
 
     background: rgba(0, 0, 0, 0.30);
     border-radius: 4px;
+=======
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
 }
 
 .detailLoadingText{
-    color: var(--Black-1000, #ffffff);
+    color: var(--Secondary500, #0084D0);
     text-align: center;
-    font-family: "Min Sans VF";
-    font-size: 40px;
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 600;
+<<<<<<< HEAD
     line-height: 150%; /* 60px */
 >>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
+=======
+    line-height: 150%; /* 1.875rem */
+}
+
+.detailNoLessonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 35.38rem;
+    height: 35.5rem;
+}
+
+.detailNoLessonText{
+    color: var(--Secondary500, #0084D0);
+    text-align: center;
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 30px */
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
 }

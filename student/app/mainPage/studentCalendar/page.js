@@ -2,6 +2,7 @@
 
 import { useState, React, useEffect, useRef } from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { readPeriodStudentLesson, readSpecificDateLesson } from '@/app/utils/studentCalendarUtil';
 import { PageLayout } from '@/app/page.js';
 
@@ -11,10 +12,19 @@ import styles from './page.module.css';
 
 =======
 import NavBar from '../navigationBar/page.js';
+=======
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
 import { readPeriodStudentLesson, readSpecificDateLesson } from '@/app/utils/studentCalendarUtil';
+
+import NavBar from '../navigationBar/page.js';
+import Image from 'next/image';
 import styles from './page.module.css';
 
+<<<<<<< HEAD
 >>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
+=======
+
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
 export default function StudentCalendar() {
 
     const today = new Date(); // 현재 날짜 가져오기
@@ -168,6 +178,9 @@ export function DailyDetail({month, day, data, handleLoading, loading}) {
                     </div>
                     :
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
                     data.length == 0 ?
                     <div className={styles.detailNoLessonContainer}>
                         <Image
@@ -183,8 +196,11 @@ export function DailyDetail({month, day, data, handleLoading, loading}) {
                     </div>
                     :
 
+<<<<<<< HEAD
 =======
 >>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
+=======
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
                     Object.entries(distributedData)
                     .filter(([key, value]) => value.length > 0) // 배열 크기가 0이 아닌 데이터만 필터링
                     .map(([key, value]) => (
@@ -332,6 +348,9 @@ export function Calendar({ year, month, selectedDate,changeMonth, changeSelected
             loading == true &&
             <div className={styles.loadingBody}>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
                 <Image
                     src="/images/calendarLoading.png"
                     alt="Example Image"
@@ -339,11 +358,14 @@ export function Calendar({ year, month, selectedDate,changeMonth, changeSelected
                     height={210}
                     priority
                 />
+<<<<<<< HEAD
 =======
                 <div className={styles.loadingText}>
                     Loading...
                 </div>
 >>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
+=======
+>>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
             </div>
         }
         <div className={styles.calendarHeader}>
