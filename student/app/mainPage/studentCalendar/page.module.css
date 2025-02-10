@@ -4,8 +4,8 @@
     user-select: none;
     width: 100vw;
     height: 100vh;
-    background-color: black;
-    /* background-color: #fbf7ef; */
+    /* background-color: black; */
+    background-color: #fbf7ef;
 }
 
 .container {
@@ -88,7 +88,9 @@
     height: 26rem;
     position: absolute; /* 텍스트 뒤로 이동 */
     z-index: 5; /* 텍스트보다 뒤에 배치 */
-    background: rgba(0, 0, 0, 0.3);
+    border-radius: 0.25rem;
+    opacity: 0.8;
+    background: var(--Black-100, #FEFEFE);
 
     display: flex;
     align-items: center;
@@ -98,17 +100,6 @@
     top: 50%;
     transform: translate(-49.7%, -36%); 
 
-    border-radius: 4px;
-}
-
-.loadingText {
-    color: var(--Black-1000, #ffffff);
-    text-align: center;
-    font-family: "Min Sans VF";
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 150%; /* 60px */
 }
 
 .calendarHeader {
@@ -510,17 +501,38 @@
 
     width: 35.38rem;
     height: 42.25rem;
-
-    background: rgba(0, 0, 0, 0.30);
-    border-radius: 4px;
 }
 
 .detailLoadingText{
-    color: var(--Black-1000, #ffffff);
+    color: var(--Secondary500, #0084D0);
     text-align: center;
-    font-family: "Min Sans VF";
-    font-size: 40px;
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 600;
-    line-height: 150%; /* 60px */
+    line-height: 150%; /* 1.875rem */
+}
+
+.detailNoLessonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 35.38rem;
+    height: 35.5rem;
+}
+
+.detailNoLessonText{
+    color: var(--Secondary500, #0084D0);
+    text-align: center;
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 30px */
 }

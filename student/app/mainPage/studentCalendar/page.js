@@ -1,9 +1,12 @@
 'use client';
 
 import { useState, React, useEffect, useRef } from 'react';
-import NavBar from '../navigationBar/page.js';
 import { readPeriodStudentLesson, readSpecificDateLesson } from '@/app/utils/studentCalendarUtil';
+
+import NavBar from '../navigationBar/page.js';
+import Image from 'next/image';
 import styles from './page.module.css';
+
 
 export default function StudentCalendar() {
 
@@ -140,6 +143,21 @@ export function DailyDetail({month, day, data, handleLoading, loading}) {
                         </div>
                     </div>
                     :
+                    data.length == 0 ?
+                    <div className={styles.detailNoLessonContainer}>
+                        <Image
+                            src="/images/calendarNoLesson.png"
+                            alt="Example Image"
+                            width={260}
+                            height={260}
+                            priority
+                        />
+                        <div className={styles.detailNoLessonText}>
+                            진행할 수업이 없어요!
+                        </div>
+                    </div>
+                    :
+
                     Object.entries(distributedData)
                     .filter(([key, value]) => value.length > 0) // 배열 크기가 0이 아닌 데이터만 필터링
                     .map(([key, value]) => (
@@ -286,9 +304,13 @@ export function Calendar({ year, month, selectedDate,changeMonth, changeSelected
         {
             loading == true &&
             <div className={styles.loadingBody}>
-                <div className={styles.loadingText}>
-                    Loading...
-                </div>
+                <Image
+                    src="/images/calendarLoading.png"
+                    alt="Example Image"
+                    width={210}
+                    height={210}
+                    priority
+                />
             </div>
         }
         <div className={styles.calendarHeader}>

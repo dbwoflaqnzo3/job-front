@@ -26,7 +26,7 @@ export default function navigationBar(){
                     <a href="/mainPage/lessonListPage">학습하기</a>
                     <a href="/mainPage/studentCalendar">학습캘린더</a>
                     <a href="#">질문하기</a>
-                    <a href="#">결제하기</a>
+                    <a href="/mainPage/paymentPage">결제하기</a>
                 </div>
                 <div className={styles.navService}>
                     <button className={styles.serviceButton} >
