@@ -4,22 +4,41 @@ import { Row, Column } from "@/app/widgets/structure/Grid";
 import { RadioButton, RadioGroup } from "@/app/components/ui/buttons/Radio";
 import { CheckboxButton, CheckboxGroup } from "@/app/components/ui/buttons/Checkbox";
 import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/components/ui/buttons/Regular";
-import DropdownButton from "@/app/components/ui/buttons/Dropdown";
+import { DropdownElement, DropdownButton } from "@/app/components/ui/buttons/Dropdown";
 import { SegmentedButton, SegmentedGroup } from "@/app/components/ui/buttons/Segmented";
 import TextField from "@/app/components/ui/TextField";
 import { SemiCircularGraph, CircularGraph } from "@/app/components/ui/CircularGraph";
+import Card from "@/app/components/ui/Card";
 
 function buttons() {
   return (
     <section>
       <h2>Buttons</h2>
       <Column>
-        <Row><Button1 text="Button 1 Default" disabled/><Button1 text="Button 1 Disabled" disabled /></Row>
-        <Row><Button2 text="Button 2 Default" /><Button2 text="Button 2 Disabled" disabled /></Row>
-        <Row><Button3 text="Button 3 Default" /><Button3 text="Button 3 Disabled" disabled /></Row>
-        <Row><Button4 text="Button 4 Default" /><Button4 text="Button 4 Disabled" disabled /></Row>
-        <Row><Button5 text="Search" /><Button5 text="Search" disabled /></Row>
-        <Row><Button6 text="Button 6 Default" /><Button6 text="Button 5 Disabled" disabled /></Row>
+        <Row justifyContent="space-between">
+          <Button1 text="Button 1 Default" stretch />
+          <Button1 text="Button 1 Disabled" stretch disabled/>
+        </Row>
+        <Row justifyContent="space-between">
+          <Button2 text="Button 2 Default" stretch />
+          <Button2 text="Button 2 Disabled" stretch disabled />
+          </Row>
+        <Row justifyContent="space-between">
+          <Button3 text="Button 3 Default" stretch />
+          <Button3 text="Button 3 Disabled" stretch disabled />
+        </Row>
+        <Row justifyContent="space-between">
+          <Button4 text="Button 4 Default" stretch />
+          <Button4 text="Button 4 Disabled" stretch disabled />
+        </Row>
+        <Row justifyContent="space-between">
+          <Button5 text="Search" stretch />
+          <Button5 text="Search" stretch disabled />
+        </Row>
+        <Row justifyContent="space-between">
+          <Button6 text="Button 6 Default" stretch />
+          <Button6 text="Button 6 Disabled" stretch disabled />
+        </Row>
       </Column>
     </section>
   );
@@ -57,7 +76,7 @@ function checkboxButtons() {
       <CheckboxGroup name="checkboxGroup">
         <Column>
           <CheckboxButton label="전체" entire />
-          <Row>          
+          <Row justifyContent="space-between">          
             <CheckboxButton label="옵션 1" value="option1" />
             <CheckboxButton label="옵션 2" value="option2" />
             <CheckboxButton label="옵션 3" value="option3" />
@@ -76,29 +95,33 @@ function dropdownButtons() {
     <section>
       <h2>Dropdown Buttons</h2>
       <Column>
-        <Row>
+        <Row justifyContent="space-between">
           <DropdownButton
-            list={[
-              { label: "옵션 1", value: "option1" },
-              { label: "옵션 2", value: "option2" },
-              { label: "옵션 3", value: "option3" },
-            ]}
             onSelect={(item) => setSelectedOption(item)}
-          />
-          <p>{selectedOption ? `${selectedOption.label} 선택됨` : "없음"}</p>
+            stretch
+          >
+            <DropdownElement label="옵션 1" value="option1"/>
+            <DropdownElement label="옵션 2" value="option2"/>
+            <DropdownElement label="옵션 3" value="option3"/>
+          </DropdownButton>
+          <p style={{width: 200, textAlign: "right"}}>
+            {selectedOption ? `${selectedOption.label} 선택됨` : "없음"}
+          </p>
         </Row>
-        <Row>
+        <Row justifyContent="space-between">
           <DropdownButton
-            list={[
-              { label: "반대준", value: "ban" },
-              { label: "서종현", value: "seo" },
-              { label: "최지안", value: "choi" },
-              { label: "유재림", value: "yu" },
-            ]}
             onSelect={(item) => setSelectedPerson(item)}
-            allowCustom={true}
-          />
-          <p>{selectedPerson ? `${selectedPerson.label} 선택됨` : "없음"}</p>
+            allowCustom
+            stretch
+          >
+            <DropdownElement label="반대준" value="ban"/>
+            <DropdownElement label="서종현" value="seo"/>
+            <DropdownElement label="최지안" value="choi"/>
+            <DropdownElement label="유재림" value="yu"/>
+          </DropdownButton>
+          <p style={{width: 200, textAlign: "right"}}>
+            {selectedPerson ? `${selectedPerson.label} 선택됨` : "없음"}
+          </p>
         </Row>
       </Column>
     </section>
@@ -111,14 +134,31 @@ function segmentedButtons() {
   return (
     <section>
       <h2>Segmented Buttons</h2>
-      <Row>
-        <SegmentedGroup name="segmentedGroup1" defaultValue={selected} onChange={setSelected} row="1">
+      <Column>
+        <SegmentedGroup 
+          name="segmentedGroup1" 
+          defaultValue={selected} 
+          onChange={setSelected}
+          stretch
+          >
           <SegmentedButton label="옵션 1" value="option1" />
           <SegmentedButton label="옵션 2" value="option2" />
           <SegmentedButton label="옵션 3" value="option3" />
           <SegmentedButton label="옵션 4" value="option4" />
         </SegmentedGroup>
-      </Row>
+        <SegmentedGroup 
+          name="segmentedGroup1" 
+          defaultValue={selected} 
+          onChange={setSelected}
+          ratios={[1, 2, 3, 4]}
+          stretch
+          >
+          <SegmentedButton label="옵션 1" value="option1" />
+          <SegmentedButton label="옵션 2" value="option2" />
+          <SegmentedButton label="옵션 3" value="option3" />
+          <SegmentedButton label="옵션 4" value="option4" />
+        </SegmentedGroup>
+      </Column>
     </section>
   );
 }
@@ -128,8 +168,8 @@ function textFields() {
     <section>
       <h2>Text Fields</h2>
       <Row>
-        <TextField placeholder="Default"/>
-        <TextField placeholder="Error" state="error" />
+        <TextField placeholder="Default" stretch />
+        <TextField placeholder="Error" state="error" stretch />
       </Row>
     </section>
   );
@@ -149,15 +189,21 @@ function circulargraphes() {
 
 export default function Component() {
   return (
-    <Column>
-      {buttons()}
-      {radioButtons()}
-      {checkboxButtons()}
-      {dropdownButtons()}
-      {segmentedButtons()}
-      {textFields()}
-      {circulargraphes()}
-      <div style={{height: "400px"}} />
-    </Column>
+    <div className="page">
+      <Card margin={50}>
+        <div style={{width: "80%"}}>
+          <Column justifyContent="space-between">
+            {buttons()}
+            {radioButtons()}
+            {checkboxButtons()}
+            {dropdownButtons()}
+            {segmentedButtons()}
+            {textFields()}
+            {circulargraphes()}
+            {/* <div style={{height: "400px"}} /> */}
+          </Column>
+        </div>
+      </Card>
+    </div>
   );
 }

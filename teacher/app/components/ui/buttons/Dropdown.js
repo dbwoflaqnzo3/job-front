@@ -1,15 +1,24 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, Children, useEffect, cloneElement } from "react";
 import { containsHangeul, containsChoseong, isHangeul } from "@/app/utils/hangeul";
 import ArrowIcon from "@/public/assets/images/icons/dropdownArrow.svg";
 import styles from "./dropdown.module.css"; // ✅ CSS Modules 적용
 
-export default function DropdownButton({ 
-  list = [], 
+export function DropdownElement({ label, value, onClick }) {
+  return (
+    <li className={styles["dropdown-item"]} onClick={() => onClick({ label, value })}>
+      {label}
+    </li>
+  );
+}
+
+export function DropdownButton({ 
+  children,
   onSelect, 
   placeholder = "옵션 선택", 
-  width = "200px",
+  width = 200,
+  stretch = false,
   allowCustom = false,
 }) {
   const [state, setState] = useState("default");
@@ -18,16 +27,6 @@ export default function DropdownButton({
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
   
-  let filteredList = list.filter((item) => {
-    const query = searchQuery.toLowerCase();
-    const label = item.label.toLowerCase();
-    if (isHangeul(query)) {
-      if (containsHangeul(label, query)) return true;
-      if (containsChoseong(label, query)) return true;
-    }
-    return label.includes(query);
-  });
-
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) setState("");
@@ -70,29 +69,44 @@ export default function DropdownButton({
     value={searchQuery}
     onChange={handleInputChange}
   />;
+  const elements = Children.map(children, (child) =>
+    cloneElement(child, { onClick: handleSelect })
+  );
 
-  const getElements = (l) => l.map((item) => (
-    <li key={item.value} className={styles["dropdown-item"]} onClick={() => handleSelect(item)}>
-      {item.label}
-    </li>
-  ));
+  const filteredElements = elements?.filter((child) => {
+    const query = searchQuery.toLowerCase();
+    const label = child.props.label.toLowerCase();
 
-  const elements = <>
-    {allowCustom ? <li className={styles["dropdown-item"]} onClick={toggleCustomState}>직접입력</li> : undefined}
-    {getElements(list)}
-  </>;
+    if (isHangeul(query)) {
+      if (containsHangeul(label, query)) return true;
+      if (containsChoseong(label, query)) return true;
+    }
 
-  const filteredElements = filteredList.length > 0 
-    ? getElements(filteredList) 
-    : <li className={styles["dropdown-item"]}>{`검색 결과 없음`}</li>;
+    return label.includes(query);
+  });
+
+  width = stretch ? "100%" : width;
 
   return (
-    <div className={`${styles["dropdown-container"]} ${styles[state]}`} ref={dropdownRef} style={{width: width}}>
-      <button className={`${styles["dropdown-button"]} ko-md-15`} onClick={toggleOpenState}>
-        <span className={styles["dropdown-button-inner"]}>{state === "custom" ? textField : selectedWidget}</span>
+    <div 
+      className={`${styles["dropdown-container"]} ${styles[state]}`} 
+      ref={dropdownRef} 
+      style={{ width: stretch ? "100%" : width }}
+    >
+      <button 
+        className={`${styles["dropdown-button"]} ko-md-15`} 
+        onClick={toggleOpenState}
+      >
+        <span className={styles["dropdown-button-inner"]}>
+            {state === "custom" ? textField : selectedWidget}
+        </span>
       </button>
       <ul className={`${styles["dropdown-list"]} ko-sb-15 ${styles[state]} ${searchQuery === "" ? "" : styles["typed"]}`}>
-        {state === "custom" ? filteredElements : elements}
+        {allowCustom && <li className={styles["dropdown-item"]} onClick={toggleCustomState}>직접입력</li>}
+        
+        {filteredElements.length > 0 ? filteredElements : (
+          <li className={styles["dropdown-item"]}>{`검색 결과 없음`}</li>
+        )}
       </ul>
     </div>
   );

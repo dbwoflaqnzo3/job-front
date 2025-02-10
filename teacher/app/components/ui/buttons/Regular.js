@@ -12,18 +12,24 @@ const getIconComponent = (icon) => {
 export default function Button({ 
   text,
   type,
-  disabled = false, 
+  disabled = false,
   icon = null,
   onClick,
-  width,
+  stretch = false,
+  width = "200px",
 }) {
   const IconComponent = useMemo(() => icon ? getIconComponent(icon) : null, [icon]);
   const iconWidget = IconComponent && <IconComponent className={styles["button-icon"]} />;
 
+  const buttonStyle = {
+    width,
+    flexGrow: stretch ? 1 : 0,
+  };
+
   return (
     <button 
       className={`${styles["button"]} ko-sb-18 ${styles[type]} ${disabled ? styles["disabled"] : ""}`}
-      style={{...{width: width}}}
+      style={{...buttonStyle}}
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
     >

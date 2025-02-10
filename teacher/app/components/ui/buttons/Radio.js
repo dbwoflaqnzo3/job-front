@@ -20,7 +20,15 @@ export function RadioButton({ label, name, value, checked, onChange }) {
   );
 }
 
-export function RadioGroup({ name, children, defaultValue, onChange, row, column }) {
+export function RadioGroup({ 
+  name, 
+  children, 
+  defaultValue, 
+  onChange, 
+  row, 
+  column,
+  gap,
+}) {
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   const handleChange = (event) => {
@@ -36,5 +44,5 @@ export function RadioGroup({ name, children, defaultValue, onChange, row, column
     })
   );
 
-  return <Grid row={row} column={column}>{clonedChildren}</Grid>;
+  return <Grid row={row} column={column} gap={gap}>{clonedChildren}</Grid>;
 }

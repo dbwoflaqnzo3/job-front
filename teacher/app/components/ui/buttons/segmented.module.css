@@ -9,6 +9,51 @@
 
 .segmented-button {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 8px 24px;
+  overflow: hidden;
+  border-right: 2px solid var(--secondary-300);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.segmented-button:hover {
+  background-color: var(--secondary-100);
+}
+
+.segmented-button:last-child { border-right: none; }
+.segmented-button input { display: none; }
+
+.segmented-button .segmented-label {
+  width: 100%;
+  height: 23px;
+  display: flex;
+  color: var(--black-500);
+  justify-content: center;
+  align-items: center;
+  transition: color 0.3s ease-in-out;
+}
+
+.segmented-button.active {
+  background-color: var(--secondary-200);
+}
+
+.segmented-button.active .segmented-label {
+  color: var(--black-1000);
+}
+
+/* .segmented-container {
+  position: relative;
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid var(--secondary-300);
+  background-color: var(--black-100);
+}
+
+.segmented-button {
+  display: flex;
   flex: 1;
   cursor: pointer;
   padding: 8px 24px;
@@ -45,4 +90,4 @@
   width: 2px;
   height: 100%;
   background-color: var(--secondary-300);
-}
+} */

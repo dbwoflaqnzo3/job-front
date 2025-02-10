@@ -7,9 +7,12 @@ export default function TextField({
   state = "default",
   onChange,
   value,
-  width,
+  width = 200,
+  stretch = false,
 }) {
   
+  width = stretch ? "100%" : width;
+
   return (
     <input 
       className={`${styles["text-field"]} ko-md-15 ${styles[state] || ""}`}
@@ -17,7 +20,7 @@ export default function TextField({
       placeholder={placeholder} 
       onChange={onChange}
       value={value}
-      style={{...{width: width}}}
+      style={{width}}
     />
   );
 }
