@@ -56,6 +56,8 @@ export default function VocabStageController() {
                     english: item.english
                 })))
 
+    
+
             } catch (err) {
                 setErrorMessage(err.message); // 오류 발생 시 상태에 오류 메시지 저장
             }
@@ -70,7 +72,7 @@ export default function VocabStageController() {
         {
             if(isVocabsUpdated)
             {
-                filterVocab()
+                filterVocab(totalProgress)
 
                 if (middleProgress === 1 && isFiltered) {       
                     setComponentToRender(() => SpeakingTestComponent); // Test Component
@@ -90,7 +92,7 @@ export default function VocabStageController() {
 
             if(isVocabsUpdated)
                 {
-                    filterVocab()
+                    filterVocab(totalProgress)
     
                     if (middleProgress === 1 && isFiltered) {       
                         setComponentToRender(() => blockTestComponent); // Test Component
@@ -112,9 +114,18 @@ export default function VocabStageController() {
     }, [totalProgress, middleProgress, isVocabsUpdated, isFiltered])
 
     const filterVocab = (totalProgress) => {
-        const failedVocabs = vocabs.filter((item) => !item.IsPassed[totalProgress-1]); // 특정 인덱스의 값이 false인 원소만 필터링
+        console.log(totalProgress, "total")
+        let failedVocabs = []
+
+        for(let i = 0; i < vocabs.length; i++){
+            if(!vocabs[i].IsPassed[studyMode.indexOf(totalProgress)]){
+                failedVocabs.push(vocabs[i])
+            }
+        }// 특정 인덱스의 값이 false인 원소만 필터링
+
         setFilteredVocabs(failedVocabs); // 상태 업데이트
-    
+
+        console.log(failedVocabs, "filter failedVocabs")
         setIsFiltered(true); // 필터링 상태 업데이트
     };
     
@@ -126,7 +137,8 @@ export default function VocabStageController() {
         setVocabs((prevVocabs) => {
 
             // 해당 단계의 index 찾기
-            const stageIndex = passResults.stage
+            const stageIndex = studyMode.indexOf(passResults.stage)
+            console.log(stageIndex, "stageIndex")
 
             // 새 배열 생성
             const updatedVocabs = prevVocabs.map((vocab) => {
@@ -148,20 +160,29 @@ export default function VocabStageController() {
                 }
         
                 // 일치하는 항목이 없으면 기존 vocab 반환
+                console.log(vocab, "vocab")
                 return vocab;
             });
-        
+
+            console.log(updatedVocabs, "updatedVoca")
             return updatedVocabs;
         });
 
         setIsVocabsUpdated(true);
 
-        const stagePassed = passResults.result.every((isPassed) => isPassed);
+        let stagePassed = true
+        for(let i = 0; i < passResults.result.length; i++){
+            console.log(studyMode.indexOf(passResults.stage), "index of")
+            stagePassed = stagePassed && passResults.result[i]
+        }
+
+        console.log(stagePassed, "11")
 
         if(stagePassed)
         {
-            setTotalProgress(studyMode.findIndex(passResults.stage) + 1)
+            setTotalProgress(studyMode[studyMode.indexOf(passResults.stage) + 1])
             setMiddleProgress(1)
+            return
         }
         
         setMiddleProgress(middleProgress == 1? 2:1)

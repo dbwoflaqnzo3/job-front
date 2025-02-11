@@ -116,6 +116,7 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log(passResults, "passResults")
         onTestComplete({ result: passResults, stage: 2 }); // 결과 배열 반환
     };
 
