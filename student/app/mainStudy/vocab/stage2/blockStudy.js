@@ -7,15 +7,19 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
 
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
     const [wordList, setWordList] = useState([])
-    const [disabledTimer, setDisabledTimer] = useState(false)
+    const [disabledTimer, setDisabledTimer] = useState(true) // 직접 선택 시 timer 없앰.
 
     //timer
-    const [initialTime, setInitialTime] = useState(10)
+    const [initialTime, setInitialTime] = useState(0)
     const [timeLeft, setTimeLeft] = useState(initialTime) // 남은 시간
     const [key, setKey] = useState(0) //timer css 초기화 용도 (컴포넌트 요소 안에 변경 사항이 생기면 컴포넌트가 재랜더링됨 key를 1증가시킴으로써 재랜더링하며 timer 초기화)
     const [isTimeOut, setIsTimeOut] = useState(false)
-    const [isSelfTimeControl, setIsSelfTimeControl] = useState(false)
+    const [isSelfTimeControl, setIsSelfTimeControl] = useState(true)
+    const [clickedIndex, setClickedIndex] = useState(0)
     const timeOption = ["직접", "3", "7", "10"]
+
+    const [modalOpen, setModalOpen] = useState(false)
+    const passResults = Array(vocabs.length).fill(false)
 
     // 선생님이 지정한 animation duration으로 설정
     useEffect(() => {
@@ -41,14 +45,19 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
     // 다음 단어로 이동
     const handleNext = () => {
 
+        if (vocabs.length - 1 === currentIndex) {
+            setModalOpen(true)
+            return
+        }
+
         setCurrentIndex(currentIndex + 1); // 다음 단어로 이동
 
         // 현재 단어 index와 학습한 단어 index 비교
-        if(!wordList.includes(vocabs[currentIndex])){
+        if (!wordList.includes(vocabs[currentIndex])) {
             setWordList([...wordList, vocabs[currentIndex]])
         }
 
-        setKey((prev)=>prev+1)
+        setKey((prev) => prev + 1)
         setTimeLeft(initialTime)
         setIsTimeOut(false)
     };
@@ -56,18 +65,21 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
     //list에 있는 voca 클릭
     const clickListVoca = (i) => {
         setCurrentIndex(i)
-        setKey((prev) => prev+1)
+        setKey((prev) => prev + 1)
         setTimeLeft(initialTime)
         setIsTimeOut(false)
     }
-    
+
+    // timer 제한 시간 설정하기
     const selectTimeOption = (e, t) => {
         e.preventDefault()
-        
+
         // timer 옵션에서 직접 선택했을 시 
-        if(t === 0){
+        if (t === 0) {
             setDisabledTimer(true)
             setIsSelfTimeControl(true)
+            setTimeLeft(-1)
+            setClickedIndex(t)
         } // timer 옵션에서 시간 선택 시
         else {
             setIsSelfTimeControl(false)
@@ -75,27 +87,30 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
             setIsTimeOut(false)
             setInitialTime(timeOption[t])
             setTimeLeft(timeOption[t])
-
+            setClickedIndex(t)
             //timer 초기화
-            setKey((prev) => prev+1)
+            setKey((prev) => prev + 1)
         }
     }
 
+    // 학습 종료 모달 open
+    const modalControll = () => {
+        setModalOpen(false)
+    }
+
     return (
+
         <div className={style.wrapper}>
 
             <div className={style.progressBar}>
                 Progress Bar
             </div>
 
-            {/* <button>
-                나가기 버튼 제작
-            </button> */}
-
             {/* 학습 목표 */}
             <StudyPurpose />
 
-            {/* study content */}
+
+            {/* study content  */}
             <div className={style.contentContainer}>
 
                 {/* Vocab List */}
@@ -129,24 +144,24 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
                 <EachWord
                     vocab={vocabs[currentIndex]}
                     isTimeOut={isTimeOut}
-                    isSelfTimeControl = {isSelfTimeControl}
+                    isSelfTimeControl={isSelfTimeControl}
                 />
 
                 <div className={style.selectLimitTimeContainer}>
 
                     {/* test timer */}
                     {
-                        !disabledTimer ? 
-                        //timer option에서 직접을 선택 안 했을 시
-                        <div className={style.timerContainer}>
-                            <div className={style.testTimer}>
-                                <div className={style.testTimerCover} key={key}>
+                        !disabledTimer ?
+                            //timer option에서 직접을 선택 안 했을 시
+                            <div className={style.timerContainer}>
+                                <div className={style.testTimer}>
+                                    <div className={style.testTimerCover} key={key}>
+                                    </div>
                                 </div>
+                                <p className={style.leftTime}>{timeLeft}s</p>
                             </div>
-                            <p className={style.leftTime}>{timeLeft}s</p>
-                        </div>
-                        :
-                        <div></div>
+                            :
+                            <div></div>
                     }
 
                     {/* time option */}
@@ -158,12 +173,12 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
 
                                     if (i > 0) {
                                         return (
-                                            <button className={style.timeOption} key={i} onClick={(e) => selectTimeOption(e, i)}>{a}초</button>
+                                            <button className={`${style.timeOption} ${i === clickedIndex && clickedIndex != null ? style.timeOptionClicked : ""}`} key={i} onClick={(e) => selectTimeOption(e, i)}>{a}초</button>
                                         )
                                     }
                                     else {
                                         return (
-                                            <button className={style.timeOption} key={i} onClick={(e) => selectTimeOption(e, i)}>{a}</button>
+                                            <button className={`${style.timeOption} ${i === clickedIndex && clickedIndex != null ? style.timeOptionClicked : ""}`} key={i} onClick={(e) => selectTimeOption(e, i)}>{a}</button>
                                         )
                                     }
 
@@ -174,11 +189,25 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
                 </div>
             </div>
 
-            <NextVoca handleNext={handleNext}/>
+            <NextVoca handleNext={handleNext} />
+
+            {
+                modalOpen ?
+                    // 학습 종료 modal
+                    <EndStudyModal
+                        passResults={passResults}
+                        onTestComplete={onTestComplete}
+                        modalControll={modalControll}
+                    />
+                    :
+                    <div></div>
+            }
+
         </div>
     );
 }
 
+// 학습 목표 설명글
 function StudyPurpose({ }) {
     return (
         <div className={style.containerHead1}>
@@ -189,6 +218,7 @@ function StudyPurpose({ }) {
     )
 }
 
+// 학습 단어 카드
 function EachWord({ vocab, isTimeOut, isSelfTimeControl }) {
 
     const [isClicked, setIsClicked] = useState(false)
@@ -203,7 +233,8 @@ function EachWord({ vocab, isTimeOut, isSelfTimeControl }) {
         speakText(vocab.english)
     }
 
-    const speakText = (text) => {        
+    // 학습 단어 발음 듣기
+    const speakText = (text) => {
         if (window.speechSynthesis) {
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.rate = 0.5;  // 음성 속도
@@ -218,13 +249,13 @@ function EachWord({ vocab, isTimeOut, isSelfTimeControl }) {
     }
 
     const wordCardClicked = () => {
-        if(isTimeOut || isSelfTimeControl){
+        if (isTimeOut || isSelfTimeControl) {
             setIsClicked((prev) => !prev)
         }
     }
 
     return (
-        <div 
+        <div
             className={style.studyWordCardContainer}
             onClick={wordCardClicked}
         >
@@ -239,10 +270,11 @@ function EachWord({ vocab, isTimeOut, isSelfTimeControl }) {
                 <div className={style.flipCardBack}>
                     <p className={style.studyCurrentVoca} >{vocab.korean}</p>
                 </div>
-            </div>            
+            </div>
         </div>
     );
 }
+
 
 function NextVoca({ handleNext }) {
 
@@ -255,7 +287,7 @@ function NextVoca({ handleNext }) {
     )
 }
 
-function EndStudyModal({ passResults, handleSubmit }) {
+function EndStudyModal({ passResults, onTestComplete, modalControll }) {
 
     return (
         <div className={style.modalOverlay}>
@@ -267,8 +299,8 @@ function EndStudyModal({ passResults, handleSubmit }) {
                         src={"/testComplete.png"}>
                     </img>
                 </div>
-                <button className={style.buttonConfirm} onClick={() => setModalOpen(false)}>테스트 하러 가기</button> 
-                <button className={style.buttonCancel} onClick={() => setModalOpen(false)}>계속 학습하기</button>
+                <button className={style.homeBtn} onClick={() => onTestComplete({result: passResults, stage: 2})}>테스트 하러 가기</button>
+                <button className={style.buttonCancel} onClick={modalControll}>계속 학습하기</button>
             </div>
         </div>
     )

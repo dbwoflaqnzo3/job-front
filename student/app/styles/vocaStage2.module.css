@@ -577,7 +577,7 @@
 
   border-radius: 0.5rem;
   border: 1px solid var(--Primary400, #FFB54D);
-  background: var(--Black-100, #FEFEFE);
+  background-color: var(--Black-100, #FEFEFE);
 
   color: var(--Black-1000, #1A1A1A);
 
@@ -587,4 +587,32 @@
   font-style: normal;
   font-weight: 600;
   line-height: 150%; /* 1.59375rem */
+}
+
+.timeOption.timeOptionClicked{
+  background-color: var(--Primary200, #FEDAA6);
+}
+
+.timeOption:hover{
+  background: var(--Primary100, #FEEDD2);
+}
+
+.buttonCancel {
+  width: 28.25rem;
+  height: 3.375rem;
+  border-radius: 1rem;
+  background: var(--Primary500, #FEFEFE);
+  margin: 1rem 1.5rem 0 1.5rem;
+
+  color: var(--Black-1000, #1A1A1A);
+  /* Ko/Sb/18 */
+  font-family: "Pretendard Variable";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 1.6875rem */
+}
+
+.buttonCancel:hover {
+  background-color: #ffe0b2;
 }
