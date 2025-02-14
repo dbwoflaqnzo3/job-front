@@ -21,9 +21,9 @@
   align-items: center;
 }
 
-.button.button5 .button-children {
+/* .button.button5 .button-children {
   height: auto;
-}
+} */
 
 .button.disabled {
   background-color: var(--black-200) !important;

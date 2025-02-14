@@ -40,6 +40,11 @@
   color: var(--black-500) !important;
 }
 
+.dropdown-container.selected .dropdown-button-inner {
+  color: var(--black-1000) !important;
+}
+
+
 .dropdown-arrow {
   transition: transform .3s ease-in-out;
 }

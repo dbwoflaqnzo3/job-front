@@ -90,6 +90,7 @@ function checkboxButtons() {
 function dropdownButtons() {  
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedPerson, setSelectedPerson] = useState(null);
+  const [selectedEmail, setSelectedEmail] = useState(null);
   
   return (
     <section>
@@ -110,8 +111,24 @@ function dropdownButtons() {
         </Row>
         <Row justifyContent="space-between">
           <DropdownButton
+            onSelect={(item) => setSelectedEmail(item)}
+            allowCustom
+            stretch
+          >
+            <DropdownElement label="gmail.com" value="gmail"/>
+            <DropdownElement label="naver.com" value="naver"/>
+            <DropdownElement label="daum.net" value="daum"/>
+            <DropdownElement label="apple.com" value="apple"/>
+          </DropdownButton>
+          <p style={{width: 200, textAlign: "right"}}>
+            {selectedEmail ? `${selectedEmail.label} 선택됨` : "없음"}
+          </p>
+        </Row>
+        <Row justifyContent="space-between">
+          <DropdownButton
             onSelect={(item) => setSelectedPerson(item)}
             allowCustom
+            search
             stretch
           >
             <DropdownElement label="반대준" value="ban"/>
@@ -169,7 +186,7 @@ function textFields() {
       <h2>Text Fields</h2>
       <Row>
         <TextField placeholder="Default" stretch />
-        <TextField placeholder="Error" state="error" stretch />
+        <TextField placeholder="Error" error stretch />
       </Row>
     </section>
   );
