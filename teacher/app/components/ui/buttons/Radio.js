@@ -36,8 +36,9 @@ export function RadioGroup({
     if (onChange) onChange(event.target.value);
   };
 
-  const clonedChildren = children.map((child) =>
+  const clonedChildren = children.map((child, index) =>
     cloneElement(child, {
+      key: child.key || index,
       name,
       checked: selectedValue === child.props.value,
       onChange: handleChange,

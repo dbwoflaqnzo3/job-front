@@ -1,14 +1,38 @@
 'use client'
 import { useState } from "react";
 import { Row, Column } from "@/app/widgets/structure/Grid";
+import { NavIcon, NavTitle, NavItem, NavGroup, TeacherNav } from "@/app/components/layout/Nav";
 import { RadioButton, RadioGroup } from "@/app/components/ui/buttons/Radio";
 import { CheckboxButton, CheckboxGroup } from "@/app/components/ui/buttons/Checkbox";
 import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/components/ui/buttons/Regular";
 import { DropdownElement, DropdownButton } from "@/app/components/ui/buttons/Dropdown";
 import { SegmentedButton, SegmentedGroup } from "@/app/components/ui/buttons/Segmented";
-import TextField from "@/app/components/ui/TextField";
 import { SemiCircularGraph, CircularGraph } from "@/app/components/ui/CircularGraph";
+import TextField from "@/app/components/ui/TextField";
 import Card from "@/app/components/ui/Card";
+
+function nav() {
+  return (
+    <Column>
+      <NavGroup theme="primary">
+        <NavTitle title="A" />
+        <NavTitle title="B" />
+        <NavTitle title="C">
+          <NavItem text="C-1" onClick={() => {}} />
+          <NavItem text="C-2" onClick={() => {}} />
+        </NavTitle>
+        <NavIcon icon="help" onClick={() => {}} />
+        <NavIcon icon="profile" onClick={() => {}}>
+          <NavItem text="1" onClick={() => {}} />
+          <NavItem text="2" onClick={() => {}} />
+          <NavItem text="3" onClick={() => {}} />
+          <NavItem text="4" textColor="red-3" onClick={() => {}} />
+        </NavIcon>
+      </NavGroup>
+      <TeacherNav />
+    </Column>
+  );
+}
 
 function buttons() {
   return (
@@ -207,6 +231,7 @@ function circulargraphes() {
 export default function Component() {
   return (
     <div className="page">
+      {nav()}
       <Card margin={50}>
         <div style={{width: "80%"}}>
           <Column justifyContent="space-between">

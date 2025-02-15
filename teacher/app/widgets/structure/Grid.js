@@ -13,10 +13,9 @@ export function Grid({
     gridAutoFlow: row ? "column" : "row",
     gridTemplateRows: row ? `repeat(${row}, auto)` : "auto",
     gap: gap,
-    ...styles,
   };
 
-  return <div className="grid-container" style={style}>{children}</div>;
+  return <div className={styles["grid-container"]} style={style}>{children}</div>;
 }
 
 export function Column({ 
@@ -37,7 +36,7 @@ export function Column({
     height: "100%",
   };
 
-  return <div style={mergedStyle}>{children}</div>;
+  return <div className={styles["column"]} style={mergedStyle}>{children}</div>;
 }
 
 export function Row({ 

@@ -16,7 +16,7 @@ export default function Button({
   icon = null,
   onClick,
   stretch = false,
-  width = "200px",
+  width = 200,
   shrink = false,
 }) {
   const IconComponent = useMemo(() => icon ? getIconComponent(icon) : null, [icon]);

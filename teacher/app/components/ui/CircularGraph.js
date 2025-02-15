@@ -5,7 +5,7 @@ import styles from "./circularGraph.module.css";
 export function SemiCircularGraph({ 
   percentage,
   size = 180,
-  lineWidth, 
+  lineWidth = 10, 
 }) {
   return <CircularProgressBar
     colorCircle="var(--secondary-100)"
