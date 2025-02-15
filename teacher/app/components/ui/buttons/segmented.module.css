@@ -30,10 +30,6 @@
   border-right: 2px solid var(--secondary-300);
 }
 
-.segmented-button.button2 {
-  
-}
-
 .segmented-button.button1:hover { background-color: var(--secondary-100); }
 .segmented-button.button2:hover { background-color: var(--black-300); }
 

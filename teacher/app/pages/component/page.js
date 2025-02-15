@@ -5,7 +5,7 @@ import { NavIcon, NavTitle, NavItem, NavGroup, TeacherNav } from "@/app/componen
 import { RadioButton, RadioGroup } from "@/app/components/ui/buttons/Radio";
 import { CheckboxButton, CheckboxGroup } from "@/app/components/ui/buttons/Checkbox";
 import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/components/ui/buttons/Regular";
-import { DropdownElement, DropdownButton } from "@/app/components/ui/buttons/Dropdown";
+import { DropdownElement, DropdownButton1, DropdownButton2 } from "@/app/components/ui/buttons/Dropdown";
 import { SegmentedButton, SegmentedGroup1, SegmentedGroup2 } from "@/app/components/ui/buttons/Segmented";
 import { SemiCircularGraph, CircularGraph } from "@/app/components/ui/CircularGraph";
 import TextField from "@/app/components/ui/TextField";
@@ -120,49 +120,93 @@ function dropdownButtons() {
     <section>
       <h2>Dropdown Buttons</h2>
       <Column>
-        <Row justifyContent="space-between">
-          <DropdownButton
-            onSelect={(item) => setSelectedOption(item)}
-            stretch
-          >
-            <DropdownElement label="옵션 1" value="option1"/>
-            <DropdownElement label="옵션 2" value="option2"/>
-            <DropdownElement label="옵션 3" value="option3"/>
-          </DropdownButton>
-          <p style={{width: 200, textAlign: "right"}}>
-            {selectedOption ? `${selectedOption.label} 선택됨` : "없음"}
-          </p>
+        <Row gap={50}>
+          <Row justifyContent="space-between">
+            <DropdownButton1
+              onSelect={(item) => setSelectedOption(item)}
+            >
+              <DropdownElement label="옵션 1" value="option1"/>
+              <DropdownElement label="옵션 2" value="option2"/>
+              <DropdownElement label="옵션 3" value="option3"/>
+            </DropdownButton1>
+            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
+              {selectedOption ? `${selectedOption.label} 선택됨` : "없음"}
+            </p>
+          </Row>
+          <Row justifyContent="space-between">
+            <DropdownButton2
+              onSelect={(item) => setSelectedOption(item)}
+            >
+              <DropdownElement label="옵션 1" value="option1"/>
+              <DropdownElement label="옵션 2" value="option2"/>
+              <DropdownElement label="옵션 3" value="option3"/>
+            </DropdownButton2>
+            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
+              {selectedOption ? `${selectedOption.label} 선택됨` : "없음"}
+            </p>
+          </Row>
         </Row>
-        <Row justifyContent="space-between">
-          <DropdownButton
-            onSelect={(item) => setSelectedEmail(item)}
-            allowCustom
-            stretch
-          >
-            <DropdownElement label="gmail.com" value="gmail"/>
-            <DropdownElement label="naver.com" value="naver"/>
-            <DropdownElement label="daum.net" value="daum"/>
-            <DropdownElement label="apple.com" value="apple"/>
-          </DropdownButton>
-          <p style={{width: 200, textAlign: "right"}}>
-            {selectedEmail ? `${selectedEmail.label} 선택됨` : "없음"}
-          </p>
+        <Row gap={50}>
+          <Row justifyContent="space-between">
+            <DropdownButton1
+              onSelect={(item) => setSelectedEmail(item)}
+              allowCustom
+            >
+              <DropdownElement label="gmail.com" value="gmail"/>
+              <DropdownElement label="naver.com" value="naver"/>
+              <DropdownElement label="daum.net" value="daum"/>
+              <DropdownElement label="apple.com" value="apple"/>
+            </DropdownButton1>
+            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
+              {selectedEmail ? `${selectedEmail.label} 선택됨` : "없음"}
+            </p>
+          </Row>
+          <Row justifyContent="space-between">
+            <DropdownButton2
+              onSelect={(item) => setSelectedEmail(item)}
+              allowCustom
+            >
+              <DropdownElement label="gmail.com" value="gmail"/>
+              <DropdownElement label="naver.com" value="naver"/>
+              <DropdownElement label="daum.net" value="daum"/>
+              <DropdownElement label="apple.com" value="apple"/>
+            </DropdownButton2>
+            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
+              {selectedEmail ? `${selectedEmail.label} 선택됨` : "없음"}
+            </p>
+          </Row>
         </Row>
-        <Row justifyContent="space-between">
-          <DropdownButton
-            onSelect={(item) => setSelectedPerson(item)}
-            allowCustom
-            search
-            stretch
-          >
-            <DropdownElement label="반대준" value="ban"/>
-            <DropdownElement label="서종현" value="seo"/>
-            <DropdownElement label="최지안" value="choi"/>
-            <DropdownElement label="유재림" value="yu"/>
-          </DropdownButton>
-          <p style={{width: 200, textAlign: "right"}}>
-            {selectedPerson ? `${selectedPerson.label} 선택됨` : "없음"}
-          </p>
+        <Row gap={50}>
+          <Row justifyContent="space-between">
+            <DropdownButton1
+              onSelect={(item) => setSelectedPerson(item)}
+              allowCustom
+              search
+            >
+              <DropdownElement label="반대준" value="ban"/>
+              <DropdownElement label="서종현" value="seo"/>
+              <DropdownElement label="최지안" value="choi"/>
+              <DropdownElement label="유재림" value="yu"/>
+            </DropdownButton1>
+            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
+              {selectedPerson ? `${selectedPerson.label} 선택됨` : "없음"}
+            </p>
+          </Row>
+          <Row justifyContent="space-between">
+            <DropdownButton2
+              onSelect={(item) => setSelectedPerson(item)}
+              allowCustom
+              search
+            >
+              <DropdownElement label="반대준" value="ban"/>
+              <DropdownElement label="서종현" value="seo"/>
+              <DropdownElement label="최지안" value="choi"/>
+              <DropdownElement label="유재림" value="yu"/>
+            </DropdownButton2>
+            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
+              {selectedPerson ? `${selectedPerson.label} 선택됨` : "없음"}
+            </p>
+          </Row>
         </Row>
       </Column>
     </section>
