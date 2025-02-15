@@ -2,19 +2,8 @@
 
 import { useState, useRef, Children, useEffect, cloneElement } from "react";
 import { containsHangeul, containsChoseong, isHangeul } from "@/app/utils/hangeul";
-import { Column } from "@/app/widgets/structure/Grid";
 import ArrowIcon from "@/public/assets/images/icons/dropdownArrow.svg";
 import styles from "./dropdown.module.css";
-
-export class Validator {
-  constructor(regex, guide = "유효하지 않은 입력입니다.") {
-    this.regex = new RegExp(regex);
-    this.guide = guide;
-  }
-
-  isMatch = (input) => this.regex.test(input);
-  getGuide = () => this.guide;
-}
 
 export function DropdownElement({ label, value, onClick, type }) {
   return (

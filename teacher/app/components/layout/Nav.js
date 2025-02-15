@@ -96,7 +96,7 @@ function NavBase({ title, icon, onClick, isSelected = false, children, onMenuIte
 export const NavIcon = (props) => <NavBase {...props} isIcon />;
 export const NavTitle = (props) => <NavBase {...props} />;
 
-export function NavGroup({ theme = "secondary", children }) {
+export function NavGroup({ theme = "primary", children }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const styleVars = {

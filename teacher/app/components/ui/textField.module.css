@@ -38,3 +38,8 @@
   box-shadow: 0 0 0px 1000px var(--white) inset !important;
   color: inherit !important;
 }
+
+.error-message {
+  margin-top: 4px;
+  color: var(--red-3);
+}

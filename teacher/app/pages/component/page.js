@@ -5,24 +5,25 @@ import { NavIcon, NavTitle, NavItem, NavGroup, TeacherNav } from "@/app/componen
 import { RadioButton, RadioGroup } from "@/app/components/ui/buttons/Radio";
 import { CheckboxButton, CheckboxGroup } from "@/app/components/ui/buttons/Checkbox";
 import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/components/ui/buttons/Regular";
-import { DropdownElement, DropdownButton1, DropdownButton2, Validator } from "@/app/components/ui/buttons/Dropdown";
+import { DropdownElement, DropdownButton1, DropdownButton2 } from "@/app/components/ui/buttons/Dropdown";
 import { SegmentedButton, SegmentedGroup1, SegmentedGroup2 } from "@/app/components/ui/buttons/Segmented";
 import { SemiCircularGraph, CircularGraph } from "@/app/components/ui/CircularGraph";
 import TextField from "@/app/components/ui/TextField";
 import Card from "@/app/components/ui/Card";
+import { Validator, ValidatorType } from "@/app/utils/validator";
 
 function nav() {
   return (
     <Column>
       <NavGroup theme="primary">
-        <NavTitle title="A" />
-        <NavTitle title="B" />
+        <NavTitle title="A" onClick={() => {}} />
+        <NavTitle title="B" onClick={() => {}} />
         <NavTitle title="C">
           <NavItem text="C-1" onClick={() => {}} />
           <NavItem text="C-2" onClick={() => {}} />
         </NavTitle>
         <NavIcon icon="help" onClick={() => {}} />
-        <NavIcon icon="profile" onClick={() => {}}>
+        <NavIcon icon="profile">
           <NavItem text="1" onClick={() => {}} />
           <NavItem text="2" onClick={() => {}} />
           <NavItem text="3" onClick={() => {}} />
@@ -154,7 +155,7 @@ function dropdownButtons() {
             <DropdownButton1
               onSelect={(item) => setSelectedEmail1(item)}
               validator={
-                new Validator("^[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", "이메일 형식으로 입력하세요.")
+                new Validator(ValidatorType.EMAIL_POSTFIX, "이메일 형식으로 입력하세요.")
               }
               allowCustom
             >
@@ -171,7 +172,7 @@ function dropdownButtons() {
             <DropdownButton2
               onSelect={(item) => setSelectedEmail2(item)}
               validator={
-                new Validator("^[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", "이메일 형식으로 입력하세요.")
+                new Validator(ValidatorType.EMAIL_POSTFIX, "이메일 형식으로 입력하세요.")
               }
               allowCustom
             >
@@ -284,10 +285,23 @@ function textFields() {
   return (
     <section>
       <h2>Text Fields</h2>
-      <Row>
-        <TextField placeholder="Default" stretch />
-        <TextField placeholder="Error" error stretch />
-      </Row>
+      <Column>
+        <Row>
+          <TextField placeholder="Default" stretch />
+          <TextField placeholder="Error" error stretch />
+        </Row>
+        <Row>
+          <TextField 
+            placeholder="비밀번호를 입력하세요" 
+            validators={[
+              new Validator(ValidatorType.AT_LEAST_EIGHT, "비밀번호는 최소 8자리 이상이어야 합니다"),
+              new Validator(ValidatorType.INCLUDE_ALPHABET_SPECIAL_CHAR_NUMBER, "영문/특수문자/숫자가 포함되어야 합니다"),
+              new Validator(ValidatorType.SEQUENTIAL_NUMBER_CHAR, "연속된 숫자/문자는 사용이 불가합니다"),
+            ]}
+            stretch 
+          />
+        </Row>
+      </Column>
     </section>
   );
 }
