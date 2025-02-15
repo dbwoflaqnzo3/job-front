@@ -99,8 +99,7 @@
   transition: transform 0.2s ease-in-out;
 }
 
-.dropdown-list.opened,
-.dropdown-list.typed {
+.dropdown-list.opened {
   transform: scaleY(1);
 }
 
@@ -138,4 +137,17 @@
 .dropdown-container.custom .no-result:hover {
   background-color: inherit;
   cursor: default;
+}
+
+.error-message {
+  position: absolute;
+  left: 0;
+  top: 110%;
+  color: var(--red-3);
+  opacity: 1;
+  transition: all .2s ease-in-out;
+}
+
+.error-message.hidden {
+  opacity: 0;
 }

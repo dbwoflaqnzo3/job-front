@@ -2,8 +2,19 @@
 
 import { useState, useRef, Children, useEffect, cloneElement } from "react";
 import { containsHangeul, containsChoseong, isHangeul } from "@/app/utils/hangeul";
+import { Column } from "@/app/widgets/structure/Grid";
 import ArrowIcon from "@/public/assets/images/icons/dropdownArrow.svg";
 import styles from "./dropdown.module.css";
+
+export class Validator {
+  constructor(regex, guide = "유효하지 않은 입력입니다.") {
+    this.regex = new RegExp(regex);
+    this.guide = guide;
+  }
+
+  isMatch = (input) => this.regex.test(input);
+  getGuide = () => this.guide;
+}
 
 export function DropdownElement({ label, value, onClick, type }) {
   return (
@@ -22,16 +33,22 @@ export function DropdownButton({
   allowCustom = false,
   search = false,
   type,
+  validator,
 }) {
   const [state, setState] = useState("default");
   const [selected, setSelected] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [dropdownOpened, setDropdownOpened] = useState(false);
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
   
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpened(false);
+        setSearchQuery("");
         setState("default");
       }
     }
@@ -39,10 +56,16 @@ export function DropdownButton({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (search) setDropdownOpened(searchQuery.trim() !== "");
+  }, [searchQuery, search]);
+
   const handleSelect = (item) => {
     setSelected(item);
-    setSearchQuery("");
     setState("default");
+    setError(null);
+    setErrorMessage("");
+    setTimeout(() => setSearchQuery(""), 0);
     if (onSelect) onSelect(item);
   };
 
@@ -52,33 +75,47 @@ export function DropdownButton({
   };
   
   const toggleCustomState = () => { 
-    setState("custom"); 
-    setTimeout(() => { if (inputRef.current) inputRef.current.focus(); }, 0);
+    switch (state) {
+      case "opened": 
+        setState("custom"); 
+        setTimeout(() => { if (inputRef.current) inputRef.current.focus(); }, 0);
+        break;
+      case "custom":
+        setState("default"); 
+        setTimeout(() => { if (inputRef.current) inputRef.current.blur(); }, 0);
+        break;
+    }
   };
 
   const handleInputChange = (event) => {
     const value = event.target.value;
     setSearchQuery(value);
-  };
 
+    const isValid = validator?.isMatch(value) ?? true;
+    const message = validator?.getGuide() ?? "";
+    setError(!isValid);
+    setErrorMessage(message);
+  };
+  
+  const handleCustomKeyDown = (event) => {
+    if (event.key !== "Enter") return;
+    handleCustomInputSubmit();
+  }
+
+  const handleCustomInputBlur = () => {
+    setTimeout(handleCustomInputSubmit, 0);
+  };
+  
   const handleCustomInputSubmit = () => {
-    if (searchQuery.trim() !== "") {
+    if (search) return;
+
+    if (searchQuery.trim() !== "" && !error) {
       const newValue = { label: searchQuery, value: searchQuery };
       setSelected(newValue);
       if (onSelect) onSelect(newValue);
+      toggleCustomState();
     }
-    setState("default");
-  };
-
-  const handleCustomInputKeyDown = (event) => {
-    if (event.key === "Enter") {
-      handleCustomInputSubmit();
-    }
-  };
-
-  const handleCustomInputBlur = () => {
-    console.log('asdfasdf');
-    handleCustomInputSubmit();
+    setTimeout(() => setDropdownOpened(false), 0);
   };
 
   const selectedWidget = (
@@ -89,16 +126,19 @@ export function DropdownButton({
   );
 
   const textField = (
-    <input 
-      ref={inputRef} 
-      className="ko-md-15" 
-      type="text" 
-      placeholder="직접입력" 
-      value={searchQuery}
-      onChange={handleInputChange}
-      onBlur={handleCustomInputBlur} 
-      onKeyDown={handleCustomInputKeyDown}
-    />
+    <>
+      <input 
+        ref={inputRef} 
+        className="ko-md-15" 
+        type="text" 
+        placeholder="직접입력" 
+        value={searchQuery}
+        onChange={handleInputChange}
+        onBlur={handleCustomInputBlur} 
+        onKeyDown={handleCustomKeyDown} 
+      />
+      <div className={`${styles["error-message"]} ${error ? "" : styles["hidden"]} ko-reg-13`}>{errorMessage}</div>
+    </>
   );
 
   const elements = Children.map(children, (child) =>
@@ -119,8 +159,6 @@ export function DropdownButton({
       })
     : elements;
 
-  width = stretch ? "100%" : width;
-
   return (
     <div 
       className={`${styles["dropdown-container"]} ${styles[state]} ${selected ? styles["selected"] : ""} ${styles[type]}`} 
@@ -135,9 +173,8 @@ export function DropdownButton({
             {state === "custom" ? textField : selectedWidget}
         </span>
       </button>
-      <ul className={`${styles["dropdown-list"]} ko-sb-15 ${styles[state]} ${searchQuery === "" ? "" : search ? styles["typed"] : ""}`}>
+      <ul className={`${styles["dropdown-list"]} ko-sb-15 ${styles[state]} ${dropdownOpened ? styles["opened"] : ""}`}>
         {allowCustom && <li className={styles["dropdown-item"]} onClick={toggleCustomState}>직접입력</li>}
-        
         {filteredElements.length > 0 
           ? filteredElements 
           : search 

@@ -5,7 +5,7 @@ import { NavIcon, NavTitle, NavItem, NavGroup, TeacherNav } from "@/app/componen
 import { RadioButton, RadioGroup } from "@/app/components/ui/buttons/Radio";
 import { CheckboxButton, CheckboxGroup } from "@/app/components/ui/buttons/Checkbox";
 import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/components/ui/buttons/Regular";
-import { DropdownElement, DropdownButton1, DropdownButton2 } from "@/app/components/ui/buttons/Dropdown";
+import { DropdownElement, DropdownButton1, DropdownButton2, Validator } from "@/app/components/ui/buttons/Dropdown";
 import { SegmentedButton, SegmentedGroup1, SegmentedGroup2 } from "@/app/components/ui/buttons/Segmented";
 import { SemiCircularGraph, CircularGraph } from "@/app/components/ui/CircularGraph";
 import TextField from "@/app/components/ui/TextField";
@@ -112,9 +112,12 @@ function checkboxButtons() {
 }
 
 function dropdownButtons() {  
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedPerson, setSelectedPerson] = useState(null);
-  const [selectedEmail, setSelectedEmail] = useState(null);
+  const [selectedOption1, setSelectedOption1] = useState(null);
+  const [selectedEmail1, setSelectedEmail1] = useState(null);
+  const [selectedPerson1, setSelectedPerson1] = useState(null);
+  const [selectedOption2, setSelectedOption2] = useState(null);
+  const [selectedEmail2, setSelectedEmail2] = useState(null);
+  const [selectedPerson2, setSelectedPerson2] = useState(null);
   
   return (
     <section>
@@ -123,33 +126,36 @@ function dropdownButtons() {
         <Row gap={50}>
           <Row justifyContent="space-between">
             <DropdownButton1
-              onSelect={(item) => setSelectedOption(item)}
+              onSelect={(item) => setSelectedOption1(item)}
             >
               <DropdownElement label="옵션 1" value="option1"/>
               <DropdownElement label="옵션 2" value="option2"/>
               <DropdownElement label="옵션 3" value="option3"/>
             </DropdownButton1>
             <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedOption ? `${selectedOption.label} 선택됨` : "없음"}
+              {selectedOption1 ? `${selectedOption1.label} 선택됨` : "없음"}
             </p>
           </Row>
           <Row justifyContent="space-between">
             <DropdownButton2
-              onSelect={(item) => setSelectedOption(item)}
+              onSelect={(item) => setSelectedOption2(item)}
             >
               <DropdownElement label="옵션 1" value="option1"/>
               <DropdownElement label="옵션 2" value="option2"/>
               <DropdownElement label="옵션 3" value="option3"/>
             </DropdownButton2>
             <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedOption ? `${selectedOption.label} 선택됨` : "없음"}
+              {selectedOption2 ? `${selectedOption2.label} 선택됨` : "없음"}
             </p>
           </Row>
         </Row>
         <Row gap={50}>
           <Row justifyContent="space-between">
             <DropdownButton1
-              onSelect={(item) => setSelectedEmail(item)}
+              onSelect={(item) => setSelectedEmail1(item)}
+              validator={
+                new Validator("^[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", "이메일 형식으로 입력하세요.")
+              }
               allowCustom
             >
               <DropdownElement label="gmail.com" value="gmail"/>
@@ -158,12 +164,15 @@ function dropdownButtons() {
               <DropdownElement label="apple.com" value="apple"/>
             </DropdownButton1>
             <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedEmail ? `${selectedEmail.label} 선택됨` : "없음"}
+              {selectedEmail1 ? `${selectedEmail1.label} 선택됨` : "없음"}
             </p>
           </Row>
           <Row justifyContent="space-between">
             <DropdownButton2
-              onSelect={(item) => setSelectedEmail(item)}
+              onSelect={(item) => setSelectedEmail2(item)}
+              validator={
+                new Validator("^[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", "이메일 형식으로 입력하세요.")
+              }
               allowCustom
             >
               <DropdownElement label="gmail.com" value="gmail"/>
@@ -172,14 +181,14 @@ function dropdownButtons() {
               <DropdownElement label="apple.com" value="apple"/>
             </DropdownButton2>
             <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedEmail ? `${selectedEmail.label} 선택됨` : "없음"}
+              {selectedEmail2 ? `${selectedEmail2.label} 선택됨` : "없음"}
             </p>
           </Row>
         </Row>
         <Row gap={50}>
           <Row justifyContent="space-between">
             <DropdownButton1
-              onSelect={(item) => setSelectedPerson(item)}
+              onSelect={(item) => setSelectedPerson1(item)}
               allowCustom
               search
             >
@@ -189,12 +198,12 @@ function dropdownButtons() {
               <DropdownElement label="유재림" value="yu"/>
             </DropdownButton1>
             <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedPerson ? `${selectedPerson.label} 선택됨` : "없음"}
+              {selectedPerson1 ? `${selectedPerson1.label} 선택됨` : "없음"}
             </p>
           </Row>
           <Row justifyContent="space-between">
             <DropdownButton2
-              onSelect={(item) => setSelectedPerson(item)}
+              onSelect={(item) => setSelectedPerson2(item)}
               allowCustom
               search
             >
@@ -204,7 +213,7 @@ function dropdownButtons() {
               <DropdownElement label="유재림" value="yu"/>
             </DropdownButton2>
             <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedPerson ? `${selectedPerson.label} 선택됨` : "없음"}
+              {selectedPerson2 ? `${selectedPerson2.label} 선택됨` : "없음"}
             </p>
           </Row>
         </Row>
