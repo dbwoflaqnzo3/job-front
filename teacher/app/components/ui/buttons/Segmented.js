@@ -2,10 +2,12 @@
 import { useState, cloneElement, Children } from "react";
 import styles from "./segmented.module.css";
 
-export function SegmentedButton({ label, name, value, checked, onChange, flexGrow }) {
+export function SegmentedButton({ label, name, value, checked, onChange, flexGrow, type}) {
+  const className = `${styles["segmented-button"]} ${checked ? styles["active"] : ""} ${styles[type]}`;
+
   return (
-    <label 
-      className={`${styles["segmented-button"]} ${checked ? styles["active"] : ""}`}
+    <label
+      className={className}
       style={{ flexGrow }}
     >
       <input
@@ -27,7 +29,8 @@ export function SegmentedGroup({
   onChange, 
   width = 600,
   stretch = false,
-  ratios = []
+  ratios = [],
+  type,
 }) {
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
@@ -46,6 +49,7 @@ export function SegmentedGroup({
       checked: selectedValue === child.props.value,
       onChange: handleChange,
       flexGrow: validRatios[index],
+      type: type,
     })
   );
 
@@ -53,7 +57,7 @@ export function SegmentedGroup({
 
   return (
     <div 
-      className={styles["segmented-container"]} 
+      className={`${styles["segmented-container"]} ${styles[type]}`} 
       style={{width}}
     >
       {segmentedChildren}
@@ -61,42 +65,9 @@ export function SegmentedGroup({
   );
 }
 
-// "use client";
-// import { useState, cloneElement } from "react";
-// import styles from "./segmented.module.css";
-
-// export function SegmentedButton({ label, name, value, checked, onChange }) {
-//   return (
-//     <label className={`${styles["segmented-button"]} ${checked ? styles["active"] : ""}`}>
-//       <input
-//         type="radio"
-//         name={name}
-//         value={value}
-//         checked={checked}
-//         onChange={onChange}
-//       />
-//       <span className={styles["segmented-label"]}>{label}</span>  
-
-//     </label>
-//   );
-// }
-
-// export function SegmentedGroup({ name, children, defaultValue, onChange }) {
-//   const [selectedValue, setSelectedValue] = useState(defaultValue);
-
-//   const handleChange = (event) => {
-//     setSelectedValue(event.target.value);
-//     if (onChange) onChange(event.target.value);
-//   };
-
-//   const clonedChildren = children.map((child) =>
-//     cloneElement(child, {
-//       name,
-//       checked: selectedValue === child.props.value,
-//       onChange: handleChange,
-//     })
-//   );
-
-//   return <div className={styles["segmented-container"]}>{clonedChildren}</div>;  
-
-// }
+export function SegmentedGroup1(props) {
+  return <SegmentedGroup {...props} type="button1">{props.children}</SegmentedGroup>;
+};
+export function SegmentedGroup2(props) {
+  return <SegmentedGroup {...props} type="button2">{props.children}</SegmentedGroup>;
+};

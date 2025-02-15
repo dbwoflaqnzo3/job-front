@@ -6,7 +6,7 @@ import { RadioButton, RadioGroup } from "@/app/components/ui/buttons/Radio";
 import { CheckboxButton, CheckboxGroup } from "@/app/components/ui/buttons/Checkbox";
 import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/components/ui/buttons/Regular";
 import { DropdownElement, DropdownButton } from "@/app/components/ui/buttons/Dropdown";
-import { SegmentedButton, SegmentedGroup } from "@/app/components/ui/buttons/Segmented";
+import { SegmentedButton, SegmentedGroup1, SegmentedGroup2 } from "@/app/components/ui/buttons/Segmented";
 import { SemiCircularGraph, CircularGraph } from "@/app/components/ui/CircularGraph";
 import TextField from "@/app/components/ui/TextField";
 import Card from "@/app/components/ui/Card";
@@ -176,8 +176,8 @@ function segmentedButtons() {
     <section>
       <h2>Segmented Buttons</h2>
       <Column>
-        <SegmentedGroup 
-          name="segmentedGroup1" 
+        <SegmentedGroup1
+          name="segmented1Group1" 
           defaultValue={selected} 
           onChange={setSelected}
           stretch
@@ -186,9 +186,9 @@ function segmentedButtons() {
           <SegmentedButton label="옵션 2" value="option2" />
           <SegmentedButton label="옵션 3" value="option3" />
           <SegmentedButton label="옵션 4" value="option4" />
-        </SegmentedGroup>
-        <SegmentedGroup 
-          name="segmentedGroup1" 
+        </SegmentedGroup1>
+        <SegmentedGroup1
+          name="segmented1Group1" 
           defaultValue={selected} 
           onChange={setSelected}
           ratios={[1, 2, 3, 4]}
@@ -198,7 +198,30 @@ function segmentedButtons() {
           <SegmentedButton label="옵션 2" value="option2" />
           <SegmentedButton label="옵션 3" value="option3" />
           <SegmentedButton label="옵션 4" value="option4" />
-        </SegmentedGroup>
+        </SegmentedGroup1>
+        <SegmentedGroup2
+          name="segmented2Group1" 
+          defaultValue={selected} 
+          onChange={setSelected}
+          stretch
+          >
+          <SegmentedButton label="옵션 1" value="option1" />
+          <SegmentedButton label="옵션 2" value="option2" />
+          <SegmentedButton label="옵션 3" value="option3" />
+          <SegmentedButton label="옵션 4" value="option4" />
+        </SegmentedGroup2>
+        <SegmentedGroup2
+          name="segmented2Group2" 
+          defaultValue={selected} 
+          onChange={setSelected}
+          ratios={[4, 3, 2, 1]}
+          stretch
+          >
+          <SegmentedButton label="옵션 1" value="option1" />
+          <SegmentedButton label="옵션 2" value="option2" />
+          <SegmentedButton label="옵션 3" value="option3" />
+          <SegmentedButton label="옵션 4" value="option4" />
+        </SegmentedGroup2>
       </Column>
     </section>
   );
