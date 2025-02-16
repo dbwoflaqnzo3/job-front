@@ -1,0 +1,57 @@
+/* test timer (for test) */
+
+.timerContainer{
+    width: 2rem;
+    height: 23.75rem;
+  
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  
+  .testTimer{
+      position: relative;
+      width: 1rem;
+      height: 19.625rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--Primary400, #FFB54D);
+      background: var(--Primary200, #FEDAA6);
+  }
+  
+  /* 시간 감소 시각화 디자인 */
+  .testTimerCover{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      bottom: 0;
+      border-radius: 0.5rem;
+      background: var(--Primary700, #FF8B14);
+      animation: var(--animation-duration) linear timer;
+  }
+  
+  @keyframes timer {
+    from {
+      height: 100%;
+    }
+    to {
+      height: 0%;
+    }
+  }
+  
+  .leftTime{
+    margin: 0.5rem 0 0 0;
+    color: #000;
+    text-align: center;
+  
+    /* En/Sb/17 */
+    font-family: "Min Sans VF";
+    font-size: 1.0625rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.59375rem */
+  }
+  
