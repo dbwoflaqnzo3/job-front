@@ -20,10 +20,8 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
     const togglePopup = () => {
         setIsToTest((prev) => !prev)
     }
-
-
-    // 사용자가 녹음한 음원
-    const [recordedAudio, setRecordedAudio] = useState(null)
+    
+    const [recordedAudio, setRecordedAudio] = useState(null) // 사용자가 녹음한 음원
 
     const [passResults, setPassResults] = useState(
         // 초기값 false로 배열 생성
@@ -289,39 +287,6 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
                     )
                 }
             </div>
-
-
-
-
-
-            {/* <div>
-                <div>
-                    <EachWord
-                        vocab={vocabs[currentIndex]} // 현재 단어 전달
-                        index={currentIndex + 1}
-                    />
-
-                    <VoiceRecording
-                        shouldReset={shouldReset}
-                    />
-
-                    <div>
-                        <button onClick={handlePrevious} disabled={currentIndex == 0 ? true : false}>Previous</button>
-                        <button onClick={handleNext} disabled={currentIndex == vocabs.length - 1 ? true : false}>Next</button>
-                    </div>
-                </div>
-
-                {
-                    currentIndex == vocabs.length - 1 ?
-                        <div>
-                            <h3>재시험 보러가기</h3>
-                            <button onClick={handleSubmit}>submit</button>
-                        </div>
-                        :
-                        <div></div>
-                }
-
-            </div> */}
         </div>
     );
 }
