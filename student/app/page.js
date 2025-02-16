@@ -3,6 +3,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useRouter } from "next/navigation";
 import { NavGroup, NavTitle, NavIcon, NavItem } from "@/app/components/layout/Nav";
 
@@ -32,6 +33,9 @@ export function PageLayout({ children }) {
       </div>
     </div>
 =======
+=======
+import { Grid } from "./widgets/structure/Grid";
+>>>>>>> 2e0e673 (Next.js svg import 오류 수정)
 import { NavGroup, NavTitle, NavIcon, NavItem } from "@/app/components/layout/Nav";
 
 function pageLayout() {
@@ -58,6 +62,7 @@ function pageLayout() {
 export default function Home() {
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <PageLayout>
       <div>Welcome to JOB Student Page</div>
     </PageLayout>
@@ -68,5 +73,8 @@ export default function Home() {
       }
     </div>
 >>>>>>> 3ee5730 (feat[#44] : component 적용 오류 해결 중)
+=======
+    <div>{pageLayout()}</div>
+>>>>>>> 2e0e673 (Next.js svg import 오류 수정)
   );
 }

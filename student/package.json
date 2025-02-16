@@ -22,10 +22,16 @@
     "react-dom": "^18",
     "react-semicircle-progressbar": "^1.1.0"
 <<<<<<< HEAD
+<<<<<<< HEAD
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0"
 =======
 >>>>>>> 4a4e2d7 (feat[#35] :  1차 구현 마무리)
+=======
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^8.1.0"
+>>>>>>> 2e0e673 (Next.js svg import 오류 수정)
   }
 }

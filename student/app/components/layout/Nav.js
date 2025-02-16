@@ -108,10 +108,14 @@ export const NavTitle = (props) => <NavBase {...props} />;
 export function NavGroup({ theme = "primary", children }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 <<<<<<< HEAD
+<<<<<<< HEAD
   
 =======
 
 >>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
+=======
+  
+>>>>>>> 2e0e673 (Next.js svg import 오류 수정)
   const styleVars = {
     "--background-color": `var(--${theme}-300)`,
     "--hovered-color": `var(--${theme}-200)`,
