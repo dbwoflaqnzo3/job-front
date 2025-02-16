@@ -213,7 +213,9 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                 {passResults[currentIndex] ? (
                     <div>
                         <VocabCorrectPopup />
-                        {setTimeout(() => handleNext(undefined), 3000)}
+                        <div style={{display:"none"}}>
+                            {setTimeout(() => handlePass(undefined), 3000)}
+                        </div>
                     </div>
                 ) : console.log("아직 틀렸다")}
 
@@ -221,7 +223,10 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                 {testTry == 3 ? (
                     <div>
                         <VocabNoChancePopup />
-                        {setTimeout(() => handlePass(undefined), 3000)}
+                        <div style={{display:"none"}}>
+                            {setTimeout(() => handlePass(undefined), 3000)}
+                        </div>
+                        
                     </div>
                 ) : console.log("이걸 다 틀리네 ㅋㅋ")
                 }
