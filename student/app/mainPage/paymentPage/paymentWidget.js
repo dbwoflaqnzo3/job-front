@@ -12,7 +12,7 @@ export default function PaymentWidget() {
     const [widgets, setWidgets] = useState(null);
     const [amount, setAmount] = useState({
         currency: "KRW",
-        value: 50_000,
+        value: 20000000,
     });
 
     useEffect(() => {
