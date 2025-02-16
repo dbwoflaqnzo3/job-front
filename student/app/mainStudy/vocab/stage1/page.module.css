@@ -1,0 +1,641 @@
+@font-face {
+    font-family: 'Pretendard Variable';
+    src: url('/job-front/student/app/fonts/PretendardVariable.woff2') format('woff2-variations');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.wrapper {
+    margin: 0;
+    padding: 0;
+
+    width: 1512px;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+
+    width: 1512px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #FFF8ED;
+}
+
+.exitBox {
+    margin: 0;
+
+    top: 64px;
+    left: 60px;
+
+    position: absolute;
+
+    width: 48px;
+    height: 68px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.exitButton {
+    margin: 0;
+    padding: 0;
+
+    width: 48px;
+    height: 68px;
+
+    background-color: none;
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+.exitWord {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 20px;
+
+    color: var(--Black-1000, #1A1A1A);
+    text-align: center;
+
+    /* Ko/Md/13 */
+    font-family: "Pretendard Variable";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    /* 19.5px */
+}
+
+
+
+
+.progressBarDiv {
+    margin-top: 64px;
+
+
+    width: 920px;
+    height: 105px;
+
+    background-color: #a9ade6;
+}
+
+.instruction {
+    margin-top: 57px;
+    margin-bottom: 0;
+
+    color: var(--Black-1000, #1A1A1A);
+    text-align: center;
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 30px */
+}
+
+
+
+
+/*---메인 컨텐츠---*/
+.mainContent {
+    margin-top: 64px;
+    margin-bottom: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 919px;
+}
+
+.vocabList {
+    margin: 0;
+
+    width: 212px;
+    height: 380px;
+
+    background-color: #FEDAA6;
+}
+
+.vocabBox {
+    margin: 0;
+
+    width: 444px;
+    height: 376px;
+
+    background-color: #FEFEFE;
+    border-radius: 12px;
+    border: 2px solid #FEDAA6;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vocabBoxPassed {
+    margin: 0;
+
+    width: 444px;
+    height: 376px;
+
+    background-color: #CBE6F5;
+    border-radius: 12px;
+    border: 2px solid #339CD9;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vocabBoxFailed {
+    margin: 0;
+
+    width: 444px;
+    height: 376px;
+
+    background-color: #FFDCD3;
+    border-radius: 12px;
+    border: 2px solid #F54316;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vocabWord {
+    margin-top: 133px;
+    margin-bottom: 0;
+
+    height: 60px;
+    width: 100%;
+
+    color: var(--Black-1000, #1A1A1A);
+    text-align: center;
+    font-family: "Min Sans VF";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 60px */
+}
+
+.computerVoice {
+    height: 47px;
+    width: 147px;
+
+    margin-top: 92px;
+
+    border: none;
+    border-radius: 16px;
+    background-color: #66B5E2;
+    cursor: pointer;
+
+    color: #1A1A1A;
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 27px */
+}
+
+.voiceControl {
+    margin: 0;
+
+    width: 444px;
+    height: 380px;
+
+    background-color: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.targetAccuracy {
+    margin-top: 40px;
+    margin-bottom: 0;
+
+    color: var(--Black-1000, #1A1A1A);
+    text-align: center;
+
+    /* Ko/Md/17 */
+    font-family: "Pretendard Variable";
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    /* 25.5px */
+}
+
+.allBadges {
+    margin-top: 28px;
+    margin-bottom: 0;
+
+    width: 186px;
+    height: 57px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.accBadge {
+    margin: 0;
+
+    width: 38px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.circle {
+    margin: 0;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background-color: #FEEDD2;
+
+    border: 1px solid #FFB54D;
+}
+
+.circleWrong {
+    margin: 0;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background-color: #FEEDD2;
+
+    border: 1px solid #FFB54D;
+}
+
+.circlePassed {
+    margin: 0;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background-color: #339CD9;
+
+    border: 1px solid #FFB54D;
+}
+
+.circleFailed {
+    margin: 0;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background-color: #F54316;
+
+    border: 1px solid #FFB54D;
+}
+
+.percent {
+    margin-top: 15Px;
+    margin-bottom: 0;
+
+    color: #1A1A1A;
+    text-align: center;
+
+    /* En/Sb/17 */
+    font-family: "Min Sans VF";
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 25.5px */
+}
+
+.voiceRecord {
+    margin-top: 48px;
+    margin-bottom: 0;
+
+    width: 196px;
+    height: 144px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recordButton {
+    margin: 0;
+
+    width: 76px;
+    height: 76px;
+
+    background-color: #FFA321;
+
+    border-radius: 50%;
+    border: none;
+
+    cursor: pointer;
+}
+
+.recordButton:hover {
+    background-color: #FF971A;
+}
+
+.recordButton:disabled {
+    cursor: default;
+}
+
+.recorButton:hover,
+.recordButton:disabled {
+    background-color: #FFA321;
+}
+
+.recordInstruction {
+    margin-top: 16px;
+    margin-bottom: 0;
+    padding: 0;
+
+    color: var(--Black-900, #333);
+    text-align: center;
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 27px */
+}
+
+.recordSubInstruction {
+    margin: 0;
+    padding: 0;
+
+    color: var(--Black-800, #4D4D4D);
+    text-align: center;
+
+    /* Ko/Md/15 */
+    font-family: "Pretendard Variable";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    /* 22.5px */
+}
+
+
+
+
+
+.progressButtonContainer {
+    margin-top: 80px;
+    margin-bottom: 0;
+
+    width: 448px;
+    height: 54px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.passButton {
+    margin: 0;
+
+    width: 212px;
+    height: 54px;
+
+    border: none;
+    border-radius: 16px;
+
+    background-color: #0084D0;
+    color: #FEFEFE;
+
+    cursor: pointer;
+}
+.passButton:hover {
+    background-color: #056FAC;
+}
+.passButton:active {
+    background-color: #0A5A87;
+}
+
+.nextButton {
+    margin: 0;
+
+    width: 212px;
+    height: 54px;
+
+    border: none;
+    border-radius: 16px;
+
+    background-color: #FFA321;
+    color: #1A1A1A;
+
+    cursor: pointer;
+}
+.nextButton:hover {
+    background-color: #FF971A;
+}
+.nextButton:active {
+    background-color: #FF8B14;
+}
+.nextButton:disabled {
+    background-color: #E5E5E5;
+    cursor: not-allowed;
+}
+
+
+
+
+/*-----POP UP-----*/
+.popupContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    margin: 0;
+
+    width: 498px;
+    height: 490px;
+
+    border-radius: 24px;
+    border: 1px solid #CBCBCB;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    align-items: center;
+}
+
+.card {
+    margin: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    margin-top: 36px;
+    margin-bottom: 8px;
+
+    width: 428px;
+    height: 45px;
+
+    color: #1A1A1A;
+
+    /* Ko/Sb/30 */
+    font-family: "Pretendard Variable";
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 45px */
+}
+
+.stats {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    width: 428px;
+    height: 60px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.statText {
+    margin: 0;
+
+    color: var(--Black-600, #7F7F7F);
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 30px */
+}
+
+.wrongText {
+    margin: 0;
+
+    color: var(--Black-600, #7F7F7F);
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 30px */
+}
+
+.checkmarkContainer {
+    margin-top: 54px;
+    margin-bottom: 0;
+
+    width: 102px;
+    height: 102px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.checkmarkCircle {
+    margin: 0;
+
+    width: 102px;
+    height: 102px;
+
+
+    background-color: #CBE6F5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkmark {
+    width: 4rem;
+    height: 4rem;
+    stroke: rgb(59 130 246);
+    stroke-width: 3;
+}
+
+.button {
+    margin-top: 109px;
+
+    width: 452px;
+    height: 54px;
+
+    background-color: #FFA321;
+
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+
+    color: #1A1A1A;
+    text-align: center;
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 27px */
+}
+
+.button:hover {
+    background-color: rgb(249 115 22);
+}
+
+@media (min-width: 768px) {
+    .title {
+        font-size: 2.25rem;
+    }
+}

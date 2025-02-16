@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'Pretendard Variable';
+    src: url('/job-front/student/app/fonts/PretendardVariable.woff2') format('woff2-variations');
+    font-weight: 400;
+    font-style: normal;
+}

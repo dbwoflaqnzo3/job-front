@@ -28,16 +28,18 @@ export default function VocabStageController() {
     const [middleProgress, setMiddleProgress] = useState(1)
     const [ComponentToRender, setComponentToRender] = useState(null);
 
+    useEffect(()=>{
+        
+    }, [])
+
 
     useEffect(() => {
 
         const fetchData = async () => {
             try {
-                // const resultStudentLessonInfo = await readStudentLessonInfo("678b391a7e259583d29aed48")
-                
+                const resultStudentLessonInfo = await readStudentLessonInfo("6797ab3555927d2b753da5d8")
                 const resultVocabData = await readAllVocabData("677a5441885dd37493ef1f17")
                 
-
                 // const updatedResult = resultVocabData.map(item => ({
                 //     ...item, // 기존 객체 복사
                 //     IsPassed: Array(resultStudentLessonInfo.studyMode.length).fill(false), // studyMode 크기에 맞는 false 배열 생성
@@ -48,12 +50,12 @@ export default function VocabStageController() {
                 }))
                 const tempStudyMode = Array([1,2,4,5])
                 
-
-                setStudyMode(tempStudyMode)
+                setStudyMode(resultStudentLessonInfo.studyMode)
 
                 //테스트를 위해서 result로 잠시 변환 
                 setVocabs(updatedResult);
-                setTotalProgress(5)
+
+                setTotalProgress(resultStudentLessonInfo.studyMode[0])
                 setIsVocabsUpdated(true)
                 
 
@@ -112,8 +114,10 @@ export default function VocabStageController() {
         }
     }, [totalProgress, middleProgress, isVocabsUpdated, isFiltered])
 
-    const filterVocab = (totalProgress) => {
+    const filterVocab = () => {
         const failedVocabs = vocabs.filter((item) => !item.IsPassed[totalProgress-1]); // 특정 인덱스의 값이 false인 원소만 필터링
+        console.log("total Progrss: ",totalProgress);
+        console.log(failedVocabs,"=====failed voacbs");
         setFilteredVocabs(failedVocabs); // 상태 업데이트
     
         setIsFiltered(true); // 필터링 상태 업데이트
@@ -126,19 +130,19 @@ export default function VocabStageController() {
 
     setVocabs((prevVocabs) => {
 
-        // 해당 단계의 index 찾기
-        const stageIndex = passResults.stage
+            // 해당 단계의 index 찾기
+            const stageIndex = passResults.stage;   
+            //studyMode.findIndex(passResults.stage)
 
-        // 새 배열 생성
-        const updatedVocabs = prevVocabs.map((vocab) => {
-            // filteredVocabs에서 해당 sequence와 일치하는 항목의 index를 찾기
-            const indexInFiltered = filteredVocabs.findIndex(
-                (filteredVocab) => filteredVocab.sequence === vocab.sequence
-            );
-    
-            // // indexInFiltered가 유효한 경우 passResults 값을 isPassed로 설정
-            // let updateIsPassed = [...vocab.IsPassed]
-            const currentIsPassed = Array.isArray(vocab.IsPassed) ? vocab.IsPassed : [];
+            // 새 배열 생성
+            const updatedVocabs = prevVocabs.map((vocab) => {
+                // filteredVocabs에서 해당 sequence와 일치하는 항목의 index를 찾기
+                const indexInFiltered = filteredVocabs.findIndex(
+                    (filteredVocab) => filteredVocab.sequence === vocab.sequence
+                );
+        
+                // indexInFiltered가 유효한 경우 passResults 값을 isPassed로 설정
+                let updateIsPassed = [...vocab.IsPassed]
 
             // passResults 값으로 updateIsPassed 업데이트
             let updateIsPassed = [...currentIsPassed];
@@ -160,7 +164,13 @@ export default function VocabStageController() {
         return updatedVocabs;
     });
 
-    setIsVocabsUpdated(true);
+        if(stagePassed)
+        {
+            setTotalProgress(studyMode.findIndex(passResults.stage) + 1)
+            setMiddleProgress(1)
+        }
+        
+        setMiddleProgress(middleProgress == 1 ? 2:1)
 
     const stagePassed = passResults.result.every((isPassed) => isPassed);
 
