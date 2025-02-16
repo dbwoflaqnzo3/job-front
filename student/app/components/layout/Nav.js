@@ -98,7 +98,7 @@ export const NavTitle = (props) => <NavBase {...props} />;
 
 export function NavGroup({ theme = "primary", children }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
-
+  
   const styleVars = {
     "--background-color": `var(--${theme}-300)`,
     "--hovered-color": `var(--${theme}-200)`,

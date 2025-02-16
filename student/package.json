@@ -14,5 +14,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-semicircle-progressbar": "^1.1.0"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^8.1.0"
   }
 }
