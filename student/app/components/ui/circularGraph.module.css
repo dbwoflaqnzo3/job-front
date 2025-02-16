@@ -1,0 +1,44 @@
+.cg-container {
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+}
+
+.circular-percent-0,
+.circular-unit-0 {
+  font-family: var(--min-sans) !important;
+  font-weight: var(--medium) !important;
+  font-size: 18px;
+}
+
+.cg-absolute {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+}
+
+.cg-rotation-bar {
+  position: relative;
+  top: 0;
+  height: var(--size);
+}
+
+.cg-rotation-bar.animate {
+  animation: progress-rotate var(--duration) linear both;
+}
+
+.cg-indicator-circle {
+  position: absolute;
+  top: calc(50% - var(--size) * .42);
+  left: 50%;
+  border-radius: 50%;
+  width: calc(var(--radius) * 2);
+  height: calc(var(--radius) * 2);
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary-500);
+}
+
+@keyframes progress-rotate {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(var(--angle)); }
+}
