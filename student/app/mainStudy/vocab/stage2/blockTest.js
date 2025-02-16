@@ -139,13 +139,9 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
     return (
         <div className={style.wrapper}>
 
-            <div className={style.progressBar}>
-                Progress Bar
-            </div>
-
             <div className={style.containerHead1}>
                 <p className={style.head1}>
-                    올바른 의미를 고르세요
+                    올바른 뜻을 고르세요
                 </p>
             </div>
 

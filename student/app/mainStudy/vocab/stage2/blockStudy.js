@@ -101,11 +101,7 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
     return (
 
         <div className={style.wrapper}>
-
-            <div className={style.progressBar}>
-                Progress Bar
-            </div>
-
+           
             {/* 학습 목표 */}
             <StudyPurpose />
 
