@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 
 .nav-container {
   width: 91%;
   display: flex;
   position: relative;
   justify-content: center;
+=======
+.nav-container {
+  width: 100%;
+  display: flex;
+  position: relative;
+>>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
 }
 
 .nav-bar {
@@ -106,6 +113,7 @@
 
 
 .icon-button {
+<<<<<<< HEAD
   
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -113,6 +121,8 @@
   padding: 0;
   margin: 0;
   
+=======
+>>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
   background: transparent;
   border: none;
   cursor: pointer;

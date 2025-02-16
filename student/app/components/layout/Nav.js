@@ -19,7 +19,11 @@ export function NavItem({ text, textColor = "black-1000", onClick }) {
   );
 }
 
+<<<<<<< HEAD
 function NavBase({ title, icon, onClick, isSelected = false, children, isIcon = false, onMenuItemClick }) {
+=======
+function NavBase({ title, icon, onClick, isSelected = false, children, onMenuItemClick, isIcon = false }) {
+>>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
   const [menuVisible, setMenuVisible] = useState(false);
   const hideTimeout = useRef(null);
   const menuRef = useRef(null);
@@ -77,8 +81,12 @@ function NavBase({ title, icon, onClick, isSelected = false, children, isIcon = 
               cloneElement(child, {
                 onClick: () => {
                   hideMenu();
+<<<<<<< HEAD
                   onMenuItemClick()
                   child.props.onClick()
+=======
+                  onMenuItemClick?.();
+>>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
                 },
               })
             )}
@@ -99,7 +107,11 @@ export const NavTitle = (props) => <NavBase {...props} />;
 
 export function NavGroup({ theme = "primary", children }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
   const styleVars = {
     "--background-color": `var(--${theme}-300)`,
     "--hovered-color": `var(--${theme}-200)`,
@@ -112,6 +124,7 @@ export function NavGroup({ theme = "primary", children }) {
         return cloneElement(child, {
           isSelected: selectedIndex === index,
           onClick: () => {
+<<<<<<< HEAD
             if (child.props.children) return;
 
             setSelectedIndex(index);
@@ -123,6 +136,14 @@ export function NavGroup({ theme = "primary", children }) {
             child.props.onMenuItemClick?.()
             
           }
+=======
+            if (!child.props.children) {
+              setSelectedIndex(index);
+              child.props.onClick?.();
+            }
+          },
+          onMenuItemClick: () => setSelectedIndex(index),
+>>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
         });
       }
       return child;
