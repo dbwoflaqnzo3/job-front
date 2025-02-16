@@ -121,16 +121,19 @@
     flex-direction: row;
     justify-content: space-between;
 
-    width: 919px;
+    width: 1148px;
+    height: 514px;
 }
 
 .vocabListBox {
     margin: 0;
 
     width: 212px;
-    height: 380px;
+    height: 470px;
 
     background-color: #FEDAA6;
+
+    border-radius: 16px;
 }
 
 .vocabInstruction {
@@ -152,21 +155,38 @@
 }
 
 .vocabList {
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 
     width: 212px;
-    height: 317px;
+    height: 400px;
 
     background-color: #FEDAA6;
 
     overflow-y: auto;
 }
 
-.vocabOl {
+.selectedVocab {
+    padding-left: 16px;
     margin: 0;
 
-    color: #000;
+    color: var(--Black-1000, #1A1A1A);
+
+    /* En/Sb/17 */
+    font-family: "Min Sans VF";
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 25.5px */
+
+    background-color: #FFB54D;
+}
+
+.otherVocabs {
+    padding-left: 16px;
+    margin: 0;
+
+    color: var(--Black-800, #4D4D4D);
 
     /* En/Md/17 */
     font-family: "Min Sans VF";
@@ -176,15 +196,17 @@
     line-height: 150%; /* 25.5px */
 }
 
-.active {
-    color: #FF6600;
-    font-weight: bold;
+
+.middleContainer {
+    margin: 0;
+
+    height: 100%;
+    width: 444px;
 }
-
-
 
 .vocabBox {
     margin: 0;
+    padding: 0;
 
     width: 444px;
     height: 376px;
@@ -196,11 +218,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .vocabBoxPassed {
     margin: 0;
+    padding: 0;
 
     width: 444px;
     height: 376px;
@@ -212,11 +234,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .vocabBoxFailed {
     margin: 0;
+    padding: 0;
 
     width: 444px;
     height: 376px;
@@ -228,10 +250,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .vocabWord {
+    margin-top: 101px;
+    margin-bottom: 0;
+
+
     color: var(--Black-1000, #1A1A1A);
     text-align: center;
     font-family: "Min Sans VF";
@@ -242,127 +267,86 @@
     /* 60px */
 }
 
+.soundButtonContainer {
+    margin-top: 124px;
+    margin-bottom: 0;
+
+    height: 47px;
+    width: 328px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.computerVoice {
+    height: 100%;
+    width: 147px;
+
+    border: none;
+    border-radius: 16px;
+    background-color: #66B5E2;
+    cursor: pointer;
+
+    color: #1A1A1A;
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 27px */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.computerVoice:disabled {
+    background-color: #666666;
+}
+
+.myVoice {
+    height: 100%;
+    width: 163px;
+
+    border: none;
+    border-radius: 16px;
+    background-color: #66B5E2;
+    cursor: pointer;
+
+    color: #1A1A1A;
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 27px */
+}
+.myVoice:active{
+    background-color: #339CD9;
+}
+.myVoice:disabled {
+    color: #999999;
+    background-color: #E5E5E5;
+}
+
+
+
 .voiceControl {
     margin: 0;
 
     width: 212px;
     height: 380px;
 
-    background-color: #767abd;
+    background-color: none;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.targetAccuracy {
-    margin-top: 40px;
-    margin-bottom: 0;
-
-    color: var(--Black-1000, #1A1A1A);
-    text-align: center;
-
-    /* Ko/Md/17 */
-    font-family: "Pretendard Variable";
-    font-size: 17px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 150%;
-    /* 25.5px */
-}
-
-.allBadges {
-    margin-top: 28px;
-    margin-bottom: 0;
-
-    width: 186px;
-    height: 57px;
-
-    display: flex;
-    justify-content: space-between;
-}
-
-.accBadge {
-    margin: 0;
-
-    width: 38px;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.circle {
-    margin: 0;
-
-    width: 14px;
-    height: 14px;
-
-    border-radius: 50%;
-
-    background-color: #FEEDD2;
-
-    border: 1px solid #FFB54D;
-}
-
-.circleWrong {
-    margin: 0;
-
-    width: 14px;
-    height: 14px;
-
-    border-radius: 50%;
-
-    background-color: #FEEDD2;
-
-    border: 1px solid #FFB54D;
-}
-
-.circlePassed {
-    margin: 0;
-
-    width: 14px;
-    height: 14px;
-
-    border-radius: 50%;
-
-    background-color: #339CD9;
-
-    border: 1px solid #FFB54D;
-}
-
-.circleFailed {
-    margin: 0;
-
-    width: 14px;
-    height: 14px;
-
-    border-radius: 50%;
-
-    background-color: #F54316;
-
-    border: 1px solid #FFB54D;
-}
-
-.percent {
-    margin-top: 15Px;
-    margin-bottom: 0;
-
-    color: #1A1A1A;
-    text-align: center;
-
-    /* En/Sb/17 */
-    font-family: "Min Sans VF";
-    font-size: 17px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 150%;
-    /* 25.5px */
 }
 
 .voiceRecord {
-    margin-top: 48px;
+    margin-top: 118px;
     margin-bottom: 0;
 
     width: 196px;
@@ -400,6 +384,39 @@
     background-color: #FFA321;
 }
 
+.recordInstruction {
+    margin-top: 16px;
+    margin-bottom: 0;
+    padding: 0;
+
+    color: var(--Black-900, #333);
+    text-align: center;
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 27px */
+}
+
+.recordSubInstruction {
+    margin: 0;
+    padding: 0;
+
+    color: var(--Black-800, #4D4D4D);
+    text-align: center;
+
+    /* Ko/Md/15 */
+    font-family: "Pretendard Variable";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    /* 22.5px */
+}
+
 
 
 
@@ -429,11 +446,11 @@
 
     cursor: pointer;
 }
-
-.prevButton:disabled,
-.nextButton:disabled {
-    background-color: #666666;
-    cursor: not-allowed;
+.prevButton:hover {
+    background-color: #056FAC;
+}
+.prevButton:active {
+    background-color: #0A5A87;
 }
 
 .nextButton {
@@ -450,6 +467,33 @@
 
     cursor: pointer;
 }
+.nextButton:hover {
+    background-color: #FF971A;
+}
+.nextButton:active {
+    background-color: #FF8B14;
+}
+
+.prevButton:disabled,
+.nextButton:disabled {
+    color: #999999;
+    background-color: #E5E5E5;
+    cursor: not-allowed;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -529,21 +573,7 @@
     flex-direction: column;
 }
 
-.statText {
-    margin: 0;
-
-    color: var(--Black-600, #7F7F7F);
-
-    /* Ko/Sb/20 */
-    font-family: "Pretendard Variable";
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 150%;
-    /* 30px */
-}
-
-.wrongText {
+.studiedText {
     margin: 0;
 
     color: var(--Black-600, #7F7F7F);
