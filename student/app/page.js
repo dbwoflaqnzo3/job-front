@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
+<<<<<<< HEAD
 import { useRouter } from "next/navigation";
 import { NavGroup, NavTitle, NavIcon, NavItem } from "@/app/components/layout/Nav";
 
@@ -30,13 +31,42 @@ export function PageLayout({ children }) {
         {children}
       </div>
     </div>
+=======
+import { NavGroup, NavTitle, NavIcon, NavItem } from "@/app/components/layout/Nav";
+
+function pageLayout() {
+  return (
+    <NavGroup theme="primary">
+      <NavTitle title="A" onClick={() => {}} />
+      <NavTitle title="B" onClick={() => {}} />
+      <NavTitle title="C">
+        <NavItem text="C-1" onClick={() => {}} />
+        <NavItem text="C-2" onClick={() => {}} />
+      </NavTitle>
+      <NavIcon icon="help" onClick={() => {}} />
+      <NavIcon icon="profile">
+        <NavItem text="1" onClick={() => {}} />
+        <NavItem text="2" onClick={() => {}} />
+        <NavItem text="3" onClick={() => {}} />
+        <NavItem text="4" textColor="red-3" onClick={() => {}} />
+      </NavIcon>
+    </NavGroup>
+>>>>>>> 3ee5730 (feat[#44] : component 적용 오류 해결 중)
   );
 }
 
 export default function Home() {
   return (
+<<<<<<< HEAD
     <PageLayout>
       <div>Welcome to JOB Student Page</div>
     </PageLayout>
+=======
+    <div>
+      {
+        pageLayout()
+      }
+    </div>
+>>>>>>> 3ee5730 (feat[#44] : component 적용 오류 해결 중)
   );
 }
