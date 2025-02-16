@@ -12,33 +12,32 @@ const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 export default function CheckoutPage() {
     const [ready, setReady] = useState(false);
     const [widgets, setWidgets] = useState(null);
-    const [amount, setAmount] = useState({ currency: "KRW", value: 50000 });
+    const [amount, setAmount] = useState({ currency: "KRW", value: 30000 });
     const router = useRouter();
 
     useEffect(() => {
         async function initPaymentWidgets() {
-        const tossPayments = await loadTossPayments(clientKey);
-        const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
-        setWidgets(widgets);
+            const tossPayments = await loadTossPayments(clientKey);
+            const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
+            setWidgets(widgets);
+
         }
         initPaymentWidgets();
     }, []);
 
     useEffect(() => {
         async function renderWidgets() {
-        if (!widgets) return;
-
-        await widgets.setAmount(amount);
-
-        await Promise.all([
-            widgets.renderPaymentMethods({ selector: "#payment-method", variantKey: "DEFAULT" }),
-            widgets.renderAgreement({ selector: "#agreement", variantKey: "AGREEMENT" }),
-        ]);
-
-        setReady(true);
+            if (!widgets) return;
+            await widgets.setAmount(amount);
+            await Promise.all([
+                widgets.renderPaymentMethods({ selector: "#payment-method", variantKey: "DEFAULT" }),
+                widgets.renderAgreement({ selector: "#agreement", variantKey: "AGREEMENT" }),
+            ]);
+            setReady(true);
         }
         renderWidgets();
-    }, [widgets]);
+    }, [widgets, amount]); // amount를 의존성 배열에 추가
+    
 
     return (
         <div className={`${styles.wrapper} ${styles["w-100"]}`}>
