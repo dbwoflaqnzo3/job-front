@@ -107,9 +107,8 @@
 .wordList {
   flex: 212; /* 왼쪽 3 비율 */
   width: 212px;
-  padding: 20px;
   background-color: #FEDAA6;
-  border-radius: 8px;
+  border-radius: 16px;
   height: 380px;
   border: 2px solid #FEDAA6;
   overflow-y: auto; /* 내용이 많으면 스크롤 표시 */
@@ -122,19 +121,35 @@
 
 .wordList h3 {
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 400;
   color: #4D4D4D;
+  text-indent: 16px; 
 }
 
 .wordList ul {
   font-size: 17px;
-  font-weight: bold;
-  color: #000000;
+  font-weight: 500;
+  color: #4D4D4D;
   padding-left: 0px;
   list-style-type: none;  
 }
 
 .wordList li {
-  padding: 5px 0;
-  font-size: 17x;
+  padding: 12.5px 0px;
+  font-size: 17px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-indent: 16px; 
+}
+
+.wordList li:hover {
+  background-color: #ffcc80;
+}
+
+.selectedWord {
+  background-color: #ffa500 !important;
+  color: black;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 4px;
 }
