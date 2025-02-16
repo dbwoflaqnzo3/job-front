@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import styles from "./page.module.css";
+import { Grid } from "./widgets/structure/Grid";
 import { NavGroup, NavTitle, NavIcon, NavItem } from "@/app/components/layout/Nav";
 
 function pageLayout() {
@@ -26,10 +27,6 @@ function pageLayout() {
 
 export default function Home() {
   return (
-    <div>
-      {
-        pageLayout()
-      }
-    </div>
+    <div>{pageLayout()}</div>
   );
 }
