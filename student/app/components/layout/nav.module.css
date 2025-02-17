@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 .nav-container {
   width: 91%;
@@ -6,11 +7,18 @@
   position: relative;
   justify-content: center;
 =======
+=======
+
+>>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
 .nav-container {
-  width: 100%;
+  width: 91%;
   display: flex;
   position: relative;
+<<<<<<< HEAD
 >>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
+=======
+  justify-content: center;
+>>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
 }
 
 .nav-bar {
@@ -114,6 +122,9 @@
 
 .icon-button {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
   
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -121,8 +132,11 @@
   padding: 0;
   margin: 0;
   
+<<<<<<< HEAD
 =======
 >>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
+=======
+>>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
   background: transparent;
   border: none;
   cursor: pointer;

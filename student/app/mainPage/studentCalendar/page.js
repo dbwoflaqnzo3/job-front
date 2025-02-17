@@ -15,8 +15,8 @@ import NavBar from '../navigationBar/page.js';
 =======
 >>>>>>> 8090f42 (feat[#42] : 결제 페이지 1차 제작)
 import { readPeriodStudentLesson, readSpecificDateLesson } from '@/app/utils/studentCalendarUtil';
+import { PageLayout } from '@/app/page.js';
 
-import NavBar from '../navigationBar/page.js';
 import Image from 'next/image';
 import styles from './page.module.css';
 
@@ -85,6 +85,7 @@ export default function StudentCalendar() {
 
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
         <PageLayout>
             <div className={styles.pageTitleContainer}>
                 <div className={styles.pageTitle}>학습캘린더</div>
@@ -119,6 +120,22 @@ export default function StudentCalendar() {
             </div>
         </div>
 >>>>>>> b6f0872 (feat[#36] : 달력 제작 완료)
+=======
+        <PageLayout>
+            <div className={styles.pageTitleContainer}>
+                <div className={styles.pageTitle}>학습캘린더</div>
+            </div>
+            <div className={styles.bottomComponentContainer}>
+                <div className={styles.calendarContainer}>
+                    <Calendar year={date[0]} month={date[1]} selectedDate={selectedDate} changeMonth={handleCalnderMY} changeSelectedDate={handleSelectedDate} />
+                </div>
+                <div className={styles.dailyDetailContainer}>
+                    <DailyDetail month={selectedDate[1]} day={selectedDate[2]} data={dailyData} handleLoading={setDetailLoading} loading={detailLoading}/>
+                    {/* <DailyDetail month={12} day={24}/> */}
+                </div>
+            </div>
+        </PageLayout>
+>>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
     );
 }
 

@@ -20,10 +20,14 @@ export function NavItem({ text, textColor = "black-1000", onClick }) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 function NavBase({ title, icon, onClick, isSelected = false, children, isIcon = false, onMenuItemClick }) {
 =======
 function NavBase({ title, icon, onClick, isSelected = false, children, onMenuItemClick, isIcon = false }) {
 >>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
+=======
+function NavBase({ title, icon, onClick, isSelected = false, children, isIcon = false, onMenuItemClick }) {
+>>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
   const [menuVisible, setMenuVisible] = useState(false);
   const hideTimeout = useRef(null);
   const menuRef = useRef(null);
@@ -82,11 +86,16 @@ function NavBase({ title, icon, onClick, isSelected = false, children, onMenuIte
                 onClick: () => {
                   hideMenu();
 <<<<<<< HEAD
+<<<<<<< HEAD
                   onMenuItemClick()
                   child.props.onClick()
 =======
                   onMenuItemClick?.();
 >>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
+=======
+                  onMenuItemClick()
+                  child.props.onClick()
+>>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
                 },
               })
             )}
@@ -129,10 +138,14 @@ export function NavGroup({ theme = "primary", children }) {
           isSelected: selectedIndex === index,
           onClick: () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
             if (child.props.children) return;
 
             setSelectedIndex(index);
             child.props.onClick?.();
+<<<<<<< HEAD
           },
           onMenuItemClick: () => {
             if (!child.props.children) return;
@@ -148,6 +161,15 @@ export function NavGroup({ theme = "primary", children }) {
           },
           onMenuItemClick: () => setSelectedIndex(index),
 >>>>>>> 95eb723 (feat[#42] : component추가 및 merge 준비)
+=======
+          },
+          onMenuItemClick: () => {
+            if (!child.props.children) return;
+            setSelectedIndex(index)
+            child.props.onMenuItemClick?.()
+            
+          }
+>>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
         });
       }
       return child;
