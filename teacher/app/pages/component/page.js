@@ -23,8 +23,8 @@ function nav() {
           <NavItem text="C-2" onClick={() => {}} />
         </NavTitle>
         <NavIcon icon="help" onClick={() => {}} />
-        <NavIcon icon="profile">
-          <NavItem text="1" onClick={() => {}} />
+        <NavIcon icon="profile" onMenuItemClick={() => console.log("common")}>
+          <NavItem text="1" onClick={() => console.log("1")} />
           <NavItem text="2" onClick={() => {}} />
           <NavItem text="3" onClick={() => {}} />
           <NavItem text="4" textColor="red-3" onClick={() => {}} />
