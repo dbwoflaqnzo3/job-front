@@ -1,0 +1,538 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    user-select: none;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: black; */
+    background-color: #fbf7ef;
+}
+
+.container {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fbf7ef;
+    color: #333;
+    width: 1512px;
+    height: 982px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pageTitleContainer {
+    width: 100%;
+    height: 2.81rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-bottom: 2.25rem;
+}
+
+.pageTitle {
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Sb/30 */
+    font-family: "Pretendard Variable";
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 45px */
+}
+
+.bottomComponentContainer {
+    width: 100%;
+    height :48.81rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.calendarContainer {
+    display: flex;
+    width: 53.87rem;
+    height: 48.81rem;
+    margin-right: 1.5rem;
+}
+
+.dailyDetailContainer {
+    width: 39.12rem;
+    height: 48.81rem;
+}
+
+.calendarBodyDefault {
+    width: 50.13rem;
+    height: 37.75rem;
+    margin-left: 3.75rem;
+    border-radius: 1.5rem;
+    background: #FEEDD2;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.calendarBodyExtend {
+    width: 50.13rem;
+    height: 42.75rem;
+    margin-left: 3.75rem;
+    border-radius: 1.5rem;
+    background: #FEEDD2;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.loadingBody {
+    width: 47.5rem;
+    height: 26rem;
+    position: absolute; /* 텍스트 뒤로 이동 */
+    z-index: 5; /* 텍스트보다 뒤에 배치 */
+    border-radius: 0.25rem;
+    opacity: 0.8;
+    background: var(--Black-100, #FEFEFE);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-49.7%, -36%); 
+
+}
+
+.calendarHeader {
+    width: 100%;
+    height: 7.88rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(6rem, 1fr)); /* 최소 6rem, 최대 자동 */
+    width: 47.5rem;
+    height: 26.5rem;
+    gap: 0.19rem;
+    margin-left: 1.44rem;
+    margin-right: 1.19rem;
+    margin-bottom: 2.25rem;
+    margin-top: 0.75rem;
+}
+
+.calendarDayContainer {
+    width: 47.5rem;
+    height: 1.12rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1.44rem;
+}
+
+.dayHeaderContainer {
+    width: 47.5rem;
+    height: 1.12rem;
+    margin-left: 1.14rem;
+    margin-right: 1.19rem;
+}
+
+.day {
+    height: 4.50rem;
+    width: 6.63rem;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+
+    padding-top: 0.5rem;
+    border-radius: 4px;
+    background: var(--Black-100, #FEFEFE);
+}
+
+.day:hover {
+    background: var(--Black-100, #E5E5E5);
+}
+
+.currentMonth {
+    background: #FFF;
+    color: #333;
+
+    font-family: "Min Sans VF";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 27px */
+    cursor : pointer;
+}
+
+.currentMonthToday {
+    background: #CBE6F5;
+    color: #333;
+    font-family: "Min Sans VF";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 27px */
+
+    cursor : pointer;
+}
+
+.calendarMYInfo {
+    width: 4.31rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* 상대 위치 설정 */
+    margin: 0 5.31rem;
+}
+
+.monthText {
+    color: var(--Black-1000, #1A1A1A);
+    font-family: "Pretendard Variable";
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    position: absolute;
+    top: 60%;
+    transform: translateY(-50%);
+}
+
+.yearText {
+    color: var(--Black-1000, #1A1A1A);
+    font-family: "Pretendard Variable";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    position: absolute;
+    top: calc(50% - 1.25rem); /* 0.5rem만 아래로 이동 */
+    transform: translateY(-50%);
+}
+
+
+.dayText {
+    color: var(--Primary500, #FFA321);
+    text-align: center;
+
+    /* En/Sb/15 */
+    font-family: "Min Sans VF";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 22.5px */
+}
+
+.dateTextContainer {
+    width: 100%;
+    height: 3rem;
+    position: relative; /* 내부 요소 배치 기준 */
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.selectedDateCircle {
+    position: absolute; /* 텍스트 뒤로 이동 */
+    left: 50%; /* 부모 기준 중앙 정렬 */
+    top: 50%;
+    transform: translate(-50%, -90%); /* 정확한 가운데 정렬 */
+    width: 1.875rem;
+    height: 1.875rem;
+    background-color: #66B5E2;
+    border-radius: 50%;
+    z-index: 0; /* 텍스트보다 뒤에 배치 */
+}
+
+.dateTextCurrent, .dateTextOther {
+    position: relative; /* 원보다 앞에 배치 */
+    z-index: 1;
+    text-align: center;
+    font-family: "Min Sans VF";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+}
+
+.dateTextCurrent {
+    color: var(--Black-1000, #1A1A1A);
+}
+
+.dateTextOther {
+    color: var(--Black-500, #999);
+}
+
+
+
+.dateLessonContainer {
+    width: 100%;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.circle {
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: #FEDAA6; /* 동그라미 색상 */
+    border-radius: 50%; /* 원형 만들기 */
+}
+
+.dailyDeatilBody{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center;
+    justify-items: center; */
+}
+
+.detailHeader {
+    width: 100%;
+    height: 2.25rem;
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: center; */
+    margin-bottom: 1.44rem;
+}
+
+.detailDateContainer {
+
+    width: 6.64rem;
+    height: 100%;
+    margin-left: 0.06rem;
+    margin-right: 20.06rem;
+
+    display: flex;
+    padding-top: 0.25rem;
+}
+
+.detailDate{
+    color: var(--Primary600, #FF971A);
+    font-family: "Pretendard Variable";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%; /* 2.25rem */
+}
+
+.dailyTotalLessonNumContainer{
+    width: 7rem;
+    height: 1.62rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--Primary100, #FEEDD2);
+
+    padding-top: 0.25rem;
+}
+
+.dailyTotalLessonNum{
+    color: var(--Primary900, #FF7207);
+    text-align: right;
+
+    /* Ko/Sb/17 */
+    font-family: "Pretendard Variable";
+    font-size: 1.0625rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.59375rem */
+}
+
+.dailyDeatilContentContainer {
+    width: 39rem;
+    height: 42.25rem;
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    overflow-x: hidden; /* 가로 스크롤 숨김 */
+}
+
+.subjectTitleContainer {
+    width: 35.38rem;
+    height: 1.87rem;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    margin-bottom: 1rem;
+}
+
+.subjectTitleCircle {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%; /* 원형 만들기 */
+    margin-right: 0.75rem;
+}
+
+.subjectTitle {
+    height: 1.88rem;
+    color: #168CD0;
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.875rem;
+}
+
+.contentContainer {
+    width: 35.38rem;
+    height: 3.25rem;
+    margin-bottom: 1.25rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.contentContainerLast {
+    width: 35.38rem;
+    height: 3.25rem;
+    margin-bottom: 2rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.contentLeftLectangle {
+    display: flex;
+    width: 1.25rem;
+    height: 100%;
+    border-left: 3px solid #0084D0;
+}
+
+.contentLeftLectangleDone {
+    display: flex;
+    width: 1.25rem;
+    height: 100%;
+    border-left: 3px solid var(--Black-500, #999);
+}
+
+.contentTextContainer {
+    width: 22.62rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1.5rem;
+
+}
+
+.contentText {
+    color: var(--Black-800, #4D4D4D);
+
+    /* Ko/Sb/17(1) */
+    font-family: "Pretendard Variable";
+    font-size: 1.0625rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.59375rem */
+
+    max-height: calc(1.0625rem * 1.5 * 2); /* (폰트 크기 * 줄 간격 * 최대 줄 수) */
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 최대 2줄 */
+    -webkit-box-orient: vertical;
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 말줄임표 (...) 추가 */
+    word-break: break-word; /* 단어가 길면 줄바꿈 */
+}
+
+
+.contentBtnContainer {
+    width: 10rem;
+    height: 3.38rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 1rem;
+    background: var(--Primary500, #FFA321);
+
+    cursor : pointer;
+    
+}
+
+.contentBtnContainerDone {
+    width: 10rem;
+    height: 3.38rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 1rem;
+    background: var(--Primary200, #FEDAA6);
+
+    cursor : pointer;
+}
+
+.contentBtnContainer:hover{
+    background: var(--Primary600, #FF971A);
+}
+
+.contentBtnContainerDone:hover{
+    background: var(--Primary600, #FF971A);
+}
+
+.contentBtnText {
+    color: var(--Black-900, #333);
+    text-align: center;
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.6875rem */
+}
+
+.detailLoadingContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 35.38rem;
+    height: 42.25rem;
+}
+
+.detailLoadingText{
+    color: var(--Secondary500, #0084D0);
+    text-align: center;
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.875rem */
+}
+
+.detailNoLessonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 35.38rem;
+    height: 35.5rem;
+}
+
+.detailNoLessonText{
+    color: var(--Secondary500, #0084D0);
+    text-align: center;
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 30px */
+}

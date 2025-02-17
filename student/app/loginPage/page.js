@@ -1,7 +1,10 @@
 "use client"
 import { useState } from 'react';
+import Link from 'next/link';
+import styles from '../loginPage/page.module.css';
 
 export default function Login() {
+
     const [formData, setFormData] = useState({
         userId: '',
         password: '',
@@ -46,7 +49,7 @@ export default function Login() {
             if (response.ok) {
                 // 로그인 성공 시, 토큰을 콘솔에 출력
                 document.cookie = `token=${result.token}; path=/;`;
-                alert("Login Success")
+                // alert("Login Success")
 
                 // console.log('로그인 성공!');
                 // console.log('JWT 토큰:', result.token);  // 서버에서 응답받은 토큰 출력
@@ -62,6 +65,10 @@ export default function Login() {
             // 서버와의 연결 문제
             setError('서버와의 연결 문제로 로그인에 실패했습니다.');
         }
+    }
+
+    const linkToForgetPw = () => {
+        Router
     }
 
     return (
@@ -88,9 +95,11 @@ export default function Login() {
                         onChange={handleInputChange}
                     />
                 </div>
-                {error && <p className={{ color: 'red' }}>{error}</p>}
+                {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button type="submit">로그인</button>
             </form>
         </div>
     );
 }
+
+
