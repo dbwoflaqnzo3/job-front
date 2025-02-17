@@ -1,8 +1,10 @@
 'use client'
-import styles from "../../../public/styles/vocaStage5_Study.module.css"
+
+import styles from "../../../styles/vocaStage5_Study.module.css"
+import EndStudyModal from "@/app/utils/endStudyModal";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation"
-import TestEndPopup from "../../../utils/studyEndPop"
 
 export default function Stage4_Study({ onTestComplete, vocabs }) {
     const router = useRouter();
@@ -17,6 +19,8 @@ export default function Stage4_Study({ onTestComplete, vocabs }) {
     const [ButtonDisplay, setButtonDisplay] = useState(false);
 
     const [wordList, setWordList] = useState([]); // 단어 리스트 상태 추가
+
+    const passResults = Array(vocabs.length).fill(false) // 다음 test 전달용 단어
 
     const handleInputChange = (e) => {
         const newInputValue = e.target.value;
@@ -60,22 +64,16 @@ export default function Stage4_Study({ onTestComplete, vocabs }) {
                 setShowPopup(true); // 모든 단어 완료 시 팝업 표시
             }
         }
-    };
-
-    const handleExit = () => {
-        // 테스트를 위해 일단 push로 구현 
-        router.push("/"); 
-    };
+    }
 
     const toggleLanguage = () => {
         // 한국어/영어 상태 토글
-        setShowEnglish(!showEnglish); 
+        setShowEnglish(!showEnglish);
     };
 
     return (
         <div className={styles.container}>
             <div className={styles.contents}>
-                <button className={styles.exitButton} onClick={handleExit} />
                 <h2>Vocabulary / Unit</h2>
 
                 <p>다음 단어를 영어로 아는데로 작성하세요(스터디)</p>
@@ -92,7 +90,6 @@ export default function Stage4_Study({ onTestComplete, vocabs }) {
                     <div className={styles.wordBox} onClick={toggleLanguage}>
                         {currentWord ? (showEnglish ? `${currentWord.english} | ${currentWord.korean}` : currentWord.korean) : 'Loading...'}
                     </div>
-
                 </div>
 
                 <input
@@ -102,6 +99,7 @@ export default function Stage4_Study({ onTestComplete, vocabs }) {
                     value={inputValue}
                     onChange={handleInputChange} // 입력값이 바뀔 때마다 처리
                 />
+
                 <div className={styles.buttonWrapper}>
                     <button
                         className={styles.button}
@@ -113,10 +111,10 @@ export default function Stage4_Study({ onTestComplete, vocabs }) {
 
                     {/* 팝업 표시 */}
                     {showPopup && (
-                        <TestEndPopup
-                            correctCount={vocabData.length}
-                            totalCount={vocabData.length}
-                            onClose={() => setShowPopup(false)}
+                        <EndStudyModal
+                            passResults={passResults}
+                            onTestComplete={onTestComplete}
+                            modalControll={() => setShowPopup(false)}
                         />
                     )}
                 </div>

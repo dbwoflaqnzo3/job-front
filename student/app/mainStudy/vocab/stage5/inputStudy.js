@@ -1,8 +1,7 @@
 'use client'
-import styles from "../../../public/styles/vocaStage5_Study.module.css"
+import styles from "../../../styles/vocaStage5_Study.module.css"
 import { useState } from "react";
 import { useRouter } from "next/navigation"
-import TestEndPopup from "../../../utils/studyEndPop"
 
 export default function Stage5_Study({ onTestComplete, vocabs }) {
     const router = useRouter();
@@ -97,10 +96,6 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
         }
     };
 
-    const handleExit = () => {
-        router.push("/"); 
-    };
-
     const toggleLanguage = () => {
         setShowEnglish(!showEnglish); 
     };
@@ -118,7 +113,7 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
     return (
         <div className={styles.container}>
             <div className={styles.contents}>
-                <button className={styles.exitButton} onClick={handleExit} />
+
                 <h2>Vocabulary / Unit</h2>
                 <p>다음 단어를 영어로 아는데로 작성하세요(스터디)</p>
                 {/* wordBox와 wordList를 나란히 배치 */}

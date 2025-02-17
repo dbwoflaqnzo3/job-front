@@ -1,6 +1,7 @@
 'use client'
 
 import style from "../../../styles/vocaStage2.module.css"
+import EndTestModal from "@/app/utils/endTestModal";
 
 import { useEffect, useState, useRef } from "react";
 
@@ -53,8 +54,6 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
             koreanList.splice(index, 1) // 해당 요소가 존재하면 제거
         }
 
-
-        // koreanList.splice(koreanList.indexOf(vocabs[currentIndex].korea), 1)[0]
         let tempList = []
 
         for (let i = 0; i < 4; i++) {
@@ -116,7 +115,6 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(passResults, "passResults")
         onTestComplete({ result: passResults, stage: 2 }); // 결과 배열 반환
     };
 
@@ -207,37 +205,8 @@ function ImgModal({ isPassed }) {
             <div className={style.imgBackgroundContainer}>
                 <img
                     className={style.ImgModalContainer}
-                    src={isPassed ? "/answer.svg" : "/wrongAnswer.svg"}>
+                    src={isPassed ? "/icons/answer.svg" : "/icons/wrongAnswer.svg"}>
                 </img>
-            </div>
-        </div>
-    )
-}
-
-function EndTestModal({ passResults, handleSubmit }) {
-
-    const correctAnswer = passResults.filter(a => a === true).length;
-    const wrongAnswer = passResults.length - correctAnswer
-
-    return (
-        <div className={style.modalOverlay}>
-            <div className={style.endTestModalContainer}>
-                <p className={style.endTestModalHeaderText}>Vocabulary 테스트 완료</p>
-                <div className={style.countTextContainer}>
-                    맞은 문제 수: {correctAnswer}개<br />틀린 문제 수: {wrongAnswer}개
-                </div>
-                <div className={style.checkImgContainer}>
-                    <img
-                        className={style.testCompleteImg}
-                        src={"/testComplete.png"}>
-                    </img>
-                </div>
-                {
-                    wrongAnswer === 0 ?
-                        <button className={style.homeBtn} onClick={handleSubmit}>홈으로</button>
-                        :
-                        <button className={style.homeBtn} onClick={handleSubmit}>틀린 단어 학습하러 가기</button>
-                }
             </div>
         </div>
     )

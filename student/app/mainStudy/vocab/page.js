@@ -1,7 +1,7 @@
 'use client'
 import style from "../../styles/vocaMain.module.css"
 
-import { useState, useEffect, use, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { readAllVocabData, readStudentLessonInfo } from "../../utils/VocabUtils"
 
 import SpeakingTestComponent from "./stage1/speakingTest";
@@ -10,7 +10,7 @@ import SpeakingStudyComponent from "./stage1/speakingStudy";
 import blockTestComponent from './stage2/blockTest';
 import blockStudyComponent from './stage2/blockStudy'
 
-import inputTestComponent from './stage3/inputTest';
+// import inputTestComponent from './stage3/inputTest';
 
 import spellStudy from './stage4/spellStudy';
 import twoSpellTestComponent from './stage4/twoSpellTest'
@@ -31,7 +31,7 @@ export default function VocabStageController() {
     const [isFiltered, setIsFiltered] = useState(false)
 
     const [totalProgress, setTotalProgress] = useState(1)
-    const [middleProgress, setMiddleProgress] = useState(1)  // 임시로 수정 원래 1
+    const [middleProgress, setMiddleProgress] = useState(1)
     const [ComponentToRender, setComponentToRender] = useState(null);
 
     useEffect(() => {
@@ -48,7 +48,8 @@ export default function VocabStageController() {
                     IsPassed: Array(resultStudentLessonInfo.studyMode.length).fill(false), // studyMode 크기에 맞는 false 배열 생성
                 }));
 
-                setStudyMode(resultStudentLessonInfo.studyMode)
+                // setStudyMode(resultStudentLessonInfo.studyMode)
+                setStudyMode([1,2,4,5])
 
                 //테스트를 위해서 result로 잠시 변환 
                 setVocabs(updatedResult);
@@ -111,8 +112,23 @@ export default function VocabStageController() {
             }
         } else if (totalProgress === 3){
             setComponentToRender(() => () => <div>Default Component</div>);
-        } else if (totalProgress === 4){ // 여기 프로세스 로직 추가 - dbwofla 
-            setComponentToRender(() => spellStudy);
+        } else if (totalProgress === 4){ 
+
+            if(isVocabsUpdated){
+                filterVocab()
+
+                if (middleProgress === 1 && isFiltered){
+                    setComponentToRender(() => twoSpellTestComponent); // Test Component
+                    setIsVocabsUpdated(false);
+                    setIsFiltered(false)
+                } else if (middleProgress === 2 && isFiltered){
+                    setComponentToRender(() => spellStudy); // Study Component
+                    setIsVocabsUpdated(false);
+                    setIsFiltered(false)
+                }
+                else
+                    setComponentToRender(() => () => <div>Block Test Complete</div>);
+            }
         } else if(totalProgress === 5){
             if(isVocabsUpdated){
                 filterVocab()
@@ -126,6 +142,8 @@ export default function VocabStageController() {
                     setIsVocabsUpdated(false);
                     setIsFiltered(false)
                 }
+                else
+                    setComponentToRender(() => () => <div>Block Test Complete</div>);
             }
         }
         else {
@@ -134,7 +152,6 @@ export default function VocabStageController() {
     }, [totalProgress, middleProgress, isVocabsUpdated, isFiltered])
 
     const filterVocab = (totalProgress) => {
-        console.log(totalProgress, "total")
         let failedVocabs = []
 
         for (let i = 0; i < vocabs.length; i++) {
@@ -145,20 +162,16 @@ export default function VocabStageController() {
 
         setFilteredVocabs(failedVocabs); // 상태 업데이트
 
-        console.log(failedVocabs, "filter failedVocabs")
         setIsFiltered(true); // 필터링 상태 업데이트
     };
 
 
     const handleVocabPass = (passResults) => {
-        console.log(passResults, "!!!")
 
         setVocabs((prevVocabs) => {
 
             // 해당 단계의 index 찾기
             const stageIndex = studyMode.indexOf(passResults.stage)
-            console.log(stageIndex, "stageIndex")
-
             // 새 배열 생성
             const updatedVocabs = prevVocabs.map((vocab) => {
                 // filteredVocabs에서 해당 sequence와 일치하는 항목의 index를 찾기
@@ -179,11 +192,9 @@ export default function VocabStageController() {
                 }
 
                 // 일치하는 항목이 없으면 기존 vocab 반환
-                console.log(vocab, "vocab")
                 return vocab;
             });
 
-            console.log(updatedVocabs, "updatedVoca")
             return updatedVocabs;
         });
 
@@ -205,12 +216,6 @@ export default function VocabStageController() {
 
         setMiddleProgress(middleProgress == 1 ? 2 : 1)
 
-
-    };
-
-    const handleStage3VocabPass = (passResults) => {
-        //여기에 단어 맞추기 파트 코드작성 
-
     };
     
     return (
@@ -224,7 +229,7 @@ export default function VocabStageController() {
                                 <div className={style.progressContainer}>
                                     <div className={style.exitButtonContainer}>
                                         <img 
-                                            src="/exitButton.svg" 
+                                            src="/icons/exitButton.svg" 
                                             className={style.exitButton}
                                         >
                                         </img>

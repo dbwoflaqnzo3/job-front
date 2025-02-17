@@ -1,8 +1,7 @@
 'use client'
-import styles from "../../../public/styles/vocaStage5_Test.module.css"
+import styles from "../../../styles/vocaStage5_Test.module.css"
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation"
-import TestEndPopup from "../../../utils/studyEndPop"
 
 export default function InputTest({ onTestComplete, vocabs }) {
     const router = useRouter();
@@ -95,10 +94,6 @@ export default function InputTest({ onTestComplete, vocabs }) {
         }
     };
 
-    const handleExit = () => {
-        router.push("/"); 
-    };
-
     const handlePassUpdate = (index, isPassed) => {
         const updatedPassResults = [...passResults];
         updatedPassResults[index] = isPassed;
@@ -108,7 +103,6 @@ export default function InputTest({ onTestComplete, vocabs }) {
     return (
         <div className={styles.container}>
             <div className={styles.contents}>
-                <button className={styles.exitButton} onClick={handleExit} />
                 <h2>Vocabulary / Unit</h2>
 
                 <p>다음 단어를 영어로 작성하세요(테스트)</p>

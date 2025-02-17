@@ -16,7 +16,7 @@
 .exitButton {
   width: 48px; /* 버튼 크기 */
   height: 68px; /* 버튼 크기 */
-  background-image: url('../Img/ExitBtn.png'); /* 이미지 경로 */
+  background-image: url('../../public/images/checkBlue.png'); /* 이미지 경로 */
   background-size: contain; /* 이미지 크기 맞춤 */
   background-repeat: no-repeat; /* 이미지 반복 제거 */
   background-position: center; /* 이미지 중앙 정렬 */

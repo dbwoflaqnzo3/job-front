@@ -1,0 +1,611 @@
+.wrapper {
+    width: 1512px;
+    height: 100vh;
+
+    margin: auto;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #FFF8ED;
+}
+
+.containerHead1{
+    margin-top: 14.13rem;
+}
+
+.head1{
+    color: var(--Black-1000, #1A1A1A);
+    text-align: center;
+
+    /* Ko/Sb/20 */
+    font-family: "Pretendard Variable";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.875rem */
+}
+
+/* test main content */
+
+
+.contentContainer{
+    display: flex;
+    margin-top: 4rem;
+}
+
+/* test timer (for test) */
+
+.timerContainer{
+  width: 2.25rem;
+  height: 23.75rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.testTimer{
+    position: relative;
+    width: 1rem;
+    height: 19.625rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--Primary400, #FFB54D);
+    background: var(--Primary200, #FEDAA6);
+}
+
+/* 시간 감소 시각화 디자인 */
+.testTimerCover{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    border-radius: 0.5rem;
+    background: var(--Primary700, #FF8B14);
+    animation: var(--animation-duration) linear timer forwards;
+}
+
+@keyframes timer {
+  from {
+    height: 100%;
+  }
+  to {
+    height: 0%;
+  }
+}
+
+.leftTime{
+  margin: 0.5rem 0 0 0;
+  color: #000;
+  text-align: center;
+
+  /* En/Sb/17 */
+  font-family: "Min Sans VF";
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 1.59375rem */
+}
+
+/* vocab card */
+
+.wordCardContainer{
+    width: 28rem;
+    height: 23.75rem;
+    margin-left: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 0.75rem;
+    border: 2px solid var(--Primary200, #FEDAA6);
+    background: var(--Black-100, #FEFEFE);
+}
+
+.currentVoca{
+  width: 100%;
+  height: 3.75rem;
+  text-align: center;
+  margin: 0;
+  color: var(--Black-1000, #1A1A1A);
+  font-family: "Min Sans VF";
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 3.75rem; /* 3.75rem */
+
+}
+
+/* 테스트용 선지 */
+
+.vocaQuizList{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+
+    width: 28rem;
+    height: 23.75rem;
+
+    margin-left: 1.5rem;
+}
+
+.vocaQuiz{
+    width: 28rem;
+    height: 5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--Primary300, #FFC779);
+    background: var(--Black-100, #FEFEFE);
+
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.6875rem */
+}
+
+.vocaQuiz:hover{
+    background: var(--Primary100, #FEEDD2);
+}
+
+.vocaQuizClicked{
+    width: 28rem;
+    height: 5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--Primary300, #FFC779);
+    background: var(--Primary200, #FEDAA6);
+
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.6875rem */
+}
+
+
+/* modal pop up 시 화면 backgroud 설정 */
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+  }
+
+  /* 테스트용 modal */
+
+  .imgBackgroundContainer{
+    width: 57.5rem;
+    height: 34.375rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 1.5rem;
+    background: var(--Black-100, #FEFEFE);
+
+    /* drop shadow 1 */
+    box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  .ImgModalContainer {
+    width: 28rem;
+    height: 23.75rem;
+    z-index: 100;
+    animation-duration: 3s;
+  }
+
+  /* 학습 종료 modal */
+  .endTestModalContainer {
+    width: 31.25rem;
+    height: 30.75rem;
+    
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 1.5rem;
+    border: 1px solid var(--Black-300, #CBCBCB);
+    background: var(--Black-100, #FEFEFE);
+  }
+
+  .endTestModalHeaderText{
+    width: 26.75rem;
+    margin: 2.25rem 2.25rem 0 2.25rem;
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Sb/30 */
+    font-family: "Pretendard Variable";
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 2.8125rem */
+  }
+
+  .countTextContainer {
+    width: 26.75rem;
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 2.25rem 0 2.25rem;
+
+    color: var(--Black-600, #7F7F7F);
+    font-family: "Pretendard Variable";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.875rem */
+  }
+
+  .checkImgContainer {
+    width: 26.75rem;
+    height: 16.56rem;
+    margin: 0 2.25rem 0 2.25rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .testCompleteImg{
+    width: 6.375rem;
+    height: 6.375rem;
+  }
+
+  .homeBtn {
+    width: 28.25rem;
+    height: 3.375rem;
+    border-radius: 1rem;
+    background: var(--Primary500, #FFA321);
+    margin: 0 1.5rem 0 1.5rem;
+
+    color: var(--Black-1000, #1A1A1A);
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 1.6875rem */
+  }
+
+  .homeBtn:hover{
+    background: var(--Primary600, #FF971A);
+  }
+
+  /* study main content */
+
+   /* 학습한 voca list  (for study) */
+
+.vocabListBox {
+  margin: 0rem 6.75rem 0rem 0rem;
+
+  width: 13.25rem;
+  height: 23.75rem;
+
+  background-color: #FEDAA6;
+  border-radius: 0.5rem;
+}
+
+.vocabInstruction {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  margin-left: 1rem;
+
+  height: 1.4375rem;
+
+  color: var(--Black-800, #4D4D4D);
+
+  /* Ko/Reg/15 */
+  font-family: "Pretendard Variable";
+  font-size: 0.9375rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 22.5px */
+}
+
+.vocabList {
+  margin-top: 0.5rem;
+
+  display: block;
+  width: 13.25rem;
+  height: 317px;
+
+  background-color: #FEDAA6;
+
+  overflow-y: auto;
+}
+
+.vocabBtn{
+  width: 100%;
+  height: 2.63rem;
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+
+  border: none;
+  background: var(--Primary200, #FEDAA6);
+}
+
+.vocabBtn:hover{
+  background: var(--Primary300, #FFC779);
+}
+
+.clickedVocabBtn{
+  width: 100%;
+  height: 2.63rem;
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+
+  border: none;
+  background: var(--Primary400, #FFB54D);
+}
+
+.vocabOl {
+  margin-left: 1rem;
+
+  color: var(--Black-800, #4D4D4D);
+  /* En/Md/17 */
+  font-family: "Min Sans VF";
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  /* 25.5px */
+}
+
+.clickedVocab01{
+  color: var(--Black-1000, #1A1A1A);
+
+  /* En/Sb/17 */
+  font-family: "Min Sans VF";
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 1.59375rem */
+}
+
+/* study vocab card */
+
+.studyWordCardContainer{
+  width: 28rem;
+  height: 23.75rem;
+  margin-left: 1.5rem;
+
+  perspective: 1000px;
+
+  background-color: transparent;
+}
+
+.cardInner{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* study에서 wordCard 클릭 시 카드 뒤집기 */
+.flipped {
+  transform: rotateY(180deg);
+}
+
+.flipCardFront, .flipCardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 0.75rem;
+  border: 2px solid var(--Primary200, #FEDAA6);
+  background: var(--Black-100, #FEFEFE);
+}
+
+
+.flipCardBack {
+  transform: rotateY(180deg);
+}
+
+
+.studyCurrentVoca{
+  width: 100%;
+  height: 15.25rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0;
+
+  color: var(--Black-1000, #1A1A1A);
+  font-family: "Min Sans VF";
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 3.75rem */
+}
+
+.pronounceBtn{
+  width: 9.1875rem;
+  height: 2.9375rem;
+  border-radius: 1rem;
+  background: var(--Secondary300, #66B5E2);
+
+  color: var(--Black-1000, #1A1A1A);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Ko/Sb/18 */
+  font-family: "Pretendard Variable";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 1.6875rem */
+} 
+
+.pronounceBtn:hover{
+  background: var(--Secondary600, #056FAC);
+}
+
+.pronounceIcon{
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.nextVocaBtnContainer{
+  margin-top: 5rem;
+  width: 25rem;
+  height: 3.375rem;
+}
+
+.nextVocaBtn{
+  width: 100%;
+  height: 100%;
+
+  border: none;
+  border-radius: 1rem;
+  background: var(--Primary500, #FFA321);
+
+  color: var(--Black-1000, #1A1A1A);
+
+  /* Ko/Sb/18 */
+  font-family: "Pretendard Variable";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 1.6875rem */
+} 
+
+.nextVocaBtn:hover{
+  background: var(--Primary600, #FF971A);
+}
+
+/* select time Option */
+.selectLimitTimeContainer{
+  width: 13.88rem;
+  height: 23.75rem;
+  margin-left: 8.25rem;
+
+  display: flex;
+  align-items: center;
+}
+
+.timerOptionContainer{
+  width: 10.75rem;
+  height: 23.75rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: 0.88rem;
+
+  border-radius: 1.5rem;
+  background: var(--Primary100, #FEEDD2);
+}
+
+.timerInstruction{
+  width: 8.75rem;
+  height: 5.5rem;
+  margin: 0;
+  color: var(--Black-700, #666);
+  text-align: center;
+
+  /* Ko/Sb/15 */
+  font-family: "Pretendard Variable";
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 1.40625rem */
+}
+
+.optionContainer{
+  width: 8.75rem;
+  height: 13.75rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timeOption{
+  width: 8.75rem;
+  height: 2.5rem;
+
+  border-radius: 0.5rem;
+  border: 1px solid var(--Primary400, #FFB54D);
+  background-color: var(--Black-100, #FEFEFE);
+
+  color: var(--Black-1000, #1A1A1A);
+
+  /* Ko/Sb/17 */
+  font-family: "Pretendard Variable";
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 1.59375rem */
+}
+
+.timeOption.timeOptionClicked{
+  background-color: var(--Primary200, #FEDAA6);
+}
+
+.timeOption:hover{
+  background: var(--Primary100, #FEEDD2);
+}
+
+.buttonCancel {
+  width: 28.25rem;
+  height: 3.375rem;
+  border-radius: 1rem;
+  background: var(--Primary500, #FEFEFE);
+  margin: 1rem 1.5rem 0 1.5rem;
+
+  color: var(--Black-1000, #1A1A1A);
+  /* Ko/Sb/18 */
+  font-family: "Pretendard Variable";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 1.6875rem */
+}
+
+.buttonCancel:hover {
+  background-color: #ffe0b2;
+}

@@ -1,6 +1,7 @@
 'use client'
 
 import style from "../../../styles/vocaStage2.module.css"
+import EndStudyModal from "@/app/utils/endStudyModal";
 import { useState, useEffect, useRef } from "react"
 
 export default function BlockStudy({ vocabs, onTestComplete }) {
@@ -92,12 +93,7 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
             setKey((prev) => prev + 1)
         }
     }
-
-    // 학습 종료 모달 open
-    const modalControll = () => {
-        setModalOpen(false)
-    }
-
+    
     return (
 
         <div className={style.wrapper}>
@@ -193,7 +189,7 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
                     <EndStudyModal
                         passResults={passResults}
                         onTestComplete={onTestComplete}
-                        modalControll={modalControll}
+                        modalControll={()=>setModalOpen(false)}
                     />
                     :
                     <div></div>
@@ -259,7 +255,7 @@ function EachWord({ vocab, isTimeOut, isSelfTimeControl }) {
                 <div className={style.flipCardFront}>
                     <p className={style.studyCurrentVoca} >{vocab.english}</p>
                     <button className={style.pronounceBtn} onClick={handleSpeakVoice}>
-                        <img src="/pronounceIcon.svg" className={style.pronounceIcon}></img>
+                        <img src="/icons/pronounceIcon.svg" className={style.pronounceIcon}></img>
                         발음듣기
                     </button>
                 </div>
@@ -279,25 +275,6 @@ function NextVoca({ handleNext }) {
             <button className={style.nextVocaBtn} onClick={handleNext}>
                 다음 단어
             </button>
-        </div>
-    )
-}
-
-function EndStudyModal({ passResults, onTestComplete, modalControll }) {
-
-    return (
-        <div className={style.modalOverlay}>
-            <div className={style.endTestModalContainer}>
-                <p className={style.endTestModalHeaderText}>Vocabulary 학습 완료</p>
-                <div className={style.checkImgContainer}>
-                    <img
-                        className={style.testCompleteImg}
-                        src={"/testComplete.png"}>
-                    </img>
-                </div>
-                <button className={style.homeBtn} onClick={() => onTestComplete({result: passResults, stage: 2})}>테스트 하러 가기</button>
-                <button className={style.buttonCancel} onClick={modalControll}>계속 학습하기</button>
-            </div>
         </div>
     )
 }

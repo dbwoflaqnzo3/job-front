@@ -1,8 +1,8 @@
 'use client'
 import { useState } from "react";
 import { useRouter } from "next/navigation"
-import styles from "../../../public/styles/vocaStage5_Test.module.css"
-import TestEndPopup from "../../../utils/studyEndPop"
+import styles from "../../../styles/vocaStage5_Test.module.css"
+import EndTestModal from "@/app/utils/endTestModal";
 
 export default function twoInputTest({ onTestComplete, vocabs }) {
     const router = useRouter();
@@ -27,9 +27,15 @@ export default function twoInputTest({ onTestComplete, vocabs }) {
         const isCorrect = inputValue.trim().toLowerCase() === currentWord?.english.toLowerCase();
         
         // passResults 업데이트
-        const updatedPassResults = [...passResults];
-        updatedPassResults[currentIndex] = isCorrect;
-        setPassResults(updatedPassResults);
+        // const updatedPassResults = [...passResults];
+        // updatedPassResults[currentIndex] = isCorrect;
+        // setPassResults(updatedPassResults);
+
+        setPassResults((prevResults) => {
+            const updatedResults = [...prevResults];
+            updatedResults[currentIndex] = isCorrect;
+            return updatedResults;
+        })
 
         // 다음 단어로 이동
         if (currentIndex < vocabData.length - 1) {
@@ -38,40 +44,22 @@ export default function twoInputTest({ onTestComplete, vocabs }) {
             setCurrentWord(vocabData[nextIndex]); // 다음 단어 설정
             setInputValue(""); // 입력 필드 초기화
         } else {
-            setCorrectCount(updatedPassResults.filter(result => result).length); // 정답 개수 계산
+            setCorrectCount(passResults.filter(result => result).length); // 정답 개수 계산
             setShowPopup(true);
-            console.log("passR",updatedPassResults)
-
-            const stage = 4; 
-            onTestComplete({ result: updatedPassResults, stage:stage }); // stage 추가
         }
     };
 
-    const handleExit = () => {
-        // 테스트를 위해 일단 push로 구현 
-        router.push("/"); 
-    };
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const stage = 4;
+        onTestComplete({ result: passResults, stage:stage }); // stage 추가
+    }
 
     return (
         <div className={styles.container}>
-            {/* 단어리스트 */}
-            {/* <div className={styles.wordList}>
-                <ul>
-                {vocabData.map((word, index) => (
-                    <li
-                    key={index}
-                    className={currentIndex === index ? styles.active : ""}
-                    >
-                    {word.english}
-                    </li>
-                ))}
-                </ul>
-            </div> */}
-
 
             {/* 본문내용 */}
             <div className={styles.contents}>
-            <button className={styles.exitButton} onClick={handleExit}/>
                 <h2>Vocabulary / Unit</h2>
 
                 <p>다음 단어를 영어로 작성하세요</p>
@@ -94,11 +82,7 @@ export default function twoInputTest({ onTestComplete, vocabs }) {
 
                     {/* 팝업 표시 */}
                     {showPopup && (
-                        <TestEndPopup 
-                            correctCount={correctCount} 
-                            totalCount={vocabData.length} 
-                            onClose={() => setShowPopup(false)} 
-                        />
+                        <EndTestModal passResults={passResults} handleSubmit={handleSubmit} />
                     )}
                 </div>
             </div>
