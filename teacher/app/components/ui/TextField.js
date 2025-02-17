@@ -10,43 +10,64 @@ export default function TextField({
   value,
   width = 200,
   stretch = false,
+  showMismatchOnly = false,
   validators = [],
 }) {
-  const [errorMessages, setErrorMessages] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [hasError, setHasError] = useState(false);
+
+  if (showMismatchOnly) {
+    validators = validators.sort((a, b) => {
+      return a.isMatch(inputValue) - b.isMatch(inputValue);
+    });
+  }
 
   const handleInputChange = (event) => {
-    const inputValue = event.target.value;
-    
-    if (onChange) {
-      onChange(event);
-    }
+    const value = event.target.value.replaceAll(" ", "");
+    event.target.value = value;
+    setHasError(validators.some((validator) => !validator.isMatch(value)));
+    setInputValue(value);
+    if (onChange) onChange(value);
 
-    const failedMessages = validators
-      .filter((validator) => !validator.isMatch(inputValue))
-      .map((validator) => validator.getGuide());
-    
-    setErrorMessages(failedMessages);
   };
 
   width = stretch ? "100%" : width;
 
+  const fieldName = `${styles["text-field"]} ko-md-15 ${hasError ? styles["error"] : ""}`;
+  const matchedText = showMismatchOnly ? "void" : "matched";
+
+  const getGuideName = (validator) => {
+    const className = `${styles["guide"]} ko-md-13 `;
+    if (inputValue === "") return className + styles[showMismatchOnly ? "void" : ""];
+    return className + styles[validator.isMatch(inputValue) ? matchedText : "error"];
+  };
+
+  const onPaste = (event) => {
+    if (type !== "password") return;
+    event.preventDefault();
+    return false;
+  }
+
   return (
     <div style={{ width }}>
       <input
-        className={`${styles["text-field"]} ko-md-15 ${errorMessages.length > 0 ? styles["error"] : ""}`}
+        className={fieldName}
         type={type} 
         placeholder={placeholder} 
         onChange={handleInputChange}
         value={value}
         style={{ width }}
+        onPaste={onPaste}
       />
-      {errorMessages.length > 0 && (
-        <Column gap={0}>
-          {errorMessages.map((msg, index) => (
-            <div key={index} className={`${styles["error-message"]} ko-reg-13`}>{msg}</div>
-          ))}
-        </Column>
-      )}
+      <Column gap={0}>
+        {validators.map((validator, index) => (
+          <div 
+            key={index} 
+            className={getGuideName(validator)}
+            style={{ marginLeft: showMismatchOnly ? 0 : 20 }}
+          >{validator.guide}</div>
+        ))}
+      </Column>
     </div>
   );
 }

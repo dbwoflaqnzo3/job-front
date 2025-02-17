@@ -16,10 +16,8 @@ const ValidatorPatterns = {
 
 export class Validator {
   constructor(type, guide = "유효하지 않은 입력입니다.") {
-    if (!ValidatorPatterns[type]) {
-      throw new Error(`Invalid ValidatorType: ${type}`);
-    }
-    this.regex = new RegExp(ValidatorPatterns[type]);
+    let regex = ValidatorPatterns[type] ? ValidatorPatterns[type] : `^${type}\$`;
+    this.regex = new RegExp(regex);
     this.guide = guide;
   }
 
