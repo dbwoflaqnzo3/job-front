@@ -1,6 +1,5 @@
 'use client'
 import style from "../../styles/vocaMain.module.css"
-import Image from "next/image";
 
 import { useState, useEffect, use, useRef } from 'react';
 import { readAllVocabData, readStudentLessonInfo } from "../../utils/VocabUtils"
@@ -12,6 +11,12 @@ import blockTestComponent from './stage2/blockTest';
 import blockStudyComponent from './stage2/blockStudy'
 
 import inputTestComponent from './stage3/inputTest';
+
+import spellStudy from './stage4/spellStudy';
+import twoSpellTestComponent from './stage4/twoSpellTest'
+
+import inputTestComponent from './stage5/inputTest';
+import inputStudyComponent from './stage5/inputStudy';
 
 export default function VocabStageController() {
 
@@ -46,10 +51,9 @@ export default function VocabStageController() {
                 setStudyMode(resultStudentLessonInfo.studyMode)
 
                 //테스트를 위해서 result로 잠시 변환 
-                // setVocabs(updatedResult);
                 setVocabs(updatedResult);
-                // setTotalProgress(resultStudentLessonInfo.studyMode[0])
-                setTotalProgress(2) // 임시로 2로 수정
+
+                setTotalProgress(resultStudentLessonInfo.studyMode[0])
                 setIsVocabsUpdated(true)
 
                 setTotalVocabs(resultVocabData.map(item => ({
@@ -105,10 +109,28 @@ export default function VocabStageController() {
                 else
                     setComponentToRender(() => () => <div>Block Test Complete</div>);
             }
-        } else {
-            setComponentToRender(() => inputTestComponent); // Default Component for other cases
-        }
+        } else if (totalProgress === 3){
+            setComponentToRender(() => () => <div>Default Component</div>);
+        } else if (totalProgress === 4){ // 여기 프로세스 로직 추가 - dbwofla 
+            setComponentToRender(() => spellStudy);
+        } else if(totalProgress === 5){
+            if(isVocabsUpdated){
+                filterVocab()
 
+                if (middleProgress === 1 && isFiltered){
+                    setComponentToRender(() => inputTestComponent); // Test Component
+                    setIsVocabsUpdated(false);
+                    setIsFiltered(false)
+                } else if (middleProgress === 2 && isFiltered){
+                    setComponentToRender(() => inputStudyComponent); // Study Component
+                    setIsVocabsUpdated(false);
+                    setIsFiltered(false)
+                }
+            }
+        }
+        else {
+            setComponentToRender(() => () => <div>Default Component</div>); // Default Component for Progress 2 
+        }
     }, [totalProgress, middleProgress, isVocabsUpdated, isFiltered])
 
     const filterVocab = (totalProgress) => {
@@ -128,7 +150,6 @@ export default function VocabStageController() {
     };
 
 
-    // passResult = { result : [결과], stage : 단계}
     const handleVocabPass = (passResults) => {
         console.log(passResults, "!!!")
 
@@ -191,8 +212,7 @@ export default function VocabStageController() {
         //여기에 단어 맞추기 파트 코드작성 
 
     };
-
-
+    
     return (
         <div>
             {
@@ -227,7 +247,6 @@ export default function VocabStageController() {
                     <div>Loading...</div> // vocabs가 로드되지 않았다면 로딩 표시
                 )
             }
-
             {errorMessage && <div>Error: {errorMessage}</div>}
         </div>
     );

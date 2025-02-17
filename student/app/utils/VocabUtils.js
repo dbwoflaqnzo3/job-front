@@ -1,10 +1,9 @@
 export async function readAllVocabData(_id){
 
     // 'http://localhost:8080/vocabData/readManyVocab'
-
     // 아래는 로컬 테스트 서버 주소 
-    // const apiUrl = '/api/posts/voca'; // Test API 서버 주소
-    const apiUrl = "http://localhost:8080/vocabData/readManyVocab"
+    const apiUrl = '/api/posts/voca'; // Test API 서버 주소
+    // const apiUrl = "http://localhost:8080/vocabData/readManyVocab"
     try{
         const response = await fetch(apiUrl, {
             method: "POST",
@@ -30,6 +29,7 @@ export async function readAllVocabData(_id){
         return result;
     }
     catch(e){
+        console.error(e.message)
         throw new Error("단어 다중 읽기 중 문제 발생")
     }
 }
@@ -37,10 +37,10 @@ export async function readAllVocabData(_id){
 export async function readStudentLessonInfo(_id){
 
     // 아래는 로컬 테스트 서버 주소 
-    // const apiUrl = '/api/posts/voca'; // Test API 서버 주소
-    
+    // const apiUrl = '/api/posts/onevoca'; // Test API 서버 주소
+    const apiurl = "http://localhost:8080/studentLesson/read"
     try{
-        const response = await fetch("http://localhost:8080/studentLesson/read", {
+        const response = await fetch(apiUrl, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
