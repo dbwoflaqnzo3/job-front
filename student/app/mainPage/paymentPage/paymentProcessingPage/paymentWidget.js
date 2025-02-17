@@ -62,8 +62,8 @@ export default function PaymentWidget() {
                                 orderName: "토스 티셔츠 외 2건",
                                 customerName: "김토스",
                                 customerEmail: "customer123@gmail.com",
-                                successUrl: `${window.location.origin}/mainPage/paymentPage/success`,
-                                failUrl: `${window.location.origin}/mainPage/paymentPage/fail`,
+                                successUrl: `${window.location.origin}/mainPage/paymentPage/paymentProcessingPage/success`,
+                                failUrl: `${window.location.origin}/mainPage/paymentPage/paymentProcessingPage/fail`,
                             });
                         } catch (error) {
                             console.error(error);

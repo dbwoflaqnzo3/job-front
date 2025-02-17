@@ -1,11 +1,14 @@
 @import url("https://cdn.jsdelivr.net/gh/poposnail61/min-sans@main/web/css/minsansvf-dynamic-subset.css");
 
 * {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* 가로 스크롤 제거 */
 }
 
 body {
@@ -276,7 +279,7 @@ body {
     padding: 48px;
 }
 
-h2 {
+/* h2 {
     margin-top: 30px;
     margin-bottom: 10px;
-}
+} */

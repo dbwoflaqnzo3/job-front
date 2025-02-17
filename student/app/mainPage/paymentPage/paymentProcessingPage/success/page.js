@@ -23,7 +23,7 @@ export default function SuccessPage() {
     async function confirmPayment() {
         console.log(paymentKey, orderId, amount)
 
-        const response = await fetch("http://localhost:8080/payments/confirm", {
+        const response = await fetch("http://localhost:8080/payment/confirm", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ paymentKey, orderId, amount }),

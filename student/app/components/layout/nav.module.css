@@ -1,7 +1,9 @@
+
 .nav-container {
-  width: 100%;
+  width: 91%;
   display: flex;
   position: relative;
+  justify-content: center;
 }
 
 .nav-bar {
@@ -104,6 +106,13 @@
 
 
 .icon-button {
+  
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  
   background: transparent;
   border: none;
   cursor: pointer;

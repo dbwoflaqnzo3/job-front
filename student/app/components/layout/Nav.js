@@ -19,7 +19,7 @@ export function NavItem({ text, textColor = "black-1000", onClick }) {
   );
 }
 
-function NavBase({ title, icon, onClick, isSelected = false, children, onMenuItemClick, isIcon = false }) {
+function NavBase({ title, icon, onClick, isSelected = false, children, isIcon = false, onMenuItemClick }) {
   const [menuVisible, setMenuVisible] = useState(false);
   const hideTimeout = useRef(null);
   const menuRef = useRef(null);
@@ -77,7 +77,8 @@ function NavBase({ title, icon, onClick, isSelected = false, children, onMenuIte
               cloneElement(child, {
                 onClick: () => {
                   hideMenu();
-                  onMenuItemClick?.();
+                  onMenuItemClick()
+                  child.props.onClick()
                 },
               })
             )}
@@ -111,12 +112,17 @@ export function NavGroup({ theme = "primary", children }) {
         return cloneElement(child, {
           isSelected: selectedIndex === index,
           onClick: () => {
-            if (!child.props.children) {
-              setSelectedIndex(index);
-              child.props.onClick?.();
-            }
+            if (child.props.children) return;
+
+            setSelectedIndex(index);
+            child.props.onClick?.();
           },
-          onMenuItemClick: () => setSelectedIndex(index),
+          onMenuItemClick: () => {
+            if (!child.props.children) return;
+            setSelectedIndex(index)
+            child.props.onMenuItemClick?.()
+            
+          }
         });
       }
       return child;

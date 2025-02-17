@@ -1,12 +1,13 @@
 'use client'
 
-import NavBar from '../navigationBar/page.js';
 import styles from './page.module.css';
 import { useState, React, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 import { SemiCircleProgress } from 'react-semicircle-progressbar';
 import { getMyInfo, getCardInfo } from '../../utils/lessonListUtil'
+import { PageLayout } from '@/app/page.js';
+
 
 export default function LessonListPage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -364,9 +365,7 @@ export default function LessonListPage() {
   
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <NavBar/>
+    <PageLayout>
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>학습하기</h1>
         </div>
@@ -483,8 +482,8 @@ export default function LessonListPage() {
             </div>
           </div>
         )}
-      </div>
-    </div>
+
+    </PageLayout>
   );
 }
 
