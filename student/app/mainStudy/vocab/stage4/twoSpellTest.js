@@ -29,7 +29,7 @@ export default function twoInputTest({ onTestComplete, vocabs }) {
     const handleNext = (e) => {
 
         // 정답 여부 확인
-        isCorrect.current = inputValue.trim().toLowerCase() === currentWord?.english.toLowerCase().substr(0,2);
+        isCorrect.current = inputValue.trim().toLowerCase() === currentWord?.english.toLowerCase().substr(0, 2);
 
         setPassResults((prevResults) => {
             const updatedResults = [...prevResults];
@@ -38,20 +38,20 @@ export default function twoInputTest({ onTestComplete, vocabs }) {
         })
 
         setCheckModalOpen(true)
-        setTimeout(()=>moveToNext(), 1000)
+        setTimeout(() => moveToNext(), 1000)
 
 
     };
 
     const moveToNext = () => {
 
-         // 다음 단어로 이동
-         if (currentIndex < vocabData.length - 1) {
+        // 다음 단어로 이동
+        if (currentIndex < vocabData.length - 1) {
             const nextIndex = currentIndex + 1;
             setCurrentIndex(nextIndex);
             setCurrentWord(vocabData[nextIndex]); // 다음 단어 설정
             setInputValue(""); // 입력 필드 초기화
-            setKey((prev) => prev+1)
+            setKey((prev) => prev + 1)
         } else {
             setShowPopup(true);
         }
@@ -74,37 +74,39 @@ export default function twoInputTest({ onTestComplete, vocabs }) {
                 </p>
             </div>
 
-            <div className={styles.timerContainer} key={key}>
-                <Timer initialTime={initialTime} handleNext={handleNext} />
-            </div>
+            <div className={styles.contentContainer}>
+                <div className={styles.timerContainer} key={key}>
+                    <Timer initialTime={initialTime} handleNext={handleNext} />
+                </div>
+                <div className={styles.wordBoxContainer}>
+                    <div className={styles.wordBox}>
+                        {currentWord ?
+                            `${currentWord.korean}`
+                            : 'Loading...'}
+                    </div>
 
-            <div className={styles.wordBox}>
-                {currentWord ?
-                    `${currentWord.korean}`
-                    : 'Loading...'}
-            </div>
+                    <div className={styles.inputContainer}>
+                        <input
+                            className={styles.input}
+                            type="text"
+                            maxLength={2}
+                            value={inputValue}
+                            onChange={handleInputChange}
+                        />
+                        <p>{currentWord.english.substr(2,)}</p>
+                    </div>
 
-            <div className={styles.inputContainer}>
-                <input
-                    className={styles.input}
-                    type="text"
-                    maxLength={2}
-                    value={inputValue}
-                    onChange={handleInputChange}
-                />
-                <p>{currentWord.english.substr(2,)}</p>
+                    <div className={styles.buttonWrapper}>
+                        <button className={styles.button} onClick={handleNext}>
+                            확인
+                        </button>
+                    </div>
+                </div>
             </div>
-
-            <div className={styles.buttonWrapper}>
-                <button className={styles.button} onClick={handleNext}>
-                    확인
-                </button>
-            </div>
-
             {
-                checkModalOpen && 
-                    <CheckAnswerModal isPassed={isCorrect.current}/>
-                
+                checkModalOpen &&
+                <CheckAnswerModal isPassed={isCorrect.current} />
+
             }
 
             {/* 팝업 표시 */}
