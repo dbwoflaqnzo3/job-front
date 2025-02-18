@@ -2,10 +2,11 @@
 
 import style from "../../../styles/vocaStage2.module.css"
 import EndTestModal from "@/app/utils/endTestModal";
+import CheckAnswerModal from "@/app/utils/checkAnswerModal";
 
 import { useEffect, useState, useRef } from "react";
 
-export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
+export default function BlockTestKor({ vocabs, onTestComplete, totalVocabs }) {
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
     const [passResults, setPassResults] = useState(
         Array(vocabs.length).fill(false) // 초기값 false로 배열 생성
@@ -19,7 +20,7 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
 
     //test kit
     const [randomNum, setRandomNum] = useState(() => Math.floor(Math.random() * 4)); // 정답 번호
-    let koreanList; // 오답 문제리스트
+    let englishList; // 오답 문제리스트
     const [wordList, setWordList] = useState([])
 
     const [imgModalOpen, setImgModalOpen] = useState(false)
@@ -29,40 +30,40 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
 
 
     useEffect(() => {
-        makeKoreanLIst()
+        makeEnglishList()
         document.documentElement.style.setProperty("--animation-duration", `${initialTime}s`);
     }, []);
 
     // 보기 list 만들기
     useEffect(() => {
 
-        makeKoreanLIst()
+        makeEnglishList()
 
     }, [currentIndex])
 
-    const makeKoreanLIst = () => {
+    const makeEnglishList = () => {
 
         if(currentIndex >= vocabs.length){
             return
         }
 
-        koreanList = totalVocabs.map(item => item.korean)
+        englishList = totalVocabs.map(item => item.english)
 
-        const index = koreanList.indexOf(vocabs[currentIndex]?.korean);
+        const index = englishList.indexOf(vocabs[currentIndex]?.english);
 
         if (index !== -1) {
-            koreanList.splice(index, 1) // 해당 요소가 존재하면 제거
+            englishList.splice(index, 1) // 해당 요소가 존재하면 제거
         }
 
         let tempList = []
 
         for (let i = 0; i < 4; i++) {
             if (i === randomNum) {
-                tempList[i] = vocabs[currentIndex].korean
+                tempList[i] = vocabs[currentIndex].english
             } else {
                 let randomIndex;
-                randomIndex = Math.floor(Math.random() * koreanList.length);
-                tempList[i] = koreanList.splice(randomIndex, 1)[0]
+                randomIndex = Math.floor(Math.random() * englishList.length);
+                tempList[i] = englishList.splice(randomIndex, 1)[0]
 
             }
 
@@ -115,7 +116,7 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        onTestComplete({ result: passResults, stage: 2 }); // 결과 배열 반환
+        onTestComplete({ result: passResults, stage: 3 }); // 결과 배열 반환
     };
 
     //보기 클릭 시
@@ -159,7 +160,7 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
 
                         {/* vocab card */}
                         <div className={style.wordCardContainer}>
-                            <p className={style.currentVoca}>{vocabs[currentIndex].english}</p> {/*현재 단어 전달*/}
+                            <p className={style.currentVoca}>{vocabs[currentIndex].korean}</p> {/*현재 단어 전달*/}
                         </div>
 
                         {/* test 보기 list */}
@@ -193,21 +194,8 @@ export default function blockTest({ vocabs, onTestComplete, totalVocabs }) {
             }
 
             {
-                imgModalOpen ? <ImgModal isPassed={isPassed.current} /> : <div></div>
+                imgModalOpen && <CheckAnswerModal isPassed={isPassed.current} />
             }
         </div>
     );
-}
-
-function ImgModal({ isPassed }) {
-    return (
-        <div className={style.modalOverlay}>
-            <div className={style.imgBackgroundContainer}>
-                <img
-                    className={style.ImgModalContainer}
-                    src={isPassed ? "/icons/answer.svg" : "/icons/wrongAnswer.svg"}>
-                </img>
-            </div>
-        </div>
-    )
 }

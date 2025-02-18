@@ -4,7 +4,7 @@ import style from "../../../styles/vocaStage2.module.css"
 import EndStudyModal from "@/app/utils/endStudyModal";
 import { useState, useEffect, useRef } from "react"
 
-export default function BlockStudy({ vocabs, onTestComplete }) {
+export default function BlockStudyKor({ vocabs, onTestComplete }) {
 
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
     const [wordList, setWordList] = useState([])
@@ -95,7 +95,7 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
     }
 
     const handleSubmit = () => {
-        onTestComplete({result: passResults, stage: 2})
+        onTestComplete({result: passResults, stage: 3})
     }
     
     return (
@@ -124,7 +124,7 @@ export default function BlockStudy({ vocabs, onTestComplete }) {
                                             <p
                                                 className={`${style.vocabOl} ${i === currentIndex ? style.clickedVocab01 : ""}`}
                                             >
-                                                {i + 1}. {a.english}
+                                                {i + 1}. {a.korean}
                                             </p>
                                         </button>
                                     )
@@ -257,14 +257,14 @@ function EachWord({ vocab, isTimeOut, isSelfTimeControl }) {
         >
             <div className={`${style.cardInner} ${isClicked ? style.flipped : ""}`}>
                 <div className={style.flipCardFront}>
+                    <p className={style.studyCurrentVoca} >{vocab.korean}</p>
+                </div>
+                <div className={style.flipCardBack}>
                     <p className={style.studyCurrentVoca} >{vocab.english}</p>
                     <button className={style.pronounceBtn} onClick={handleSpeakVoice}>
                         <img src="/icons/pronounceIcon.svg" className={style.pronounceIcon}></img>
                         발음듣기
                     </button>
-                </div>
-                <div className={style.flipCardBack}>
-                    <p className={style.studyCurrentVoca} >{vocab.korean}</p>
                 </div>
             </div>
         </div>

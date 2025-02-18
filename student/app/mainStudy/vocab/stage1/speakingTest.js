@@ -130,8 +130,7 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
         setTestTry(testTry + 1);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         onTestComplete({ result: passResults, stage: 1 }); // 결과 배열 반환
     };
 

@@ -74,45 +74,47 @@ export default function twoInputTest({ onTestComplete, vocabs }) {
                 </p>
             </div>
 
-            <div className={styles.contentContainer}>
-                <div className={styles.timerContainer} key={key}>
-                    <Timer initialTime={initialTime} handleNext={handleNext} />
-                </div>
-                <div className={styles.wordBoxContainer}>
-                    <div className={styles.wordBox}>
-                        {currentWord ?
-                            `${currentWord.korean}`
-                            : 'Loading...'}
-                    </div>
+            {
+                showPopup ? <EndTestModal passResults={passResults} handleSubmit={handleSubmit} />
+                    :
+                    <div className={styles.contentContainer}>
+                        <div className={styles.timerContainer} key={key}>
+                            <Timer initialTime={initialTime} handleNext={handleNext} />
+                        </div>
+                        <div className={styles.wordBoxContainer}>
+                            <div className={styles.wordBox}>
+                                <p>
+                                    {currentWord ?
+                                        `${currentWord.korean}`
+                                        : 'Loading...'}
+                                </p>
+                            </div>
 
-                    <div className={styles.inputContainer}>
-                        <input
-                            className={styles.input}
-                            type="text"
-                            maxLength={2}
-                            value={inputValue}
-                            onChange={handleInputChange}
-                        />
-                        <p>{currentWord.english.substr(2,)}</p>
-                    </div>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    className={styles.input}
+                                    type="text"
+                                    maxLength={2}
+                                    value={inputValue}
+                                    onChange={handleInputChange}
+                                />
+                                <p>{currentWord.english.substr(2,)}</p>
+                            </div>
 
-                    <div className={styles.buttonWrapper}>
-                        <button className={styles.button} onClick={handleNext}>
-                            확인
-                        </button>
+                            <div className={styles.buttonWrapper}>
+                                <button className={styles.button} onClick={handleNext}>
+                                    확인
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+            }
+
             {
                 checkModalOpen &&
                 <CheckAnswerModal isPassed={isCorrect.current} />
 
             }
-
-            {/* 팝업 표시 */}
-            {showPopup && (
-                <EndTestModal passResults={passResults} handleSubmit={handleSubmit} />
-            )}
         </div>
     );
 }

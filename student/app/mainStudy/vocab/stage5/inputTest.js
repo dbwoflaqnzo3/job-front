@@ -92,53 +92,55 @@ export default function InputTest({ onTestComplete, vocabs }) {
                 </p>
             </div>
 
-            <div className={styles.contentContainer}>
-                <div className={styles.timerContainer} key={key}>
-                    <Timer initialTime={initialTime} handleNext={handleNext} />
-                </div>
-                <div className={styles.wordBoxContainer}>
-                    <div className={styles.wordBox}>
-                        <p>
-                            {currentWord ?
-                                `${currentWord.korean}`
-                                : 'Loading...'}
-                        </p>
+            {
+                showPopup ? <EndTestModal
+                    passResults={passResults}
+                    handleSubmit={handleSubmit}
+                />
 
-                        <button className={styles.pronounceBtn} onClick={handleSpeakVoice}>
-                            <img src="/icons/pronounceIcon.svg" className={styles.pronounceIcon}></img>
-                            발음듣기
-                        </button>
+                    :
+
+                    <div className={styles.contentContainer}>
+                        <div className={styles.timerContainer} key={key}>
+                            <Timer initialTime={initialTime} handleNext={handleNext} />
+                        </div>
+                        <div className={styles.wordBoxContainer}>
+                            <div className={styles.wordBox}>
+                                <p>
+                                    {currentWord ?
+                                        `${currentWord.korean}`
+                                        : 'Loading...'}
+                                </p>
+
+                                <button className={styles.pronounceBtn} onClick={handleSpeakVoice}>
+                                    <img src="/icons/pronounceIcon.svg" className={styles.pronounceIcon}></img>
+                                    발음듣기
+                                </button>
+                            </div>
+
+                            <input
+                                className={styles.inputAllSpell}
+                                type="text"
+                                value={inputValue}
+                                onChange={handleInputChange}
+                                placeholder="단어를 입력해주세요."
+                            />
+
+                            <div className={styles.buttonWrapper}>
+                                <button className={styles.button} onClick={handleNext}>
+                                    확인
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
-                    <input
-                        className={styles.inputAllSpell}
-                        type="text"
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        placeholder="단어를 입력해주세요."
-                    />
-
-                    <div className={styles.buttonWrapper}>
-                        <button className={styles.button} onClick={handleNext}>
-                            확인
-                        </button>
-                    </div>
-                </div>
-            </div>
+            }
 
             {
                 checkModalOpen &&
                 <CheckAnswerModal isPassed={isPassed.current} />
 
             }
-
-            {/* 팝업 표시 */}
-            {showPopup && (
-                <EndTestModal
-                    passResults={passResults}
-                    handleSubmit={handleSubmit}
-                />
-            )}
         </div>
     );
 }

@@ -10,7 +10,8 @@ import SpeakingStudyComponent from "./stage1/speakingStudy";
 import blockTestComponent from './stage2/blockTest';
 import blockStudyComponent from './stage2/blockStudy'
 
-// import inputTestComponent from './stage3/inputTest';
+import blockStudyKorComponent from './stage3/blockStudyKor';
+import blockTestKorComponent from './stage3/blockTestKor';
 
 import spellStudy from './stage4/spellStudy';
 import twoSpellTestComponent from './stage4/twoSpellTest'
@@ -49,13 +50,12 @@ export default function VocabStageController() {
                 }));
 
                 // setStudyMode(resultStudentLessonInfo.studyMode)
-                setStudyMode([1,2,4,5])
+                setStudyMode([1,2,3,4,5])
 
                 //테스트를 위해서 result로 잠시 변환 
                 setVocabs(updatedResult);
 
-                // setTotalProgress(resultStudentLessonInfo.studyMode[0])
-                setTotalProgress(5)
+                setTotalProgress(resultStudentLessonInfo.studyMode[0])
                 setIsVocabsUpdated(true)
 
                 setTotalVocabs(resultVocabData.map(item => ({
@@ -103,7 +103,6 @@ export default function VocabStageController() {
                     setIsVocabsUpdated(false);
                     setIsFiltered(false)
                 } else if (middleProgress === 2 && isFiltered) {
-
                     setComponentToRender(() => blockStudyComponent); // Study Component
                     setIsVocabsUpdated(false);
                     setIsFiltered(false)
@@ -111,8 +110,24 @@ export default function VocabStageController() {
                 else
                     setComponentToRender(() => () => <div>Block Test Complete</div>);
             }
+
         } else if (totalProgress === 3){
-            setComponentToRender(() => () => <div>Default Component</div>);
+
+            if (isVocabsUpdated) {
+                filterVocab(totalProgress)
+
+                if (middleProgress === 1 && isFiltered) {
+                    setComponentToRender(() => blockTestKorComponent); // Test Component
+                    setIsVocabsUpdated(false);
+                    setIsFiltered(false)
+                } else if (middleProgress === 2 && isFiltered) {
+                    setComponentToRender(() => blockStudyKorComponent); // Study Component
+                    setIsVocabsUpdated(false);
+                    setIsFiltered(false)
+                }
+                else
+                    setComponentToRender(() => () => <div>Block Test Complete</div>);
+            }
         } else if (totalProgress === 4){ 
 
             if(isVocabsUpdated){
@@ -131,8 +146,9 @@ export default function VocabStageController() {
                     setComponentToRender(() => () => <div>Block Test Complete</div>);
             }
         } else if(totalProgress === 5){
+
             if(isVocabsUpdated){
-                filterVocab()
+                filterVocab(totalProgress)
 
                 if (middleProgress === 1 && isFiltered){
                     setComponentToRender(() => inputTestComponent); // Test Component
@@ -146,6 +162,7 @@ export default function VocabStageController() {
                 else
                     setComponentToRender(() => () => <div>Block Test Complete</div>);
             }
+
         }
         else {
             setComponentToRender(() => () => <div>Default Component</div>); // Default Component for Progress 2 
@@ -207,7 +224,7 @@ export default function VocabStageController() {
             stagePassed = stagePassed && passResults.result[i]
         }
 
-        console.log(stagePassed, "11")
+        console.log(passResults)
 
         if (stagePassed) {
             setTotalProgress(studyMode[studyMode.indexOf(passResults.stage) + 1])

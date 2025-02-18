@@ -44,8 +44,7 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
         setCurrentWord(vocabs[index]);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         onTestComplete({ result: passResults, stage: 1 }); // 결과 배열 반환
     };
 
@@ -249,7 +248,7 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
 
                 {/* 시험보러가기 팝업 */}
                 {vocabStudied.every(vocab => vocab === true) && isToTest &&
-                    <EndStudyModal passResults={passResults} onTestComplete={onTestComplete} modalControll={modalControll}/>
+                    <EndStudyModal passResults={passResults} onTestComplete={handleSubmit} modalControll={modalControll}/>
                 }
             </div>
         </div>
