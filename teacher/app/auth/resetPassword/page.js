@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Column } from "@/app/widgets/structure/Grid";
 import SizedBox from "@/app/widgets/structure/SizedBox";
 import styles from "./page.module.css";
@@ -9,6 +10,8 @@ import { ValidatorType, Validator } from "@/app/utils/validator";
 import { NavPage } from "@/app/pageLayout";
 
 export default function ResetPassword() {
+  const [inputValue, setInputValue] = useState("");
+
   return (
     <NavPage>
       <div className={`page ${styles["password"]}`}>
@@ -17,9 +20,11 @@ export default function ResetPassword() {
             <h3 className={`${styles["title"]} ko-sb-30`}>비밀번호 변경하기</h3>
             <Column gap={41}>
               <Column>
-                <h4 className={`ko-md-17`}>새 비밀번호를 작성해주세요</h4>
+                <h4 className="ko-md-17">새 비밀번호를 작성해주세요</h4>
                 <TextField 
+                  type="password"
                   placeholder="비밀번호/Password" 
+                  onChange={setInputValue}
                   validators={[
                     new Validator(ValidatorType.AT_LEAST_EIGHT, "비밀번호는 최소 8자리 이상이어야 합니다"),
                     new Validator(ValidatorType.INCLUDE_ALPHABET_SPECIAL_CHAR_NUMBER, "영문/특수문자/숫자가 포함되어야 합니다"),
@@ -29,9 +34,12 @@ export default function ResetPassword() {
                 />
               </Column>
               <Column>
-                <h4 className={`ko-md-17`}>한번 더 작성해주세요</h4>
+                <h4 className="ko-md-17">한 번 더 작성해주세요</h4>
                 <TextField 
+                  type="password"
                   placeholder="비밀번호/Password"
+                  validators={[ new Validator(inputValue, "아이디/비밀번호가 일치하지 않습니다") ]}
+                  showMismatchOnly
                   stretch 
                 />
               </Column>

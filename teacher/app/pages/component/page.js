@@ -11,6 +11,7 @@ import { SemiCircularGraph, CircularGraph } from "@/app/components/ui/CircularGr
 import TextField from "@/app/components/ui/TextField";
 import Card from "@/app/components/ui/Card";
 import { Validator, ValidatorType } from "@/app/utils/validator";
+import { Table, TableHeader, TableBody } from "@/app/components/ui/Table";
 
 function nav() {
   return (
@@ -127,7 +128,7 @@ function dropdownButtons() {
         <Row gap={50}>
           <Row justifyContent="space-between">
             <DropdownButton1
-              onSelect={(item) => setSelectedOption1(item)}
+              onSelect={setSelectedOption1}
             >
               <DropdownElement label="옵션 1" value="option1"/>
               <DropdownElement label="옵션 2" value="option2"/>
@@ -139,7 +140,7 @@ function dropdownButtons() {
           </Row>
           <Row justifyContent="space-between">
             <DropdownButton2
-              onSelect={(item) => setSelectedOption2(item)}
+              onSelect={setSelectedOption2}
             >
               <DropdownElement label="옵션 1" value="option1"/>
               <DropdownElement label="옵션 2" value="option2"/>
@@ -153,7 +154,7 @@ function dropdownButtons() {
         <Row gap={50}>
           <Row justifyContent="space-between">
             <DropdownButton1
-              onSelect={(item) => setSelectedEmail1(item)}
+              onSelect={setSelectedEmail1}
               validator={
                 new Validator(ValidatorType.EMAIL_POSTFIX, "이메일 형식으로 입력하세요.")
               }
@@ -170,7 +171,7 @@ function dropdownButtons() {
           </Row>
           <Row justifyContent="space-between">
             <DropdownButton2
-              onSelect={(item) => setSelectedEmail2(item)}
+              onSelect={setSelectedEmail2}
               validator={
                 new Validator(ValidatorType.EMAIL_POSTFIX, "이메일 형식으로 입력하세요.")
               }
@@ -189,7 +190,7 @@ function dropdownButtons() {
         <Row gap={50}>
           <Row justifyContent="space-between">
             <DropdownButton1
-              onSelect={(item) => setSelectedPerson1(item)}
+              onSelect={setSelectedPerson1}
               allowCustom
               search
             >
@@ -204,7 +205,7 @@ function dropdownButtons() {
           </Row>
           <Row justifyContent="space-between">
             <DropdownButton2
-              onSelect={(item) => setSelectedPerson2(item)}
+              onSelect={setSelectedPerson2}
               allowCustom
               search
             >
@@ -318,6 +319,45 @@ function circulargraphes() {
   );
 }
 
+function table() {
+  const titles1 = ["결제일자", "결제내용", "결제수단", "금액"];
+  const data1 = new Array(10).fill(["24/12/12", "학원비, 교재비", "신용카드", "₩ 21,120"]);
+  const columnRatios1 = [94, 212, 94, 212];
+  const textStyles1 = ["ko-md-17", "ko-md-17", "ko-md-17", "ko-md-24"];
+
+  const titles2 = ["이름", "결제일자", "결제내용", "결제수단", "금액"];
+  const data2 = new Array(20).fill(["전서현", "24/12/12", "학원비, 교재비", "신용카드", "₩ 21,120"]);
+  const columnRatios2 = [94, 94, 212, 94, 212];
+  const textStyles2 = ["ko-md-17", "ko-md-17", "ko-md-17", "ko-md-17", "ko-md-24"];
+
+  return (
+    <section>
+      <h2>Table</h2>
+      <Column gap={50}>
+        <Table
+          paddingLeft="7.38rem"
+          paddingRight="4.5rem"
+          height={500}
+          columnRatios={columnRatios1}
+        >
+          <TableHeader>{titles1}</TableHeader>
+          <TableBody textStyles={textStyles1}>{data1}</TableBody>
+        </Table>
+        <Table
+          theme="secondary"
+          paddingLeft="7.38rem"
+          paddingRight="4.5rem"
+          height={500}
+          columnRatios={columnRatios2}
+        >
+          <TableHeader>{titles2}</TableHeader>
+          <TableBody textStyles={textStyles2}>{data2}</TableBody>
+        </Table>
+      </Column>
+    </section>
+  );
+}
+
 export default function Component() {
   return (
     <div className="page">
@@ -332,6 +372,7 @@ export default function Component() {
             {segmentedButtons()}
             {textFields()}
             {circulargraphes()}
+            {table()}
             {/* <div style={{height: "400px"}} /> */}
           </Column>
         </div>
