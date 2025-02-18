@@ -1,12 +1,17 @@
 'use client'
+<<<<<<< HEAD
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+=======
+import styles from "./helpPage.module.css";
+>>>>>>> b147fff (feat: pull받고 고객센터 페이지추가)
 
 import { PageLayout } from '@/app/page.js';
 import SizedBox from "@/app/widgets/structure/SizedBox";
 import { Grid, Column, Row } from "@/app/widgets/structure/Grid";
 import { Button1, Button5 } from "@/app/components/ui/buttons/Regular";
 import TextField from "@/app/components/ui/TextField";
+<<<<<<< HEAD
 import { DropdownButton2 , DropdownElement } from "@/app/components/ui/buttons/Dropdown";
 
 import ListItem from "./listItem";
@@ -23,6 +28,11 @@ export default function studentService(){
     };
 
 
+=======
+import { DropdownButton2 } from "@/app/components/ui/buttons/Dropdown";
+
+export default function studentService(){
+>>>>>>> b147fff (feat: pull받고 고객센터 페이지추가)
     return(
         <PageLayout>
         <h1>고객센터</h1>
@@ -31,6 +41,7 @@ export default function studentService(){
 
                 {/* 검색 & 필터 Row */}
                 <Row justifyContent="space-between" gap="15px">
+<<<<<<< HEAD
                     <Row justifyContent="center" gap="15px">
                     <DropdownButton2 onSelect={(item) => setSelectedCategory(item)} width={140}
                     allowCustom
@@ -64,6 +75,29 @@ export default function studentService(){
             <Button1 width={213} height={54} text={`글쓰기`} onClick={writeContent} ></Button1>
             </Row>
 
+=======
+                    
+                    {/* 카테고리 선택 */}
+                    {/* <select>
+                    <option>카테고리</option>
+                    </select> */}
+
+                    {/* 정렬 선택 */}
+                    {/* <select>
+                    <option>최신순</option>
+                    </select> */}
+
+                    <Row justifyContent="center" gap="15px">
+                        <DropdownButton2>최신순</DropdownButton2>
+                    </Row>
+                    <Row gap="15px">
+                        <TextField placeholder={true} width={360} ></TextField>
+                        <SizedBox width={50} height={32}/>
+                        <Button5 width={126} text={`찾기`} >찾기</Button5>
+                    </Row>
+                </Row>
+            </Grid>
+>>>>>>> b147fff (feat: pull받고 고객센터 페이지추가)
         </PageLayout>   
     )
 }
