@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { cloneElement } from "react";
 import styles from "./table.module.css";
 
 export function TableBody({ 
@@ -100,6 +100,13 @@ export function Table({
     width, height,
     maxHeight: height,
   };
+
+  children = React.Children.toArray(children).map((child) =>
+    React.cloneElement(child, {
+      ...child.props,
+      columnRatios: columnRatios,
+    })
+  );
 
   return (
     <div className={styles["table-container"]} style={style}>

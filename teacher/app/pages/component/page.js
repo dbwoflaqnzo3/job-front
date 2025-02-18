@@ -345,8 +345,8 @@ function table() {
         </Table>
         <Table
           theme="secondary"
-          paddingLeft="7.38rem"
-          paddingRight="4.5rem"
+          paddingLeft="2.5rem"
+          paddingRight={0}
           height={500}
           columnRatios={columnRatios2}
         >
