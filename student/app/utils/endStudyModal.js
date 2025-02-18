@@ -12,7 +12,7 @@ const EndStudyModal = ({ passResults, onTestComplete, modalControll }) => {
                         src={"/images/testComplete.png"}>
                     </img>
                 </div>
-                <button className={style.homeBtn} onClick={() => onTestComplete({result: passResults, stage: 2})}>테스트 하러 가기</button>
+                <button className={style.homeBtn} onClick={() => onTestComplete()}>테스트 하러 가기</button>
                 <button className={style.buttonCancel} onClick={modalControll}>계속 학습하기</button>
             </div>
         </div>

@@ -55,7 +55,7 @@ export default function VocabStageController() {
                 setVocabs(updatedResult);
 
                 // setTotalProgress(resultStudentLessonInfo.studyMode[0])
-                setTotalProgress(4)
+                setTotalProgress(5)
                 setIsVocabsUpdated(true)
 
                 setTotalVocabs(resultVocabData.map(item => ({
@@ -116,7 +116,7 @@ export default function VocabStageController() {
         } else if (totalProgress === 4){ 
 
             if(isVocabsUpdated){
-                filterVocab()
+                filterVocab(totalProgress)
 
                 if (middleProgress === 1 && isFiltered){
                     setComponentToRender(() => twoSpellTestComponent); // Test Component

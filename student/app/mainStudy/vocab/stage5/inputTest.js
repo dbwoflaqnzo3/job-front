@@ -1,63 +1,49 @@
 'use client'
 import styles from "../../../styles/vocaStage5_Test.module.css"
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation"
+import EndTestModal from "@/app/utils/endTestModal";
+import Timer from "@/app/utils/Timer";
+import CheckAnswerModal from "@/app/utils/checkAnswerModal";
 
 export default function InputTest({ onTestComplete, vocabs }) {
-    const router = useRouter();
     const [showPopup, setShowPopup] = useState(false);
-    const [correctCount, setCorrectCount] = useState(0);
 
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
     const [inputValue, setInputValue] = useState(""); // 입력값 상태
     const [vocabData, setVocabData] = useState(vocabs); // 전체 단어 데이터 저장
     const [currentWord, setCurrentWord] = useState(vocabData[0]); // 현재 단어
     const [passResults, setPassResults] = useState(Array(vocabData.length).fill(false)); // 정답 상태 배열
+    const [checkModalOpen, setCheckModalOpen] = useState(false) //단어 제출 시 정답 여부 img modal 표시
 
     // 타이머 관련 상태
-    const [timeLeft, setTimeLeft] = useState(3); // 초기 시간 설정 (예: 3초)
-    const clickedIndex = useRef(null);
-    const isPassed = useRef(true);
-
-    // 타이머 초기 설정
-    useEffect(() => {
-        document.documentElement.style.setProperty("--animation-duration", `${timeLeft}s`);
-    }, [timeLeft]);
-
-    // 타이머 진행
-    useEffect(() => {
-        if (timeLeft > 0) {
-            const interval = setInterval(() => {
-                setTimeLeft((prev) => {
-                    if (prev <= 1) {
-                        if (clickedIndex.current === null && currentIndex <= vocabData.length - 1) {
-                            isPassed.current = false;
-                            handlePassUpdate(currentIndex, false);
-                            setTimeout(() => handleNextAutomatically(), 1000);
-                        }
-                        return 0;
-                    }
-                    return prev - 1;
-                });
-            }, 1000);
-            return () => clearInterval(interval);
-        }
-    }, [timeLeft, currentIndex, vocabData.length]);
+    const [initialTime, setInitialTime] = useState(10)
+    const [key, setKey] = useState(0) // key 값이 증가할 때마다 타이머 재랜더링됨
+    const isPassed = useRef(null);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value); // 입력값 업데이트
     };
 
-    const handleNext = (e) => {
-        e.preventDefault();
+    const handleNext = () => {
 
         // 정답 여부 확인
-        const isCorrect = inputValue.trim().toLowerCase() === currentWord?.english.toLowerCase();
-        
+        isPassed.current = inputValue.trim().toLowerCase() === currentWord?.english.toLowerCase();
+
         // passResults 업데이트
-        const updatedPassResults = [...passResults];
-        updatedPassResults[currentIndex] = isCorrect;
-        setPassResults(updatedPassResults);
+        setPassResults((prevResults) => {
+            const updatedResults = [...prevResults];
+            updatedResults[currentIndex] = isPassed.current;
+            return updatedResults;
+        })
+
+        setCheckModalOpen(true)
+        setTimeout(() => moveToNext(), 1000)
+
+    };
+
+    const moveToNext = () => {
+
+        setCheckModalOpen(false)
 
         // 다음 단어로 이동
         if (currentIndex < vocabData.length - 1) {
@@ -65,80 +51,94 @@ export default function InputTest({ onTestComplete, vocabs }) {
             setCurrentIndex(nextIndex);
             setCurrentWord(vocabData[nextIndex]); // 다음 단어 설정
             setInputValue(""); // 입력 필드 초기화
-            setTimeLeft(3); // 타이머 초기화
+            setKey((prev) => prev + 1)
         } else {
-            setCorrectCount(updatedPassResults.filter(result => result).length); // 정답 개수 계산
             setShowPopup(true);
-            console.log("passR", updatedPassResults);
-
-            const stage = 5; 
-            onTestComplete({ result: updatedPassResults, stage: stage }); // stage 추가
         }
-    };
+    }
 
-    const handleNextAutomatically = () => {
-        // 자동으로 다음 단어로 이동 (타임아웃 시)
-        if (currentIndex < vocabData.length - 1) {
-            const nextIndex = currentIndex + 1;
-            setCurrentIndex(nextIndex);
-            setCurrentWord(vocabData[nextIndex]);
-            setInputValue("");
-            setTimeLeft(3); // 타이머 초기화
+    const handleSpeakVoice = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        speakText(currentWord.english)
+    }
+
+    // 학습 단어 발음 듣기
+    const speakText = (text) => {
+        if (window.speechSynthesis) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.5;  // 음성 속도
+            utterance.pitch = 1; // 음성 피치
+            utterance.lang = "en-US"; // 음성 언어 설정
+
+            // 음성을 시작
+            window.speechSynthesis.speak(utterance);
         } else {
-            setCorrectCount(passResults.filter(result => result).length);
-            setShowPopup(true);
-            console.log("passR", passResults);
-
-            const stage = 5; 
-            onTestComplete({ result: passResults, stage: stage });
+            alert("이 브라우저는 SpeechSynthesis를 지원하지 않습니다.");
         }
-    };
+    }
 
-    const handlePassUpdate = (index, isPassed) => {
-        const updatedPassResults = [...passResults];
-        updatedPassResults[index] = isPassed;
-        setPassResults(updatedPassResults);
-    };
+    const handleSubmit = () => {
+        onTestComplete({ result: passResults, stage: 5 })
+    }
 
     return (
         <div className={styles.container}>
-            <div className={styles.contents}>
-                <h2>Vocabulary / Unit</h2>
 
-                <p>다음 단어를 영어로 작성하세요(테스트)</p>
-                <div className={styles.wordBox}>
-                    {currentWord ? currentWord.korean : 'Loading...'}
+
+            <div className={styles.containerHead1}>
+                <p className={styles.head1}>
+                    다음 단어를 영어로 작성하세요
+                </p>
+            </div>
+
+            <div className={styles.contentContainer}>
+                <div className={styles.timerContainer} key={key}>
+                    <Timer initialTime={initialTime} handleNext={handleNext} />
                 </div>
-                <input
-                    className={styles.input}
-                    type="text"
-                    placeholder="단어 입력"
-                    value={inputValue}
-                    onChange={handleInputChange}
-                />
-                <div className={styles.buttonWrapper}>
-                    <button className={styles.button} onClick={handleNext}>
-                        확인
-                    </button>
+                <div className={styles.wordBoxContainer}>
+                    <div className={styles.wordBox}>
+                        <p>
+                            {currentWord ?
+                                `${currentWord.korean}`
+                                : 'Loading...'}
+                        </p>
 
-                    {/* 타이머 표시 */}
-                    <div className={styles.timerContainer}>
-                        <div className={styles.testTimer}>
-                            <div className={styles.testTimerCover}></div>
-                        </div>
-                        <p className={styles.leftTime}>{timeLeft}s</p>
+                        <button className={styles.pronounceBtn} onClick={handleSpeakVoice}>
+                            <img src="/icons/pronounceIcon.svg" className={styles.pronounceIcon}></img>
+                            발음듣기
+                        </button>
                     </div>
 
-                    {/* 팝업 표시 */}
-                    {showPopup && (
-                        <TestEndPopup 
-                            correctCount={correctCount} 
-                            totalCount={vocabData.length} 
-                            onClose={() => setShowPopup(false)} 
-                        />
-                    )}
+                    <input
+                        className={styles.inputAllSpell}
+                        type="text"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        placeholder="단어를 입력해주세요."
+                    />
+
+                    <div className={styles.buttonWrapper}>
+                        <button className={styles.button} onClick={handleNext}>
+                            확인
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            {
+                checkModalOpen &&
+                <CheckAnswerModal isPassed={isPassed.current} />
+
+            }
+
+            {/* 팝업 표시 */}
+            {showPopup && (
+                <EndTestModal
+                    passResults={passResults}
+                    handleSubmit={handleSubmit}
+                />
+            )}
         </div>
     );
 }

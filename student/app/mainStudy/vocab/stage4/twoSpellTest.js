@@ -31,6 +31,7 @@ export default function twoInputTest({ onTestComplete, vocabs }) {
         // 정답 여부 확인
         isCorrect.current = inputValue.trim().toLowerCase() === currentWord?.english.toLowerCase().substr(0, 2);
 
+        // passResults 업데이트
         setPassResults((prevResults) => {
             const updatedResults = [...prevResults];
             updatedResults[currentIndex] = isCorrect.current;
@@ -45,6 +46,8 @@ export default function twoInputTest({ onTestComplete, vocabs }) {
 
     const moveToNext = () => {
 
+        setCheckModalOpen(false)
+
         // 다음 단어로 이동
         if (currentIndex < vocabData.length - 1) {
             const nextIndex = currentIndex + 1;
@@ -55,14 +58,11 @@ export default function twoInputTest({ onTestComplete, vocabs }) {
         } else {
             setShowPopup(true);
         }
-
-        setCheckModalOpen(false)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const stage = 4;
-        onTestComplete({ result: passResults, stage: stage }); // stage 추가
+        onTestComplete({ result: passResults, stage: 4 }); // stage 추가
     }
 
     return (

@@ -1,9 +1,10 @@
 'use client'
 import styles from "../../../styles/vocaStage5_Study.module.css"
+import EndStudyModal from "@/app/utils/endStudyModal";
 import { useState } from "react";
 import { useRouter } from "next/navigation"
 
-export default function Stage5_Study({ onTestComplete, vocabs }) {
+export default function Stage4_Study({ onTestComplete, vocabs }) {
     const router = useRouter();
     const [showPopup, setShowPopup] = useState(false);
 
@@ -23,8 +24,8 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
     const [isTested, setIsTested] = useState(false);
     const [inputColor, setInputColor] = useState("");
 
-    const a = onTestComplete;
-    console.log(a);
+    // 테스트 단계로 넘길 단어 set
+    const passResults = Array(vocabs.length).fill(false); // 정답 상태 배열
 
     const handleInputChange = (e) => {
         const newInputValue = e.target.value;
@@ -110,12 +111,21 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
         setInputColor("");
     };
 
+    const handleSubmit = () => {
+        onTestComplete({result: passResults, stage: 5})
+    }
+
     return (
         <div className={styles.container}>
+
             <div className={styles.contents}>
 
-                <h2>Vocabulary / Unit</h2>
-                <p>다음 단어를 영어로 아는데로 작성하세요(스터디)</p>
+                <div className={styles.containerHead1}>
+                    <p className={styles.head1}>
+                        다음 단어를 영어로 작성하세요
+                    </p>
+                </div>
+
                 {/* wordBox와 wordList를 나란히 배치 */}
                 <div className={styles.wordBoxWrapper}>
                     <div className={styles.wordList}>
@@ -138,13 +148,14 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
                 </div>
 
                 <input
-                    className={styles.input}
+                    className={styles.inputAllSpell}
                     type="text"
                     placeholder="단어 입력"
                     value={inputValue}
                     onChange={handleInputChange} // 입력값이 바뀔 때마다 처리
                     style={{ borderColor: inputColor }} // 입력창 테두리 색상 변경
                 />
+
                 <div className={styles.buttonWrapper}>
                     <button
                         className={styles.button}
@@ -156,10 +167,10 @@ export default function Stage5_Study({ onTestComplete, vocabs }) {
 
                     {/* 팝업 표시 */}
                     {showPopup && (
-                        <TestEndPopup
-                            correctCount={vocabData.length}
-                            totalCount={vocabData.length}
-                            onClose={() => setShowPopup(false)}
+                        <EndStudyModal
+                            passResults={passResults}
+                            onTestComplete={handleSubmit}
+                            modalControll={() => setShowPopup(false)}
                         />
                     )}
                 </div>
