@@ -1,7 +1,7 @@
 'use client'
 
 // import MiddlewarePlugin from "next/dist/build/webpack/plugins/middleware-plugin";
-import styles from "./study.module.css";
+import styles from "../../../styles/vocaStage1_Study.module.css";
 
 import { useState, useEffect, useSyncExternalStore } from "react";
 import EndStudyModal from "@/app/utils/endStudyModal";
@@ -183,11 +183,6 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
         <div className={styles.wrapper}>
             <div className={styles.container}>
 
-                {/* 프로그레스 바 */}
-                <div className={styles.progressBarDiv}>
-                    프로그레스 바
-                </div>
-
                 <p className={styles.instruction}>단어를 발음해보세요</p>
 
                 {/*-----메인 컨텐츠-----*/}
@@ -222,7 +217,7 @@ export default function SpeakingStudy({ vocabs, onTestComplete }) {
                                 <button onClick={handleSpeakVoice} className={styles.computerVoice}>
                                     <span style={{ display: "flex", alignItems: "center", gap: "0.4em"}}>
                                         <img
-                                            src="/assets/images/icons/듣기.svg"
+                                            src="/icons/듣기.svg"
                                             alt="듣기 Icon"
                                             style={{ width: "1em", height: "1em", verticalAlign: "middle" }}
                                         />
@@ -400,7 +395,7 @@ export function VoiceRecording({ shouldReset, getAudio }) {
                 }}
                 className={styles.recordButton}
             >
-                <img src="/assets/images/icons/녹음하기.svg" alt="Mic Icon"  style={{userSelect : "none"}} draggable="false"/>
+                <img src="/icons/녹음하기.svg" alt="Mic Icon"  style={{userSelect : "none"}} draggable="false"/>
             </button>
             <p className={styles.recordInstruction}>{isRecording ? "녹음중지" : "녹음하기"}</p>
             <p className={styles.recordSubInstruction}>{isRecording ? "녹음이 끝나면 마이크를 눌러" : "마이크를 누르고 발음하세요"}</p>

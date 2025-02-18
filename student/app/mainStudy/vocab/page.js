@@ -54,7 +54,8 @@ export default function VocabStageController() {
                 //테스트를 위해서 result로 잠시 변환 
                 setVocabs(updatedResult);
 
-                setTotalProgress(resultStudentLessonInfo.studyMode[0])
+                // setTotalProgress(resultStudentLessonInfo.studyMode[0])
+                setTotalProgress(4)
                 setIsVocabsUpdated(true)
 
                 setTotalVocabs(resultVocabData.map(item => ({
