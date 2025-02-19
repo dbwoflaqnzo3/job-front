@@ -1,11 +1,40 @@
 "use client";
-import React, { useState, cloneElement } from "react";
+import React, { useState } from "react";
 import styles from "./table.module.css";
+
+class TableEntity {
+  constructor(fields, values) {
+    this.fields = fields;
+    this.values = values;
+  }
+
+  static fromObjects(objects) {
+    if (!objects || objects.length === 0) return new TableEntity([], []);
+    const fields = Object.keys(objects[0]);
+    const values = objects.map((obj) => fields.map((field) => obj[field] ?? ""));
+    return new TableEntity(fields, values);
+  }
+}
+
+export function TableExpandableBody(props, {
+  hiddenData
+}) {
+  return (
+    <>
+      <TableBody {...props}>{props.children}</TableBody>
+      <div></div>
+    </>
+  );
+}
 
 export function TableBody({ 
   children,
   textStyles = [],
   columnRatios = [],
+  paddingLeft,
+  paddingRight,
+  gap,
+  ratioSum,
   rowPaddingVertical = 22,
   onSelect,
 }) {
@@ -14,11 +43,19 @@ export function TableBody({
   const defaultTextStyles = new Array(columns).fill("ko-md-17");
   textStyles = textStyles.length === columns ? textStyles : defaultTextStyles;
 
-  const style = (index) => { return {
-    paddingTop: rowPaddingVertical,
-    paddingBottom: rowPaddingVertical,
-    width: `${(columnRatios[index] / columnRatios.reduce((a, b) => a + b, 0)) * 100}%`
-  }};
+  const style = (index) => { 
+    let width = columnRatios[index];
+
+    if (index === 0) width += paddingLeft + gap * .5;
+    else if (index === columns - 1) width += paddingRight + gap * .5;
+    else width += gap;
+
+    return {
+      paddingTop: rowPaddingVertical,
+      paddingBottom: rowPaddingVertical,
+      width: `${(width / ratioSum) * 100}%`
+    };
+  };
 
   const handleRowClick = (index) => {
     setSelectedIndex(index); 
@@ -52,17 +89,29 @@ export function TableHeader({
   children, 
   textStyles = [], 
   columnRatios = [],
+  paddingLeft,
+  paddingRight,
+  gap,
+  ratioSum,
   paddingVertical = 16,
 }) {
   const columns = children.length;
   const defaultTextStyles = new Array(columns).fill("ko-sb-20");
   textStyles = textStyles.length === columns ? textStyles : defaultTextStyles;
   
-  const style = (index) => { return {
-    paddingTop: paddingVertical,
-    paddingBottom: paddingVertical,
-    width: `${(columnRatios[index] / columnRatios.reduce((a, b) => a + b, 0)) * 100}%`
-  }};
+  const style = (index) => { 
+    let width = columnRatios[index];
+
+    if (index === 0) width += paddingLeft + gap * .5;
+    else if (index === columns - 1) width += paddingRight + gap * .5;
+    else width += gap;
+
+    return {
+      paddingTop: paddingVertical,
+      paddingBottom: paddingVertical,
+      width: `${(width / ratioSum) * 100}%`
+    };
+  };
 
   return (
     <thead>
@@ -87,6 +136,7 @@ export function Table({
   height = "auto", 
   children,
   columnRatios = [],
+  columnGap = 40,
   paddingLeft = 10,
   paddingRight = 10,
 }) {
@@ -94,8 +144,18 @@ export function Table({
     .find((child) => child.type === TableHeader);
   const columns = tableHeader ? React.Children
     .count(tableHeader.props.children) : 0;
-  const defaultRatios = new Array(columns).fill(0);
-  columnRatios = columnRatios.length === columns ? columnRatios : defaultRatios;
+    
+    const defaultRatios = new Array(columns).fill(0);
+    columnRatios = columnRatios.length === columns ? columnRatios : defaultRatios;
+    console.log('#', columnRatios, columns);
+
+  const modifiedRatios = columnRatios.flatMap((ratio, index) =>
+    index < columnRatios.length - 1 ? [ratio, columnGap] : [ratio]
+  );
+  console.log('@', modifiedRatios);
+  const ratios = [paddingLeft, ...modifiedRatios, paddingRight];
+  const ratioSum = ratios.reduce((a, b) => a + b, 0);
+  console.log(ratios, ratioSum);
 
   let background = "";
   if (theme === "primary") background = "student";
@@ -106,8 +166,9 @@ export function Table({
     "--header-color": `var(--${theme}-200)`,
     "--row-color": `var(--black-100)`,
     "--clicked-color": `var(--background-${background})`,
-    "--padding-left": `${paddingLeft}px`,
-    "--padding-right": `${paddingRight}px`,
+    "--padding-left": `${paddingLeft / ratioSum * 100}%`,
+    "--padding-right": `${paddingRight / ratioSum * 100}%`,
+    "--column-gap": `${columnGap / ratioSum * 100}%`,
     width, height,
     maxHeight: height,
   };
@@ -116,6 +177,10 @@ export function Table({
     React.cloneElement(child, {
       ...child.props,
       columnRatios: columnRatios,
+      paddingLeft: paddingLeft,
+      paddingRight: paddingRight,
+      gap: columnGap,
+      ratioSum: ratioSum,
     })
   );
 

@@ -339,8 +339,8 @@ function table() {
         <Column>
           <p>{selectedIndex1}번 선택됨</p>
           <Table
-            paddingLeft="7.38rem"
-            paddingRight="4.5rem"
+            paddingLeft={118}
+            paddingRight={72}
             height={500}
             columnRatios={columnRatios1}
           >
@@ -355,7 +355,7 @@ function table() {
           <p>{selectedIndex2}번 선택됨</p>
           <Table
             theme="secondary"
-            paddingLeft="2.5rem"
+            paddingLeft={40}
             paddingRight={0}
             height={500}
             columnRatios={columnRatios2}

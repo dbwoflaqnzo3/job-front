@@ -31,12 +31,18 @@
 
 .table tbody tr {
   border-bottom: var(--border-color) 1px solid;
+  cursor: pointer;
+}
+
+.table tr th, .table tr td {
+  padding-left: calc(var(--column-gap) * .5);
+  padding-right: calc(var(--column-gap) * .5);
 }
 
 .table tr td:first-child,
-.table tr th:first-child { padding-left: var(--padding-left); }
+.table tr th:first-child { padding-left: var(--padding-left) !important; }
 .table tr td:last-child,
-.table tr th:last-child { padding-right: var(--padding-right); }
+.table tr th:last-child { padding-right: var(--padding-right) !important; }
 .table th, .table td { text-align: center; }
 
 .table .header { background-color: var(--header-color); }
