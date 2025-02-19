@@ -48,3 +48,8 @@
 .table tbody tr:hover { 
   background-color: var(--clicked-color); 
 }
+
+.table tr.selected {
+  background-color: var(--clicked-color) !important;
+  transition: background-color 0.2s ease-in-out;
+}

@@ -1,5 +1,5 @@
 "use client";
-import React, { cloneElement } from "react";
+import React, { useState, cloneElement } from "react";
 import styles from "./table.module.css";
 
 export function TableBody({ 
@@ -7,7 +7,9 @@ export function TableBody({
   textStyles = [],
   columnRatios = [],
   rowPaddingVertical = 22,
+  onSelect,
 }) {
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const columns = children[0].length;
   const defaultTextStyles = new Array(columns).fill("ko-md-17");
   textStyles = textStyles.length === columns ? textStyles : defaultTextStyles;
@@ -18,10 +20,19 @@ export function TableBody({
     width: `${(columnRatios[index] / columnRatios.reduce((a, b) => a + b, 0)) * 100}%`
   }};
 
+  const handleRowClick = (index) => {
+    setSelectedIndex(index); 
+    if (onSelect) onSelect(index);
+  };
+
   return (
     <tbody>
       {children.map((row, rowIndex) => (
-        <tr key={rowIndex}>
+        <tr 
+          key={rowIndex}
+          className={rowIndex === selectedIndex ? styles["selected"] : ""}
+          onClick={() => handleRowClick(rowIndex)}
+        >
           {row.map((cell, cellIndex) => (
             <td 
               className={textStyles[cellIndex]} 

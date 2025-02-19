@@ -324,35 +324,49 @@ function table() {
   const data1 = new Array(10).fill(["24/12/12", "학원비, 교재비", "신용카드", "₩ 21,120"]);
   const columnRatios1 = [94, 212, 94, 212];
   const textStyles1 = ["ko-md-17", "ko-md-17", "ko-md-17", "ko-md-24"];
-
+  const [selectedIndex1, setSelectedIndex1] = useState(-1);
+  
   const titles2 = ["이름", "결제일자", "결제내용", "결제수단", "금액"];
   const data2 = new Array(20).fill(["전서현", "24/12/12", "학원비, 교재비", "신용카드", "₩ 21,120"]);
   const columnRatios2 = [94, 94, 212, 94, 212];
   const textStyles2 = ["ko-md-17", "ko-md-17", "ko-md-17", "ko-md-17", "ko-md-24"];
-
+  const [selectedIndex2, setSelectedIndex2] = useState(-1);
+  
   return (
     <section>
       <h2>Table</h2>
-      <Column gap={50}>
-        <Table
-          paddingLeft="7.38rem"
-          paddingRight="4.5rem"
-          height={500}
-          columnRatios={columnRatios1}
-        >
-          <TableHeader>{titles1}</TableHeader>
-          <TableBody textStyles={textStyles1}>{data1}</TableBody>
-        </Table>
-        <Table
-          theme="secondary"
-          paddingLeft="2.5rem"
-          paddingRight={0}
-          height={500}
-          columnRatios={columnRatios2}
-        >
-          <TableHeader>{titles2}</TableHeader>
-          <TableBody textStyles={textStyles2}>{data2}</TableBody>
-        </Table>
+      <Column gap={30}>
+        <Column>
+          <p>{selectedIndex1}번 선택됨</p>
+          <Table
+            paddingLeft="7.38rem"
+            paddingRight="4.5rem"
+            height={500}
+            columnRatios={columnRatios1}
+          >
+            <TableHeader>{titles1}</TableHeader>
+            <TableBody 
+              textStyles={textStyles1}
+              onSelect={setSelectedIndex1}
+            >{data1}</TableBody>
+          </Table>
+        </Column>
+        <Column>
+          <p>{selectedIndex2}번 선택됨</p>
+          <Table
+            theme="secondary"
+            paddingLeft="2.5rem"
+            paddingRight={0}
+            height={500}
+            columnRatios={columnRatios2}
+          >
+            <TableHeader>{titles2}</TableHeader>
+            <TableBody 
+              textStyles={textStyles2}
+              onSelect={setSelectedIndex2}
+            >{data2}</TableBody>
+          </Table>
+        </Column>
       </Column>
     </section>
   );
