@@ -1,81 +1,218 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./table.module.css";
+import ArrowDown from "@/public/assets/images/icons/arrowDown.svg";
+import { Column, Row } from "@/app/widgets/structure/Grid";
 
-class TableEntity {
-  constructor(fields, values) {
-    this.fields = fields;
-    this.values = values;
+export const FieldState = Object.freeze({
+  VISIBLE: "표시",
+  HIDDEN: "숨김",
+  DISABLED: "사용하지 않음"
+});
+
+export class TableEntity {
+  constructor(data) {
+    if (!Array.isArray(data) || data.length === 0) {
+      this.header = [];
+      this.rows = [];
+      this.states = {};
+      return;
+    }
+
+    const fieldMappings = data[0].constructor.fieldMappings || {};
+    this.header = Object.keys(fieldMappings).map((key) => ({
+      key,
+      label: fieldMappings[key],
+    }));
+
+    this.states = data[0].constructor.states || {};
+    this.rows = data.map((item) =>
+      this.header.map(({ key }) => this.formatValue(key, item[key]))
+    );
   }
 
-  static fromObjects(objects) {
-    if (!objects || objects.length === 0) return new TableEntity([], []);
-    const fields = Object.keys(objects[0]);
-    const values = objects.map((obj) => fields.map((field) => obj[field] ?? ""));
-    return new TableEntity(fields, values);
+  isPriceField(key) {
+    return ["비", "price", "amount", "cost"].some((field) => key.toLowerCase().includes(field));
+  }
+
+  formatValue(key, value) {
+    if (this.isPriceField(key) && typeof value === "number") {
+      return `₩ ${value.toLocaleString("ko-KR")}`;
+    }
+
+    if (value instanceof Date || (!isNaN(Date.parse(value)) && typeof value !== "string")) {
+      const date = new Date(value);
+      const year = date.getFullYear() % 100;
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+      return `${year}/${month}/${day}`;
+    }
+
+    if (typeof value === "object" && value !== null) {
+      return Object.entries(value)
+        .map(([k, v]) => `${k}: ${this.formatValue(k, v)}`)
+        .join("\n");
+    }
+
+    return value ?? "N/A";
+  }
+
+  getVisibleHeaders() {
+    return this.header
+      .filter(({ key }) => this.states[key] === FieldState.VISIBLE)
+      .map(({ label }) => label);
+  }
+
+  getHeadersWithHidden() {
+    return this.header
+      .filter(({ key }) => this.states[key] !== FieldState.DISABLED)
+      .map(({ label }) => label);
+  }
+
+  getVisibleRows() {
+    const visibleKeys = this.header
+      .filter(({ key }) => this.states[key] === FieldState.VISIBLE)
+      .map(({ key }) => key);
+
+    return this.rows.map((row) =>
+      row.filter((_, index) => visibleKeys.includes(this.header[index].key))
+    );
+  }
+
+  getRowsWithHidden() {
+    const validKeys = this.header
+      .filter(({ key }) => this.states[key] !== FieldState.DISABLED)
+      .map(({ key }) => key);
+
+    return this.rows.map((row) =>
+      row.filter((_, index) => validKeys.includes(this.header[index].key))
+    );
   }
 }
 
-export function TableExpandableBody(props, {
-  hiddenData
+export function TableExpandableBody({
+  children,
+  rowPaddingVertical = 22,
+  textStyles,
 }) {
+  const entity = new TableEntity(children);
+  const rows = entity.getVisibleRows();
+  const rowsWithHidden = entity.getRowsWithHidden();
+  const headers = [...entity.getVisibleHeaders(), " "];
+  const headersWithHidden = entity.getHeadersWithHidden();
+  const columns = headers.length;
+
+  const defaultTextStyles = new Array(columns).fill("ko-md-17");
+  textStyles = textStyles ?? defaultTextStyles;
+
+  const style = {
+    paddingTop: rowPaddingVertical,
+    paddingBottom: rowPaddingVertical,
+  };
+
+  const [expandedRows, setExpandedRows] = useState({});
+
+  const toggleRow = (index) => {
+    setExpandedRows((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
+
   return (
-    <>
-      <TableBody {...props}>{props.children}</TableBody>
-      <div></div>
-    </>
+    <tbody>
+      {rows.map((row, rowIndex) => {
+        const isExpanded = expandedRows[rowIndex];
+        return (
+          <React.Fragment key={rowIndex}>
+            <tr
+              className={`${styles["expandable-row"]} ${isExpanded ? styles["expanded"] : styles["hidden"]}`}
+              onClick={() => toggleRow(rowIndex)}
+            >
+              {row.map((cell, cellIndex) => (
+                <td key={cellIndex} style={style} className={textStyles[cellIndex]}>
+                  {cell}
+                </td>
+              ))}
+              <td className={styles["arrow-container"]}>
+                <ArrowDown className={`${styles["arrow-icon"]} ${isExpanded ? styles["rotated"] : ""}`} width={24} height={24} />
+              </td>
+            </tr>
+            <tr className={`${styles["hidden-row"]} ${isExpanded ? styles["show"] : ""} ko-reg-17`}>
+              <td colSpan={headers.length}>
+                <div className={styles["hidden-content"]}>
+                  <Column gap={24}>
+                    {rowsWithHidden[rowIndex].map((cell, index) => {
+                      const header = headersWithHidden[index];
+                      const isNested = typeof cell === "string" && cell.includes(":");
+                      let child = cell;
+
+                      if (isNested) {
+                        child = cell.split("\n").map((line, i) => {
+                          const [key, value] = line.split(":").map((s) => s.trim());
+                          return (
+                            <p key={i} className={styles["nested-line"]}>
+                              <span className={styles["value"]}>{value}</span>
+                              <span className={styles["key"]}> ({key})</span>
+                            </p>
+                          );
+                        });
+                      }
+                      return (
+                        <div key={index} className={styles["sub-container"]}>
+                          <Row justifyContent="space-between">
+                            <div className={styles["subtitle"]}>{header}</div>
+                            <div className={`${styles["subdata"]} ${isNested ? styles["nested"] : ""} ${isNested ? "ko-reg-15" : ""}`}>
+                              {child}
+                            </div>
+                          </Row>
+                        </div> 
+                      );
+                    })}
+                  </Column>
+                </div>
+              </td>
+            </tr>
+          </React.Fragment>
+        );
+      })}
+    </tbody>
   );
 }
 
 export function TableBody({ 
   children,
-  textStyles = [],
-  columnRatios = [],
-  paddingLeft,
-  paddingRight,
-  gap,
-  ratioSum,
   rowPaddingVertical = 22,
+  textStyles,
   onSelect,
 }) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const columns = children[0].length;
+
+  const entity = new TableEntity(children);
+  const rows = entity.getVisibleRows();
+  const headers = entity.getVisibleHeaders();
+  const columns = headers.length;
+
   const defaultTextStyles = new Array(columns).fill("ko-md-17");
-  textStyles = textStyles.length === columns ? textStyles : defaultTextStyles;
+  textStyles = textStyles ?? defaultTextStyles;
 
-  const style = (index) => { 
-    let width = columnRatios[index];
-
-    if (index === 0) width += paddingLeft + gap * .5;
-    else if (index === columns - 1) width += paddingRight + gap * .5;
-    else width += gap;
-
-    return {
-      paddingTop: rowPaddingVertical,
-      paddingBottom: rowPaddingVertical,
-      width: `${(width / ratioSum) * 100}%`
-    };
+  const style = {
+    paddingTop: rowPaddingVertical,
+    paddingBottom: rowPaddingVertical,
   };
 
   const handleRowClick = (index) => {
-    setSelectedIndex(index); 
+    setSelectedIndex(index);
     if (onSelect) onSelect(index);
   };
 
   return (
     <tbody>
-      {children.map((row, rowIndex) => (
+      {rows.map((row, rowIndex) => (
         <tr 
           key={rowIndex}
           className={rowIndex === selectedIndex ? styles["selected"] : ""}
           onClick={() => handleRowClick(rowIndex)}
         >
           {row.map((cell, cellIndex) => (
-            <td 
-              className={textStyles[cellIndex]} 
-              key={cellIndex} 
-              style={style(cellIndex)}
-            >
+            <td key={cellIndex} style={style} className={textStyles[cellIndex]}>
               {cell}
             </td>
           ))}
@@ -86,44 +223,44 @@ export function TableBody({
 }
 
 export function TableHeader({ 
-  children, 
-  textStyles = [], 
-  columnRatios = [],
-  paddingLeft,
+  children,
+  columnRatios, 
+  paddingLeft, 
   paddingRight,
   gap,
   ratioSum,
-  paddingVertical = 16,
+  isExpandable = false,
 }) {
-  const columns = children.length;
-  const defaultTextStyles = new Array(columns).fill("ko-sb-20");
-  textStyles = textStyles.length === columns ? textStyles : defaultTextStyles;
+  let headers = children;
+  const paddingVertical = 16;
   
-  const style = (index) => { 
+  if (isExpandable) {
+    headers = [...headers, ""];
+    columnRatios = [...columnRatios, 24];
+    ratioSum += 24 + gap;
+  }
+
+  const columns = headers.length;
+
+  const style = (index) => {
     let width = columnRatios[index];
 
-    if (index === 0) width += paddingLeft + gap * .5;
-    else if (index === columns - 1) width += paddingRight + gap * .5;
+    if (index === 0) width += paddingLeft + gap * 0.5;
+    else if (index === columns - 1) width += paddingRight + gap * 0.5;
     else width += gap;
 
     return {
       paddingTop: paddingVertical,
       paddingBottom: paddingVertical,
-      width: `${(width / ratioSum) * 100}%`
+      width: `${width / ratioSum * 100}%`
     };
   };
 
   return (
     <thead>
       <tr className={styles["header"]}>
-        {children.map((title, index) => (
-          <th
-            key={index}
-            className={`${textStyles[index]}`}
-            style={style(index)}
-          >
-            {title}
-          </th>
+        {headers.map((title, index) => (
+          <th key={index} style={style(index)}>{title}</th>
         ))}
       </tr>
     </thead>
@@ -135,31 +272,26 @@ export function Table({
   width = "100%", 
   height = "auto", 
   children,
-  columnRatios = [],
+  columnRatios,
   columnGap = 40,
   paddingLeft = 10,
   paddingRight = 10,
 }) {
-  const tableHeader = React.Children.toArray(children)
-    .find((child) => child.type === TableHeader);
-  const columns = tableHeader ? React.Children
-    .count(tableHeader.props.children) : 0;
-    
-    const defaultRatios = new Array(columns).fill(0);
-    columnRatios = columnRatios.length === columns ? columnRatios : defaultRatios;
-    console.log('#', columnRatios, columns);
+  const tableBody = React.Children.toArray(children)
+    .find(child => [TableBody, TableExpandableBody].includes(child.type));
+  const isExpandable = tableBody.type === TableExpandableBody;
+  const entity = new TableEntity(tableBody.props.children);
+  const headers = entity.getVisibleHeaders();
 
+  columnRatios = columnRatios ?? new Array(headers.length).fill(100);
   const modifiedRatios = columnRatios.flatMap((ratio, index) =>
     index < columnRatios.length - 1 ? [ratio, columnGap] : [ratio]
   );
-  console.log('@', modifiedRatios);
+
   const ratios = [paddingLeft, ...modifiedRatios, paddingRight];
   const ratioSum = ratios.reduce((a, b) => a + b, 0);
-  console.log(ratios, ratioSum);
 
-  let background = "";
-  if (theme === "primary") background = "student";
-  else if (theme === "secondary") background = "teacher";
+  let background = theme === "primary" ? "student" : "teacher";
 
   const style = {
     "--border-color": `var(--${theme}-300)`,
@@ -186,7 +318,17 @@ export function Table({
 
   return (
     <div className={styles["table-container"]} style={style}>
-      <table className={styles.table}>{children}</table>
+      <table className={styles.table}>
+        <TableHeader 
+          columnRatios={columnRatios} 
+          paddingLeft={paddingLeft} 
+          paddingRight={paddingRight} 
+          gap={columnGap}
+          ratioSum={ratioSum}
+          isExpandable={isExpandable}
+        >{headers}</TableHeader>
+        {children}
+      </table>
       <div className={styles["scroll-gradient"]}></div>
     </div>
   );

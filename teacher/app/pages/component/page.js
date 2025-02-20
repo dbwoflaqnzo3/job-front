@@ -11,7 +11,8 @@ import { SemiCircularGraph, CircularGraph } from "@/app/components/ui/CircularGr
 import TextField from "@/app/components/ui/TextField";
 import Card from "@/app/components/ui/Card";
 import { Validator, ValidatorType } from "@/app/utils/validator";
-import { Table, TableHeader, TableBody } from "@/app/components/ui/Table";
+import { Table, TableBody, TableExpandableBody } from "@/app/components/ui/Table";
+import { Sample, StudentPaymentModel, TeacherPaymentModel } from "@/models/payment";
 
 function nav() {
   return (
@@ -320,18 +321,79 @@ function circulargraphes() {
 }
 
 function table() {
-  const titles1 = ["결제일자", "결제내용", "결제수단", "금액"];
-  const data1 = new Array(10).fill(["24/12/12", "학원비, 교재비", "신용카드", "₩ 21,120"]);
-  const columnRatios1 = [94, 212, 94, 212];
-  const textStyles1 = ["ko-md-17", "ko-md-17", "ko-md-17", "ko-md-24"];
   const [selectedIndex1, setSelectedIndex1] = useState(-1);
+  const textStyles1 = ["ko-md-17", "ko-md-17", "ko-md-17", "ko-md-24"];
+  const data1 = [
+    new TeacherPaymentModel({
+      title: "12월 멤버십 결제",
+      billingDate: new Date("2024-12-01T00:00:00Z"),
+      date: new Date("2024-12-05T00:00:00Z"),
+      method: "신용카드",
+      amount: 200000,
+      manager: "JOB 영어학원",
+    }),
+    new TeacherPaymentModel({
+      title: "11월 멤버십 결제",
+      billingDate: new Date("2024-11-01T00:00:00Z"),
+      date: new Date("2024-11-05T00:00:00Z"),
+      method: "신용카드",
+      amount: 200000,
+      manager: "JOB 영어학원",
+    }),
+    new TeacherPaymentModel({
+      title: "11월 멤버십 결제",
+      billingDate: new Date("2024-11-01T00:00:00Z"),
+      date: new Date("2024-11-05T00:00:00Z"),
+      method: "신용카드",
+      amount: 200000,
+      manager: "JOB 영어학원",
+    }),
+  ];
   
-  const titles2 = ["이름", "결제일자", "결제내용", "결제수단", "금액"];
-  const data2 = new Array(20).fill(["전서현", "24/12/12", "학원비, 교재비", "신용카드", "₩ 21,120"]);
-  const columnRatios2 = [94, 94, 212, 94, 212];
-  const textStyles2 = ["ko-md-17", "ko-md-17", "ko-md-17", "ko-md-17", "ko-md-24"];
-  const [selectedIndex2, setSelectedIndex2] = useState(-1);
+  const textStyles2 = ["ko-md-17", "ko-md-17", "ko-md-17", "ko-md-24"];
+  const data2 = [
+    new StudentPaymentModel({
+      title: "정기결제",
+      amountInfo: { 
+        "12월 학원비": 200000,
+        "교재비": 50000 
+      },
+      billingDate: new Date("2024-12-05"),
+      date: new Date("2024-12-12"),
+      method: "신용카드",
+      amount: 250000,
+      manager: "JOB 영어학원",
+      studentName: "반대준",
+    }),
   
+    new StudentPaymentModel({
+      title: "보충수업비",
+      amountInfo: {
+        "수학 보충수업비": 120000
+      },
+      billingDate: new Date("2024-11-28"),
+      date: new Date("2024-12-01"),
+      method: "계좌이체",
+      amount: 120000,
+      manager: "JOB 영어학원",
+      studentName: "서종현",
+    }),
+  
+    new StudentPaymentModel({
+      title: "방학특강",
+      amountInfo: {
+        "겨울방학 영어특강비": 180000,
+        "교재비": 30000
+      },
+      billingDate: new Date("2025-01-02"),
+      date: new Date("2025-01-05"),
+      method: "현금",
+      amount: 210000,
+      manager: "JOB 영어학원",
+      studentName: "최지안",
+    }),
+  ];
+
   return (
     <section>
       <h2>Table</h2>
@@ -341,10 +403,9 @@ function table() {
           <Table
             paddingLeft={118}
             paddingRight={72}
-            height={500}
-            columnRatios={columnRatios1}
+            // height={300}
+            columnRatios={[94, 212, 94, 212]}
           >
-            <TableHeader>{titles1}</TableHeader>
             <TableBody 
               textStyles={textStyles1}
               onSelect={setSelectedIndex1}
@@ -352,19 +413,16 @@ function table() {
           </Table>
         </Column>
         <Column>
-          <p>{selectedIndex2}번 선택됨</p>
           <Table
             theme="secondary"
-            paddingLeft={40}
-            paddingRight={0}
-            height={500}
-            columnRatios={columnRatios2}
+            paddingLeft={48}
+            paddingRight={48}
+            // height={500}
+            columnRatios={[94, 94, 180, 180]}
           >
-            <TableHeader>{titles2}</TableHeader>
-            <TableBody 
+            <TableExpandableBody
               textStyles={textStyles2}
-              onSelect={setSelectedIndex2}
-            >{data2}</TableBody>
+            >{data2}</TableExpandableBody>
           </Table>
         </Column>
       </Column>

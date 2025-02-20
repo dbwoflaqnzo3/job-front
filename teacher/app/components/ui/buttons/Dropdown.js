@@ -2,7 +2,7 @@
 
 import { useState, useRef, Children, useEffect, cloneElement } from "react";
 import { containsHangeul, containsChoseong, isHangeul } from "@/app/utils/hangeul";
-import ArrowIcon from "@/public/assets/images/icons/dropdownArrow.svg";
+import ArrowIcon from "@/public/assets/images/icons/arrowDown.svg";
 import styles from "./dropdown.module.css";
 
 export function DropdownElement({ label, value, onClick, type }) {
