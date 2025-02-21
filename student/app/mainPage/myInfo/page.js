@@ -1,17 +1,18 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { readStudentInfo } from '@/app/utils/studentInfoUtil';
 import { PageLayout } from '@/app/page';
-import { Row, Column } from "@/app/widgets/structure/Grid";
 import styles from './page.module.css';
 import dynamic from "next/dynamic";
-import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 export default function userPageController() {
-
-    const [errorMessage, setErrorMessage] = useState("");
-    const [userInfo, setUserInfo] = useState({})
+    const router = useRouter();
+    const [errorMessage, setErrorMessage] = useState(""); // 에러 메시지 저장
+    const [userInfo, setUserInfo] = useState({}) // 유저 정보를 저장하는 object 상태
+    const [initDone, setInitDone] = useState(false)
+    let updateDone = useRef(false)
 
 
     useEffect(() => {
@@ -21,8 +22,8 @@ export default function userPageController() {
 
                 setUserInfo(resultUserInfo)
 
+                setInitDone(true)
                 // console.log(typeof(resultUserInfo), "-----")
-                // console.log(userInfo)
             } catch (err) {
                 setErrorMessage(err.message); // 오류 발생 시 상태에 오류 메시지 저장
                 console.log("학생 데이터 fetch 에러 :", { err })
@@ -33,27 +34,69 @@ export default function userPageController() {
 
     }, []);
 
+    useEffect(() => {
+        if (initDone) {
+            // 기존 userInfo에서 원하는 값들만 가공하여 updateBody에 담습니다.
+            let updateBody = {
+                birthDate: userInfo.birthDate.slice(0, 10),
+                phoneNumber: userInfo.phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+                parentNumbers: userInfo.parentNumbers.map(number =>
+                    number.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+                ),
+                email: userInfo.email,
+                userId: userInfo.userId
+            };
+
+            if (userInfo.sex == "Male") {
+                console.log("!!@!")
+                updateBody.sex = "남"
+            } else if (userInfo.sex == "Female") {
+                updateBody.sex = "여"
+            }
+
+            console.log(updateBody, "UPDATE")
+
+
+            // updateBody를 기존 상태와 병합하여 업데이트합니다.
+            setUserInfo(prevUserInfo => ({
+                ...prevUserInfo,
+                ...updateBody
+            }));
+
+            updateDone.current = true
+            setInitDone(false)
+        }
+    }, [initDone]);
+
+    const handlePage = () => {
+        router.push('myInfo/changePassword');
+    };
+
     return (
         <PageLayout>
-            <div className={styles.Container}>
-                <h1 className={styles.instruction}>내 정보</h1>
-                <div className={styles.buttonContainer}>
-                    <div className={styles.hidden}>
-                        <InfoCard instruction="안보이게 변경하기" icon="아이콘" />
+            {userInfo ? (
+                <div className={styles.Container}>
+                    <h1 className={styles.instruction}>내 정보</h1>
+                    <div className={styles.buttonContainer}>
+                        <div className={styles.hidden}>
+                            <InfoCard instruction="안보이게 변경하기" icon="아이콘" />
+                        </div>
+                        <InfoCard instruction="연락처 변경하기" icon="phone" click={handlePage} />
+                        <InfoCard instruction="이메일 변경하기" icon="mail" click={''} />
+                        <InfoCard instruction="비밀번호 변경하기" icon="lock" click={handlePage} />
                     </div>
-                    <InfoCard instruction="연락처 변경하기" icon="phone" />
-                    <InfoCard instruction="이메일 변경하기" icon="mail" />
-                    <InfoCard instruction="비밀번호 변경하기" icon="lock" />
+                    <div className={styles.infoTableContainer}>
+                        {/* {console.log(userInfo)} */}
+
+                        <UserInfoList1 userInfo={userInfo} />
+
+                        <UserInfoList2 userInfo={updateDone && userInfo} updateDone={updateDone} />
+
+                    </div>
                 </div>
-                <div className={styles.infoTableContainer}>
-                    {/* {console.log(userInfo)} */}
-
-                    <UserInfoList1 userInfo={userInfo} />
-
-                    <UserInfoList2 userInfo={userInfo} />
-
-                </div>
-            </div>
+            ) : (
+                <div> Loading... </div>
+            )}
         </PageLayout>
     )
 }
@@ -67,7 +110,7 @@ function InfoCard({ instruction, icon, click }) {
     const IconComponent = useMemo(() => (icon ? getIconComponent(icon) : null), [icon]);
 
     return (
-        <div className={styles.infoCardContainer} onclick={click}>
+        <div className={styles.infoCardContainer} onClick={click}>
             <div className={styles.infoCardInfo}>
                 {instruction.split(" ").map((word, index) => (
                     <span key={index}>
@@ -85,15 +128,7 @@ function InfoCard({ instruction, icon, click }) {
 
 function UserInfoList1(userInfo) {
     const info = userInfo.userInfo
-    const [infoList, setInfoList] = useState([])
-
-    useEffect(() => {
-        if (userInfo) {
-            setInfoList([userInfo.userInfo.name, userInfo.userInfo.status, userInfo.userInfo.level, userInfo.userInfo.grade, userInfo.userInfo.level, userInfo.userInfo.grade])
-        }
-    }, [userInfo])
-
-    console.log(infoList)
+    console.log(userInfo)
 
     return (
         <div className={styles.userInfoListContainer}>
@@ -125,35 +160,61 @@ function UserInfoList1(userInfo) {
     )
 }
 
-function UserInfoList2(userInfo) {
-    const info = userInfo.userInfo
+function UserInfoList2({ userInfo, updateDone }) {
+
+    // const birthday = info.birthDate?.slice(0, 10) || ""; // 생일 수식화
+
+    // const phone = info.phone || "";
+    // if (phone) {
+    //     const formattedPhone = phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+    //     // use formattedPhone
+    //     console.log(formattedPhone, "!!!"); // "010-1234-5678"
+    // }
+
+    useEffect(() => {
+        console.log(userInfo,"!!")
+    })
+
 
     return (
         <div className={styles.userInfoListContainer}>
-            <div className={styles.row}>
-                <div>성별</div>
-                <div>{info.sex}</div>
-            </div>
-            <div className={styles.row}>
-                <div>생년월일</div>
-                <div>{info.birthDate}</div>
-            </div>
-            <div className={styles.row}>
-                <div>연락처</div>
-                <div>{info.phoneNumber}</div>
-            </div>
-            <div className={styles.row}>
-                <div>보호자 연락처</div>
-                <div>{info.parentNumbers}</div>
-            </div>
-            <div className={styles.row}>
-                <div>이메일</div>
-                <div>{info.email}</div>
-            </div>
-            <div className={styles.rowLast}>
-                <div>아이디</div>
-                <div>{info.userId}</div>
-            </div>
+            {
+                userInfo ?
+                    <div>
+                        <div className={styles.row}>
+                            <div>성별</div>
+                            <div>{userInfo.sex}</div>
+                        </div>
+                        <div className={styles.row}>
+                            <div>생년월일</div>
+                            <div>{userInfo.birthDate}</div>
+                        </div>
+                        <div className={styles.row}>
+                            <div>연락처</div>
+                            <div>{userInfo.phoneNumber}</div>
+                        </div>
+                        <div className={styles.row}>
+                            <div>보호자 연락처</div>
+                            <div>{userInfo.parentNumbers}</div>
+                        </div>
+                        <div className={styles.row}>
+                            <div>이메일</div>
+                            <div>{userInfo.email}</div>
+                        </div>
+                        <div className={styles.rowLast}>
+                            <div>아이디</div>
+                            <div>{userInfo.userId}</div>
+                        </div>
+                    </div>
+
+                    :
+                    <div>
+                        Loading
+                    </div>
+
+            }
+
         </div>
+
     )
 }

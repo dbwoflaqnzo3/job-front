@@ -39,7 +39,35 @@
   color: inherit !important;
 }
 
-.error-message {
+.guide {
+  position: relative;
   margin-top: 4px;
-  color: var(--red-3);
+  margin-left: 20px;
+  color: var(--black-700);
+  transition: opacity .2s ease-in-out;
+}
+
+.guide.void { opacity: 0; }
+.guide.error { color: var(--red-3); }
+.guide.matched { color: var(--secondary-600); }
+
+.guide.matched::before {
+  content: "";
+  position: absolute;
+  left: -17px;
+  top: 50%;
+  width: 10px; 
+  height: 5px;
+  border-left: var(--secondary-500) 2px solid;
+  border-bottom: var(--secondary-500) 2px solid;
+  transform: rotate(-45deg) translateY(-30%);
+  transform-origin: 0% 0%;
+  background-color: transparent;
+  animation: checkbox-check .2s ease-in-out forwards;
+}
+
+@keyframes checkbox-check {
+  0% { width: 0; height: 0; opacity: 0; }
+  33% { width: 0; height: 5px; opacity: 1; }
+  100% { width: 10px; height: 5px; opacity: 1; }
 }

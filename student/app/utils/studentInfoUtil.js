@@ -19,6 +19,8 @@ export async function readStudentInfo(){
         const temp_result = await response.json();
         const result = temp_result.students
 
+    //    console.log(result,"~~!~!~!~!") 
+
         return result;
     }catch(e){
         throw new Error(`학생 정보 조회 중 문제 발생 : ${e}`)
