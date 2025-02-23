@@ -54,8 +54,6 @@ export default function userPageController() {
                 updateBody.sex = "여"
             }
 
-            console.log(updateBody, "UPDATE")
-
 
             // updateBody를 기존 상태와 병합하여 업데이트합니다.
             setUserInfo(prevUserInfo => ({
@@ -68,7 +66,13 @@ export default function userPageController() {
         }
     }, [initDone]);
 
-    const handlePage = () => {
+    const handlePage1 = () => {
+        router.push('myInfo/changePhone');
+    };
+    const handlePage2 = () => {
+        router.push('myInfo/changePassword');
+    };
+    const handlePage3 = () => {
         router.push('myInfo/changePassword');
     };
 
@@ -81,16 +85,16 @@ export default function userPageController() {
                         <div className={styles.hidden}>
                             <InfoCard instruction="안보이게 변경하기" icon="아이콘" />
                         </div>
-                        <InfoCard instruction="연락처 변경하기" icon="phone" click={handlePage} />
-                        <InfoCard instruction="이메일 변경하기" icon="mail" click={''} />
-                        <InfoCard instruction="비밀번호 변경하기" icon="lock" click={handlePage} />
+                        <InfoCard instruction="연락처 변경하기" icon="phone" click={()=>handlePage1()} />
+                        <InfoCard instruction="이메일 변경하기" icon="mail" click={()=>handlePage2()} />
+                        <InfoCard instruction="비밀번호 변경하기" icon="lock" click={()=>handlePage3()} />
                     </div>
                     <div className={styles.infoTableContainer}>
                         {/* {console.log(userInfo)} */}
 
                         <UserInfoList1 userInfo={userInfo} />
 
-                        <UserInfoList2 userInfo={updateDone && userInfo} updateDone={updateDone} />
+                        <UserInfoList2 userInfo={updateDone && userInfo} />
 
                     </div>
                 </div>
@@ -126,55 +130,45 @@ function InfoCard({ instruction, icon, click }) {
     )
 }
 
-function UserInfoList1(userInfo) {
-    const info = userInfo.userInfo
-    console.log(userInfo)
+function UserInfoList1({userInfo}) {
+    if (!userInfo) {
+        return <div>로딩중...</div>;
+    }
 
     return (
         <div className={styles.userInfoListContainer}>
             <div className={styles.row}>
                 <div>이름</div>
-                <div>{info.name}</div>
+                <div>{userInfo.name}</div>
             </div>
             <div className={styles.row}>
                 <div>회원상태</div>
-                <div>{info.status}</div>
-            </div>
-            <div className={styles.row}>
-                <div>부서</div>
-                <div>{info.level}</div>
+                <div>{userInfo.status}</div>
             </div>
             <div className={styles.row}>
                 <div>학년</div>
-                <div>{info.grade}</div>
+                <div>{userInfo.grade}</div>
             </div>
             <div className={styles.row}>
                 <div>레벨</div>
-                <div>{info.level}</div>
+                <div>{userInfo.level}</div>
+            </div>
+            <div className={styles.row}>
+                <div>학원 이름</div>
+                <div>JOB 영어학원</div>
             </div>
             <div className={styles.rowLast}>
-                <div>학원반</div>
-                <div>{info.userId}</div>
+                <div>담당 선생님</div>
+                <div>{userInfo?.teacherId?.name || '정보 없음'}</div>
             </div>
         </div>
     )
 }
 
-function UserInfoList2({ userInfo, updateDone }) {
-
-    // const birthday = info.birthDate?.slice(0, 10) || ""; // 생일 수식화
-
-    // const phone = info.phone || "";
-    // if (phone) {
-    //     const formattedPhone = phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
-    //     // use formattedPhone
-    //     console.log(formattedPhone, "!!!"); // "010-1234-5678"
-    // }
-
-    useEffect(() => {
-        console.log(userInfo,"!!")
-    })
-
+function UserInfoList2({ userInfo }) {
+    if (!userInfo) {
+        return <div>로딩중...</div>;
+    }
 
     return (
         <div className={styles.userInfoListContainer}>
