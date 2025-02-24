@@ -13,6 +13,7 @@ import Card from "@/app/components/ui/Card";
 import { Validator, ValidatorType } from "@/app/utils/validator";
 import { Table, TableBody, TableExpandableBody } from "@/app/components/ui/Table";
 import { Sample, StudentPaymentModel, TeacherPaymentModel } from "@/models/payment";
+import { StepElement, StepIndicator } from "@/app/components/layout/StepIndicator";
 
 function nav() {
   return (
@@ -430,6 +431,26 @@ function table() {
   );
 }
 
+function stepIndicator() {
+  const buildIndicator = (progress) => (
+    <StepIndicator currentStep={progress}>
+      <StepElement label="학원 정보 입력" />
+      <StepElement label="회원 정보 입력 및 인증" />
+      <StepElement label="이용약관 동의" />
+      <StepElement label="가입 완료" />
+    </StepIndicator>
+  );
+
+  return (
+    <Column>
+      {buildIndicator(1)}
+      {buildIndicator(2)}
+      {buildIndicator(3)}
+      {buildIndicator(4)}
+    </Column>
+  );
+}
+
 export default function Component() {
   return (
     <div className="page">
@@ -445,6 +466,7 @@ export default function Component() {
             {textFields()}
             {circulargraphes()}
             {table()}
+            {stepIndicator()}
             {/* <div style={{height: "400px"}} /> */}
           </Column>
         </div>
