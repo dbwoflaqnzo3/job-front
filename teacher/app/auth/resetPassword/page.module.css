@@ -1,14 +1,17 @@
 .password {
   display: flex;
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   justify-content: center;
   align-items: center;
 }
 
 .container {
   width: 400px;
+  height: 60%;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
