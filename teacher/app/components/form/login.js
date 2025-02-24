@@ -49,7 +49,7 @@ export default function LoginForm() {
           <TextField
             placeholder="아이디/ID"
             value={formData.userId}
-            onChange={(e) => handleInputChange("userId", e.target.value)}
+            onChange={(value) => handleInputChange("userId", value)}
             error={error}
             stretch 
           />
@@ -58,7 +58,7 @@ export default function LoginForm() {
             type="password"
             placeholder="비밀번호/Password"
             value={formData.password}
-            onChange={(e) => handleInputChange("password", e.target.value)}
+            onChange={(value) => handleInputChange("password", value)}
             error={error}
             stretch 
           />

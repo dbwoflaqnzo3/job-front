@@ -7,6 +7,7 @@ export default function TextField({
   placeholder,
   type = "text",
   onChange,
+  validate,
   value,
   width = 200,
   stretch = false,
@@ -14,7 +15,7 @@ export default function TextField({
   validators = [],
 }) {
   const [inputValue, setInputValue] = useState("");
-  const [hasError, setHasError] = useState(false);
+  const [hasError, setHasError] = useState(true);
 
   if (showMismatchOnly) {
     validators = validators.sort((a, b) => {
@@ -26,9 +27,10 @@ export default function TextField({
     const value = event.target.value.replaceAll(" ", "");
     event.target.value = value;
     setHasError(validators.some((validator) => !validator.isMatch(value)));
+    console.log(validators.map(v => v.isMatch(value)), validators.some((validator) => !validator.isMatch(value)));
+    if (validate) validate(!hasError);
     setInputValue(value);
     if (onChange) onChange(value);
-
   };
 
   width = stretch ? "100%" : width;
