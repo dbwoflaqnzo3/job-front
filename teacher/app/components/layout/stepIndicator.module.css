@@ -1,0 +1,53 @@
+.step-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--black-600);
+}
+
+.index {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--black-200);
+  color: var(--black-500);
+}
+
+.step.active .index {
+  background-color: var(--secondary-500);
+  color: white;
+}
+
+.step.completed .index {
+  background-color: var(--secondary-400);
+  color: white;
+}
+
+.step.active .label {
+  color: var(--secondary-600);
+}
+
+.step.completed .label {
+  color: var(--secondary-500);
+}
+
+.step-line {
+  flex-grow: 1;
+  height: 1px;
+  background-color: var(--black-200);
+}
+
+.step-line.active {
+  background-color: var(--secondary-400);
+}
