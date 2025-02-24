@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Row, Column } from "@/app/widgets/structure/Grid";
 import SizedBox from "@/app/widgets/structure/SizedBox";
 import styles from "./page.module.css";
@@ -11,19 +11,21 @@ import Card from "@/app/components/ui/Card";
 import { EmailDropdownButton1 } from "@/app/components/ui/buttons/Dropdown";
 import { RowFlex } from "@/app/widgets/structure/Flex";
 
-function EmailCertificationForm({
-  onSubmit,
-}) {
+function EmailCertificationForm({ validate, onSubmit }) {
   const [emailPrefix, setEmailPrefix] = useState("");
   const [emailPostFix, setEmailPostfix] = useState("");
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    const valid = emailPrefix !== "" && emailPostFix !== "";
+    setIsValid(valid);
+    if (validate) validate(valid);
+  }, [emailPrefix, emailPostFix]); 
 
   const handleSubmit = () => {
-    const emailValue = emailPrefix + '@' + emailPostFix;
-    console.log(emailValue);
-
-    return;
-    if (onSubmit) onSubmit();
-  }
+    const emailValue = emailPrefix + "@" + emailPostFix;
+    if (onSubmit) onSubmit(emailValue);
+  };
 
   return (
     <Column>
@@ -37,7 +39,8 @@ function EmailCertificationForm({
                 placeholder="example" 
                 onChange={setEmailPrefix}
                 stretch 
-              />@
+              />
+              @
               <EmailDropdownButton1 
                 onSelect={setEmailPostfix} 
                 stretch 
@@ -45,7 +48,7 @@ function EmailCertificationForm({
             </RowFlex>
           </Column>
         </Card>
-        <Button1 text="인증하기" onClick={handleSubmit} stretch />
+        <Button1 text="인증하기" onClick={handleSubmit} disabled={!isValid} stretch />
       </Column>
     </Column>
   );
