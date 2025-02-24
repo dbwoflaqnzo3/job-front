@@ -71,3 +71,16 @@
   33% { width: 0; height: 5px; opacity: 1; }
   100% { width: 10px; height: 5px; opacity: 1; }
 }
+
+.text-field-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.eye-icon {
+  position: absolute;
+  cursor: pointer;
+  display: flex;
+  right: 20px;
+}

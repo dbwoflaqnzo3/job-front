@@ -2,6 +2,9 @@
 import { useState } from "react";
 import styles from "./textField.module.css";
 import { Column } from "@/app/widgets/structure/Grid";
+import EyeOpenIcon from '@/public/assets/images/icons/eyeOpen.svg';
+import EyeCloseIcon from '@/public/assets/images/icons/eyeClose.svg';
+import { Stack } from "@/app/widgets/structure/Stack";
 
 export default function TextField({ 
   placeholder,
@@ -16,6 +19,8 @@ export default function TextField({
 }) {
   const [inputValue, setInputValue] = useState("");
   const [hasError, setHasError] = useState(true);
+  const [inputType, setInputType] = useState(type);
+  const [isObscured, setIsObscured] = useState(true);
 
   if (showMismatchOnly) {
     validators = validators.sort((a, b) => {
@@ -27,7 +32,6 @@ export default function TextField({
     const value = event.target.value.replaceAll(" ", "");
     event.target.value = value;
     setHasError(validators.some((validator) => !validator.isMatch(value)));
-    console.log(validators.map(v => v.isMatch(value)), validators.some((validator) => !validator.isMatch(value)));
     if (validate) validate(!hasError);
     setInputValue(value);
     if (onChange) onChange(value);
@@ -35,7 +39,7 @@ export default function TextField({
 
   width = stretch ? "100%" : width;
 
-  const fieldName = `${styles["text-field"]} ko-md-15 ${hasError ? styles["error"] : ""}`;
+  const fieldName = `${styles["text-field"]} ko-md-15 ${inputValue !== "" && hasError ? styles["error"] : ""}`;
   const matchedText = showMismatchOnly ? "void" : "matched";
 
   const getGuideName = (validator) => {
@@ -45,22 +49,38 @@ export default function TextField({
   };
 
   const onPaste = (event) => {
-    if (type !== "password") return;
+    if (inputType !== "password") return;
     event.preventDefault();
     return false;
+  };
+
+  const toggleObscured = () => {
+    if (type === "password") setInputType(isObscured ? "password" : "text");
+    setIsObscured(!isObscured);
+  };
+
+  const eyeIcon = () => {
+    const size = 20;
+    if (type !== "password") return null;
+    return <div className={styles["eye-icon"]} onClick={toggleObscured}>
+      {isObscured ? <EyeOpenIcon width={size} height={size} /> : <EyeCloseIcon width={size} height={size} />}
+    </div>;
   }
 
   return (
     <div style={{ width }}>
-      <input
-        className={fieldName}
-        type={type} 
-        placeholder={placeholder} 
-        onChange={handleInputChange}
-        value={value}
-        style={{ width }}
-        onPaste={onPaste}
-      />
+      <div className={styles["text-field-container"]}>
+        <input
+          className={fieldName}
+          type={inputType}
+          placeholder={placeholder}
+          onChange={handleInputChange}
+          value={value}
+          style={{ width }}
+          onPaste={onPaste}
+        />
+        {eyeIcon()}
+      </div>
       <Column gap={0}>
         {validators.map((validator, index) => (
           <div 
