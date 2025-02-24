@@ -1,15 +1,14 @@
 .dropdown-container {
   position: relative;
   display: flex;
+  padding: var(--padding-vertical) var(--padding-horizontal);
 }
 
 .dropdown-container.button1 {
-  padding: 8px 24px;
   border-radius: 24px;
   border: var(--secondary-300) 1px solid;
 }
 .dropdown-container.button2 {
-  padding: 8px 16px;
   border-radius: 8px;
   border: var(--secondary-400) 1px solid;
 }

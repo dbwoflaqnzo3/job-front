@@ -157,12 +157,10 @@ export function TableExpandableBody({
                       }
                       return (
                         <div key={index} className={styles["sub-container"]}>
-                          <Row justifyContent="space-between">
-                            <div className={styles["subtitle"]}>{header}</div>
-                            <div className={`${styles["subdata"]} ${isNested ? styles["nested"] : ""} ${isNested ? "ko-reg-15" : ""}`}>
-                              {child}
-                            </div>
-                          </Row>
+                          <div className={styles["subtitle"]}>{header}</div>
+                          <div className={`${styles["subdata"]} ${isNested ? styles["nested"] : ""} ${isNested ? "ko-reg-15" : ""}`}>
+                            {child}
+                          </div>
                         </div> 
                       );
                     })}

@@ -4,7 +4,6 @@ import styles from "./textField.module.css";
 import { Column } from "@/app/widgets/structure/Grid";
 import EyeOpenIcon from '@/public/assets/images/icons/eyeOpen.svg';
 import EyeCloseIcon from '@/public/assets/images/icons/eyeClose.svg';
-import { Stack } from "@/app/widgets/structure/Stack";
 
 export default function TextField({ 
   placeholder,

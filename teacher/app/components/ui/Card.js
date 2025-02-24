@@ -7,8 +7,11 @@ export default function Card({
   padding = 16,
   paddingHorizontal,
   paddingVertical,
+  border = false,
   backgroundColor = "black-100",
   borderColor = "secondary-300",
+  justifyItems = "center",
+  alignItems = "center",
   width,
   height,
 }) {
@@ -22,7 +25,9 @@ export default function Card({
     paddingTop: paddingVertical,
     paddingBottom: paddingVertical,
     backgroundColor: `var(--${backgroundColor})`,
-    borderColor: `var(--${borderColor})`,
+    borderColor: border ? `var(--${borderColor})` : "transparent",
+    justifyItems,
+    alignItems,
     width,
     height,
   };
