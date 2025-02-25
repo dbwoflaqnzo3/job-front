@@ -39,18 +39,18 @@
 
 /* Button Color */
 .button.button1 {
-  background-color: var(--secondary-500);
-  color: var(--black-100);
+  background-color: var(--primary-500);
+  color: var(--black-1000);
 }
-.button.button1:hover { background-color: var(--secondary-600); }
-.button.button1:active { background-color: var(--secondary-700); }
+.button.button1:hover { background-color: var(--primary-600); }
+.button.button1:active { background-color: var(--primary-700); }
 
 .button.button2, 
-.button.button5 { background-color: var(--secondary-200); }
+.button.button5 { background-color: var(--primary-200); }
 .button.button2:hover, 
-.button.button5:hover { background-color: var(--secondary-300); }
+.button.button5:hover { background-color: var(--primary-300); }
 .button.button2:active, 
-.button.button5:active { background-color: var(--secondary-400); }
+.button.button5:active { background-color: var(--primary-400); }
 
 .button.button3 { background-color: var(--primary-500); }
 .button.button3:hover { background-color: var(--primary-600); }

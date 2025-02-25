@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
+import { getUserInfo } from '@/app/utils/paymentUtil';
 import styles from './page.module.css';
 
 const generateRandomString = () => window.btoa(Math.random()).slice(0, 20);
@@ -14,38 +15,66 @@ export default function PaymentWidget() {
         currency: "KRW",
         value: 20000000,
     });
+    const [userInfo, setUserInfo] = useState(null)
+    const [orederName, setOrderName] = useState(null)
+
+    const [initialSettingDone, setInitialSettingDone] = useState(false)
+    let cnt = 0
 
     useEffect(() => {
+        
         async function fetchPaymentWidgets() {
-        const tossPayments = await loadTossPayments(clientKey);
-        const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
-        setWidgets(widgets);
+            const userData = await getUserInfo()
+            const totalAmount = JSON.parse(localStorage.getItem('totalAmount'));
+            const itemsText = localStorage.getItem('itemsText'); // 문자열 불러오기
+            const numericAmount = Number(totalAmount.replace(/,/g, ''));
+
+            setUserInfo(userData)
+            setAmount(prevAmount => ({
+                ...prevAmount,        // 기존 상태 복사
+                value: numericAmount    // value만 업데이트
+            }));
+            setOrderName(itemsText)
+
+            const tossPayments = await loadTossPayments(clientKey);
+            const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
+            setWidgets(widgets);
+            setInitialSettingDone(true)
         }
 
-        fetchPaymentWidgets();
+
+
+        if(cnt == 0)
+            fetchPaymentWidgets()
+        
+        cnt += 1
+        
     }, []);
 
     useEffect(() => {
         async function renderPaymentWidgets() {
-        if (!widgets) return;
+            if (!widgets) return;
 
-        await widgets.setAmount(amount);
+            await widgets.setAmount(amount);
 
-        await Promise.all([
-            widgets.renderPaymentMethods({
-            selector: "#payment-method",
-            variantKey: "DEFAULT",
-            }),
-            widgets.renderAgreement({
-            selector: "#agreement",
-            variantKey: "AGREEMENT",
-            }),
-        ]);
+            await Promise.all([
+                widgets.renderPaymentMethods({
+                selector: "#payment-method",
+                variantKey: "DEFAULT",
+                }),
+                widgets.renderAgreement({
+                selector: "#agreement",
+                variantKey: "AGREEMENT",
+                }),
+            ]);
 
-        setReady(true);
+            setReady(true);
         }
 
         renderPaymentWidgets();
+
+            
+
     }, [widgets]);
 
     return (
@@ -59,9 +88,9 @@ export default function PaymentWidget() {
                         try {
                             await widgets?.requestPayment({
                                 orderId: generateRandomString(),
-                                orderName: "토스 티셔츠 외 2건",
-                                customerName: "김토스",
-                                customerEmail: "customer123@gmail.com",
+                                orderName: orederName,
+                                customerName: userInfo.name,
+                                customerEmail: userInfo.email,
                                 successUrl: `${window.location.origin}/mainPage/paymentPage/paymentProcessingPage/success`,
                                 failUrl: `${window.location.origin}/mainPage/paymentPage/paymentProcessingPage/fail`,
                             });
@@ -76,3 +105,5 @@ export default function PaymentWidget() {
         </div>
     );
 }
+
+

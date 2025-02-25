@@ -1,11 +1,10 @@
-export async function getUserInfo(token){
+export async function getUserInfo(){
     try{
 
         const response = await fetch('http://localhost:8080/student/readMyInfo', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`, // Authorization 헤더 추가
             },
             credentials: 'include',
         });
@@ -21,6 +20,6 @@ export async function getUserInfo(token){
 
         return result;
     }catch(e){
-        throw new Error("단어 다중 읽기 중 문제 발생")
+        throw new Error("내 정보 읽기 중 문제 발생")
     }
 }
