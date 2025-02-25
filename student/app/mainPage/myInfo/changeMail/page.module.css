@@ -1,0 +1,62 @@
+/* ========MODAL======== */
+
+.modalWrapper {
+  width: 100rem;
+  height: 100rem;
+
+  background-color: rgba(0, 0, 0, 0.3);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 100;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContainer1 {
+  width: 31.25rem;
+  height: 30.75rem;
+
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 1.5rem;
+  z-index: 10000;
+}
+
+.modalInstruction {
+  width: 18.34rem;
+  white-space: normal;
+  word-break: keep-all;  /* 단어 중간에서는 줄바꿈하지 않고, 공백에서만 줄바꿈 */
+  overflow-wrap: break-word;
+
+  margin-top: 2.25rem;
+  margin-left: 2.25rem;
+  margin-bottom: 0;
+}
+
+.modalTextAndTimer{
+  width: 26.19rem;
+  height: 3.37rem;
+
+  margin: 0;
+  padding: 0;
+
+  margin-left: 2.5rem;
+}
+
+.modalButtonContainer{
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+}

@@ -2,8 +2,9 @@
 
 import { useState, useRef, Children, useEffect, cloneElement } from "react";
 import { containsHangeul, containsChoseong, isHangeul } from "@/app/utils/hangeul";
-import ArrowIcon from "@/public/assets/images/icons/dropdownArrow.svg";
+import ArrowIcon from "@/public/assets/images/icons/arrowDown.svg";
 import styles from "./dropdown.module.css";
+import { Validator, ValidatorType } from "@/app/utils/validator";
 
 export function DropdownElement({ label, value, onClick, type }) {
   return (
@@ -23,7 +24,10 @@ export function DropdownButton({
   search = false,
   type,
   validator,
+  paddingVertical,
+  paddingHorizontal,
 }) {
+
   const [state, setState] = useState("default");
   const [selected, setSelected] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -32,6 +36,8 @@ export function DropdownButton({
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
+
+  width = stretch ? "100%" : width;
   
   useEffect(() => {
     function handleClickOutside(event) {
@@ -55,7 +61,7 @@ export function DropdownButton({
     setError(null);
     setErrorMessage("");
     setTimeout(() => setSearchQuery(""), 0);
-    if (onSelect) onSelect(item);
+    if (onSelect) onSelect(item.label);
   };
 
   const toggleOpenState = () => { 
@@ -101,7 +107,7 @@ export function DropdownButton({
     if (searchQuery.trim() !== "" && !error) {
       const newValue = { label: searchQuery, value: searchQuery };
       setSelected(newValue);
-      if (onSelect) onSelect(newValue);
+      if (onSelect) onSelect(newValue.label);
       toggleCustomState();
     }
     setTimeout(() => setDropdownOpened(false), 0);
@@ -116,7 +122,7 @@ export function DropdownButton({
 
   const textField = (
     <>
-      <input 
+      <input
         ref={inputRef} 
         className="ko-md-15" 
         type="text" 
@@ -152,7 +158,11 @@ export function DropdownButton({
     <div 
       className={`${styles["dropdown-container"]} ${styles[state]} ${selected ? styles["selected"] : ""} ${styles[type]}`} 
       ref={dropdownRef} 
-      style={{ width: stretch ? "100%" : width }}
+      style={{ 
+        width,
+        "--padding-vertical": `${paddingVertical}px`,
+        "--padding-horizontal": `${paddingHorizontal}px`,
+      }}
     >
       <button 
         className={`${styles["dropdown-button"]} ko-md-15`} 
@@ -175,9 +185,25 @@ export function DropdownButton({
   );
 }
 
-export function DropdownButton1(props) {
-  return <DropdownButton {...props} type="button1">{props.children}</DropdownButton>;
-}
-export function DropdownButton2(props) {
-  return <DropdownButton {...props} type="button2">{props.children}</DropdownButton>;
+export const DropdownButton1 = (props) => (
+  <DropdownButton {...props} type="button1" paddingVertical={8} paddingHorizontal={24}>{props.children}</DropdownButton>
+);
+
+export const DropdownButton2 = (props) => (
+  <DropdownButton {...props} type="button2" paddingVertical={8} paddingHorizontal={16}>{props.children}</DropdownButton>
+);
+
+export function EmailDropdownButton1(props) {
+  return (
+    <DropdownButton1
+      {...props}
+      validator={ new Validator(ValidatorType.EMAIL_POSTFIX, "이메일 형식으로 입력하세요.") }
+      allowCustom
+    >
+      <DropdownElement label="gmail.com" value="gmail"/>
+      <DropdownElement label="naver.com" value="naver"/>
+      <DropdownElement label="daum.net" value="daum"/>
+      <DropdownElement label="apple.com" value="apple"/>
+    </DropdownButton1>
+  );
 }

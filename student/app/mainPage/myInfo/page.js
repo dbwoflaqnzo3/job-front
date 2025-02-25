@@ -70,7 +70,7 @@ export default function userPageController() {
         router.push('myInfo/changePhone');
     };
     const handlePage2 = () => {
-        router.push('myInfo/changePassword');
+        router.push('myInfo/changeMail');
     };
     const handlePage3 = () => {
         router.push('myInfo/changePassword');
@@ -85,9 +85,9 @@ export default function userPageController() {
                         <div className={styles.hidden}>
                             <InfoCard instruction="안보이게 변경하기" icon="아이콘" />
                         </div>
-                        <InfoCard instruction="연락처 변경하기" icon="phone" click={()=>handlePage1()} />
-                        <InfoCard instruction="이메일 변경하기" icon="mail" click={()=>handlePage2()} />
-                        <InfoCard instruction="비밀번호 변경하기" icon="lock" click={()=>handlePage3()} />
+                        <InfoCard instruction="연락처 변경하기" icon="phone" click={() => handlePage1()} />
+                        <InfoCard instruction="이메일 변경하기" icon="mail" click={() => handlePage2()} />
+                        <InfoCard instruction="비밀번호 변경하기" icon="lock" click={() => handlePage3()} />
                     </div>
                     <div className={styles.infoTableContainer}>
                         {/* {console.log(userInfo)} */}
@@ -130,37 +130,46 @@ function InfoCard({ instruction, icon, click }) {
     )
 }
 
-function UserInfoList1({userInfo}) {
+function UserInfoList1({ userInfo }) {
     if (!userInfo) {
         return <div>로딩중...</div>;
     }
 
     return (
         <div className={styles.userInfoListContainer}>
-            <div className={styles.row}>
-                <div>이름</div>
-                <div>{userInfo.name}</div>
-            </div>
-            <div className={styles.row}>
-                <div>회원상태</div>
-                <div>{userInfo.status}</div>
-            </div>
-            <div className={styles.row}>
-                <div>학년</div>
-                <div>{userInfo.grade}</div>
-            </div>
-            <div className={styles.row}>
-                <div>레벨</div>
-                <div>{userInfo.level}</div>
-            </div>
-            <div className={styles.row}>
-                <div>학원 이름</div>
-                <div>JOB 영어학원</div>
-            </div>
-            <div className={styles.rowLast}>
-                <div>담당 선생님</div>
-                <div>{userInfo?.teacherId?.name || '정보 없음'}</div>
-            </div>
+            {
+                userInfo ?
+                    <div>
+                        <div className={styles.row}>
+                            <div>이름</div>
+                            <div>{userInfo.name}</div>
+                        </div>
+                        <div className={styles.row}>
+                            <div>회원상태</div>
+                            <div>{userInfo.status}</div>
+                        </div>
+                        <div className={styles.row}>
+                            <div>학년</div>
+                            <div>{userInfo.grade}</div>
+                        </div>
+                        <div className={styles.row}>
+                            <div>레벨</div>
+                            <div>{userInfo.level}</div>
+                        </div>
+                        <div className={styles.row}>
+                            <div>학원 이름</div>
+                            <div>JOB 영어학원</div>
+                        </div>
+                        <div className={styles.rowLast}>
+                            <div>담당 선생님</div>
+                            <div>{userInfo?.teacherId?.name || '정보 없음'}</div>
+                        </div>
+                    </div>
+                    :
+                    <div>
+                        Loading...
+                    </div>
+            }
         </div>
     )
 }
@@ -203,7 +212,7 @@ function UserInfoList2({ userInfo }) {
 
                     :
                     <div>
-                        Loading
+                        Loading...
                     </div>
 
             }

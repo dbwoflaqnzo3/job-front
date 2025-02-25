@@ -21,8 +21,8 @@ export default function changePhone() {
     useEffect(() => {
         const regex = /^010\d{8}$/;
         setCheck(regex.test(inputPhone));
-      }, [inputPhone]);
-    
+    }, [inputPhone]);
+
 
     const checkDuplicate = async (number) => {
         try {
@@ -42,20 +42,20 @@ export default function changePhone() {
 
     const changePhone = async () => {
         if (inputPhone === inputPhone2) {
-          try {
-            const result = await changePhoneNumber(inputPhone2);
-            if (result == 200) {
-              console.log('연락처 변경 성공')
-              router.push('/mainPage/myInfo');
-            } else {
-              setError("연락처 입력 에러.");
+            try {
+                const result = await changePhoneNumber(inputPhone2);
+                if (result == 200) {
+                    console.log('연락처 변경 성공')
+                    router.push('/mainPage/myInfo');
+                } else {
+                    setError("연락처 입력 에러.");
+                }
+            } catch (err) {
+                setError(err.message);
+                console.error("연락처 변경 에러:", err);
             }
-          } catch (err) {
-            setError(err.message);
-            console.error("연락처 변경 에러:", err);
-          }
         }
-      }
+    }
 
     return (
         <PageLayout hide={true}>
@@ -71,10 +71,13 @@ export default function changePhone() {
                         error={error}
                         stretch
                         showMismatchOnly={true}
-                        validators={[new Validator("010\\d{8}", "전화번호를 정확히 입력해주세요")]}
+                        validators={[
+                            new Validator("010\\d{8}", "전화번호를 정확히 입력해주세요")
+                            // new Validator(check, "전화번호를 정확히 입력해주세요")
+                        ]}
                     />
-                    {!checkPhone&&<SizedBox height={4} />}
-                    {checkPhone&&<SizedBox height={10}><p className={`ko-md-13 ${styles["error"]}`}>이미 등록된 전화번호 입니다.</p></SizedBox>}
+                    {!checkPhone && <SizedBox height={4} />}
+                    {checkPhone && <SizedBox height={10}><p className={`ko-md-13 ${styles["error"]}`}>이미 등록된 전화번호 입니다.</p></SizedBox>}
                     <div className={styles.space} />
                     <Button3 text="중복 조회" disabled={!check} onClick={() => { checkDuplicate(inputPhone) }} stretch />
                 </div>
@@ -91,9 +94,9 @@ export default function changePhone() {
                         stretch
                     />
                     <SizedBox height={4} />
-                    {inputPhone!=inputPhone2&&<SizedBox height={10}><p className={`ko-md-13 ${styles["error"]}`}>이전에 입력한 전화번호와 일치하지 않습니다.</p></SizedBox>}
+                    {inputPhone != inputPhone2 && <SizedBox height={10}><p className={`ko-md-13 ${styles["error"]}`}>이전에 입력한 전화번호와 일치하지 않습니다.</p></SizedBox>}
                     <div className={styles.space} />
-                    <Button3 text="확인하기" disabled={inputPhone!=inputPhone2} onClick={changePhone} stretch />
+                    <Button3 text="확인하기" disabled={inputPhone != inputPhone2} onClick={changePhone} stretch />
                 </div>
             )}
         </PageLayout>
