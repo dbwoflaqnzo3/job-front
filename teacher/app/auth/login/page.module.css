@@ -1,7 +1,5 @@
 .login {
   position: relative;
-  width: 100vw;
-  height: 100vh;
 }
 
 .align { position: absolute; left: 50%; }
