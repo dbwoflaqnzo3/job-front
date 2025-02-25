@@ -1,0 +1,93 @@
+.introContainer {
+    display: flex;
+    height: 100vh;
+
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFF8ED;
+}
+
+.introInfoContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
+    height: 30.76%;
+}
+
+.introInfoContainer h1 {
+    margin: 0;
+    color: var(--Primary900, #FF7207);
+    height: 14.89%;
+
+    /* En/Sb/30 */
+    font-family: "Min Sans VF";
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 600;
+
+}
+
+.introInfoContainer p {
+    margin: 0;
+    height: 35.75%;
+    color: var(--Black-700, #666);
+
+    /* Ko/Md/36 */
+    font-family: "Pretendard Variable";
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 500;
+
+}
+
+.introInfoContainer h2 {
+    margin: 0;
+    height: 14.89%;
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Sb/30 */
+    font-family: "Pretendard Variable";
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 600;
+
+}
+
+.studyStartButton {
+    width: 11.75rem;
+    height: 3.375rem;
+    border-radius: 1rem;
+    background: var(--Primary500, #FFA321);
+
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Sb/18 */
+    font-family: "Pretendard Variable";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 1.6875rem */
+}
+
+.exitButtonContainer {
+    width: 94%;
+    height: 25.47%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.exitButton {
+    margin-top: 3.75rem;
+    width: 3rem;
+    height: 4.25rem;
+}
+
+.exitButton:hover {
+    border-radius: 1rem;
+    border: 1px solid var(--Black-300, #CBCBCB);
+    background: var(--Black-200, #E5E5E5);
+}
