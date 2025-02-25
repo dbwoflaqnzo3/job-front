@@ -1,6 +1,7 @@
 .dropdown-container {
   position: relative;
   display: flex;
+  background-color: var(--black-100);
   padding: var(--padding-vertical) var(--padding-horizontal);
 }
 
