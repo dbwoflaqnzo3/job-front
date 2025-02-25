@@ -30,6 +30,13 @@
   border: var(--red-3) 2px solid;
 }
 
+.text-field.disabled {
+  background-color: var(--black-200);
+  border-color: var(--black-400);
+  border-color: transparent;
+  cursor: not-allowed;
+}
+
 .text-field:-webkit-autofill,
 .text-field:-webkit-autofill:hover, 
 .text-field:-webkit-autofill:focus, 
