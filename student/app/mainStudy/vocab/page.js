@@ -6,7 +6,7 @@ import IntroBox from "@/app/utils/introBox";
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation'
 import { readAllVocabData, readStudentLessonInfo } from "../../utils/VocabUtils"
-import { createProgress, updateProgress, readProgress } from "@/app/utils/progressUtils";
+import { createProgress, updateProgress, readProgress, deleteProgress, readProgressByStudentLesson } from "@/app/utils/progressUtils";
 import EndVocabMode from "@/app/utils/endVocabMode";
 
 import SpeakingTestComponent from "./stage1/speakingTest";
@@ -60,15 +60,15 @@ export default function VocabStageController() {
                 const resultStudentLessonInfo = await readStudentLessonInfo("6797ab3555927d2b753da5d8") //studyMode 불러오기
                 const resultVocabData = await readAllVocabData("67744a3cdb036043fdd85d47") //학습할 단어 불러오기
 
-                // const resultCreateProgress = await createProgress("6797ab3555927d2b753da5d8") // progrss 생성 (수정 요망)
-                progressId.current = "67b6d860eedb37efe41c0b2a" //progress id 저장
+                const resultReadProgress = await readProgressByStudentLesson("6797ab3555927d2b753da5d8")
 
                 const updatedResult = resultVocabData.map(item => ({
                     ...item, // 기존 객체 복사
                     IsPassed: Array(resultStudentLessonInfo.studyMode.length).fill(false), // studyMode 크기에 맞는 false 배열 생성
                 }));
 
-                setStudyMode(resultStudentLessonInfo.studyMode)
+                // setStudyMode(resultStudentLessonInfo.studyMode)
+                setStudyMode([2])
 
                 //테스트를 위해서 result로 잠시 변환 
                 setVocabs(updatedResult);
@@ -299,7 +299,7 @@ export default function VocabStageController() {
 
         if (stagePassed) {
 
-            console.log(studyMode.slice(-1)[0],passResults.stage, "11111")
+            console.log(studyMode.slice(-1)[0], passResults.stage, "11111")
             // 마지막 stage까지 끝냈을 시
             if (studyMode.slice(-1)[0] === passResults.stage) {
                 console.log("here!!!!")
@@ -332,8 +332,18 @@ export default function VocabStageController() {
     // 기존에 있던 수업 정보 불러오기
     const loadProgress = async () => {
         if (totalProgress === 0) {
-            const resultReadProgress = await readProgress("67b6d860eedb37efe41c0b2a") // 현재 학습 상태 불러오기
-            setTotalProgress(resultReadProgress.progressLevel)
+
+            const resultReadProgress = await readProgressByStudentLesson("6797ab3555927d2b753da5d8")
+
+            // lesson 정보가 존재할 경우
+            if (resultReadProgress) {
+                progressId.current = resultReadProgress._id //progress id 저장
+                setTotalProgress(studyMode[resultReadProgress.progressLevel])
+            } else {
+                const resultCreateProgress = await createProgress("6797ab3555927d2b753da5d8") // progrss 생성 (수정 요망)
+                progressId.current = resultCreateProgress._id
+                setTotalProgress(studyMode[0])
+            }
         }
         else {
             setMiddleProgress(1)
@@ -401,10 +411,10 @@ export default function VocabStageController() {
                                             handleExitModal={handleExitModal}
                                             loadProgress={loadProgress}
                                         />
-                                    :
-                                    <EndVocabMode
-                                        progressId={progressId.current}
-                                    />
+                                        :
+                                        <EndVocabMode
+                                            progressId={progressId.current}
+                                        />
 
                                 }
                             </div>
@@ -420,7 +430,7 @@ export default function VocabStageController() {
             {/* 질문하기 버튼 */}
             <a className={style.questionButtonContainer} href="https://open.kakao.com/o/sOgvRb7g" target="_blank" rel="noopener noreferrer">
                 <img
-                    src="/icons/질문하기.svg"
+                    src="/icons/ask.svg"
                     className={style.questionIcon}
                 />
                 <p>질문하기</p>

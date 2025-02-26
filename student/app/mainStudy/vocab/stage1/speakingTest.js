@@ -449,7 +449,7 @@ function VoiceRecording({ passThreshold, onPassUpdate, index, shouldReset, onSco
                 disabled={isSubmit && !isEvaluated}
                 className={styles.recordButton}
             >
-                <img src="/icons/녹음하기.svg" alt="Mic Icon" style={{ userSelect: "none" }} draggable="false" />
+                <img src="/icons/record.svg" alt="Mic Icon" style={{ userSelect: "none" }} draggable="false" />
             </button>
             <p className={styles.recordInstruction}>{isRecording ? "녹음중지" : "녹음하기"}</p>
             <p className={styles.recordSubInstruction}>{isRecording ? "녹음이 끝나면 마이크를 눌러" : "마이크를 누르고 발음하세요"}</p>

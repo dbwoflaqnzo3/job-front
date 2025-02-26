@@ -96,6 +96,42 @@ export async function readProgress(_id){
     }
 }
 
+export async function readProgressByStudentLesson(_id){
+
+    const apiUrl = "http://localhost:8080/progress/readByStudentLessonId"
+
+    try{
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                studentLessonId : _id,
+            }),
+            credentials: 'include',
+        });
+
+        if(response.status === 404){
+            return null
+        }
+
+        if (!response.ok) {
+            const er = await response.json()
+            console.log(er.message)
+            throw new Error(`HTTP error! status: ${response.status} message :  ${er.message}`);
+        }
+
+        const temp_result = await response.json();
+        const result = temp_result.result
+
+        return result;
+    }
+    catch(e){
+        throw new Error("progress 불러오는 중 문제 발생")
+    }
+}
+
 export async function deleteProgress(_id){
 
     const apiUrl = "http://localhost:8080/progress/delete"

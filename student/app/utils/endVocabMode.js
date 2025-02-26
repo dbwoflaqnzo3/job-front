@@ -1,13 +1,13 @@
 import style from "../styles/vocaStage2.module.css"
 import { useRouter } from 'next/navigation'
-import { deleteProgress } from "./progressUtils";
+import { updateProgress } from "./progressUtils";
 
 const EndVocabMode = ({ progressId }) => {
 
     const router = useRouter()
 
     const handleSubmit = async () => {
-        await deleteProgress(progressId)
+        await updateProgress(progressId, 2, null)
         router.push("../mainPage")
     }
 
