@@ -1,0 +1,45 @@
+.text-field {
+  inset: 0;
+  background-color: var(--black-100);
+  color: var(--black-1000);
+  padding: 18px 30px;
+  border: var(--secondary-300) 1px solid;
+  border-radius: 24px;
+  caret-color: var(--black-800);
+}
+
+.text-field:hover {
+  background-color: var(--secondary-100);
+  border: var(--secondary-500) 1px solid;
+}
+
+.text-field:focus {
+  outline: none;
+  color: var(--black-800);
+  background-color: var(--secondary-100);
+  border: var(--secondary-500) 2px solid;
+}
+
+.text-field.error {
+  background-color: var(--red-1);
+  border: var(--red-3) 1px solid;
+}
+
+.text-field.error:focus {
+  background-color: var(--black-100) !important;
+  border: var(--red-3) 2px solid;
+}
+
+.text-field:-webkit-autofill,
+.text-field:-webkit-autofill:hover, 
+.text-field:-webkit-autofill:focus, 
+.text-field:-webkit-autofill:active {
+  background: none !important;
+  box-shadow: 0 0 0px 1000px var(--white) inset !important;
+  color: inherit !important;
+}
+
+.error-message {
+  margin-top: 4px;
+  color: var(--red-3);
+}
