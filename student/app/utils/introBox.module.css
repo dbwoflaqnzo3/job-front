@@ -28,6 +28,35 @@
 
 }
 
+.introInfoContainer h2 {
+    padding: 0.5rem 1.25rem;
+    height: 12%;
+    border-radius: 0.5rem;
+    background: var(--Primary100, #FEEDD2);
+
+    color: var(--Primary800, #FF7E0D);
+    text-align: center;
+
+    /* Ko/Sb/30 */
+    font-family: "Pretendard Variable";
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.introInfoContainer h3 {
+    margin: 0;
+    height: 14.89%;
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Sb/30 */
+    font-family: "Pretendard Variable";
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 600;
+
+}
+
 .introInfoContainer p {
     margin: 0;
     height: 35.75%;
@@ -41,26 +70,12 @@
 
 }
 
-.introInfoContainer h2 {
-    margin: 0;
-    height: 14.89%;
-    color: var(--Black-1000, #1A1A1A);
-
-    /* Ko/Sb/30 */
-    font-family: "Pretendard Variable";
-    font-size: 1.875rem;
-    font-style: normal;
-    font-weight: 600;
-
-}
-
 .studyStartButton {
     width: 11.75rem;
     height: 3.375rem;
     border-radius: 1rem;
+    border: 1px solid #FFA321;
     background: var(--Primary500, #FFA321);
-
-    color: var(--Black-1000, #1A1A1A);
 
     /* Ko/Sb/18 */
     font-family: "Pretendard Variable";
@@ -69,6 +84,10 @@
     font-weight: 600;
     line-height: 150%;
     /* 1.6875rem */
+}
+
+.studyStartButton:hover {
+    background: var(--Primary600, #FF971A);
 }
 
 .exitButtonContainer {

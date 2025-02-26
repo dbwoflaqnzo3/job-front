@@ -17,6 +17,7 @@
 }
 
 .head1{
+    margin: 0;
     color: var(--Black-1000, #1A1A1A);
     text-align: center;
 

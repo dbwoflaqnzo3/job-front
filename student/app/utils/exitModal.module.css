@@ -93,6 +93,8 @@
      width: 28.25rem;
      height: 3.375rem;
      border-radius: 1rem;
+     border: 1px solid #FFA321;
+
      background: var(--Primary500, #FEFEFE);
      margin: 1rem 1.5rem 0 1.5rem;
 
@@ -114,6 +116,7 @@
      width: 28.25rem;
      height: 3.375rem;
      border-radius: 1rem;
+     border: #FFA321 ;
      background: var(--Primary500, #FFA321);
      margin: 0 1.5rem 0 1.5rem;
 

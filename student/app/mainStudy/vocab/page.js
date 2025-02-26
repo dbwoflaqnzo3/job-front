@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation'
 import { readAllVocabData, readStudentLessonInfo } from "../../utils/VocabUtils"
 import { createProgress, updateProgress, readProgress } from "@/app/utils/progressUtils";
+import EndVocabMode from "@/app/utils/endVocabMode";
 
 import SpeakingTestComponent from "./stage1/speakingTest";
 import SpeakingStudyComponent from "./stage1/speakingStudy";
@@ -31,6 +32,7 @@ export default function VocabStageController() {
     const [vocabs, setVocabs] = useState([])
     const [totalVocabs, setTotalVocabs] = useState([])
     const [isVocabsUpdated, setIsVocabsUpdated] = useState(false);
+    const [isStudyEnd, setIsStudyEnd] = useState(false)
     const progressId = useRef(null) //생성된 progressId 저장
 
     const [studyMode, setStudyMode] = useState([])
@@ -38,12 +40,14 @@ export default function VocabStageController() {
     const [filteredVocabs, setFilteredVocabs] = useState([])
     const [isFiltered, setIsFiltered] = useState(false)
 
-    const [totalProgress, setTotalProgress] = useState(1)
-    const [middleProgress, setMiddleProgress] = useState(1)
+    const [totalProgress, setTotalProgress] = useState(0)
+    const [middleProgress, setMiddleProgress] = useState(0)
     const [ComponentToRender, setComponentToRender] = useState(null);
 
-    const studyModeHeader = ["1단계 - 단어 말하기", "2단계 - 뜻 찾기", "3단계 - 영단어 찾기", "4단계 = 2글자 영작하기", "5단계 - 영작하기"]
+    const studyModeHeader = ["단어 말하기", "뜻 찾기", "영단어 찾기", "2글자 영작하기", "영작하기"]
     const test_study = ["테스트", "학습"]
+    const [introHeader, setIntroHeader] = useState('')
+    const [introContent, setIntroContent] = useState('')
 
     const [width, setWidth] = useState(1512)
     const [exitModalOpen, setExitModalOpen] = useState(false)
@@ -53,7 +57,6 @@ export default function VocabStageController() {
         const fetchData = async () => {
             try {
 
-                const resultReadProgress = await readProgress("67b6d860eedb37efe41c0b2a") // 현재 학습 상태 불러오기
                 const resultStudentLessonInfo = await readStudentLessonInfo("6797ab3555927d2b753da5d8") //studyMode 불러오기
                 const resultVocabData = await readAllVocabData("67744a3cdb036043fdd85d47") //학습할 단어 불러오기
 
@@ -65,14 +68,15 @@ export default function VocabStageController() {
                     IsPassed: Array(resultStudentLessonInfo.studyMode.length).fill(false), // studyMode 크기에 맞는 false 배열 생성
                 }));
 
-                // setStudyMode(resultStudentLessonInfo.studyMode)
-                setStudyMode([0,1,2,3,4])
+                setStudyMode(resultStudentLessonInfo.studyMode)
 
                 //테스트를 위해서 result로 잠시 변환 
                 setVocabs(updatedResult);
 
-                // setTotalProgress(resultReadProgress.progressLevel)
-                setTotalProgress(1)
+                //vocab intro page 초기 설정
+                setTotalProgress(0)
+                setIntroHeader("교재이름")
+                setIntroContent("학습유닛/레슨")
 
                 setIsVocabsUpdated(true)
 
@@ -111,9 +115,18 @@ export default function VocabStageController() {
     }, []);
 
     useEffect(() => {
-        if (totalProgress === 1) {
+
+        if (totalProgress === 0) {
+            return;
+
+        } else if (totalProgress === 1) {
             if (isVocabsUpdated) {
                 filterVocab(totalProgress)
+
+                if (middleProgress === 0) {
+                    setIntroHeader(studyModeHeader[totalProgress - 1])
+                    return;
+                }
 
                 if (middleProgress === 1 && isFiltered) {
                     setComponentToRender(() => SpeakingTestComponent); // Test Component
@@ -131,7 +144,12 @@ export default function VocabStageController() {
 
         } else if (totalProgress === 2) {
 
-            if (isVocabsUpdated) {
+            if (middleProgress === 0) {
+                setIntroHeader(studyModeHeader[totalProgress - 1])
+                setIntroContent(test_study[middleProgress - 1])
+                return;
+
+            } else if (isVocabsUpdated) {
                 filterVocab(totalProgress)
 
                 if (middleProgress === 1 && isFiltered) {
@@ -149,7 +167,12 @@ export default function VocabStageController() {
 
         } else if (totalProgress === 3) {
 
-            if (isVocabsUpdated) {
+            if (middleProgress === 0) {
+                setIntroHeader(studyModeHeader[totalProgress - 1])
+                setIntroContent(test_study[middleProgress - 1])
+                return;
+
+            } else if (isVocabsUpdated) {
                 filterVocab(totalProgress)
 
                 if (middleProgress === 1 && isFiltered) {
@@ -166,7 +189,12 @@ export default function VocabStageController() {
             }
         } else if (totalProgress === 4) {
 
-            if (isVocabsUpdated) {
+            if (middleProgress === 0) {
+                setIntroHeader(studyModeHeader[totalProgress - 1])
+                setIntroContent(test_study[middleProgress - 1])
+                return;
+
+            } else if (isVocabsUpdated) {
                 filterVocab(totalProgress)
 
                 if (middleProgress === 1 && isFiltered) {
@@ -183,10 +211,17 @@ export default function VocabStageController() {
             }
         } else if (totalProgress === 5) {
 
-            if (isVocabsUpdated) {
-                filterVocab(totalProgress)
+            if (middleProgress === 0) {
+                setIntroHeader(studyModeHeader[totalProgress - 1])
+                setIntroContent(test_study[middleProgress - 1])
+                return;
 
-                if (middleProgress === 1 && isFiltered) {
+            } else if (isVocabsUpdated) {
+                filterVocab(totalProgress)
+                if (middleProgress === 0) {
+                    return;
+                }
+                else if (middleProgress === 1 && isFiltered) {
                     setComponentToRender(() => inputTestComponent); // Test Component
                     setIsVocabsUpdated(false);
                     setIsFiltered(false)
@@ -263,8 +298,17 @@ export default function VocabStageController() {
         console.log(passResults)
 
         if (stagePassed) {
-            setTotalProgress(studyMode[studyMode.indexOf(passResults.stage) + 1])
-            setMiddleProgress(1)
+
+            console.log(studyMode.slice(-1)[0],passResults.stage, "11111")
+            // 마지막 stage까지 끝냈을 시
+            if (studyMode.slice(-1)[0] === passResults.stage) {
+                console.log("here!!!!")
+                setIsStudyEnd(true)
+            } else {
+                setTotalProgress(studyMode[studyMode.indexOf(passResults.stage) + 1])
+            }
+
+            setMiddleProgress(0)
             return
         }
 
@@ -272,6 +316,12 @@ export default function VocabStageController() {
 
     };
 
+    // exit modal open 설정 
+    const handleExitModal = () => {
+        setExitModalOpen((prev) => !prev)
+    }
+
+    // 홈으로 가기 클릭 시 설정 
     const handleExit = async () => {
         const type = 0
         const result = await updateProgress(progressId.current, type, totalProgress) //중간 종료 시 progress 업데이트 시킴
@@ -279,11 +329,22 @@ export default function VocabStageController() {
         router.push("../mainPage")
     }
 
+    // 기존에 있던 수업 정보 불러오기
+    const loadProgress = async () => {
+        if (totalProgress === 0) {
+            const resultReadProgress = await readProgress("67b6d860eedb37efe41c0b2a") // 현재 학습 상태 불러오기
+            setTotalProgress(resultReadProgress.progressLevel)
+        }
+        else {
+            setMiddleProgress(1)
+        }
+    }
+
     return (
         <div>
             {
                 vocabs.length !== 0 ? (
-                    ComponentToRender ?
+                    ComponentToRender && middleProgress !== 0 ?
                         (
                             <div className={style.bodyContainer}>
                                 <div className={style.progressContainer} style={{ width: width, height: "10.68%" }}>
@@ -297,13 +358,22 @@ export default function VocabStageController() {
                                     </div>
                                     <div className={style.progressBarContainer}>
                                         <h2>Vocabulary / 교재이름 - Unit 7</h2>
-                                        <p>{test_study[middleProgress - 1]} {studyModeHeader[totalProgress - 1]}</p>
+                                        <p>{test_study[middleProgress - 1]} {totalProgress}단계 - {studyModeHeader[totalProgress - 1]}</p>
                                         <SizedBox height="22.86%" />
                                         <div className={style.progressBar}>
                                             {
                                                 studyMode.map((a, i) => {
+                                                    let backgroundColor = null
+                                                    if (i < totalProgress - 1) {
+                                                        backgroundColor = "#0084D0"
+                                                    } else if (i === totalProgress - 1) {
+                                                        backgroundColor = "black"
+                                                    } else {
+                                                        backgroundColor = "#E5E5E5"
+                                                    }
+
                                                     return (
-                                                        <div key={i} className={style.progressElement}>
+                                                        <div key={i} className={style.progressElement} style={{ backgroundColor }}>
                                                         </div>
                                                     )
                                                 })
@@ -320,15 +390,28 @@ export default function VocabStageController() {
                                 />
                             </div>
                         ) : (
-                            <div>Loading...</div> // vocabs 데이터가 로드되기 전에 표시되는 로딩 상태
+                            // <div>Loading...</div> // vocabs 데이터가 로드되기 전에 표시되는 로딩 상태
+                            <div>
+                                {
+                                    !isStudyEnd ?
+                                        <IntroBox
+                                            header={introHeader}
+                                            content={introContent}
+                                            totalProgress={totalProgress}
+                                            handleExitModal={handleExitModal}
+                                            loadProgress={loadProgress}
+                                        />
+                                    :
+                                    <EndVocabMode
+                                        progressId={progressId.current}
+                                    />
+
+                                }
+                            </div>
+
                         )
                 ) : (
-                    // <div>Loading...</div> // vocabs가 로드되지 않았다면 로딩 표시
-
-                    <IntroBox
-                        testOrStudy={test_study[middleProgress - 1]}
-                        progressStatus={studyModeHeader[totalProgress - 1]}
-                    />
+                    <div>Loading...</div> // vocabs가 로드되지 않았다면 로딩 표시
                 )
             }
 
@@ -349,7 +432,7 @@ export default function VocabStageController() {
                 <ExitModal
                     passResults={null}
                     endVocab={handleExit}
-                    modalControll={() => setExitModalOpen(false)}
+                    modalControll={handleExitModal}
                 />
             }
         </div>

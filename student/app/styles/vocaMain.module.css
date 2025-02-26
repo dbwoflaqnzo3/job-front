@@ -91,7 +91,7 @@
 
     border-radius: 3rem;
     border: 2px solid var(--Black-300, #CBCBCB);
-    background: var(--Black-200, #E5E5E5);
+    background-color: #E5E5E5;
 }
 
 .questionButtonContainer{
@@ -105,7 +105,7 @@
     align-items: center;
 
     top: 73.93%;
-    right: 9.25%;
+    right: 3.17%;
 
     border-radius: 1rem;
     border-color: unset;
