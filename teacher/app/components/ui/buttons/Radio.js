@@ -3,9 +3,11 @@ import { useState, cloneElement } from "react";
 import { Grid } from "@/app/widgets/structure/Grid";
 import styles from "./radio.module.css";
 
-export function RadioButton({ label, name, value, checked, onChange }) {
+export function RadioButton({ theme, label, name, value, checked, onChange }) {
+  const style = {"--color": `var(--${theme}-500)`};
+
   return (
-    <label className={styles["radio-button"]}>
+    <label className={styles["radio-button"]} style={style}>
       <input
         type="radio"
         name={name}
@@ -21,6 +23,7 @@ export function RadioButton({ label, name, value, checked, onChange }) {
 }
 
 export function RadioGroup({ 
+  theme = "primary",
   name, 
   children, 
   defaultValue, 
@@ -29,6 +32,8 @@ export function RadioGroup({
   column,
   gap,
 }) {
+  
+
   const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   const handleChange = (event) => {
@@ -39,6 +44,7 @@ export function RadioGroup({
   const clonedChildren = children.map((child, index) =>
     cloneElement(child, {
       key: child.key || index,
+      theme: child.props.theme || theme,
       name,
       checked: selectedValue === child.props.value,
       onChange: handleChange,

@@ -12,8 +12,8 @@
 .checkbox-button .checkbox-box {
   display: flex;
   position: relative;
-  width: 40px; 
-  height: 40px;
+  width: 40px; height: 40px;
+  min-width: 40px; max-height: 40px;
   border-radius: 8px;
   border: var(--black-700) 2px solid;
   transition:
@@ -22,8 +22,8 @@
 }
 
 .checkbox-button input:checked + .checkbox-box {
-  border: var(--secondary-500) 2px solid;
-  background-color: var(--secondary-100);
+  border: var(--foreground-color) 2px solid;
+  background-color: var(--background-color);
   animation: checkbox-bounce .2s ease-in-out;
 }
 
@@ -34,8 +34,8 @@
   top: 18px;
   width: 20px; 
   height: 10px;
-  border-left: var(--secondary-500) 3.5px solid;
-  border-bottom: var(--secondary-500) 3.5px solid;
+  border-left: var(--foreground-color) 3.5px solid;
+  border-bottom: var(--foreground-color) 3.5px solid;
   transform: rotate(-45deg);
   transform-origin: 0% 0%;
   background-color: transparent;

@@ -2,19 +2,20 @@
 
 import { useState, useRef, Children, useEffect, cloneElement } from "react";
 import { containsHangeul, containsChoseong, isHangeul } from "@/app/utils/hangeul";
-import ArrowIcon from "@/public/assets/images/icons/arrowDown.svg";
 import styles from "./dropdown.module.css";
 import { Validator, ValidatorType } from "@/app/utils/validator";
+import DynamicIcon from "@/app/components/ui/icon/Dynamic";
 
-export function DropdownElement({ label, value, onClick, type }) {
+export function DropdownElement({ theme, label, value, onClick, type }) {
   return (
-    <li className={`${styles["dropdown-item"]} ${styles[type]}`} onClick={() => onClick({ label, value })}>
+    <li className={`${styles["dropdown-item"]} ${styles[type]} ${styles[theme]}`} onClick={() => onClick({ label, value })}>
       {label}
     </li>
   );
 }
 
 export function DropdownButton({ 
+  theme = "primary",
   children,
   onSelect, 
   placeholder = "옵션 선택", 
@@ -27,21 +28,23 @@ export function DropdownButton({
   paddingVertical,
   paddingHorizontal,
 }) {
-
   const [state, setState] = useState("default");
   const [selected, setSelected] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
 
   width = stretch ? "100%" : width;
-  
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        if (state === "custom" && searchQuery.trim() !== "" && !error) {
+          handleCustomInputSubmit();
+        }
         setDropdownOpened(false);
         setSearchQuery("");
         setState("default");
@@ -49,18 +52,14 @@ export function DropdownButton({
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  useEffect(() => {
-    if (search) setDropdownOpened(searchQuery.trim() !== "");
-  }, [searchQuery, search]);
+  }, [searchQuery, state, error]);
 
   const handleSelect = (item) => {
     setSelected(item);
     setState("default");
-    setError(null);
+    setError(false);
     setErrorMessage("");
-    setTimeout(() => setSearchQuery(""), 0);
+    setSearchQuery("");
     if (onSelect) onSelect(item.label);
   };
 
@@ -68,17 +67,13 @@ export function DropdownButton({
     if (state === "custom") return;
     setState(state === "opened" ? "default" : "opened"); 
   };
-  
+
   const toggleCustomState = () => { 
-    switch (state) {
-      case "opened": 
-        setState("custom"); 
-        setTimeout(() => { if (inputRef.current) inputRef.current.focus(); }, 0);
-        break;
-      case "custom":
-        setState("default"); 
-        setTimeout(() => { if (inputRef.current) inputRef.current.blur(); }, 0);
-        break;
+    if (state === "opened") {
+      setState("custom"); 
+      setTimeout(() => inputRef.current?.focus(), 0);
+    } else if (state === "custom") {
+      handleCustomInputSubmit();
     }
   };
 
@@ -91,24 +86,22 @@ export function DropdownButton({
     setError(!isValid);
     setErrorMessage(message);
   };
-  
-  const handleCustomKeyDown = (event) => {
-    if (event.key !== "Enter") return;
-    handleCustomInputSubmit();
-  }
 
-  const handleCustomInputBlur = () => {
-    setTimeout(handleCustomInputSubmit, 0);
+  const handleCustomKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleCustomInputSubmit();
+    }
   };
-  
+
   const handleCustomInputSubmit = () => {
     if (search) return;
-
     if (searchQuery.trim() !== "" && !error) {
       const newValue = { label: searchQuery, value: searchQuery };
       setSelected(newValue);
-      if (onSelect) onSelect(newValue);
-      toggleCustomState();
+      if (onSelect) onSelect(newValue.label);
+      setState("default");
+    } else {
+      setSearchQuery(selected ? selected.label : "");
     }
     setTimeout(() => setDropdownOpened(false), 0);
   };
@@ -116,7 +109,9 @@ export function DropdownButton({
   const selectedWidget = (
     <>
       {selected ? selected.label : placeholder}
-      <div className={styles["dropdown-arrow"]}><ArrowIcon /></div>
+      <div className={styles["dropdown-arrow"]}>
+        <DynamicIcon icon="arrowDown" size={24} />
+      </div>
     </>
   );
 
@@ -129,7 +124,6 @@ export function DropdownButton({
         placeholder="직접입력" 
         value={searchQuery}
         onChange={handleInputChange}
-        onBlur={handleCustomInputBlur} 
         onKeyDown={handleCustomKeyDown} 
       />
       <div className={`${styles["error-message"]} ${error ? "" : styles["hidden"]} ko-reg-13`}>{errorMessage}</div>
@@ -137,7 +131,11 @@ export function DropdownButton({
   );
 
   const elements = Children.map(children, (child) =>
-    cloneElement(child, { onClick: handleSelect, type: type })
+    cloneElement(child, { 
+      type: type,
+      theme: child.props.theme || theme, 
+      onClick: handleSelect, 
+    })
   );
 
   const filteredElements = search 
@@ -156,7 +154,7 @@ export function DropdownButton({
 
   return (
     <div 
-      className={`${styles["dropdown-container"]} ${styles[state]} ${selected ? styles["selected"] : ""} ${styles[type]}`} 
+      className={`${styles["dropdown-container"]} ${styles[state]} ${selected ? styles["selected"] : ""} ${styles[type]} ${styles[theme]}`}
       ref={dropdownRef} 
       style={{ 
         width,
@@ -169,7 +167,7 @@ export function DropdownButton({
         onClick={toggleOpenState}
       >
         <span className={styles["dropdown-button-inner"]}>
-            {state === "custom" ? textField : selectedWidget}
+          {state === "custom" ? textField : selectedWidget}
         </span>
       </button>
       <ul className={`${styles["dropdown-list"]} ko-sb-15 ${styles[state]} ${dropdownOpened ? styles["opened"] : ""}`}>

@@ -24,23 +24,19 @@
   color: var(--black-500);
 }
 
-.step.active .index {
-  background-color: var(--secondary-500);
-  color: white;
-}
+.step.active .index { color: var(--black-100); }
+.step.active.primary .index { background-color: var(--primary-500); }
+.step.active.secondary .index { background-color: var(--secondary-500); }
 
-.step.completed .index {
-  background-color: var(--secondary-400);
-  color: white;
-}
+.step.completed .index { color: var(--black-100); }
+.step.completed.primary .index { background-color: var(--primary-400); }
+.step.completed.secondary .index { background-color: var(--secondary-400); }
 
-.step.active .label {
-  color: var(--secondary-600);
-}
+.step.active.primary .label { color: var(--primary-600); }
+.step.active.secondary .label { color: var(--secondary-600); }
 
-.step.completed .label {
-  color: var(--secondary-500);
-}
+.step.completed.primary .label { color: var(--primary-500); }
+.step.completed.secondary .label { color: var(--secondary-500); }
 
 .step-line {
   flex-grow: 1;
@@ -48,6 +44,5 @@
   background-color: var(--black-200);
 }
 
-.step-line.active {
-  background-color: var(--secondary-400);
-}
+.step-line.active.primary { background-color: var(--primary-400); }
+.step-line.active.secondary { background-color: var(--secondary-400); }

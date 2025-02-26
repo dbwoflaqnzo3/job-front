@@ -8,7 +8,7 @@
 .circular-unit-0 {
   font-family: var(--min-sans) !important;
   font-weight: var(--medium) !important;
-  font-size: 18px;
+  font-size: 10px !important;
 }
 
 .cg-absolute {

@@ -3,21 +3,21 @@
   background-color: var(--black-100);
   color: var(--black-1000);
   padding: 18px 30px;
-  border: var(--secondary-300) 1px solid;
+  border: var(--border-color) 1px solid;
   border-radius: 24px;
   caret-color: var(--black-800);
 }
 
 .text-field:hover {
-  background-color: var(--secondary-100);
-  border: var(--secondary-500) 1px solid;
+  background-color: var(--background-color);
+  border: var(--foreground-color) 1px solid;
 }
 
 .text-field:focus {
   outline: none;
   color: var(--black-800);
-  background-color: var(--secondary-100);
-  border: var(--secondary-500) 2px solid;
+  background-color: var(--background-color);
+  border: var(--foreground-color) 2px solid;
 }
 
 .text-field.error {
