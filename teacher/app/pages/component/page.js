@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react";
 import { Row, Column } from "@/app/widgets/structure/Grid";
-import { NavIcon, NavTitle, NavItem, NavGroup, TeacherNav } from "@/app/components/layout/Nav";
+import { NavIcon, NavTitle, NavItem, NavGroup } from "@/app/components/layout/Nav";
 import { RadioButton, RadioGroup } from "@/app/components/ui/buttons/Radio";
 import { CheckboxButton, CheckboxGroup } from "@/app/components/ui/buttons/Checkbox";
 import { Button1, Button2, Button3, Button4, Button5, Button6 } from "@/app/components/ui/buttons/Regular";
@@ -12,13 +12,17 @@ import TextField from "@/app/components/ui/TextField";
 import Card from "@/app/components/ui/Card";
 import { Validator, ValidatorType } from "@/app/utils/validator";
 import { Table, TableBody, TableExpandableBody } from "@/app/components/ui/Table";
-import { Sample, StudentPaymentModel, TeacherPaymentModel } from "@/models/payment";
+import { StudentPaymentModel, TeacherPaymentModel } from "@/models/payment";
 import { StepElement, StepIndicator } from "@/app/components/layout/StepIndicator";
+import SizedBox from "@/app/widgets/structure/SizedBox";
+import "./page.css";
+import { InfoCardButton } from "@/app/components/ui/buttons/InfoCard";
 
-function nav() {
+
+function nav(theme) {
   return (
-    <Column>
-      <NavGroup theme="primary">
+    <div>
+      <NavGroup theme={theme}>
         <NavTitle title="A" onClick={() => {}} />
         <NavTitle title="B" onClick={() => {}} />
         <NavTitle title="C">
@@ -33,46 +37,45 @@ function nav() {
           <NavItem text="4" textColor="red-3" onClick={() => {}} />
         </NavIcon>
       </NavGroup>
-      <TeacherNav />
-    </Column>
+    </div>
   );
 }
 
-function buttons() {
+function buttons(theme) {
   return (
     <section>
       <h2>Buttons</h2>
       <Column>
         <Row justifyContent="space-between">
-          <Button1 text="Button 1 Default" stretch />
-          <Button1 text="Button 1 Disabled" stretch disabled/>
+          <Button1 theme={theme} text="Button 1 Default" stretch />
+          <Button1 theme={theme} text="Button 1 Disabled" stretch disabled/>
         </Row>
         <Row justifyContent="space-between">
-          <Button2 text="Button 2 Default" stretch />
-          <Button2 text="Button 2 Disabled" stretch disabled />
+          <Button2 theme={theme} text="Button 2 Default" stretch />
+          <Button2 theme={theme} text="Button 2 Disabled" stretch disabled />
           </Row>
         <Row justifyContent="space-between">
-          <Button3 text="Button 3 Default" stretch />
-          <Button3 text="Button 3 Disabled" stretch disabled />
+          <Button3 theme={theme} text="Button 3 Default" stretch />
+          <Button3 theme={theme} text="Button 3 Disabled" stretch disabled />
         </Row>
         <Row justifyContent="space-between">
-          <Button4 text="Button 4 Default" stretch />
-          <Button4 text="Button 4 Disabled" stretch disabled />
+          <Button4 theme={theme} text="Button 4 Default" stretch />
+          <Button4 theme={theme} text="Button 4 Disabled" stretch disabled />
         </Row>
         <Row justifyContent="space-between">
-          <Button5 text="Search" stretch />
-          <Button5 text="Search" stretch disabled />
+          <Button5 theme={theme} text="Search" stretch />
+          <Button5 theme={theme} text="Search" stretch disabled />
         </Row>
         <Row justifyContent="space-between">
-          <Button6 text="Button 6 Default" stretch />
-          <Button6 text="Button 6 Disabled" stretch disabled />
+          <Button6 theme={theme} text="Button 6 Default" stretch />
+          <Button6 theme={theme} text="Button 6 Disabled" stretch disabled />
         </Row>
       </Column>
     </section>
   );
 }
 
-function radioButtons() {
+function radioButtons(theme) {
   const [selected1, setSelected1] = useState("option1");
   const [selected2, setSelected2] = useState("optionA");
 
@@ -80,13 +83,13 @@ function radioButtons() {
     <section>
       <h2>Radio Buttons</h2>
       <Column>
-        <RadioGroup name="radioGroup1" defaultValue={selected1} onChange={setSelected1} row="1">
+        <RadioGroup theme={theme} name="radioGroup1" defaultValue={selected1} onChange={setSelected1} row="1">
           <RadioButton label="옵션 1" value="option1" />
           <RadioButton label="옵션 2" value="option2" />
           <RadioButton label="옵션 3" value="option3" />
           <RadioButton label="옵션 4" value="option4" />
         </RadioGroup>
-        <RadioGroup name="radioGroup2" defaultValue={selected2} onChange={setSelected2} row="1">
+        <RadioGroup theme={theme} name="radioGroup2" defaultValue={selected2} onChange={setSelected2} row="1">
           <RadioButton label="옵션 A" value="optionA" />
           <RadioButton label="옵션 B" value="optionB" />
           <RadioButton label="옵션 C" value="optionC" />
@@ -97,11 +100,11 @@ function radioButtons() {
   );
 }
 
-function checkboxButtons() {  
+function checkboxButtons(theme) {  
   return (
     <section>
       <h2>Checkbox Buttons</h2>
-      <CheckboxGroup name="checkboxGroup">
+      <CheckboxGroup theme={theme} name="checkboxGroup">
         <Column>
           <CheckboxButton label="전체" entire />
           <Row justifyContent="space-between">          
@@ -115,7 +118,7 @@ function checkboxButtons() {
   );
 }
 
-function dropdownButtons() {  
+function dropdownButtons(theme) {  
   const [selectedOption1, setSelectedOption1] = useState(null);
   const [selectedEmail1, setSelectedEmail1] = useState(null);
   const [selectedPerson1, setSelectedPerson1] = useState(null);
@@ -126,40 +129,46 @@ function dropdownButtons() {
   return (
     <section>
       <h2>Dropdown Buttons</h2>
-      <Column>
-        <Row gap={50}>
+      <Column gap={30}>
+        <Column gap={10}>
           <Row justifyContent="space-between">
             <DropdownButton1
+              theme={theme}
               onSelect={setSelectedOption1}
+              stretch
             >
               <DropdownElement label="옵션 1" value="option1"/>
               <DropdownElement label="옵션 2" value="option2"/>
               <DropdownElement label="옵션 3" value="option3"/>
             </DropdownButton1>
-            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedOption1 ? `${selectedOption1.label} 선택됨` : "없음"}
+            <p className="ko-md-13" style={{width: 300, textAlign: "right"}}>
+              {selectedOption1 ? `${selectedOption1} 선택됨` : "없음"}
             </p>
           </Row>
           <Row justifyContent="space-between">
             <DropdownButton2
+              theme={theme}
               onSelect={setSelectedOption2}
+              stretch
             >
               <DropdownElement label="옵션 1" value="option1"/>
               <DropdownElement label="옵션 2" value="option2"/>
               <DropdownElement label="옵션 3" value="option3"/>
             </DropdownButton2>
-            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedOption2 ? `${selectedOption2.label} 선택됨` : "없음"}
+            <p className="ko-md-13" style={{width: 300, textAlign: "right"}}>
+              {selectedOption2 ? `${selectedOption2} 선택됨` : "없음"}
             </p>
           </Row>
-        </Row>
-        <Row gap={50}>
+        </Column>
+        <Column gap={10}>
           <Row justifyContent="space-between">
             <DropdownButton1
+              theme={theme}
               onSelect={setSelectedEmail1}
               validator={
                 new Validator(ValidatorType.EMAIL_POSTFIX, "이메일 형식으로 입력하세요.")
               }
+              stretch
               allowCustom
             >
               <DropdownElement label="gmail.com" value="gmail"/>
@@ -167,16 +176,18 @@ function dropdownButtons() {
               <DropdownElement label="daum.net" value="daum"/>
               <DropdownElement label="apple.com" value="apple"/>
             </DropdownButton1>
-            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedEmail1 ? `${selectedEmail1.label} 선택됨` : "없음"}
+            <p className="ko-md-13" style={{width: 300, textAlign: "right"}}>
+              {selectedEmail1 ? `${selectedEmail1} 선택됨` : "없음"}
             </p>
           </Row>
           <Row justifyContent="space-between">
             <DropdownButton2
+              theme={theme}
               onSelect={setSelectedEmail2}
               validator={
                 new Validator(ValidatorType.EMAIL_POSTFIX, "이메일 형식으로 입력하세요.")
               }
+              stretch
               allowCustom
             >
               <DropdownElement label="gmail.com" value="gmail"/>
@@ -184,16 +195,18 @@ function dropdownButtons() {
               <DropdownElement label="daum.net" value="daum"/>
               <DropdownElement label="apple.com" value="apple"/>
             </DropdownButton2>
-            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedEmail2 ? `${selectedEmail2.label} 선택됨` : "없음"}
+            <p className="ko-md-13" style={{width: 300, textAlign: "right"}}>
+              {selectedEmail2 ? `${selectedEmail2} 선택됨` : "없음"}
             </p>
           </Row>
-        </Row>
-        <Row gap={50}>
+        </Column>
+        <Column gap={10}>
           <Row justifyContent="space-between">
             <DropdownButton1
+              theme={theme}
               onSelect={setSelectedPerson1}
               allowCustom
+              stretch
               search
             >
               <DropdownElement label="반대준" value="ban"/>
@@ -201,14 +214,16 @@ function dropdownButtons() {
               <DropdownElement label="최지안" value="choi"/>
               <DropdownElement label="유재림" value="yu"/>
             </DropdownButton1>
-            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedPerson1 ? `${selectedPerson1.label} 선택됨` : "없음"}
+            <p className="ko-md-13" style={{width: 300, textAlign: "right"}}>
+              {selectedPerson1 ? `${selectedPerson1} 선택됨` : "없음"}
             </p>
           </Row>
           <Row justifyContent="space-between">
             <DropdownButton2
+              theme={theme}
               onSelect={setSelectedPerson2}
               allowCustom
+              stretch
               search
             >
               <DropdownElement label="반대준" value="ban"/>
@@ -216,17 +231,17 @@ function dropdownButtons() {
               <DropdownElement label="최지안" value="choi"/>
               <DropdownElement label="유재림" value="yu"/>
             </DropdownButton2>
-            <p className="ko-md-13" style={{width: 100, textAlign: "right"}}>
-              {selectedPerson2 ? `${selectedPerson2.label} 선택됨` : "없음"}
+            <p className="ko-md-13" style={{width: 300, textAlign: "right"}}>
+              {selectedPerson2 ? `${selectedPerson2} 선택됨` : "없음"}
             </p>
           </Row>
-        </Row>
+        </Column>
       </Column>
     </section>
   );
 }
 
-function segmentedButtons() {
+function segmentedButtons(theme) {
   const [selected, setSelected] = useState("option1");
 
   return (
@@ -234,6 +249,7 @@ function segmentedButtons() {
       <h2>Segmented Buttons</h2>
       <Column>
         <SegmentedGroup1
+          theme={theme}
           name="segmented1Group1" 
           defaultValue={selected} 
           onChange={setSelected}
@@ -245,6 +261,7 @@ function segmentedButtons() {
           <SegmentedButton label="옵션 4" value="option4" />
         </SegmentedGroup1>
         <SegmentedGroup1
+          theme={theme}
           name="segmented1Group1" 
           defaultValue={selected} 
           onChange={setSelected}
@@ -257,6 +274,7 @@ function segmentedButtons() {
           <SegmentedButton label="옵션 4" value="option4" />
         </SegmentedGroup1>
         <SegmentedGroup2
+          theme={theme}
           name="segmented2Group1" 
           defaultValue={selected} 
           onChange={setSelected}
@@ -268,6 +286,7 @@ function segmentedButtons() {
           <SegmentedButton label="옵션 4" value="option4" />
         </SegmentedGroup2>
         <SegmentedGroup2
+          theme={theme}
           name="segmented2Group2" 
           defaultValue={selected} 
           onChange={setSelected}
@@ -284,32 +303,49 @@ function segmentedButtons() {
   );
 }
 
-function textFields() {
+function textFields(theme) {
   return (
     <section>
       <h2>Text Fields</h2>
       <Column>
-        <Row>
-          <TextField placeholder="Default" stretch />
-          <TextField placeholder="Error" error stretch />
-        </Row>
-        <Row>
-          <TextField 
-            placeholder="비밀번호를 입력하세요" 
-            validators={[
-              new Validator(ValidatorType.AT_LEAST_EIGHT, "비밀번호는 최소 8자리 이상이어야 합니다"),
-              new Validator(ValidatorType.INCLUDE_ALPHABET_SPECIAL_CHAR_NUMBER, "영문/특수문자/숫자가 포함되어야 합니다"),
-              new Validator(ValidatorType.SEQUENTIAL_NUMBER_CHAR, "연속된 숫자/문자는 사용이 불가합니다"),
-            ]}
-            stretch 
-          />
-        </Row>
+        <TextField 
+          theme={theme}
+          placeholder="비밀번호를 입력하세요" 
+          validators={[
+            new Validator(ValidatorType.AT_LEAST_EIGHT, "비밀번호는 최소 8자리 이상이어야 합니다"),
+            new Validator(ValidatorType.INCLUDE_ALPHABET_SPECIAL_CHAR_NUMBER, "영문/특수문자/숫자가 포함되어야 합니다"),
+            new Validator(ValidatorType.SEQUENTIAL_NUMBER_CHAR, "연속된 숫자/문자는 사용이 불가합니다"),
+          ]}
+          showMismatchOnly
+          stretch 
+        />
+        <TextField 
+          theme={theme}
+          placeholder="비밀번호를 입력하세요" 
+          validators={[
+            new Validator(ValidatorType.AT_LEAST_EIGHT, "비밀번호는 최소 8자리 이상이어야 합니다"),
+            new Validator(ValidatorType.INCLUDE_ALPHABET_SPECIAL_CHAR_NUMBER, "영문/특수문자/숫자가 포함되어야 합니다"),
+            new Validator(ValidatorType.SEQUENTIAL_NUMBER_CHAR, "연속된 숫자/문자는 사용이 불가합니다"),
+          ]}
+          stretch
+        />
+        <TextField 
+          theme={theme}
+          type="password"
+          placeholder="비밀번호를 입력하세요"
+          validators={[
+            new Validator(ValidatorType.AT_LEAST_EIGHT, "비밀번호는 최소 8자리 이상이어야 합니다"),
+            new Validator(ValidatorType.INCLUDE_ALPHABET_SPECIAL_CHAR_NUMBER, "영문/특수문자/숫자가 포함되어야 합니다"),
+            new Validator(ValidatorType.SEQUENTIAL_NUMBER_CHAR, "연속된 숫자/문자는 사용이 불가합니다"),
+          ]}
+          stretch
+        />
       </Column>
     </section>
   );
 }
 
-function circulargraphes() {
+function circulargraphes(theme) {
   return (
     <section>
       <h2>Circular Progresses</h2>
@@ -321,7 +357,7 @@ function circulargraphes() {
   );
 }
 
-function table() {
+function table(theme) {
   const [selectedIndex1, setSelectedIndex1] = useState(-1);
   const textStyles1 = ["ko-md-17", "ko-md-17", "ko-md-17", "ko-md-24"];
   const data1 = [
@@ -402,9 +438,10 @@ function table() {
         <Column>
           <p>{selectedIndex1}번 선택됨</p>
           <Table
+            theme={theme}
             paddingLeft={118}
             paddingRight={72}
-            // height={300}
+            height={300}
             columnRatios={[94, 212, 94, 212]}
           >
             <TableBody 
@@ -415,10 +452,10 @@ function table() {
         </Column>
         <Column>
           <Table
-            theme="secondary"
+            theme={theme}
             paddingLeft={48}
             paddingRight={48}
-            // height={500}
+            height={300}
             columnRatios={[94, 94, 180, 180]}
           >
             <TableExpandableBody
@@ -431,43 +468,76 @@ function table() {
   );
 }
 
-function stepIndicator() {
+function stepIndicator(theme) {
   const buildIndicator = (progress) => (
-    <StepIndicator currentStep={progress}>
-      <StepElement label="학원 정보 입력" />
-      <StepElement label="회원 정보 입력 및 인증" />
-      <StepElement label="이용약관 동의" />
-      <StepElement label="가입 완료" />
+    <StepIndicator theme={theme} currentStep={progress}>
+      <StepElement label="First Step" />
+      <StepElement label="Second Step" />
+      <StepElement label="Third Step" />
+      <StepElement label="Last Step" />
     </StepIndicator>
   );
 
   return (
-    <Column>
-      {buildIndicator(1)}
-      {buildIndicator(2)}
-      {buildIndicator(3)}
-      {buildIndicator(4)}
-    </Column>
+    <section>
+      <h2>Step Indicator</h2>
+        <Column>
+        {buildIndicator(1)}
+        {buildIndicator(2)}
+        {buildIndicator(3)}
+        {buildIndicator(4)}
+      </Column>
+    </section>
+  );
+}
+
+function infoCardButtons(theme) {
+  return (
+    <section>
+      <h2>Info Card Buttons</h2>
+      <Row>
+        <InfoCardButton theme={theme} text="Add Button" icon="add" textWidth={.4} />
+        <InfoCardButton theme={theme} text="Phone Button" icon="phone" />
+      </Row>
+    </section>
   );
 }
 
 export default function Component() {
+  const [theme, setTheme] = useState("primary");
+
   return (
-    <div className="page">
-      {nav()}
-      <Card margin={50}>
+    <div className="page component">
+      <div className="theme-changer" style={{
+        "--color": `var(--${theme}-300)`
+      }}>
+        <SegmentedGroup2
+            theme={theme}
+            name="theme" 
+            defaultValue={theme} 
+            onChange={setTheme}
+            width={200}
+            >
+            <SegmentedButton label="primary" value="primary" />
+            <SegmentedButton label="secondary" value="secondary" />
+          </SegmentedGroup2>
+        <SizedBox height={40} />
+      </div>
+      {nav(theme)}
+      <Card theme={theme} margin={50} border>
         <div style={{width: "80%"}}>
           <Column justifyContent="space-between">
-            {buttons()}
-            {radioButtons()}
-            {checkboxButtons()}
-            {dropdownButtons()}
-            {segmentedButtons()}
-            {textFields()}
-            {circulargraphes()}
-            {table()}
-            {stepIndicator()}
-            {/* <div style={{height: "400px"}} /> */}
+            {buttons(theme)}
+            {radioButtons(theme)}
+            {checkboxButtons(theme)}
+            {dropdownButtons(theme)}
+            {segmentedButtons(theme)}
+            {textFields(theme)}
+            {circulargraphes(theme)}
+            {table(theme)}
+            {stepIndicator(theme)}
+            {infoCardButtons(theme)}
+            <SizedBox height={400}/>
           </Column>
         </div>
       </Card>
