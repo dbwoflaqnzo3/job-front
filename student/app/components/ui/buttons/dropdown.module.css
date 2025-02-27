@@ -1,39 +1,42 @@
 .dropdown-container {
   position: relative;
   display: flex;
+  background-color: var(--black-100);
+  padding: var(--padding-vertical) var(--padding-horizontal);
 }
 
-.dropdown-container.button1 {
-  padding: 8px 24px;
-  border-radius: 24px;
-  border: var(--secondary-300) 1px solid;
-}
-.dropdown-container.button2 {
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: var(--secondary-400) 1px solid;
+.dropdown-container.button1 { border-radius: 24px; }
+.dropdown-container.button1.primary { border: var(--primary-300) 1px solid; }
+.dropdown-container.button1.secondary { border: var(--secondary-300) 1px solid; }
+
+.dropdown-container.button1:hover { background-color: var(--black-200); }
+.dropdown-container.button1.primary:hover { border: var(--primary-300) 1px solid; }
+.dropdown-container.button1.secondary:hover { border: var(--secondary-300) 1px solid; }
+
+.dropdown-container.button2 { border-radius: 8px; }
+.dropdown-container.button2.primary { border: var(--primary-400) 1px solid; }
+.dropdown-container.button2.secondary { border: var(--secondary-400) 1px solid; }
+
+.dropdown-container.button2:hover { background-color: var(--black-200); }
+.dropdown-container.button2.primary:hover { border: var(--primary-300) 1px solid; }
+.dropdown-container.button2.secondary:hover { border: var(--secondary-300) 1px solid; }
+
+.dropdown-container.opened { border: transparent 1px solid; }
+.dropdown-container.opened.primary { background-color: var(--primary-200); }
+.dropdown-container.opened.secondary { background-color: var(--secondary-200); }
+
+.dropdown-container.button1.selected.primary { border: var(--primary-500) 1px solid; }
+.dropdown-container.button1.selected.secondary { border: var(--secondary-500) 1px solid; }
+
+.dropdown-container.button2.selected.primary { border: var(--primary-400) 1px solid; }
+.dropdown-container.button2.selected.secondary { border: var(--secondary-400) 1px solid; }
+
+.dropdown-container.custom.primary {
+  border: var(--primary-500) 2px solid;
+  background-color: var(--primary-100);
 }
 
-.dropdown-container.button2:hover {
-  border: var(--secondary-300) 1px solid;
-  background-color: var(--black-200);
-}
-
-.dropdown-container.opened {
-  border: transparent 1px solid;
-  background-color: var(--secondary-200);
-}
-
-.dropdown-container.button1.selected {
-  border: var(--secondary-500) 1px solid;
-}
-
-.dropdown-container.button2.selected {
-  border: var(--secondary-400) 1px solid;
-}
-
-
-.dropdown-container.custom {
+.dropdown-container.custom.secondary {
   border: var(--secondary-500) 2px solid;
   background-color: var(--secondary-100);
 }
@@ -46,15 +49,8 @@
   border: none;
 }
 
-.dropdown-container.button1 .dropdown-button {
-  color: var(--black-1000);
-  height: 38px;
-}
-
-.dropdown-container.button2 .dropdown-button {
-  color: var(--black-1000);
-  height: 24px;
-}
+.dropdown-container.button1 .dropdown-button { color: var(--black-1000);  height: 38px; }
+.dropdown-container.button2 .dropdown-button { color: var(--black-1000); height: 24px; }
 
 .dropdown-button-inner {
   display: flex;
@@ -71,8 +67,11 @@
   color: var(--black-1000) !important;
 }
 
-
 .dropdown-arrow {
+  width: 24px; height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transition: transform .3s ease-in-out;
 }
 
@@ -86,8 +85,7 @@
   left: 0;
   width: 100%;
   background-color: var(--black-100);
-  z-index: 100;
-  border: 1px solid var(--secondary-500);
+  z-index: 1000;
   border-radius: 8px;
   overflow: hidden;
   list-style-type: none; 
@@ -99,9 +97,10 @@
   transition: transform 0.2s ease-in-out;
 }
 
-.dropdown-list.opened {
-  transform: scaleY(1);
-}
+.dropdown-list.opened { transform: scaleY(1); }
+
+.dropdown-container.primary .dropdown-list { border: 1px solid var(--primary-500); }
+.dropdown-container.secondary .dropdown-list { border: 1px solid var(--secondary-500); }
 
 .dropdown-item {
   display: flex;
@@ -117,10 +116,9 @@
     background-color .1s ease-in-out;
 }
 
-.dropdown-item:hover {
-  color: var(--black-1000);
-  background-color: var(--secondary-100);
-}
+.dropdown-item:hover { color: var(--black-1000); }
+.dropdown-container.primary .dropdown-item:hover { background-color: var(--primary-100); }
+.dropdown-container.secondary .dropdown-item:hover { background-color: var(--secondary-100); }
 
 .dropdown-container.custom input, 
 .dropdown-container.custom input:focus {
@@ -146,6 +144,7 @@
   color: var(--red-3);
   opacity: 1;
   transition: all .2s ease-in-out;
+  z-index: 10;
 }
 
 .error-message.hidden {

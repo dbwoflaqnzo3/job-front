@@ -1,9 +1,10 @@
+
 .card {
   display: block;
   position: relative;
   justify-items: center;
   align-items: center;
-  border-radius: 8px;
-  border: 1px solid;
+  background-color: var(--background-color);
+  border: var(--border-color) 1px solid;
   transition: all 0.3s ease;
 }
