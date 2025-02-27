@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import styles from "../../../styles/vocaStage1_Test.module.css";
 import EndTestModal from "@/app/utils/endTestModal";
+import CheckAnswerModal from "@/app/utils/checkAnswerModal";
 
 export default function SpeakingTest({ vocabs, onTestComplete }) {
     const [currentIndex, setCurrentIndex] = useState(0); // 현재 단어 인덱스
@@ -205,7 +206,7 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                 {recordedAudio !== null && (!passResults[currentIndex] ? console.log("아직 틀림") :
                     (
                         <div>
-                            <VocabCorrectPopup />
+                            <CheckAnswerModal isCorrect={true} />
                             <div style={{ display: "none" }}>
                                 {setTimeout(() => handleNext(undefined), 500)}
                             </div>
@@ -216,7 +217,7 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                 {/* 단어 틀렸을 때 팝업 */}
                 {recordedAudio !== null && (testTry == 3 ? (
                     <div>
-                        <VocabNoChancePopup />
+                        <CheckAnswerModal isCorrect={false} />
                         <div style={{ display: "none" }}>
                             {setTimeout(() => handlePass(undefined), 3000)}
                         </div>
