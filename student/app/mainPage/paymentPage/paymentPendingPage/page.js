@@ -52,7 +52,7 @@ export default function PaymentPendingPage() {
 
             <div className={styles.contentTitleContainer}>
                 <div className='ko-sb-20' style={{ color: "var(--Black-800, #4D4D4D)" }}>결제할 내역</div>
-                <div style={{ width: "48rem" }} />
+                <div style={{ width: "53.25rem" }} />
                 <div className='ko-sb-20' style={{ color: "var(--Black-800, #4D4D4D)" }}>결제하기</div>
             </div>
 
