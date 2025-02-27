@@ -21,12 +21,12 @@
   overflow: visible;
 }
 
-.component section h2 + * { 
+.component section > h2 + div:not(.overlay) { 
   width: 80% !important; 
   transform: translateX(30%);
 }
 
-.component section h2 {
+.component section > h2 {
   position: sticky;
   top: 50%;
   width: 20%;

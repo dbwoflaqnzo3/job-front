@@ -17,7 +17,7 @@ import { StepElement, StepIndicator } from "@/app/components/layout/StepIndicato
 import SizedBox from "@/app/widgets/structure/SizedBox";
 import "./page.css";
 import { InfoCardButton } from "@/app/components/ui/buttons/InfoCard";
-
+import { Popup, PopupContent, PopupButtons, showPopup } from "@/app/components/ui/popup/Popup";
 
 function nav(theme) {
   return (
@@ -503,6 +503,85 @@ function infoCardButtons(theme) {
   );
 }
 
+function popupButtons(theme) {
+  const p1 = "popup-1";
+  const p2 = "popup-2";
+  const [openedPopup, openPopup] = useState("");
+  const [inputValue, setInputValue] = useState("");
+
+  const onPopupClose = () => {
+    openPopup("");
+    setInputValue("");
+  }
+
+  return (
+    <section>
+      <h2>Popups</h2>
+      <Popup
+        name={p1}
+        theme={theme}
+        title="작성하신 연락처로\n인증번호가 발송되었어요"
+        display={openedPopup === p1}
+        onClose={onPopupClose}
+      >
+        <PopupContent>
+          <Row gap={24}>
+            <TextField
+              placeholder="인증번호를 입력하세요"
+              onChange={setInputValue}
+              allowSpace={false}
+              stretch
+            />
+            <p>3:00</p>
+          </Row>
+        </PopupContent>
+        <PopupButtons>
+          <Button1 
+            text="인증하기"
+            onClick={() => {}}
+            disabled={inputValue === ""}
+            stretch
+          />
+          <Button4 
+            text="다음에 하기"
+            onClick={onPopupClose}
+            disabled={false}
+            stretch
+          />
+        </PopupButtons>
+      </Popup>
+      <Popup
+        name={p2}
+        theme={theme}
+        title="인증에 실패했어요"
+        description="다시 시도하시겠어요?"
+        image="popupError"
+        imagePosY={.45}
+        display={openedPopup === p2}
+        onClose={onPopupClose}
+      >
+        <PopupButtons>
+          <Button1 
+            text="인증번호 다시 받기"
+            onClick={() => {}}
+            stretch
+          />
+          <Button4 
+            text="다음에 하기"
+            onClick={onPopupClose}
+            disabled={false}
+            stretch
+          />
+        </PopupButtons>
+      </Popup>
+      <Row gap={20}>
+        <Button1 theme={theme} text="팝업1 열기" onClick={() => openPopup(p1)} />
+        <Button2 theme={theme} text="팝업2 열기" onClick={() => openPopup(p2)} />
+      </Row>
+    </section>
+  );
+}
+
 export default function Component() {
   const [theme, setTheme] = useState("primary");
 
@@ -537,6 +616,7 @@ export default function Component() {
             {table(theme)}
             {stepIndicator(theme)}
             {infoCardButtons(theme)}
+            {popupButtons(theme)}
             <SizedBox height={400}/>
           </Column>
         </div>

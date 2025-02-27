@@ -3,7 +3,7 @@ import React, { useMemo, useRef, useState, useEffect, cloneElement } from "react
 import { Row } from "@/app/widgets/structure/Grid";
 import Logo from "@/public/assets/images/logo.svg";
 import styles from "./nav.module.css";
-import DynamicIcon from "@/app/components/ui/icon/Dynamic";
+import DynamicIcon from "@/app/components/ui/image/DynamicIcon";
 
 export function NavItem({ text, textColor = "black-1000", onClick }) {
   const style = { color: `var(--${textColor})` };

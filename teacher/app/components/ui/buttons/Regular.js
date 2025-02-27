@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 import styles from "./regular.module.css";
 import { Row } from "@/app/widgets/structure/Grid";
-import DynamicIcon from "@/app/components/ui/icon/Dynamic";
+import DynamicIcon from "@/app/components/ui/image/DynamicIcon";
 
 export default function Button({ 
   theme = "primary",

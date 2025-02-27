@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styles from "./table.module.css";
 import { Column } from "@/app/widgets/structure/Grid";
-import DynamicIcon from "@/app/components/ui/icon/Dynamic";
+import DynamicIcon from "@/app/components/ui/image/DynamicIcon";
 
 export const FieldState = Object.freeze({
   VISIBLE: "표시",

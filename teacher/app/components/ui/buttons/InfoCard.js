@@ -1,6 +1,6 @@
 import styles from "./infoCard.module.css";
 import Card from "@/app/components/ui/Card";
-import DynamicIcon from "@/app/components/ui/icon/Dynamic";
+import DynamicIcon from "@/app/components/ui/image/DynamicIcon";
 
 export function InfoCardButton({
   theme = "primary",
