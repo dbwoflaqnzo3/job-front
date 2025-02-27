@@ -13,7 +13,7 @@
     height: 100px;
     bottom: 0;
     pointer-events: none;
-    background: linear-gradient(to bottom, #ffffff00 0%, #fff 100%);
+    background: linear-gradient(to bottom, #ffffff00 0%, var(--background-color) 100%);
     transition: height .3s ease-in-out;
 }
 
@@ -34,6 +34,7 @@
 .table thead {
     position: sticky;
     top: 0;
+    z-index: 10;
 }
 
 .table tbody tr {
@@ -137,12 +138,13 @@
     color: var(--black-800);
 }
 
-.arrow-container {
+.arrow-icon {
     width: 24px;
     height: 24px;
-}
-
-.arrow-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
     transition: transform 0.3s ease-in-out;
 }
 

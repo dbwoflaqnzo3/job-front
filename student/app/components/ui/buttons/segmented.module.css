@@ -6,15 +6,11 @@
   background-color: var(--black-100);
 }
 
-.segmented-container.button1 {
-  border: 2px solid var(--secondary-300);
-  background-color: var(--black-100);
-}
+.segmented-container.button1 { background-color: var(--black-100); }
+.segmented-container.button1.primary { border: 2px solid var(--primary-300); }
+.segmented-container.button1.secondary { border: 2px solid var(--secondary-300); }
 
-.segmented-container.button2 {
-  background-color: var(--black-200);
-}
-
+.segmented-container.button2 { background-color: var(--black-200); }
 
 .segmented-button {
   display: flex;
@@ -26,14 +22,14 @@
   transition: background-color 0.3s ease-in-out;
 }
 
-.segmented-button.button1 {
-  border-right: 2px solid var(--secondary-300);
-}
+.segmented-button.button1.primary { border-right: 2px solid var(--primary-300); }
+.segmented-button.button1.secondary { border-right: 2px solid var(--secondary-300); }
 
-.segmented-button.button1:hover { background-color: var(--secondary-100); }
+.segmented-button.button1.primary:hover { background-color: var(--primary-100); }
+.segmented-button.button1.secondary:hover { background-color: var(--secondary-100); }
 .segmented-button.button2:hover { background-color: var(--black-300); }
 
-.segmented-button:last-child { border-right: none; }
+.segmented-button:last-child { border-right: none !important; }
 .segmented-button input { display: none; }
 
 .segmented-button .segmented-label {
@@ -46,8 +42,10 @@
   transition: color 0.3s ease-in-out;
 }
 
-.segmented-button.button1.active { background-color: var(--secondary-200); }
-.segmented-button.button2.active { background-color: var(--secondary-600); }
+.segmented-button.button1.primary.active { background-color: var(--primary-200); }
+.segmented-button.button1.secondary.active { background-color: var(--secondary-200); }
+.segmented-button.button2.primary.active { background-color: var(--primary-500); }
+.segmented-button.button2.secondary.active { background-color: var(--secondary-600); }
 
 .segmented-button.button1.active .segmented-label { color: var(--black-1000); }
 .segmented-button.button2.active .segmented-label { color: var(--black-100); }

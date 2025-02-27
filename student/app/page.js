@@ -9,6 +9,30 @@ export function PageLayout({ children, hide }) {
 
   const router = useRouter();
 
+  const handleLogout = async() => {
+    const response = await fetch('http://localhost:8080/userToken/logout', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+
+      credentials: 'include',
+    });
+
+    const result = await response.json();
+
+    console.log(result)
+
+    if(response.status == 200)
+    {
+      document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;"; // Clear token on logout
+      router.push("/loginPage");
+    }
+    else{
+      console.log("로그아웃 중 에러발생")
+    }
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.mainContainedr}>
@@ -25,8 +49,7 @@ export function PageLayout({ children, hide }) {
           <NavIcon icon="profile">
             <NavItem text="내 정보" onClick={() => { router.push("/mainPage/myInfo") }} />
             <NavItem text="로그아웃" textColor="red-3" onClick={() => {
-              document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;"; // Clear token on logout
-              router.push("/loginPage");
+                handleLogout()
             }} />
           </NavIcon>
         </NavGroup>
