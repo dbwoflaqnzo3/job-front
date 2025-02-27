@@ -12,10 +12,19 @@
 
 .mainContainer{
     display:flex; 
+    flex-direction:  column;
     justify-content: flex-start;
     align-items: center;
-    flex-direction:  column;
+    
     width: 1512px;
+}
+
+.navContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
 }
 
 .navBottomMargin{

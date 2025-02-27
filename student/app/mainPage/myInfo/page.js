@@ -78,7 +78,7 @@ export default function userPageController() {
     return (
         <PageLayout>
             {userInfo ? (
-                <div className={styles.Container}>
+                <div className={styles.container}>
                     <h1 className={styles.instruction}>내 정보</h1>
                     <div className={styles.buttonContainer}>
                         <div className={styles.hidden}>

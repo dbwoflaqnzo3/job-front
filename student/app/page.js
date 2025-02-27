@@ -35,9 +35,9 @@ export function PageLayout({ children, hide }) {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.mainContainedr}>
-        <div style={{ opacity: hide ? 0 : 1 }}>
-        <NavGroup theme="primary">
+      <div className={styles.mainContainer}>
+        <div className={styles.navContainer} style={{ opacity: hide ? 0 : 1}}>
+        <NavGroup theme="primary" >
           <NavTitle title="학습하기" onClick={() => { router.push("/mainPage/lessonListPage") }} />
           <NavTitle title="학습캘린더" onClick={() => { router.push("/mainPage/studentCalendar") }} />
           <NavTitle title="질문하기" onClick={() => { router.push("/mainPage/askPage") }} />
