@@ -219,7 +219,7 @@ export default function SpeakingTest({ vocabs, onTestComplete }) {
                     <div>
                         <CheckAnswerModal isPassed={false} />
                         <div style={{ display: "none" }}>
-                            {setTimeout(() => handlePass(undefined), 3000)}
+                            {setTimeout(() => handlePass(undefined), 500)}
                         </div>
                     </div>
                 ) : console.log("이걸 다 틀리네 ㅋㅋ"))}

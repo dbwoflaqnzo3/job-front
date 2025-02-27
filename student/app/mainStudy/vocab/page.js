@@ -338,7 +338,7 @@ export default function VocabStageController() {
             // lesson 정보가 존재할 경우
             if (resultReadProgress) {
                 progressId.current = resultReadProgress._id //progress id 저장
-                setTotalProgress(studyMode[resultReadProgress.progressLevel])
+                setTotalProgress(studyMode[resultReadProgress.progressLevel - 1])
             } else {
                 const resultCreateProgress = await createProgress("6797ab3555927d2b753da5d8") // progrss 생성 (수정 요망)
                 progressId.current = resultCreateProgress._id
