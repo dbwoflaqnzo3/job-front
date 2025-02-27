@@ -1,0 +1,151 @@
+.table-container {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 16px 16px 0 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scroll-gradient {
+    position: sticky;
+    width: 100%;
+    height: 100px;
+    bottom: 0;
+    pointer-events: none;
+    background: linear-gradient(to bottom, #ffffff00 0%, #fff 100%);
+    transition: height .3s ease-in-out;
+}
+
+.scroll-gradient.hidden {
+    height: 0;
+}
+
+.table-container::-webkit-scrollbar {
+    display: none;
+}
+
+.table {
+    width: 100%;
+    position: relative;
+    border-collapse: collapse;
+}
+
+.table thead {
+    position: sticky;
+    top: 0;
+}
+
+.table tbody tr {
+    border-bottom: var(--border-color) 1px solid;
+    cursor: pointer;
+}
+
+.table tr th,
+.table tr:not(.hidden-row) td {
+    padding-left: calc(var(--column-gap) * .5);
+    padding-right: calc(var(--column-gap) * .5);
+    /* overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; */
+}
+
+.table tr:not(.hidden-row) td:first-child,
+.table tr:not(.hidden-row) th:first-child {
+    padding-left: var(--padding-left) !important;
+}
+
+.table tr:not(.hidden-row) td:last-child,
+.table tr:not(.hidden-row) th:last-child {
+    padding-right: var(--padding-right) !important;
+}
+
+.table th,
+.table td {
+    text-align: center;
+}
+
+.table .header {
+    background-color: var(--header-color);
+}
+
+.table tbody {
+    background-color: var(--row-color);
+}
+
+.table tbody tr:not(.hidden-row):hover {
+    background-color: var(--clicked-color);
+}
+
+.table tr.selected {
+    background-color: var(--clicked-color) !important;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.expandable-row {
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.expandable-row.expanded {
+    background-color: var(--clicked-color);
+}
+
+.expandable-row.hidden {
+    border: none;
+}
+
+.hidden-content {
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    padding-left: 100px;
+    transition: all .3s ease-in-out;
+}
+
+.hidden-row.show .hidden-content {
+    max-height: 100vh;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    opacity: 1;
+}
+
+.hidden-row.show {
+    pointer-events: auto;
+}
+
+.sub-container {
+    display: flex;
+    width: 500px;
+}
+
+.sub-container .subtitle {
+    width: 25%;
+    color: var(--black-600);
+    text-align: left;
+
+}
+
+.sub-container .subdata {
+    width: 75%;
+    color: var(--black-1000);
+    text-align: left;
+}
+
+.sub-container .subdata.nested {
+    color: var(--black-800);
+}
+
+.arrow-container {
+    width: 24px;
+    height: 24px;
+}
+
+.arrow-icon {
+    transition: transform 0.3s ease-in-out;
+}
+
+.arrow-icon.rotated {
+    transform: rotate(180deg);
+}

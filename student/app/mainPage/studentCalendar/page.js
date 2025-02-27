@@ -218,12 +218,24 @@ export function Calendar({ year, month, selectedDate,changeMonth, changeSelected
     const { data, startDay, days } = getDaysInMonth(year, month);
 
     const fetchData = async (year, month) => {
-    
         try {
-            const result = await readPeriodStudentLesson(data[0], data[1]);
-
-            setCircleData(result)
-            setLodading(false)
+            // 현재 달의 시작과 끝, 총 일 수, 시작 요일 계산
+            const { data: monthRange, startDay, days } = getDaysInMonth(year, month);
+    
+            // 전체 그리드 셀 개수 계산 (5줄 혹은 6줄)
+            const totalCells = startDay + days;
+            const totalRows = totalCells > 35 ? 6 : 5; // 35칸 이하이면 5줄, 36칸 이상이면 6줄
+            const totalGridSize = totalRows * 7;
+            const nextMonthDays = totalGridSize - totalCells;
+    
+            // 달력 그리드 전체 기간 계산
+            const gridStartDate = new Date(year, month - 1, 1 - startDay);
+            const gridEndDate = new Date(year, month - 1, days + nextMonthDays);
+    
+            // 전체 기간의 데이터를 불러옴
+            const result = await readPeriodStudentLesson(gridStartDate, gridEndDate);
+            setCircleData(result);
+            setLodading(false);
         } catch (error) {
             console.error("데이터 불러오기 실패:", error);
         }
@@ -282,7 +294,8 @@ export function Calendar({ year, month, selectedDate,changeMonth, changeSelected
     
     const handleCircleData = (year, month, item) => {
         const date = findMatchingObject(year, month + item.isCurrentMonth, item.day);
-    
+
+        // console.log(circleData,"!!!")
         // item.date를 Date 객체로 변환하여 비교
         const result = circleData.find(item => new Date(item.date).getTime() === date.getTime())?.containSubjectTypes || [];
     
