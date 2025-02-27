@@ -1,8 +1,8 @@
 /* ========MODAL======== */
 
 .modalWrapper {
-  width: 100rem;
-  height: 100rem;
+  width: 100vw;
+  height: 100vh;
 
   background-color: rgba(0, 0, 0, 0.3);
 
@@ -59,4 +59,12 @@
 
   display: flex;
   justify-content: center;
+}
+
+.imagePlacement{
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

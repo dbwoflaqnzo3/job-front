@@ -48,7 +48,6 @@ export default function userPageController() {
             };
 
             if (userInfo.sex == "Male") {
-                console.log("!!@!")
                 updateBody.sex = "남"
             } else if (userInfo.sex == "Female") {
                 updateBody.sex = "여"
