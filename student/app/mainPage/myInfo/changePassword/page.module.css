@@ -1,0 +1,40 @@
+.container1 {
+    width: 25rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.title1 {
+    color: var(--Black-1000, #1A1A1A);
+    text-align: center;
+
+    /* Ko/Sb/30 */
+    font-family: "Pretendard Variable";
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    /* 2.8125rem */
+}
+
+.instruction1 {
+    margin-top: 9.5rem;
+    margin-bottom: 0.5rem;
+
+    color: var(--Black-1000, #1A1A1A);
+
+    /* Ko/Md/17 */
+    font-family: "Pretendard Variable";
+    font-size: 1.0625rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    /* 1.59375rem */
+}
+
+.space{
+    height: 19.81rem;
+
+    margin: 0;
+}
