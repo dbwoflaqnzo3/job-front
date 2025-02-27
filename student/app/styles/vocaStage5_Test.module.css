@@ -1,0 +1,207 @@
+.container {
+  width: 1512px;
+  height: 100vh;
+
+  margin: auto;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: #FFF8ED;
+  font-family: 'Arial', sans-serif;
+}
+
+.containerHead1 {
+  margin-top: 226px;
+}
+
+.head1 {
+  color: var(--Black-1000, #1A1A1A);
+  text-align: center;
+  margin: 0;
+
+  /* Ko/Sb/20 */
+  font-family: "Pretendard Variable";
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  /* 1.875rem */
+}
+
+.contentContainer{
+  width: 900px;
+  height: 541px;
+  display: flex;
+  margin-top: 64px;
+}
+
+.timerContainer{
+  width: 226px;
+  height: 100%;
+}
+
+.wordBoxContainer{
+  width: 448px;
+  height: 514px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wordBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  height: 260px;
+
+  border: 2px solid #FEDAA6;
+  border-radius: 8px;
+  background-color: #FEFEFE;
+  /* 흰색 카드 배경 */
+}
+
+.wordBox p{
+  margin: 86px 0 0 0;
+  /* 텍스트 색상 */
+  color: var(--Black-1000, #1A1A1A);
+  font-family: "Min Sans VF";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 60px */
+}
+
+.inputContainer{
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+
+  margin: 28px 0 0 0;
+}
+
+.input {
+  width: 118px;
+  height: 100%;
+
+  margin-right: 24px;
+
+  border-radius: 8px;
+  border: 2px solid var(--Primary500, #FFA321);
+  background: var(--Primary100, #FEEDD2);
+
+  color: var(--Black-800, #4D4D4D);
+  text-align: center;
+
+  /* En/Sb/40 */
+  font-family: "Min Sans VF";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 60px */
+}
+
+.inputContainer p{
+
+  margin: 0;
+  text-align: center;
+
+  color: var(--Black-700, #666);
+
+  /* En/Sb/40 */
+  font-family: "Min Sans VF";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 60px */
+  letter-spacing: 8px;
+}
+
+.inputAllSpell {
+  width: 430px;
+  height: 40px;
+
+  padding-left: 18px;
+  margin-top: 48px;
+  font-size: 16px;
+
+  border: 2px solid #FFA321;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.inputAllSpell:focus {
+  border-radius: 8px;
+  border: 2px solid var(--Primary500, #FFA321);
+  background: var(--Primary100, #FEEDD2);
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: column;
+  /* 버튼을 세로로 정렬 */
+  align-items: center;
+  /* 버튼 중앙 정렬 */
+}
+
+.button {
+  width: 400px;
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 16px;
+  background-color: #ffa500;
+  /* 주황 버튼 */
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 98px;
+}
+
+.button:hover{
+  background: var(--Primary600, #FF971A);
+}
+
+.button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 발음 듣기 버튼 */
+.pronounceBtn{
+  width: 9.1875rem;
+  height: 2.9375rem;
+  border-radius: 1rem;
+  background: var(--Secondary300, #66B5E2);
+
+  margin-top: 43px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--Black-1000, #1A1A1A);
+  /* Ko/Sb/18 */
+  font-family: "Pretendard Variable";
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 1.6875rem */
+} 
+
+.pronounceBtn:hover{
+  background: var(--Secondary600, #056FAC);
+}
+
+.pronounceIcon{
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.75rem;
+}
