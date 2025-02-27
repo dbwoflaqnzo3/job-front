@@ -36,7 +36,7 @@ export default function Login() {
 
             // alert(JSON.stringify(formData))
             //fetch 요청
-            const response = await fetch('http://localhost:8080/student/login', {
+            const response = await fetch('http://localhost:8080/userToken/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export default function Login() {
         
             if (response.ok) {
                 // 로그인 성공 시, 토큰을 콘솔에 출력
-                document.cookie = `token=${result.token}; path=/;`;
+                document.cookie = `token=${result.tokenInfo.token}; path=/;`;
                 // alert("Login Success")
 
                 // console.log('로그인 성공!');

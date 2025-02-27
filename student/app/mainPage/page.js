@@ -34,6 +34,18 @@ export default function MainPage(){
   const handleLogout = async () => {
     try {
         const cookies = document.cookie;
+
+        const response = await fetch('http://localhost:8080/userToken/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    
+        const result = await response.json();
+
+        console.log(result)
+
         const token = cookies
             .split("; ")
             .find((row) => row.startsWith("token="))

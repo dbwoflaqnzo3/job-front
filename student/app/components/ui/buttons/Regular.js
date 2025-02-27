@@ -2,14 +2,10 @@
 import { useMemo } from "react";
 import styles from "./regular.module.css";
 import { Row } from "@/app/widgets/structure/Grid";
-import dynamic from "next/dynamic";
-
-const getIconComponent = (icon) => {
-  if (!icon) return null;
-  return dynamic(() => import(`@/public/assets/images/icons/${icon}.svg`));
-};
+import DynamicIcon from "@/app/components/ui/icon/Dynamic";
 
 export default function Button({ 
+  theme = "primary",
   text,
   type,
   disabled = false,
@@ -19,9 +15,6 @@ export default function Button({
   width = 200,
   shrink = false,
 }) {
-  const IconComponent = useMemo(() => icon ? getIconComponent(icon) : null, [icon]);
-  const iconWidget = IconComponent && <IconComponent className={styles["button-icon"]} />;
-
   width = stretch ? "100%" : width;
   const padding = shrink ? 0 : 13.5;
 
@@ -30,13 +23,13 @@ export default function Button({
 
   return (
     <button 
-      className={`${styles["button"]} ${textStyle} ${styles[type]} ${disabled ? styles["disabled"] : ""}`}
+      className={`${styles["button"]} ${textStyle} ${styles[type]} ${disabled ? styles["disabled"] : ""} ${styles[theme]}`}
       style={{width, padding}}
       onClick={disabled ? undefined : onClick}
       disabled={disabled}
     >
       <div className={styles["button-children"]}>
-        <Row>{iconWidget}{text}</Row>
+        <Row>{icon && <DynamicIcon icon={icon} size={34} />}{text}</Row>
       </div>
     </button>
   );

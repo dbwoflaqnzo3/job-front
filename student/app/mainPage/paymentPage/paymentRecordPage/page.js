@@ -164,7 +164,7 @@ export function TableBlock({data, setSelectedIndex, initSettingDone}) {
         <Table
             paddingLeft={118}
             paddingRight={72}
-            // height={300}
+            height={"34.5rem"}
             columnRatios={[94, 212, 94, 212]}
         >
             <TableBody
