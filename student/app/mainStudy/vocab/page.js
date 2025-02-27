@@ -68,7 +68,7 @@ export default function VocabStageController() {
                 }));
 
                 // setStudyMode(resultStudentLessonInfo.studyMode)
-                setStudyMode([2])
+                setStudyMode([1, 2, 3, 4, 5])
 
                 //테스트를 위해서 result로 잠시 변환 
                 setVocabs(updatedResult);
@@ -383,8 +383,7 @@ export default function VocabStageController() {
                                                     }
 
                                                     return (
-                                                        <div key={i} className={style.progressElement} style={{ backgroundColor }}>
-                                                        </div>
+                                                        <div key={i} className={style.progressElement} style={{ backgroundColor }}/>
                                                     )
                                                 })
                                             }

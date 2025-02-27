@@ -8,7 +8,7 @@ const EndVocabMode = ({ progressId }) => {
 
     const handleSubmit = async () => {
         await updateProgress(progressId, 2, null)
-        router.push("../mainPage")
+        router.push("../mainPage/lessonListPage")
     }
 
     return (

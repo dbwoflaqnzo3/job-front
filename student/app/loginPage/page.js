@@ -131,10 +131,7 @@ export default function Login() {
                         </Link>
                     </div>
                 </div>
-
-                {error && <p className={{ color: 'red' }}>{error}</p>}
-                <button type="submit">로그인</button>
-            </form>
+            
             </div>
 
         </div>
