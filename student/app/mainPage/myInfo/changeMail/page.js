@@ -13,6 +13,7 @@ import TextField from "@/app/components/ui/TextField";
 import Card from "@/app/components/ui/Card";
 import styles from './page.module.css'
 import Image from 'next/image'
+import { Popup, PopupButtons, PopupContent } from "@/app/components/ui/popup/Popup";
 
 export default function ChangeMail() {
     const router = useRouter()
@@ -93,6 +94,7 @@ export default function ChangeMail() {
     return (
         <PageLayout hide={true}>
             <AlreadySentModal />
+            <Modal5 setModalOpen={setModalOpen}/>
             {
                 modalOpen && <VerifyModal
                     verifyId={verificationId}
@@ -216,7 +218,7 @@ function VerifyModal({ verifyId, setIsVerified, setModalOpen, endDate, reSend })
             return () => clearInterval(interval);
         }
     }, [verifyId, expireDate, timeLeft]);
-    
+
     const closeModal = () => {
         setModalOpen(false)
     }
@@ -323,5 +325,37 @@ function AlreadySentModal({ setModalOpen }) {
                 </Column>
             </div>
         </div>
+    )
+}
+
+function Modal5({ setModalOpen }) {
+
+    const p1 = "p1"
+    const theme = "primary"
+
+    return (
+        <Popup
+            name={p1}
+            theme={theme}
+            title="작성하신 연락처로\n인증번호가 발송되었어요"
+            display={p1}
+            onClose={setModalOpen(false)}
+            image="popupError"
+        >
+            <PopupButtons>
+                <Button1
+                    text="인증하기"
+                    onClick={() => { }}
+                    disabled={inputValue === ""}
+                    stretch
+                />
+                <Button4
+                    text="다음에 하기"
+                    onClick={setModalOpen(false)}
+                    disabled={false}
+                    stretch
+                />
+            </PopupButtons>
+        </Popup>
     )
 }
