@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { addRequestMeta } from "next/dist/server/request-meta";
 =======
 >>>>>>> 3ee5730 (feat[#44] : component 적용 오류 해결 중)
+=======
+import { addRequestMeta } from "next/dist/server/request-meta";
+>>>>>>> 2eb536d (refactor[#53]: Write페이지 작성완료)
 import styles from "./grid.module.css";
 
 export function Grid({ 

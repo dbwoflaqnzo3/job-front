@@ -3,12 +3,15 @@
 <<<<<<< HEAD
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+<<<<<<< HEAD
 =======
 import styles from "./helpPage.module.css";
 >>>>>>> b147fff (feat: pull받고 고객센터 페이지추가)
 =======
 import { useState } from "react";
 >>>>>>> 4dd0664 (feat[#53]: 글 카테고리 버튼 설정)
+=======
+>>>>>>> 2eb536d (refactor[#53]: Write페이지 작성완료)
 
 import { PageLayout } from '@/app/page.js';
 import SizedBox from "@/app/widgets/structure/SizedBox";
@@ -41,12 +44,18 @@ export default function studentService(){
 =======
 import { DropdownButton2 , DropdownElement } from "@/app/components/ui/buttons/Dropdown";
 
+import ListItem from "./listItem";
 
 export default function studentService(){
 
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedOrdering, setSelectedOrdering] = useState(null);
 
+    const router = useRouter();
+    const writeContent = () => {
+        router.push("/mainPage/helpPage/write");
+        // alert("경고: 이 작업을 수행할 수 없습니다!");          
+    };
 
 
 >>>>>>> 4dd0664 (feat[#53]: 글 카테고리 버튼 설정)
@@ -123,14 +132,27 @@ export default function studentService(){
                         <DropdownElement label="인기순" value="score"/>
                     </DropdownButton2>
                     </Row>
-                    <Row justifyContent="end" gap="15px">
+                    <Row justifyContent="center" gap="15px">
                         <TextField placeholder={true} width={360} ></TextField>
                         <SizedBox width={50} height={32}/>
-                        <Button5 width={126} text={`찾기`} >찾기</Button5>
+                        <Button5 width={126} text={`찾기`} ></Button5>
                     </Row>
                 </Row>
             </Grid>
+<<<<<<< HEAD
 >>>>>>> b147fff (feat: pull받고 고객센터 페이지추가)
+=======
+            <SizedBox width={50} height={32}/>
+
+            <ListItem/>
+            <SizedBox width={50} height={32}/>
+
+            <Row justifyContent="end">
+            <SizedBox width={1003} height={54}/>
+            <Button1 width={213} height={54} text={`글쓰기`} onClick={writeContent} ></Button1>
+            </Row>
+
+>>>>>>> 2eb536d (refactor[#53]: Write페이지 작성완료)
         </PageLayout>   
     )
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -121,3 +122,14 @@ const DetailPage = () => {
 };
 
 export default DetailPage;
+=======
+// 여기서 작성자를 토큰으로 받을예정 
+import DetailPage from "./detail"
+
+export default function helpPageWrite() {
+    
+    return(
+        <DetailPage/>
+    )
+}
+>>>>>>> 2eb536d (refactor[#53]: Write페이지 작성완료)
