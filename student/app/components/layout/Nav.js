@@ -3,12 +3,7 @@ import React, { useMemo, useRef, useState, useEffect, cloneElement } from "react
 import { Row } from "@/app/widgets/structure/Grid";
 import Logo from "@/public/assets/images/logo.svg";
 import styles from "./nav.module.css";
-import dynamic from "next/dynamic";
-
-const getIconComponent = (icon) => {
-  if (!icon) return null;
-  return dynamic(() => import(`@/public/assets/images/icons/${icon}.svg`).catch(() => ({ default: () => null })));
-};
+import DynamicIcon from "@/app/components/ui/image/DynamicIcon";
 
 export function NavItem({ text, textColor = "black-1000", onClick }) {
   const style = { color: `var(--${textColor})` };
@@ -24,8 +19,6 @@ function NavBase({ title, icon, onClick, isSelected = false, children, isIcon = 
   const hideTimeout = useRef(null);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
-
-  const IconComponent = useMemo(() => (icon ? getIconComponent(icon) : null), [icon]);
 
   const showMenu = () => {
     clearTimeout(hideTimeout.current);
@@ -65,7 +58,7 @@ function NavBase({ title, icon, onClick, isSelected = false, children, isIcon = 
             onMouseLeave={delayedHideMenu}
             onClick={hasMenu ? null : onClick}
           >
-            {isIcon && IconComponent && <IconComponent />}
+            {isIcon && <DynamicIcon icon={icon} size={38} />}
             {!isIcon && title}
           </button>
           <div
@@ -77,8 +70,8 @@ function NavBase({ title, icon, onClick, isSelected = false, children, isIcon = 
               cloneElement(child, {
                 onClick: () => {
                   hideMenu();
-                  onMenuItemClick()
-                  child.props.onClick()
+                  onMenuItemClick();
+                  child.props.onClick();
                 },
               })
             )}
@@ -86,7 +79,7 @@ function NavBase({ title, icon, onClick, isSelected = false, children, isIcon = 
         </div>
       ) : (
         <button className={isIcon ? styles["icon-button"] : styles["nav-button"]} onClick={onClick}>
-          {isIcon && IconComponent && <IconComponent />}
+          {isIcon && <DynamicIcon icon={icon} size={38} />}
           {!isIcon && title}
         </button>
       )}
@@ -99,7 +92,7 @@ export const NavTitle = (props) => <NavBase {...props} />;
 
 export function NavGroup({ theme = "primary", children }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
-  
+
   const styleVars = {
     "--background-color": `var(--${theme}-300)`,
     "--hovered-color": `var(--${theme}-200)`,
@@ -113,16 +106,14 @@ export function NavGroup({ theme = "primary", children }) {
           isSelected: selectedIndex === index,
           onClick: () => {
             if (child.props.children) return;
-
             setSelectedIndex(index);
             child.props.onClick?.();
           },
           onMenuItemClick: () => {
             if (!child.props.children) return;
-            setSelectedIndex(index)
-            child.props.onMenuItemClick?.()
-            
-          }
+            setSelectedIndex(index);
+            child.props.onMenuItemClick?.();
+          },
         });
       }
       return child;
@@ -155,15 +146,15 @@ export function TeacherNav() {
       <NavTitle title="수업관리" />
       <NavTitle title="반 관리" />
       <NavTitle title="결제관리">
-        <NavItem text="결제내역" onClick={() => {}} />
-        <NavItem text="결제관리" onClick={() => {}} />
+        <NavItem text="결제내역" onClick={() => { }} />
+        <NavItem text="결제관리" onClick={() => { }} />
       </NavTitle>
-      <NavIcon icon="help" onClick={() => {}} />
-      <NavIcon icon="profile" onClick={() => {}}>
-        <NavItem text="내 정보" onClick={() => {}} />
-        <NavItem text="멤버십관리" onClick={() => {}} />
-        <NavItem text="결제수단관리" onClick={() => {}} />
-        <NavItem text="로그아웃" textColor="red-3" onClick={() => {}} />
+      <NavIcon icon="help" onClick={() => { }} />
+      <NavIcon icon="profile" onClick={() => { }}>
+        <NavItem text="내 정보" onClick={() => { }} />
+        <NavItem text="멤버십관리" onClick={() => { }} />
+        <NavItem text="결제수단관리" onClick={() => { }} />
+        <NavItem text="로그아웃" textColor="red-3" onClick={() => { }} />
       </NavIcon>
     </NavGroup>
   );

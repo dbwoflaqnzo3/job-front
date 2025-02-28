@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./table.module.css";
-import ArrowDown from "@/public/assets/images/icons/dropdownArrow.svg";
-// import ArrowIcon from "@/public/assets/images/icons/dropdownArrow.svg";
-import { Column, Row } from "@/app/widgets/structure/Grid";
+import { Column } from "@/app/widgets/structure/Grid";
+import DynamicIcon from "@/app/components/ui/image/DynamicIcon";
 
 export const FieldState = Object.freeze({
     VISIBLE: "표시",
@@ -133,7 +132,9 @@ export function TableExpandableBody({
                                 </td>
                             ))}
                             <td className={styles["arrow-container"]}>
-                                <ArrowDown className={`${styles["arrow-icon"]} ${isExpanded ? styles["rotated"] : ""}`} width={24} height={24} />
+                                <div className={`${styles["arrow-icon"]} ${isExpanded ? styles["rotated"] : ""}`}>
+                                    <DynamicIcon icon="arrowDown" size={24} />
+                                </div>
                             </td>
                         </tr>
                         <tr className={`${styles["hidden-row"]} ${isExpanded ? styles["show"] : ""} ko-reg-17`}>
@@ -158,12 +159,10 @@ export function TableExpandableBody({
                                             }
                                             return (
                                                 <div key={index} className={styles["sub-container"]}>
-                                                    <Row justifyContent="space-between">
-                                                        <div className={styles["subtitle"]}>{header}</div>
-                                                        <div className={`${styles["subdata"]} ${isNested ? styles["nested"] : ""} ${isNested ? "ko-reg-15" : ""}`}>
-                                                            {child}
-                                                        </div>
-                                                    </Row>
+                                                    <div className={styles["subtitle"]}>{header}</div>
+                                                    <div className={`${styles["subdata"]} ${isNested ? styles["nested"] : ""} ${isNested ? "ko-reg-15" : ""}`}>
+                                                        {child}
+                                                    </div>
                                                 </div>
                                             );
                                         })}
@@ -253,7 +252,8 @@ export function TableHeader({
         return {
             paddingTop: paddingVertical,
             paddingBottom: paddingVertical,
-            width: `${width / ratioSum * 100}%`
+            width: `${width / ratioSum * 100}%`,
+            minWidth: "24px",
         };
     };
 

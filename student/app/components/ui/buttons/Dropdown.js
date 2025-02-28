@@ -4,7 +4,7 @@ import { useState, useRef, Children, useEffect, cloneElement } from "react";
 import { containsHangeul, containsChoseong, isHangeul } from "@/app/utils/hangeul";
 import styles from "./dropdown.module.css";
 import { Validator, ValidatorType } from "@/app/utils/validator";
-import DynamicIcon from "@/app/components/ui/icon/Dynamic";
+import DynamicIcon from "@/app/components/ui/image/DynamicIcon";
 
 export function DropdownElement({ theme, label, value, onClick, type }) {
   return (

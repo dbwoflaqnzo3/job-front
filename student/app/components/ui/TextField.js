@@ -10,6 +10,7 @@ export default function TextField({
   placeholder,
   type = "text",
   onChange,
+  onBlur,
   validate,
   value = "",
   width = 200,
@@ -122,6 +123,7 @@ export default function TextField({
           type={inputType}
           placeholder={placeholder}
           onChange={handleInputChange}
+          onBlur={onBlur}
           onKeyDown={handleKeyDown}
           value={inputValue}
           style={{ width }}
