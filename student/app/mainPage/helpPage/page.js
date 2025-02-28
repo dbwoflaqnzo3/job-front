@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { PageLayout } from '@/app/page.js';
 import SizedBox from "@/app/widgets/structure/SizedBox";
@@ -8,12 +9,18 @@ import { Button1, Button5 } from "@/app/components/ui/buttons/Regular";
 import TextField from "@/app/components/ui/TextField";
 import { DropdownButton2 , DropdownElement } from "@/app/components/ui/buttons/Dropdown";
 
+import ListItem from "./listItem";
 
 export default function studentService(){
 
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedOrdering, setSelectedOrdering] = useState(null);
 
+    const router = useRouter();
+    const writeContent = () => {
+        router.push("/mainPage/helpPage/write");
+        // alert("경고: 이 작업을 수행할 수 없습니다!");          
+    };
 
 
     return(
@@ -40,13 +47,23 @@ export default function studentService(){
                         <DropdownElement label="인기순" value="score"/>
                     </DropdownButton2>
                     </Row>
-                    <Row justifyContent="end" gap="15px">
+                    <Row justifyContent="center" gap="15px">
                         <TextField placeholder={true} width={360} ></TextField>
                         <SizedBox width={50} height={32}/>
-                        <Button5 width={126} text={`찾기`} >찾기</Button5>
+                        <Button5 width={126} text={`찾기`} ></Button5>
                     </Row>
                 </Row>
             </Grid>
+            <SizedBox width={50} height={32}/>
+
+            <ListItem/>
+            <SizedBox width={50} height={32}/>
+
+            <Row justifyContent="end">
+            <SizedBox width={1003} height={54}/>
+            <Button1 width={213} height={54} text={`글쓰기`} onClick={writeContent} ></Button1>
+            </Row>
+
         </PageLayout>   
     )
 }

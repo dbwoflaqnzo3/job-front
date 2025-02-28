@@ -38,3 +38,5 @@ next-env.d.ts
 # TestFolders
 /pages
 TestVocaData.js
+data.js
+DBdata.js
