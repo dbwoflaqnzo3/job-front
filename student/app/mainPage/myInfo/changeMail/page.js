@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { PageLayout } from '@/app/page';
-import { Button3, Button4 } from "@/app/components/ui/buttons/Regular";
+import { Button1, Button2, Button3, Button4 } from "@/app/components/ui/buttons/Regular";
 import { EmailDropdownButton1 } from "@/app/components/ui/buttons/Dropdown";
 import { Column, Row } from "@/app/widgets/structure/Grid";
 import { updateEmail, sendVerifyCode, verifyMail } from "@/app/utils/changeMailUtil";
@@ -18,181 +18,143 @@ import { Popup, PopupButtons, PopupContent } from "@/app/components/ui/popup/Pop
 export default function ChangeMail() {
     const router = useRouter()
 
-    const [isVerified, setIsVerified] = useState(false); // 메일 인증 확인 상태
+    const [isVerified, setIsVerified] = useState(false); // 메일 인증 완료 상태
     const [error, setError] = useState('');
-    const [modalOpen, setModalOpen] = useState(false); // 인증 확인 모달
+    // modalType 상태 : "", "loading", "verify", "used", "timeup", "clear", "error"
+    const [modalType, setModalType] = useState("");
 
-    const [emailPrefix, setEmailPrefix] = useState("");
-    const [emailPostFix, setEmailPostfix] = useState("");
+    const [emailPrefix1, setEmailPrefix1] = useState("");
+    const [emailPostFix1, setEmailPostFix1] = useState("");
     const [userMail, setUserMail] = useState('');
     const [userMail2, setUserMail2] = useState('');
+
     const [verificationId, setVerificationId] = useState(null);
     const [isValid, setIsValid] = useState(false);
 
-    //인증 timer
-    const [expireDate, setExpireDate] = useState(null) // 유효 시간
+    // 인증 만료 시간
+    const [expireDate, setExpireDate] = useState(null)
 
     useEffect(() => {
-        const valid = emailPrefix !== "" && emailPostFix !== "";
+        const valid = emailPrefix1 !== "" && emailPostFix1 !== "";
         setIsValid(valid);
-    }, [emailPrefix, emailPostFix]);
+    }, [emailPrefix1, emailPostFix1]);
 
-    // 1. 이메일 인증번호 전송
+    // 1. 이메일 인증번호 전송 (모달 흐름: 로딩 → (이메일 중복이면 ModalUsed / 아니면 VerifyModal))
     const sendVerifyMail = async () => {
-        const email = `${emailPrefix}@${emailPostFix}`;
+        const email = `${emailPrefix1}@${emailPostFix1}`;
         setUserMail(email);
 
-        if (emailPostFix !== '') {
-            setModalOpen(true);
+        if (emailPostFix1 !== '') {
+            // 로딩 모달 띄움
+            setModalType("loading");
             try {
                 const result = await sendVerifyCode(email);
-                if (result.status == 200) { // 인증 코드 전송 성공
+                if (result.status === 200 || result.status === 203 || result.status === 204) {
                     console.log('메일 인증 보내기 성공');
                     console.log(result.json.resExpireDate);
-                    setVerificationId(result.json.result)
-                    const expireTime = new Date(result.json.resExpireDate) // 만료 시간 설정 
-                    setExpireDate(expireTime)
-                } else if (result.status == 203) { // 이미 인증 코드 보내고 진행중
-                    console.log(result.json.resExpireDate)
-                    setVerificationId(result.json.result)
-                    const expireTime = new Date(result.json.resExpireDate) // 만료 시간 설정 
-                    setExpireDate(expireTime)
-                } else if (result.status == 204) { // 이미 다른 이메일로 인증 진행중
-                    console.log(result.json.resExpireDate)
-                    setVerificationId(result.json.result)
-                    const expireTime = new Date(result.json.resExpireDate) // 만료 시간 설정 
-                    setExpireDate(expireTime)
-                } else { // 이메일이 없거나 기타 에러
+                    setVerificationId(result.json.result);
+                    const expireTime = new Date(result.json.resExpireDate);
+                    setExpireDate(expireTime);
+                    // 인증 모달로 전환
+                    setModalType("verify");
+                } else {
                     setError("메일 인증 전송 에러.");
+                    setModalType("error");
                 }
             } catch (err) {
-                console.log("HERE!!!!")
-                setError(err.message);
                 console.error("메일 인증 전송 에러: ", err);
+                // 에러 메시지에서 '다른 학생이 사용중인 이메일' 문구가 포함되어 있으면 ModalUsed로 전환
+                if (err.message && err.message.includes("다른 학생이 사용중인 이메일")) {
+                    setModalType("used");
+                } else {
+                    setError(err.message || "메일 인증 전송 에러.");
+                    setModalType("error");
+                }
             }
         }
     }
 
-    // 3. 이메일 변경
+    // 3. 이메일 변경 (인증코드가 맞을 경우)
     const changeMail = async () => {
-        if (userMail === userMail2) {
-            try {
-                const result = await updateEmail(userMail2);
-                if (result == 200) {
-                    console.log('이메일 변경 성공')
-                    router.push('/mainPage/myInfo');
-                } else {
-                    setError("이메일 변경 에러.");
-                }
-            } catch (err) {
-                setError(err.message);
-                console.error("이메일 변경 에러:", err);
+        const email = `${emailPrefix1}@${emailPostFix1}`;
+        try {
+            const result = await updateEmail(email);
+            if (result === 200) {
+                console.log('이메일 변경 성공');
+            } else {
+                setError("이메일 변경 에러.");
+                setModalType("error");
             }
+        } catch (err) {
+            console.error("이메일 변경 에러:", err);
+            setError(err.message);
+            setModalType("error");
         }
     }
 
     return (
         <PageLayout hide={true}>
-            <AlreadySentModal />
-            <Modal5 setModalOpen={setModalOpen}/>
-            {
-                modalOpen && <VerifyModal
+            {/* 모달 종류에 따라 조건부 렌더링 */}
+            {modalType === "loading" && <ModalLoading setModalType={setModalType} />}
+            {modalType === "verify" &&
+                <VerifyModal
                     verifyId={verificationId}
                     setIsVerified={setIsVerified}
-                    setModalOpen={setModalOpen}
+                    setModalType={setModalType}
                     endDate={expireDate}
-                    reSend={sendVerifyMail}
+                    onVerified={changeMail} // 인증 성공 시 이메일 변경 함수 호출
                 />
             }
-            {!isVerified ?
-                (
-                    <Column>
-                        <SizedBox height={178} />
-                        <Column justifyContent="space-between" alignItems="center">
-                            <Card width={575} padding={32} justifyItems="center">
-                                <Column gap={36} alignItems="flex-start">
-                                    <h4 className="ko-md-17">변경할 이메일을 입력해주세요</h4>
-                                    <RowFlex ratios={[280, 15, 200]}>
-                                        <TextField
-                                            placeholder="example"
-                                            onChange={setEmailPrefix}
-                                            stretch
-                                        />
-                                        @
-                                        <EmailDropdownButton1
-                                            onSelect={setEmailPostfix}
-                                            stretch
-                                        />
-                                    </RowFlex>
-                                </Column>
-                            </Card>
-                            <Button3 text="인증하기" onClick={sendVerifyMail} disabled={!isValid} stretch />
-                        </Column>
-                    </Column>
-                ) : (
-                    <div>
-                        <Column>
-                            <SizedBox height={178} />
-                            <Column justifyContent="space-between" alignItems="center">
-                                <Card width={575} padding={32} justifyItems="center">
-                                    <Column gap={36} alignItems="flex-start">
-                                        <h4 className="ko-md-17">변경할 이메일을 한번 더 입력하세요.</h4>
-                                        <TextField
-                                            placeholder="example@example.com"
-                                            onChange={setUserMail2}
-                                            stretch
-                                        />
-                                    </Column>
-                                </Card>
-                                <Button3 text="저장하기" onClick={changeMail} disabled={userMail !== userMail2} stretch />
+            {modalType === "used" && <ModalUsed setModalType={setModalType} />}
+            {modalType === "timeup" && <ModalTimeUp setModalType={setModalType} reSend={sendVerifyMail} />}
+            {modalType === "clear" && <ModalClear setModalType={setModalType} />}
+            {modalType === "error" && <ModalError setModalType={setModalType} />}
+            {modalType === "wrong" && <ModalWrong setModalType={setModalType} />}
+
+            {/* 메인 화면 : 아직 인증 완료되지 않은 경우 */}
+            {!isVerified && modalType === "" && (
+                <Column alignItems="center">
+                    <h1>이메일 변경하기</h1>
+                    <SizedBox height={178} />
+                    <Column justifyContent="space-between" alignItems="center">
+                        <Card width={575} padding={32} justifyItems="center" transparent="true">
+                            <Column gap={8} alignItems="flex-start">
+                                <h4 className="ko-md-17">변경할 이메일을 입력해주세요</h4>
+                                <RowFlex ratios={[280, 15, 200]}>
+                                    <TextField
+                                        placeholder="example"
+                                        onChange={setEmailPrefix1}
+                                        stretch
+                                    />
+                                    @
+                                    <EmailDropdownButton1
+                                        onSelect={setEmailPostFix1}
+                                        stretch
+                                    />
+                                </RowFlex>
                             </Column>
-                        </Column>
-                    </div>
-                )
-            }
+                        </Card>
+                        <Button3 text="인증하기" onClick={sendVerifyMail} width={400} disabled={!isValid} />
+                    </Column>
+                </Column>
+            )}
         </PageLayout>
     )
 }
 
-
-
-function VerifyModal({ verifyId, setIsVerified, setModalOpen, endDate, reSend }) {
+// 인증 모달: 타이머 동작, 인증코드 입력 후 checkMail 실행  
+// 인증 모달: 타이머 동작, 인증코드 입력 후 checkMail 실행  
+function VerifyModal({ verifyId, setIsVerified, setModalType, endDate, onVerified }) {
     const [verifyCode, setVerifyCode] = useState('');
-    const [error, setError] = useState('');
+    const [timeLeft, setTimeLeft] = useState(0);
 
-    // Timer
-    const [timeLeft, setTimeLeft] = useState(0); // timer 남은 시간 (초 단위)
-    const [isExpiredTime, setIsExpiredTime] = useState(false) // 인증 코드 유효시간 확인 상태
-    const [expireDate, setExpireDate] = useState(null)
-    const now = new Date(Date.now())
-
-    // 2. 이메일 인증 확인
-    const checkMail = async (id, code) => {
-        try {
-            const result = await verifyMail(id, code);
-            if (result === 2) {
-                setError("만료된 요청입니다. 요청을 재전송해주세요.");
-            } else if (result === 0) {
-                setError("잘못된 인증번호입니다.");
-                console.log("잘못된 인증번호입니다.")
-            } else if (result === 1) {
-                setIsVerified(true);
-                setModalOpen(false);
-            }
-        } catch (err) {
-            setError(err.message);
-            console.error("메일 인증 에러: ", err);
-        }
-    }
-
-    // 타이머 초기 시간 설정
+    // 타이머 초기화
     useEffect(() => {
         if (verifyId && endDate) {
-            setExpireDate(endDate);
             const now = new Date();
             setTimeLeft(Math.floor((endDate - now) / 1000));
         }
-    }, [verifyId, endDate])
+    }, [verifyId, endDate]);
 
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
@@ -200,158 +162,274 @@ function VerifyModal({ verifyId, setIsVerified, setModalOpen, endDate, reSend })
         return `${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
     }
 
-    // 타이머 업데이트: verifyId와 expireDate가 존재할 때만 타이머 작동
+    // 타이머 업데이트: 제한시간 만료 시 "timeup" 모달로 전환
     useEffect(() => {
-        if (verifyId && expireDate && timeLeft > 0) {
+        if (verifyId && endDate && timeLeft > 0) {
             const interval = setInterval(() => {
                 const now = new Date();
-                const diff = Math.floor((expireDate - now) / 1000);
+                const diff = Math.floor((endDate - now) / 1000);
                 if (diff <= 0) {
                     clearInterval(interval);
-                    setIsExpiredTime(true);
                     setTimeLeft(0);
+                    setModalType("timeup");
                 } else {
                     setTimeLeft(diff);
                 }
-            }, 1000); // 1초마다 업데이트
-
+            }, 1000);
             return () => clearInterval(interval);
         }
-    }, [verifyId, expireDate, timeLeft]);
+    }, [verifyId, endDate, timeLeft, setModalType]);
+
+    // 인증번호 확인: 결과에 따라
+    // 인증 모달 내 인증번호 확인: 결과에 따라 처리
+    const checkMail = async (id, code) => {
+        try {
+            const result = await verifyMail(id, code);
+            console.log("Verification result:", result); // 결과 디버깅
+            // 느슨한 비교 또는 명시적 파싱을 사용
+            if (result == 2) {
+                console.error("만료된 요청입니다. 요청을 재전송해주세요.");
+                setModalType("timeup");
+            } else if (result == 0) {
+                // 인증번호가 틀린 경우: ModalWrong 띄움
+                setModalType("wrong");
+            } else if (result == 1) {
+                console.log("인증 성공: onVerified 호출 전", typeof onVerified);
+                // 인증번호가 맞으면, 변경 중에는 로딩 모달을 띄우고 changeMail 실행
+                setModalType("loading");
+                if (typeof onVerified === "function") {
+                    await onVerified(); // changeMail 호출
+                    setModalType("clear");
+                } else {
+                    console.error("onVerified가 함수가 아닙니다.");
+                    setModalType("error");
+                }
+            }
+        } catch (err) {
+            console.error("메일 인증 에러: ", err);
+        }
+    }
 
     const closeModal = () => {
-        setModalOpen(false)
+        setModalType("");
     }
 
     return (
         <div className={styles.modalWrapper}>
             <div className={styles.modalContainer1}>
                 {!verifyId ? (
-                    <p>loading...</p>
+                    <ModalLoading setModalType={setModalType} />
                 ) : (
-                    <Column gap={84}>
-                        <div className={styles.modalInstruction}>
-                            <p className={`${styles["titleText"]} ko-sb-30`}>작성하신 이메일로 인증번호가 발송되었어요</p>
-                        </div>
-                        <Column gap={80}>
-
-                            {/* 중간 컨텐츠 */}
-                            <div className={styles.modalTextAndTimer}>
-                                <Row gap="1.5rem">
-                                    <TextField
-                                        type="text"
-                                        placeholder="인증번호를 입력하세요"
-                                        value={verifyCode}
-                                        onChange={setVerifyCode}
-                                        error={'error'}
-                                        width={360}
-                                    />
-                                    {isExpiredTime ? (
-                                        <Button4 text="다음에하기" width={35} onClick={reSend} />
-                                    ) : (
-                                        <p>{formatTime(timeLeft)}</p>
-                                    )}
-                                </Row>
-                            </div>
-
-
-                            <div className={styles.modalButtonContainer}>
-                                <Column gap={16}>
-                                    <Button3 text="인증하기" disabled={verifyCode == ''} width={452} onClick={() => { checkMail(verifyId, verifyCode) }} />
-                                    <Button4 text="다음에하기" width={452} onClick={closeModal} />
-                                </Column>
-                            </div>
-                        </Column>
-                    </Column>
+                    <Popup
+                        name="p1"
+                        theme="primary"
+                        title="작성하신 이메일로\n인증번호가 발송되었어요"
+                        display={true}
+                        onClose={closeModal}
+                    >
+                        <PopupContent>
+                            <Row gap={24}>
+                                <TextField
+                                    placeholder="인증번호를 입력하세요"
+                                    value={verifyCode}
+                                    onChange={setVerifyCode}
+                                    allowSpace={false}
+                                    stretch
+                                />
+                                <p>{formatTime(timeLeft)}</p>
+                            </Row>
+                        </PopupContent>
+                        <PopupButtons>
+                            <Button4
+                                text="인증하기"
+                                onClick={() => { checkMail(verifyId, verifyCode) }}
+                                disabled={false}
+                                stretch
+                            />
+                            <Button4
+                                text="다음에 하기"
+                                onClick={closeModal}
+                                disabled={false}
+                                stretch
+                            />
+                        </PopupButtons>
+                    </Popup>
                 )}
             </div>
         </div>
     )
 }
 
-// 로딩중 모달
-function LoadingModal({ setModalOpen }) {
-
+// 로딩 모달
+function ModalLoading({ setModalType }) {
     const closeModal = () => {
-        setModalOpen(false)
+        setModalType("");
     }
-
-    return (
-        <div className={styles.modalWrapper}>
-            <div className={styles.modalContainer1}>
-                <Column gap={15}>
-                    <div className={styles.modalInstruction}>
-                        <p className={`${styles["titleText"]} ko-sb-30`}>로딩 중...</p>
-                    </div>
-                    <Column gap={58} alignItems="center">
-                        <Image
-                            src="/assets/images/loading.svg"
-                            width={260}
-                            height={260}
-                            alt="Picture of the author"
-                        />
-                        <Button3 text="다음에하기" width={452} onClick={closeModal} />
-                    </Column>
-                </Column>
-            </div>
-        </div>
-    )
-}
-
-// 다른 이메일로 인증 진행중 모달
-function AlreadySentModal({ setModalOpen }) {
-
-    const closeModal = () => {
-        setModalOpen(false)
-    }
-
-    return (
-        <div className={styles.modalWrapper}>
-            <div className={styles.modalContainer1}>
-                <Image
-                    src="/assets/images/nope.svg"
-                    width={260}
-                    height={260}
-                    alt="Picture of the author"
-                    className={styles.imagePlacement}
-                />
-                <Column gap={288}>
-                    <div className={styles.modalInstruction}>
-                        <p className={`${styles["titleText"]} ko-sb-30`}>다른 이메일로 인증이 진행 중이에요</p>
-                    </div>
-                    <Column gap={0} alignItems="center">
-                        <Button3 text="다음에하기" width={452} onClick={closeModal} />
-                    </Column>
-                </Column>
-            </div>
-        </div>
-    )
-}
-
-function Modal5({ setModalOpen }) {
-
-    const p1 = "p1"
-    const theme = "primary"
 
     return (
         <Popup
-            name={p1}
-            theme={theme}
-            title="작성하신 연락처로\n인증번호가 발송되었어요"
-            display={p1}
-            onClose={setModalOpen(false)}
-            image="popupError"
+            name="p1"
+            theme="primary"
+            title="로딩 중..."
+            image="loading"
+            display={true}
+            onClose={closeModal}
+        >
+            <PopupButtons>
+                <Button4
+                    text="다음에 다시 하기"
+                    onClick={closeModal}
+                    disabled={false}
+                    stretch
+                />
+            </PopupButtons>
+        </Popup>
+    )
+}
+
+// 이메일 중복 모달
+function ModalUsed({ setModalType }) {
+    const closeModal = () => {
+        setModalType("");
+    }
+
+    return (
+        <Popup
+            name="p1"
+            theme="primary"
+            title="누군가가 이메일을\n사용중이에요"
+            description="다시 시도하시겠어요?"
+            image="gonlan"
+            display={true}
+            onClose={closeModal}
+        >
+            <PopupButtons>
+                <Button4
+                    text="다른 이메일로 시도하기"
+                    onClick={closeModal}
+                    disabled={false}
+                    stretch
+                />
+            </PopupButtons>
+        </Popup>
+    )
+}
+
+// 시간 만료 모달 (인증번호 재전송 기능 포함)
+function ModalTimeUp({ setModalType, reSend }) {
+    const closeModal = () => {
+        setModalType("");
+    }
+
+    return (
+        <Popup
+            name="p1"
+            theme="primary"
+            title="인증에 실패했어요"
+            description="다시 시도하시겠어요?"
+            imagePosY={.45}
+            image="gonlan"
+            display={true}
+            onClose={closeModal}
         >
             <PopupButtons>
                 <Button1
-                    text="인증하기"
-                    onClick={() => { }}
-                    disabled={inputValue === ""}
+                    text="인증번호 다시 받기"
+                    onClick={reSend}
+                    disabled={false}
                     stretch
                 />
                 <Button4
-                    text="다음에 하기"
-                    onClick={setModalOpen(false)}
+                    text="다른 이메일로 시도하기"
+                    onClick={closeModal}
+                    disabled={false}
+                    stretch
+                />
+            </PopupButtons>
+        </Popup>
+    )
+}
+
+// 인증 완료 모달
+function ModalClear({ setModalType }) {
+    const router = useRouter();
+
+    const closeModal = () => {
+        setModalType("");
+        router.push('/mainPage/myInfo');
+    }
+
+    return (
+        <Popup
+            name="p1"
+            theme="primary"
+            title="인증이 완료되었어요"
+            image="complete"
+            display={true}
+            onClose={closeModal}
+        >
+            <PopupButtons>
+                <Button4
+                    text="확인"
+                    onClick={closeModal}
+                    disabled={false}
+                    stretch
+                />
+            </PopupButtons>
+        </Popup>
+    )
+}
+
+// 에러 모달
+function ModalError({ setModalType }) {
+    const router = useRouter();
+
+    const closeModal = () => {
+        setModalType("");
+        router.push('/mainPage/myInfo');
+    }
+
+    return (
+        <Popup
+            name="p1"
+            theme="primary"
+            title="오류가 생겼어요"
+            image="nope"
+            display={true}
+            onClose={closeModal}
+        >
+            <PopupButtons>
+                <Button4
+                    text="문의하러 가기"
+                    onClick={closeModal}
+                    disabled={false}
+                    stretch
+                />
+            </PopupButtons>
+        </Popup>
+    )
+}
+
+// 인증코드 틀림 모달
+function ModalWrong({ setModalType }) {
+    // 재입력 버튼 클릭 시 VerifyModal로 전환
+    const reEnter = () => {
+        setModalType("verify");
+    }
+
+    return (
+        <Popup
+            name="p1"
+            theme="primary"
+            title="인증번호가 틀렸어요"
+            image="nope"
+            display={true}
+            onClose={reEnter}
+        >
+            <PopupButtons>
+                <Button4
+                    text="인증번호 재입력"
+                    onClick={reEnter}
                     disabled={false}
                     stretch
                 />
