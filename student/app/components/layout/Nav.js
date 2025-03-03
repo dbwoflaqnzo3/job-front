@@ -4,6 +4,7 @@ import { Row } from "@/app/widgets/structure/Grid";
 import Logo from "@/public/assets/images/logo.svg";
 import styles from "./nav.module.css";
 import DynamicIcon from "@/app/components/ui/image/DynamicIcon";
+import { useRouter } from 'next/navigation';
 
 export function NavItem({ text, textColor = "black-1000", onClick }) {
   const style = { color: `var(--${textColor})` };
@@ -91,6 +92,7 @@ export const NavIcon = (props) => <NavBase {...props} isIcon />;
 export const NavTitle = (props) => <NavBase {...props} />;
 
 export function NavGroup({ theme = "primary", children }) {
+  const router = useRouter()
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const styleVars = {
@@ -122,10 +124,14 @@ export function NavGroup({ theme = "primary", children }) {
   const renderElements = () => renderChildren().filter((child) => child.type === NavTitle);
   const renderIcons = () => renderChildren().filter((child) => child.type === NavIcon);
 
+  const toHome = () => {
+    router.push("/mainPage")
+  }
+
   return (
     <div className={`${styles["nav-container"]} ko-sb-20`}>
       <Row gap={25}>
-        <div>
+        <div style={{cursor: "pointer"}} onClick={toHome}>
           <Logo width={212} />
         </div>
         <nav className={styles["nav-bar"]} style={styleVars}>
