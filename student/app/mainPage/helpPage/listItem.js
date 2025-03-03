@@ -47,7 +47,7 @@ const ListItem = () => {
                     <Link
                         href={{
                             pathname: "helpPage/edit",
-                            // query: { postId: post.id, title: post.title },
+                            query: { postId: post.id, title: post.title },
                         }}
                     >
                         <div className={styles.postItem} style={{ cursor: "pointer", textDecoration: "none" }}>
