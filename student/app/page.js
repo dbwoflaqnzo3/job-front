@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
 import { NavGroup, NavTitle, NavIcon, NavItem } from "@/app/components/layout/Nav";
 
-export function PageLayout({ children, hide }) {
+export function PageLayout({ children, hide, collapse }) {
 
   const router = useRouter();
 
@@ -36,7 +36,14 @@ export function PageLayout({ children, hide }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.mainContainer}>
-        <div style={{ opacity: hide ? 0 : 1, width:"91%"}}>
+      <div
+          className={styles.navContainer}
+          style={{
+            display: collapse ? "none" : "block", // NavBar 완전히 제거
+            opacity: hide ? 0 : 1, // NavBar 숨기되 공간은 유지
+            transition: "opacity 0.3s ease"
+          }}
+        >
         <NavGroup theme="primary" >
           <NavTitle title="학습하기" onClick={() => { router.push("/mainPage/lessonListPage") }} />
           <NavTitle title="학습캘린더" onClick={() => { router.push("/mainPage/studentCalendar") }} />
@@ -54,7 +61,7 @@ export function PageLayout({ children, hide }) {
           </NavIcon>
         </NavGroup>
         </div>
-        <div className={styles.navBottomMargin} />
+        <div className={styles.navBottomMargin} style={{display: collapse ? "none" : "block",}}/>
         {children}
       </div>
     </div>
