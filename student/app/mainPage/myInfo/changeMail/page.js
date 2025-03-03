@@ -12,7 +12,7 @@ import SizedBox from "@/app/widgets/structure/SizedBox";
 import TextField from "@/app/components/ui/TextField";
 import Card from "@/app/components/ui/Card";
 import styles from './page.module.css'
-import Image from 'next/image'
+import DynamicIcon from "@/app/components/ui/image/DynamicIcon";
 import { Popup, PopupButtons, PopupContent } from "@/app/components/ui/popup/Popup";
 
 export default function ChangeMail() {
@@ -92,8 +92,13 @@ export default function ChangeMail() {
         }
     }
 
+    function toMyInfo() {
+        router.push('/mainPage/myInfo')
+    }
+
     return (
         <PageLayout hide={true}>
+            <button className={styles.backButton} onClick={toMyInfo}><DynamicIcon icon={"arrowLeft"} size={38} /></button>
             {/* 모달 종류에 따라 조건부 렌더링 */}
             {modalType === "loading" && <ModalLoading setModalType={setModalType} />}
             {modalType === "verify" &&

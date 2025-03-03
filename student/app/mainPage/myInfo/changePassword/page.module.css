@@ -38,3 +38,19 @@
 
     margin: 0;
 }
+
+.backButton{
+    margin: 0;
+    padding: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+
+    position: absolute;
+    top: 3.75rem;
+    left: 3.75rem;
+
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
