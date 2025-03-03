@@ -133,7 +133,7 @@ export default function studentService(){
                     </DropdownButton2>
                     </Row>
                     <Row justifyContent="center" gap="15px">
-                        <TextField placeholder={true} width={360} ></TextField>
+                        <TextField placeholder={"제목을 입력해주세요"} width={360} ></TextField>
                         <SizedBox width={50} height={32}/>
                         <Button5 width={126} text={`찾기`} ></Button5>
                     </Row>

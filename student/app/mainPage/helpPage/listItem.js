@@ -50,6 +50,7 @@ const ListItem = () => {
                         href={{
                             pathname: "helpPage/edit",
                             query: { postId: post.id, title: post.title },
+<<<<<<< HEAD
                         }}
                     >
                         <div className={styles.postItem} style={{ cursor: "pointer", textDecoration: "none" }}>
@@ -111,6 +112,8 @@ const ListItem = () => {
                         href={{
                             pathname: "helpPage/edit",
                             // query: { postId: post.id, title: post.title },
+=======
+>>>>>>> 64eee2b (refactor[#53]: Edit기본 구조 잡기)
                         }}
                     >
                         <div className={styles.postItem} style={{ cursor: "pointer", textDecoration: "none" }}>
