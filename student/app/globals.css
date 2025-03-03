@@ -1,34 +1,19 @@
 @import url("https://cdn.jsdelivr.net/gh/poposnail61/min-sans@main/web/css/minsansvf-dynamic-subset.css");
 
 * {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
->>>>>>> 3ee5730 (feat[#44] : component 적용 오류 해결 중)
-=======
->>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
   padding: 0;
   margin: 0;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
 html, body {
   width: 100%;
   height: 100%;
   overflow-x: hidden; /* 가로 스크롤 제거 */
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> 3ee5730 (feat[#44] : component 적용 오류 해결 중)
-=======
->>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
 body {
   font-family: "Pretendard Variable", "Min Sans Variable", sans-serif;
 }
@@ -297,21 +282,13 @@ body {
     padding: 48px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-/* h2 {
-    margin-top: 30px;
-    margin-bottom: 10px;
-} */
-=======
 h2 {
     margin-top: 30px;
     margin-bottom: 10px;
 }
->>>>>>> 3ee5730 (feat[#44] : component 적용 오류 해결 중)
-=======
+
 /* h2 {
     margin-top: 30px;
     margin-bottom: 10px;
 } */
->>>>>>> 4f9f6d4 (refac[#51] : 수정 1차 완료)
+
