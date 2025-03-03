@@ -45,7 +45,7 @@ export async function verifyMail(id, vCode) {
 
         const temp_result = await response.json();
         const result = temp_result.status;
-        console.log(result, "!!!@@@!!!@@@")
+        console.log(temp_result, "!!!@@@!!!@@@")
         return result;
     } catch (e) {
         throw new Error(`이메일 인증 중 문제 발생 : ${e}`)

@@ -6,9 +6,10 @@ import { checkStudentPhone, changePhoneNumber } from '@/app/utils/checkDuplicate
 import { Validator, ValidatorType } from "@/app/utils/validator";
 import { PageLayout } from '@/app/page';
 import { useRouter } from 'next/navigation';
-import { Button3 } from "@/app/components/ui/buttons/Regular";
+import { Button1 } from "@/app/components/ui/buttons/Regular";
 import TextField from "@/app/components/ui/TextField";
 import styles from "./page.module.css";
+import DynamicIcon from "@/app/components/ui/image/DynamicIcon";
 
 export default function changePhone() {
     const router = useRouter();
@@ -57,8 +58,13 @@ export default function changePhone() {
         }
     }
 
+    function toMyInfo() {
+        router.push('/mainPage/myInfo')
+    }
+
     return (
         <PageLayout hide={true}>
+            <button className={styles.backButton} onClick={toMyInfo}><DynamicIcon icon={"arrowLeft"} size={38} /></button>
             {(checkPhone === null || checkPhone === true) ? (
                 <div className={styles.container}>
                     <h4 className={styles.title}>연락처 변경하기</h4>
@@ -79,7 +85,7 @@ export default function changePhone() {
                     {!checkPhone && <SizedBox height={4} />}
                     {checkPhone && <SizedBox height={10}><p className={`ko-md-13 ${styles["error"]}`}>이미 등록된 전화번호 입니다.</p></SizedBox>}
                     <div className={styles.space} />
-                    <Button3 text="중복 조회" disabled={!check} onClick={() => { checkDuplicate(inputPhone) }} stretch />
+                    <Button1 text="중복 조회" disabled={!check} onClick={() => { checkDuplicate(inputPhone) }} stretch />
                 </div>
             ) : (
                 <div className={styles.container}>
@@ -96,7 +102,7 @@ export default function changePhone() {
                     <SizedBox height={4} />
                     {inputPhone != inputPhone2 && <SizedBox height={10}><p className={`ko-md-13 ${styles["error"]}`}>이전에 입력한 전화번호와 일치하지 않습니다.</p></SizedBox>}
                     <div className={styles.space} />
-                    <Button3 text="확인하기" disabled={inputPhone != inputPhone2} onClick={changePhone} stretch />
+                    <Button1 text="확인하기" disabled={inputPhone != inputPhone2} onClick={changePhone} stretch />
                 </div>
             )}
         </PageLayout>
