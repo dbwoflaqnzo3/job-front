@@ -33,6 +33,7 @@ export function Column({
     alignItems,
     gap,
     flexGrow: shouldFlexGrow ? 1 : undefined, 
+    width: "100%",
     height: "100%",
   };
 

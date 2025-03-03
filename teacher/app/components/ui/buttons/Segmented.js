@@ -2,8 +2,17 @@
 import { useState, cloneElement, Children } from "react";
 import styles from "./segmented.module.css";
 
-export function SegmentedButton({ label, name, value, checked, onChange, flexGrow, type}) {
-  const className = `${styles["segmented-button"]} ${checked ? styles["active"] : ""} ${styles[type]}`;
+export function SegmentedButton({ 
+  theme, 
+  label, 
+  name, 
+  value, 
+  checked, 
+  onChange, 
+  flexGrow, 
+  type,
+}) {
+  const className = `${styles["segmented-button"]} ${checked ? styles["active"] : ""} ${styles[type]} ${styles[theme]}`;
 
   return (
     <label
@@ -23,6 +32,7 @@ export function SegmentedButton({ label, name, value, checked, onChange, flexGro
 }
 
 export function SegmentedGroup({ 
+  theme = "primary",
   name, 
   children, 
   defaultValue, 
@@ -46,6 +56,7 @@ export function SegmentedGroup({
   const segmentedChildren = Children.map(children, (child, index) =>
     cloneElement(child, {
       name,
+      theme: child.props.theme || theme,
       checked: selectedValue === child.props.value,
       onChange: handleChange,
       flexGrow: validRatios[index],
@@ -57,7 +68,7 @@ export function SegmentedGroup({
 
   return (
     <div 
-      className={`${styles["segmented-container"]} ${styles[type]}`} 
+      className={`${styles["segmented-container"]} ${styles[type]} ${styles[theme]}`} 
       style={{width}}
     >
       {segmentedChildren}

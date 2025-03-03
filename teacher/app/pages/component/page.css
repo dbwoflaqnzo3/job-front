@@ -1,0 +1,36 @@
+.theme-changer {
+  opacity: .2;
+  left: 10px;
+  top: 10px;
+  z-index: 100;
+  position: fixed;
+  width: 250px;
+  height: 80px;
+  background-color: color-mix(in srgb, var(--color) 30%, transparent 80%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  transition: opacity .3s ease-in-out;
+}
+
+.theme-changer:hover { opacity: 1; }
+
+.component section {
+  position: relative; 
+  overflow: visible;
+}
+
+.component section > h2 + div:not(.overlay) { 
+  width: 80% !important; 
+  transform: translateX(30%);
+}
+
+.component section > h2 {
+  position: sticky;
+  top: 50%;
+  width: 20%;
+  background-color: transparent;
+  z-index: 100;
+  transition: transform 0.3s ease-in-out;
+}

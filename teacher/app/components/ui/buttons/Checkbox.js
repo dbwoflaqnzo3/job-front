@@ -2,24 +2,39 @@
 import React, { useState, cloneElement } from "react";
 import styles from "./checkbox.module.css";  
 
-export function CheckboxButton({ label, name, value, checked, onChange, entire = false }) {
+export function CheckboxButton({ 
+  theme, 
+  label, 
+  name, 
+  value, 
+  checked, 
+  onChange = (_) => {}, 
+  entire = false,
+}) {
+  const style = {
+    "--foreground-color": `var(--${theme}-500)`,
+    "--background-color": `var(--${theme}-100)`,
+  };
+
   return (
-    <label className={styles["checkbox-button"]}>
-      <input
-        type="checkbox"
-        name={name}
-        value={value}
-        checked={checked}
-        onChange={onChange}
-      />
-      <span className={`${styles["checkbox-box"]} ${entire ? styles["entire-checkbox"] : ""}`}></span>
-      
-      <span className={`${styles["checkbox-button-label"]} ko-reg-17`}>{label}</span>
-    </label>
+    <div style={{...style}}>
+      <label className={styles["checkbox-button"]}>
+        <input
+          type="checkbox"
+          name={name}
+          value={value}
+          checked={checked}
+          onChange={() => onChange(label)}
+        />
+        <span className={`${styles["checkbox-box"]} ${entire ? styles["entire-checkbox"] : ""}`}></span>
+        
+        <span className={`${styles["checkbox-button-label"]} ko-reg-17`}>{label}</span>
+      </label>
+    </div>
   );
 }
 
-export function CheckboxGroup({ name, children }) {
+export function CheckboxGroup({ theme = "primary", name, children }) {
   const allCheckboxes = findAllCheckboxButtons(React.Children.toArray(children));
 
   const [checkedValues, setCheckedValues] = useState(
@@ -55,6 +70,7 @@ export function CheckboxGroup({ name, children }) {
     if (child.type === CheckboxButton) {
       return cloneElement(child, {
         name,
+        theme: child.props.theme || theme,
         checked: child.props.entire ? isAllChecked : !!checkedValues[child.props.value],
         onChange: () => handleChange(child.props.value, child.props.entire),
       });
