@@ -1,0 +1,281 @@
+@import url("https://cdn.jsdelivr.net/gh/poposnail61/min-sans@main/web/css/minsansvf-dynamic-subset.css");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; /* padding을 height에 포함 */
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* 가로 스크롤 제거 */
+}
+
+body {
+  font-family: "Pretendard Variable", "Min Sans Variable", sans-serif;
+}
+
+:root {
+  /* Text + Basic Color */
+  --black-1000: #1a1a1a;
+  --black-900: #333333;
+  --black-800: #4d4d4d;
+  --black-700: #666666;
+  --black-600: #7f7f7f;
+  --black-500: #999999;
+  --black-400: #b2b2b2;
+  --black-300: #cbcbcb;
+  --black-200: #e5e5e5;
+  --black-100: #fefefe;
+
+  /* Primary Color */
+  --primary-900: #d63f00;
+  --primary-800: #e45700;
+  --primary-700: #ec6e00;
+  --primary-600: #f28500;
+  --primary-500: #f89b26;
+  --primary-400: #fbb251;
+  --primary-300: #fdc879;
+  --primary-200: #ffdfaa;
+  --primary-100: #ffeeda;
+
+  /* Secondary Color */
+  --secondary-900: #003047;
+  --secondary-800: #004165;
+  --secondary-700: #005184;
+  --secondary-600: #0062a3;
+  --secondary-500: #0073c2;
+  --secondary-400: #2c8ed9;
+  --secondary-300: #5aa7e0;
+  --secondary-200: #8ac1e8;
+  --secondary-100: #badcf1;
+
+  /* Alert Color */
+  --red-3: #F54316;
+  --red-2: #FF8D71;
+  --red-1: #FFDCD3;
+
+  /* Background Color */
+  --background-entire: #fcf8f2;
+  --background-student: #fff8ed;
+  --background-teacher: #eff5fa;
+
+
+
+  /* Font Family */
+  --pretendard: "Pretendard Variable";
+  --min-sans: "MinSansVF";
+
+  /* Font Weight */
+  --thin:	100;
+  --extra-light: 200;
+  --light: 300;
+  --regular: 400;
+  --medium: 500;
+  --semibold: 600;
+  --bold: 700;
+  --extra-bold: 800;
+  --black: 900;
+}
+
+/* Korean Font Style */
+.ko-md-13 {
+  font-family: var(--pretendard);
+  font-weight: var(--medium);
+  font-size: 13px;
+}
+
+.ko-reg-15 {
+  font-family: var(--pretendard);
+  font-weight: var(--regular);
+  font-size: 15px;
+}
+
+.ko-md-15 {
+  font-family: var(--pretendard);
+  font-weight: var(--medium);
+  font-size: 15px;
+}
+
+.ko-sb-15 {
+  font-family: var(--pretendard);
+  font-weight: var(--semibold);
+  font-size: 15px;
+}
+
+.ko-reg-17 {
+  font-family: var(--pretendard);
+  font-weight: var(--regular);
+  font-size: 17px;
+}
+
+.ko-md-17 {
+  font-family: var(--pretendard);
+  font-weight: var(--medium);
+  font-size: 17px;
+}
+
+.ko-sb-17 {
+  font-family: var(--pretendard);
+  font-weight: var(--semibold);
+  font-size: 17px;
+}
+
+.ko-sb-18 {
+  font-family: var(--pretendard);
+  font-weight: var(--semibold);
+  font-size: 18px;
+}
+
+.ko-sb-20 {
+  font-family: var(--pretendard);
+  font-weight: var(--semibold);
+  font-size: 20px;
+}
+
+.ko-md-24 {
+  font-family: var(--pretendard);
+  font-weight: var(--medium);
+  font-size: 24px;
+}
+
+.ko-md-28 {
+  font-family: var(--pretendard);
+  font-weight: var(--medium);
+  font-size: 28px;
+}
+
+.ko-sb-30 {
+  font-family: var(--pretendard);
+  font-weight: var(--semibold);
+  font-size: 30px;
+}
+
+.ko-md-32 {
+  font-family: var(--pretendard);
+  font-weight: var(--medium);
+  font-size: 32px;
+}
+
+.ko-md-36 {
+  font-family: var(--pretendard);
+  font-weight: var(--medium);
+  font-size: 36px;
+}
+
+/* English Font Style */
+.en-reg-13 {
+  font-family: var(--min-sans);
+  font-weight: var(--regular);
+  font-size: 13px;
+}
+
+.en-md-13 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 13px;
+}
+
+.en-md-13 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 13px;
+}
+
+.en-reg-15 {
+  font-family: var(--min-sans);
+  font-weight: var(--regular);
+  font-size: 15px;
+}
+
+.en-md-15 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 15px;
+}
+
+.en-sb-15 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 15px;
+}
+
+.en-reg-17 {
+  font-family: var(--min-sans);
+  font-weight: var(--regular);
+  font-size: 17px;
+}
+
+.en-md-17 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 17px;
+}
+
+.en-sb-17 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 17px;
+}
+
+.en-sb-18 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 18px;
+}
+
+.en-sb-20 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 20px;
+}
+
+.en-md-24 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 24px;
+}
+
+.en-md-24 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 24px;
+}
+
+.en.md-28 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 28px;
+}
+
+.en.sb-30 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 30px;
+}
+
+.en.md-32 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 32px;
+}
+
+.en.md-36 {
+  font-family: var(--min-sans);
+  font-weight: var(--medium);
+  font-size: 36px;
+}
+
+.en.sb-40 {
+  font-family: var(--min-sans);
+  font-weight: var(--semibold);
+  font-size: 40px;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-teacher);
+    padding: 48px;
+}

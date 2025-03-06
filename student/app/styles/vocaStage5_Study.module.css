@@ -1,0 +1,205 @@
+.container {
+  width: 1512px;
+  height: 100vh;
+
+  margin: auto;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: #FFF8ED;
+  font-family: 'Arial', sans-serif;
+}
+
+.containerHead1 {
+  margin-top: 226px;
+}
+
+.head1 {
+  color: var(--Black-1000, #1A1A1A);
+  text-align: center;
+  margin: 0;
+
+  /* Ko/Sb/20 */
+  font-family: "Pretendard Variable";
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+  /* 1.875rem */
+}
+
+.contents {
+  display: flex;
+  flex-direction: column; /* 기본적으로 세로 정렬 */
+  align-items: center;
+}
+/* wordBox와 wordList를 가로로 배치 */
+.wordBoxWrapper {
+  display: flex;
+  gap: 30px; /* wordBox와 wordList 간 간격 */
+  align-items: flex-start; /* 상단 정렬 */
+  margin: 64px 0 0 0;
+}
+
+.wordBox {
+  flex: 448; /* 가운데 10 비율 */
+  display: flex;
+  width: 448px;
+  height: 240px;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px solid #FEDAA6;
+  border-radius: 8px;
+  background-color: #FEFEFE; /* 흰색 카드 배경 */
+
+  color: var(--Black-1000, #1A1A1A);
+  text-align: center;
+  font-family: "Min Sans VF";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 60px */
+}
+
+.inputContainer{
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+
+  margin: 28px 0 0 0;
+}
+
+.input {
+  width: 118px;
+  height: 100%;
+
+  margin-right: 24px;
+
+  border-radius: 8px;
+  border: 2px solid var(--Primary500, #FFA321);
+  background: var(--Primary100, #FEEDD2);
+
+  color: var(--Black-800, #4D4D4D);
+  text-align: center;
+
+  /* En/Sb/40 */
+  font-family: "Min Sans VF";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 60px */
+}
+
+.inputContainer p{
+
+  margin: 0;
+  text-align: center;
+
+  color: var(--Black-700, #666);
+
+  /* En/Sb/40 */
+  font-family: "Min Sans VF";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 60px */
+  letter-spacing: 8px;
+}
+
+.inputAllSpell {
+  width: 418px;
+  height: 54px;
+
+  margin: 64px 0 0 0;
+  padding-left: 30px;
+  font-size: 16px;
+  border: 2px solid #FFA321;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.inputAllSpell:focus{
+  border-radius: 8px;
+  border: 2px solid var(--Primary500, #FFA321);
+  background: var(--Primary100, #FEEDD2);
+}
+
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: column; /* 버튼을 세로로 정렬 */
+  align-items: center; /* 버튼 중앙 정렬 */
+}
+
+.button {
+  width: 400px;
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 16px;
+  background-color: #ffa500; /* 주황 버튼 */
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 92px;
+}
+
+.button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.wordList {
+  flex: 212; /* 왼쪽 3 비율 */
+  width: 212px;
+  background-color: #FEDAA6;
+  border-radius: 16px;
+  height: 470px;
+  border: 2px solid #FEDAA6;
+  overflow-y: auto; /* 내용이 많으면 스크롤 표시 */
+
+  position: absolute;
+  transform: translateX(-300px);
+
+  text-align: start;
+}
+
+.wordList h3 {
+  font-size: 15px;
+  font-weight: 400;
+  color: #4D4D4D;
+  text-indent: 16px; 
+}
+
+.wordList ul {
+  font-size: 17px;
+  font-weight: 500;
+  color: #4D4D4D;
+  padding-left: 0px;
+  list-style-type: none;  
+}
+
+.wordList li {
+  padding: 12.5px 0px;
+  font-size: 17px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-indent: 16px; 
+}
+
+.wordList li:hover {
+  background-color: #ffcc80;
+}
+
+.selectedWord {
+  background-color: #ffa500 !important;
+  color: black;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 4px;
+}

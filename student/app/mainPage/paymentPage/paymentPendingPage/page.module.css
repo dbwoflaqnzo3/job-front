@@ -1,0 +1,290 @@
+.recordBody {
+    width: 91%;
+    display: flex;
+    flex-direction: column;
+}
+
+.titleTextContainer {
+    width: 100%;
+    height: 2.81rem;
+    display: flex;
+    /* justify-content: center; */
+    margin-bottom: 2.91rem;
+}
+
+.contentTitleContainer {
+    width: 100%;
+    height: 1.88rem;
+    margin-bottom: 0.94rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.gap {
+    height: 100%;
+    width: 2.5rem;
+}
+
+.gapSelect {
+    height: 100%;
+    width: 0.5rem;
+}
+
+.recordContentBody {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: top;
+    /* height: 34.5rem; */
+
+}
+
+.recordTableContainer {
+    width: 50.12rem;
+    height: 100%;
+    margin-right: 8.88rem;
+    overflow: auto;
+    -ms-overflow-style: none;
+    /* IE, Edge 스크롤바 숨기기 */
+    scrollbar-width: none;
+    /* Firefox 스크롤바 숨기기 */
+}
+
+.recordTableHeader {
+    width: 100%;
+    height: 3.88rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem 1rem 0rem 0rem;
+    background: var(--Primary200, #FEDAA6);
+    padding-right: 4.25rem;
+}
+
+.recordTableContentContainer {
+    height: 100%;
+    width: 11.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pendingTableBody {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.pendingTableItemContainer {
+    height: 100%;
+    width: 11.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.recordCardContainer {
+    width: 28rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    background: var(--Black-100, #FEFEFE);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    /* padding-top: 1.75rem; */
+    box-sizing: border-box;
+    /* padding을 height에 포함 */
+}
+
+.recordCardContainer::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari 스크롤바 숨기기 */
+}
+
+.recordCardItemContainer {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.recordCardItemContainerLast {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.recordCardItemHeader {
+    color: var(--Primary700, #FF8B14);
+    height: 1.62rem;
+    margin-bottom: 0.5rem;
+}
+
+.recordCardItemBody {
+    width: 100%;
+}
+
+.recordCardItemDetail {
+    height: 1.44rem;
+    width: 100%;
+    color: var(--Black-900, #333);
+    display: flex;
+    align-items: center;
+}
+
+.recordCardDateContainer {
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.recordDateItem {
+    width: 6.25rem;
+    height: 4rem;
+}
+
+.recordCardDateItemContent {
+    width: 5.38rem;
+    height: 1.87rem;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: "hidden";
+    text-overflow: ellipsis;
+}
+
+.imageContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.imageText {
+    width: 13.25rem;
+    color: var(--Secondary500, #0084D0);
+    text-align: center;
+}
+
+
+/* .pendingTableItem {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: var(--Black-100, #FEFEFE);
+    border-bottom: 1px solid var(--Primary300, #FFC779);
+    padding-left: 3rem;
+    padding-right: 3rem;
+} */
+
+
+/* PendingTableItem: 고정 높이를 제거하고 최소 높이만 설정 */
+.pendingTableItem {
+    width: 100%;
+    /* height: 5rem;  -> 고정 높이는 제거 */
+    min-height: 5rem;
+    /* 헤더 부분 최소 높이 */
+    display: flex;
+    flex-direction: column;
+    /* 세로로 쌓이도록 */
+    background: var(--Black-100, #FEFEFE);
+    border-bottom: 1px solid var(--Primary300, #FFC779);
+    /* padding-left: 3rem;
+    padding-right: 3rem; */
+}
+
+/* 헤더 영역: 가로 배치 유지 */
+.headerRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 5rem;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.headerRow:hover {
+    background: var(--Primary100, #FEEDD2);
+}
+
+/* 헤더 셀 */
+.headerCell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 11.25rem;
+}
+
+/* spacer (간격) */
+.spacer {
+    width: 2.96rem;
+}
+
+/* 화살표 아이콘 */
+.arrowIcon {
+    transition: transform 0.3s ease;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+/* 펼쳐지는 영역 */
+.collapseArea {
+    height: 0;
+    /* 초기 높이 0 */
+    overflow: hidden;
+    /* 내용 숨김 */
+    transition: height 0.3s ease;
+}
+
+/* 열렸을 때, 높이를 15rem으로 확장 */
+.expanded {
+    height: 15rem;
+    border-top: 1px solid var(--Primary300, #FFC779);
+}
+
+/* 펼쳐진 내용 박스 */
+.detailBox {
+    height: 100%;
+    padding: 2.5rem 2.5rem;
+    padding-left: 6.5rem;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.detailItemContainer{
+    width: 100%;
+    height: 1.37rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.detailItemTitle{
+    width: 4rem;
+    height: 100%;
+    margin-right: 3.37rem;
+    color: var(--Black-600, #7F7F7F);
+}
+
+.loadingBody {
+    width: 100%;
+    height: 34.5rem;
+    background: var(--Black-100, #FEFEFE);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius : 1rem
+}

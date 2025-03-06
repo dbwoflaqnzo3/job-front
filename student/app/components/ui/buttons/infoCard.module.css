@@ -1,0 +1,52 @@
+.info-card-container {
+    position: relative;
+    width: 212px;
+    height: 108px;
+}
+
+.card {
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.card:active {
+    transform: scale(.99);
+}
+
+.card:active .hover {
+    transform: scale(.99);
+}
+
+.text {
+    position: absolute;
+    left: 16px;
+    width: var(--text-width);
+}
+
+.icon {
+    position: absolute;
+    display: flex;
+    right: 16px;
+    bottom: 16px;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-card-container .hover {
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius);
+    transition: all .3s ease-in-out;
+}
+
+
+.info-card-container:hover .hover {
+    background-color: var(--black-200);
+}
+
+.card-content-container {
+    height: 76px;
+}

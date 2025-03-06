@@ -1,0 +1,166 @@
+.container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFF8ED;
+  width: 1512px;
+  height: 982px;
+}
+
+.title {
+  margin-top: 11.64vh;
+  text-align: center;
+  font-family: "Pretendard Variable";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 38vw;
+  height: 18.33vh; 
+  padding: 3.26vh 2.11vw ;
+  margin-top: 18.1vh;
+
+  border-radius: 16px;
+  border: 1px solid var(--Primary200, #FEDAA6);
+  background: var(--Black-100, #FEFEFE);
+}
+
+.inputTitle {
+
+  width: 33.8vw;
+
+  color: var(--Black-1000, #1A1A1A);
+
+  /* Ko/Md/17 */
+  font-family: "Pretendard Variable";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 25.5px */
+
+}
+
+.emailBox {
+  margin: 3.67vh;
+  width: 18.5vw;
+  height: 5.5vh;
+  background-color: white;
+}
+
+.emailBox span {
+  font-size: 1.63vh; /* 16px / 982px * 100 */
+  color: #333;
+}
+
+.submitButton {
+  background: #ff9f00;
+  color: black;
+  border: none;
+  border-radius: 1.63vh; /* 16px / 982px * 100 */
+  cursor: pointer;
+  font-size: 1.63vh; /* 16px / 982px * 100 */
+  width: 26.45vw; /* 400px / 1512px * 100 */
+  height: 5.5vh; /* 54px / 982px * 100 */
+}
+
+.submitButton:hover {
+  background-color: #e08900;
+}
+
+.message {
+  margin-top: 2.04vh; /* 20px / 982px * 100 */
+  font-size: 1.43vh; /* 14px / 982px * 100 */
+  color: #056FAC;
+}
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* 모달 컨테이너 */
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  text-align: center;
+  z-index: 10000;
+}
+
+.modalTitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.modalDescription {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column; /* 수직 정렬을 위한 설정 */
+  gap: 10px;
+  width: 100%;
+  justify-content: center; /* 수평 정렬 */
+  align-items: center; /* 수직 정렬 */
+}
+
+
+.buttonConfirm {
+  flex: 1;
+  padding: 12px 16px;
+  background-color: #ffa726;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.buttonConfirm:hover {
+  background-color: #ff9800;
+}
+
+.buttonCancel {
+  flex: 1;
+  padding: 12px 16px;
+  background-color: white;
+  color: #ffa726;
+  font-size: 14px;
+  font-weight: bold;
+  border: 2px solid #ffa726;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.buttonCancel:hover {
+  background-color: #ffe0b2;
+}
+

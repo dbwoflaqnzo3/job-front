@@ -1,0 +1,7 @@
+.login {
+    position: relative;
+  }
+  
+  .align { position: absolute; left: 50%; }
+  .align.right { transform: none; }
+  .align.center { transform: translateX(-50%); }
