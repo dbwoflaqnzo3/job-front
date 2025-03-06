@@ -1,0 +1,42 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: 5fr 10fr 1fr 5fr; /* 카테고리, 제목, 등록자 */
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  .textLabel {
+    margin-bottom: 5px;
+    font-size: 24px;
+    font-weight: 500;
+  }
+  
+  .summitContent {
+    inset: 0;
+    background-color: var(--primary-200);
+    color: var(--black-1000);
+    padding: 18px 30px;
+    border: var(--primary-200) 2px solid;
+    border-radius: 24px;
+
+    width: 1156px;
+    height: 310px;
+    
+    resize: none;
+  }
+  
+  .summitContent :focus{
+    outline: none;
+    border: var(--primary-200) 2px solid;
+  } 
+
+  .summitContent.error {
+    background-color: var(--red-1);
+    border: var(--red-3) 1px solid;
+  }
+  
+  .summitContent.error:focus {
+    background-color: var(--black-100) !important;
+    border: var(--red-3) 2px solid;
+  }
+  
